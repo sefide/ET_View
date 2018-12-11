@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <title>ET_Planner</title>
-<link rel="icon" href="ET.png">
+<link rel="icon" href="logo.png">
 <!-- 카카오톡 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <!-- 네이버 -->
@@ -51,6 +51,7 @@
 	width: 300px;
 	height: 48px;
 }
+
 
 #usersearch {
 	font-size: 10px;
@@ -158,7 +159,7 @@
                     <td>
                         <div class="mainlogo">
                             <a href="#" id="logo" title="메인페이지로 이동">
-                                <image src="ET.png" style="width: 50px; height: 50px;" alt="메인로고">&nbsp;ET Planner</image>
+                                <image src="logo.png" style="width: 50px; height: 50px;" alt="메인로고">&nbsp;ET Planner</image>
                             </a>
                         </div>
                         <br><br>
@@ -229,8 +230,19 @@
 						  	naver_id_login.setState(state);
 						  	naver_id_login.setPopup();
 						  	naver_id_login.init_naver_id_login();
-						  </script>
-						  
+						  	
+						  	/* var naverLogin = new naver.LoginWithNaverId(
+						  			{
+						  				clientId: "{tcR9vwEXbbuTYhKDCt7X}",
+						  				callbackUrl: "{http://127.0.0.1:8002/et/views/login.jsp}",
+						  				isPopup: true, ->팝업을 통한 연동처리 여부 
+						  				loginButton: {color: "green", type: 3, height: 48} 
+						  			}
+						  		);
+						  		
+							 설정정보를 초기화하고 연동을 준비 
+						  	naverLogin.init();  */
+						  </script>	  
 						</div>
                     </td>   
                 </tr>
