@@ -18,11 +18,11 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	
 	<style>
-		.nav {
+		.navbar {
 			border-bottom : 1px solid rgba(228, 228, 228, 0.589);
 			text-align : center;
 			background: white;
-			height : 50px;
+			height : 70px;
 		}
 		/* .nav-top {
 			top: 9%;
@@ -33,20 +33,24 @@
         }
 
 
-        .nav-left-mrg{
-            margin-left: 20%;
+        .nav-item{
+            margin: 5px 5% 0 5%;
         }
+        
+        .nav-item-first{
+        		margin-left:24%;
+        }
+       
 
         .mt-2{
             margin-top: 5%;
+            width : 100%;
         }
-        
-        
-		
+
 		.header-top{
 			display : block;
 			width: 100%;
-			height : 50px;
+			height : 70px;
 		    margin-top: 1%;
 		    /* text-align : center; */
 		}
@@ -141,9 +145,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         
-        		<div class="collapse navbar-collapse nav-left-mrg" id="navbarTogglerDemo02">
-            		<ul class="navbar-nav mr-auto mt-2 mt-lg-0"> 
-                		<li class="nav-item">
+        		<div class="collapse navbar-collapse nav-left-mrg nav-div-50" id="navbarTogglerDemo02">
+            		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-div-50"> 
+                		<li class="nav-item  nav-item-first">
                    		 <a class="nav-link" href="#">플랜짜기</a>
                 		</li>
                 		<li class="nav-item">
