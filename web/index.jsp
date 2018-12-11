@@ -203,7 +203,7 @@
 				  </div>
 				  <div class="card">
 				    <div class="image">
-				       <img src = "image/logo.png">
+				       <img src = "image/common/logo.png">
 				    </div>
 				    <div class="extra">
 				      Rating:
