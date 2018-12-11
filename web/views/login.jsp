@@ -219,18 +219,17 @@
 					
 					
 						<!-- 네이버아이디로로그인 버튼 노출 영역 -->
-  <div id="naver_id_login">
-  <!-- //네이버아이디로로그인 버튼 노출 영역 -->
-  <script type="text/javascript">
-  	var naver_id_login = new naver_id_login("tcR9vwEXbbuTYhKDCt7X", "http://localhost:8002/et/view/login.jsp");
-  	var state = naver_id_login.getUniqState();
-  	naver_id_login.setButton("green", 2,40);
-  	naver_id_login.setDomain("http://localhost:8002/et/view/login.jsp");
-  	naver_id_login.setState(state);
-  	naver_id_login.setPopup();
-  	naver_id_login.init_naver_id_login();
-  </script>
-						
+						<div id="naver_id_login"></div>
+						<!-- //네이버아이디로로그인 버튼 노출 영역 -->
+						<script type="text/javascript">
+						  	var naver_id_login = new naver_id_login("tcR9vwEXbbuTYhKDCt7X", "http://127.0.0.1:8002/et/views/login_callback.jsp");
+						  	var state = naver_id_login.getUniqState();
+						  	naver_id_login.setButton("green", 3,60);
+						  	naver_id_login.setDomain("http://127.0.0.1:8002/et/views/login.jsp");
+						  	naver_id_login.setState(state);
+						  	naver_id_login.setPopup();
+						  	naver_id_login.init_naver_id_login();
+						  </script>
 						</div>
                     </td>   
                 </tr>
