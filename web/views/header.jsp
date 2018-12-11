@@ -133,7 +133,7 @@
 
     	<div class = "header-btn">
        <img src = "image/common/btn_login.png" class = "img_login_btn">
-       <a class = "a_login" href = "#">로그인 </a>
+       <a class = "a_login" href = "views/login.jsp">로그인 </a>
        <a class = "a_join" href = "#">회원가입 </a>      
    	</div>
 	   	
