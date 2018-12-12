@@ -30,101 +30,155 @@
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous"></script>
 <style>
-	.select-size{
-	width:100px;
-	}
+.question {
+	width: 70%;
+}
+
+.answer {
+	width: 70%;
+}
+
+.userSearch {
+	width: 350px;
+	height: 350px;
+	margin: 0 auto;
+	float: left;
+}
+
+#usercontent {
+	width: 350px;
+	height: 300px;
+}
+
+.idContent {
+	margin-left: 55px;
+}
+
+.pwdContent {
+	margin-left: 50px;
+	margin-top: 30px;
+}
+
+.active item {
+	width: 15px;
+}
+
+.main {
+	margin-left: 22%;
+	margin-top: 40px;
+}
+
+.mainlogo {
+	text-align: center;
+	margin-top: 60px;
+}
+
+#logo {
+	color: black;
+	font-size: 25px;
+	text-decoration: none;
+}
+#joinGo{
+	margin-top: 340px;
+	margin-left: 550px;
+	
+}
 </style>
 
 </head>
 <body>
-	<!-- 계정 찾기 시작 -->
-	<div style="width: 400px; height: 250px; border: none; background-color: lightgray; float: left;">
-		<form>
-			<table>
-				<th><label>아이디 찾기 질문</label></th>
-			</table>
-			<table>
-			<tr>
-			<div class="select-size">
-				<select class="ui fluid dropdown">
-					<option value="" style="color: lightgray;">질문을 선택해 주세요</option>
-					<option value="나의 보물 1호는?">나의 보물 1호는?</option>
-					<option value="내가 가장 좋아하는 음식은?">내가 가장 좋아하는 음식은?</option>
-					<option value="어렸을 때 별명은?">어렸을 때 별명은?</option>
-					<option value="가장 감명깊게 본 영화는?">가장 감명깊게 본 영화는?</option>
-					<option value="제일 좋아하는 연예인은?">제일 좋아하는 연예인은?</option>
-				</select>
-			</tr>
-			</div>
-			
-			<div class="two fields">
-    <div class="field">
-      <label>State</label>
-      <select class="ui fluid dropdown">
-        <option value="">State</option>
-    <option value="AL">Alabama</option>
-    <option value="AK">Alaska</option>
-    <option value="AZ">Arizona</option>
-    <option value="AR">Arkansas</option>
-    <option value="CA">California</option>
-    <option value="CO">Colorado</option>
-    <option value="CT">Connecticut</option>
-    <option value="DE">Delaware</option>
-    <option value="DC">District Of Columbia</option>
-    <option value="FL">Florida</option>
-    <option value="GA">Georgia</option>
-    <option value="HI">Hawaii</option>
-    <option value="ID">Idaho</option>
-    <option value="IL">Illinois</option>
-    <option value="IN">Indiana</option>
-    <option value="IA">Iowa</option>
-    <option value="KS">Kansas</option>
-    <option value="KY">Kentucky</option>
-    <option value="LA">Louisiana</option>
-    <option value="ME">Maine</option>
-    <option value="MD">Maryland</option>
-    <option value="MA">Massachusetts</option>
-    <option value="MI">Michigan</option>
-    <option value="MN">Minnesota</option>
-    <option value="MS">Mississippi</option>
-    <option value="MO">Missouri</option>
-    <option value="MT">Montana</option>
-    <option value="NE">Nebraska</option>
-    <option value="NV">Nevada</option>
-    <option value="NH">New Hampshire</option>
-    <option value="NJ">New Jersey</option>
-    <option value="NM">New Mexico</option>
-    <option value="NY">New York</option>
-    <option value="NC">North Carolina</option>
-    <option value="ND">North Dakota</option>
-    <option value="OH">Ohio</option>
-    <option value="OK">Oklahoma</option>
-    <option value="OR">Oregon</option>
-    <option value="PA">Pennsylvania</option>
-    <option value="RI">Rhode Island</option>
-    <option value="SC">South Carolina</option>
-    <option value="SD">South Dakota</option>
-    <option value="TN">Tennessee</option>
-    <option value="TX">Texas</option>
-    <option value="UT">Utah</option>
-    <option value="VT">Vermont</option>
-    <option value="VA">Virginia</option>
-    <option value="WA">Washington</option>
-    <option value="WV">West Virginia</option>
-    <option value="WI">Wisconsin</option>
-    <option value="WY">Wyoming</option>
-      </select>
-    </div>
-			<tr>
-				<th>답안</th><br>
-			</tr>	
-			<tr>
-				<td><input type="text" name="answer"></td>
-			</tr>
-			</table>
-		</form>
+	<!-- 메인로고 -->
+	<div class="mainlogo">
+		<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동"> 
+		<image src="image/common/logo.png" style="width: 50px; height: 50px;" alt="메인로고">&nbsp;ET Planner</image>
+		</a>
 	</div>
-	<!-- footer 시작 -->
+
+	<form>
+		<!-- 아이디 찾기 -->
+		<div class="main">
+			<div class="userSearch">
+				<div class="ui top attached tabular menu" id="one">
+					<div class="active item" style="background-color: whitesmoke;">아이디 찾기</div>
+				</div>
+				<div class="ui bottom attached active tab segment" id="usercontent"
+					style="background-color: whitesmoke;">
+
+					<div class="idContent">
+						<div class="ui form">
+							<div class="field">
+								<label>아이디 질문 찾기</label>
+								<div class="ui form">
+									<div class="question">
+										<select>
+											<option value="">질문을 선택해주세요</option>
+											<option value="나의 보물 1호는?">나의 보물 1호는?</option>
+											<option value="어렸을 때 별명은?">어렸을 때 별명은?</option>
+											<option value="가장 좋아하는 음식은?">가장 좋아하는 음식은?</option>
+											<option value="내가 졸업한 초등학교의 이름은?">내가 졸업한 초등학교의 이름은?</option>
+											<option value="내가 태어난 곳은?">내가 태어난 곳은?</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="ui form">
+							<div class="field">
+								<label>답안</label>
+								<div class="answer">
+									<input type="text" placeholder="내용을 입력해주세요">
+								</div>
+							</div>
+						</div>
+						<br> <a href="http://www.naver.com"><button
+								class="ui button" style="width: 70%;">아이디 찾기</button></a> <br>
+						<br> <a href="#"><button class="ui yellow button"
+								style="width: 70%; color: black;">찾은 아이디</button></a>
+					</div>
+				</div>
+			</div>
+
+			<!-- 가운데 여백 주기 div -->
+			<div class="userSearch" style="width: 50px; height: 20px;"></div>
+
+			<!-- 비밀번호 찾기 -->
+			<div class="userSearch">
+				<div class="ui top attached tabular menu">
+					<div class="active item" style="background-color: whitesmoke;">비밀번호
+						찾기</div>
+				</div>
+				<div class="ui bottom attached active tab segment" id="usercontent"
+					style="background-color: whitesmoke;">
+
+					<div class="pwdContent">
+						<br>
+						<div class="ui form">
+							<div class="field">
+								<label>아이디</label>
+								<div class="answer">
+									<input type="text" placeholder="내용을 입력해주세요">
+								</div>
+							</div>
+						</div>
+						<br> 
+						<a href="http://www.naver.com"><button class="ui button" style="width: 70%;">임시 비밀번호 발급받기</button></a> <br>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<br>
+	</form>
+	<!-- 회원가입 하러가기 버튼 -->
+	<div id="joinGo">
+	<a href="http://www.naver.com"><button class="ui button" style="width:200px; height:35px; background-color: deepskyblue;">ET로 회원가입 하기</button></a> 
+	</div>
 	
+
+
+	<%-- <!-- footer -->
+	<%@ include file= "common/footer.jsp" %> --%>
 </body>
 </html>
