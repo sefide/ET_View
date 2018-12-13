@@ -135,6 +135,11 @@
     </div>
 
     	<div class = "header-btn">
+    	<%-- <% if(loginUser != null) {%>
+    	<% } else { %>
+    	<a class = "a_login" href = "views/login.jsp">마이페이지 </a>
+       <a class = "a_join" href = "#">로그아웃 </a> 
+       	<% } %>  --%> 
        <img src = "image/common/btn_login.png" class = "img_login_btn">
        <a class = "a_login" href = "views/login.jsp">로그인 </a>
        <a class = "a_join" href = "#">회원가입 </a>      

@@ -22,57 +22,115 @@
 	
 	}
 	
-	.img_logo {
-		float :left;
-		width : 45px;
-		margin-top : 0px;
-	}
-	
-	nav{
-		background: rgb(254, 200, 0);
-	}
-	
-	.ul_header{
-		list-style : none;
-	}
-	
-	#a_header{
-		display : inline;
-		text-decoration : none;
-		color : white;
-		/* float:left; */
-		margin : 3% 0; 
-		font-weight : 600;
-	}
-	
-	#a_header:hover {
-		color : rgb(20, 91, 137);
-	}
+		.navbar {
+			border-bottom : 1px solid rgba(228, 228, 228, 0.589);
+			text-align : center;
+			background: rgb(254, 200, 0);
+			height : 45px;
+		}
+		.nav-top {
+			top: 8%;
+		}
+		
+        .column{
+            height: 100%;
+        }
 
-	
-	#txt_header_brand{
-		color : rgb(20, 91, 137);
-		font-weight : 600;
-	}
+
+        .nav_item{
+            margin: 5px 5% 0 5%;
+        }
+        
+        .nav_link{
+	        font-weight:600;
+	        font-size :16px; 
+            color : white;
+        }
+        
+        .nav_link:hover{
+            color : rgb(42,90,133);
+            text-decoration : none;
+        }
+        
+        .nav-item-first{
+        	margin-left:13%;
+        }
+       
+        .mt-2{
+            margin-top: 5%;
+            width : 100%;
+        }
+
+		.header-top{
+			display : block;
+			width: 100%;
+			height : 45px;
+		    margin-top: 1%;
+		    /* text-align : center; */
+		}
+		
+		.header-top-img{
+			width : 40px;
+			margin-top : -1%;
+		}
+		
+		.header-top-brand {
+			color : black;
+     	 	font-size : 20px;
+     	 	font-weight : 600;
+		}
+		
+		
+		.a_logout{
+			position: absolute;
+   			top: 2.5%;
+   			right: 10%;
+   			color : black;
+   			font-weight : 600;
+		}
+		
+		.header-bottom{
+			display : block;
+			z-index : 1030;
+		} 
 
 </style>
 </head>
 <body>
-	<nav class = "header navbar navbar-expand-lg navbar-light">
-		<img src ="../image/common/logo.png" alt ="logo" class = "img_logo">
-		<a class="navbar-brand txt_header_brand" id = "txt_header_brand" href="#">ET Planner For Travel Agency</a>
-	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="navbar-toggler-icon"></span>
-	    </button>
-		
-		<div class = "header_menu collapse navbar-collapse " id="navbarTogglerDemo02">
-			<ul class = "navbar-nav mr-auto mt-2 mt-lg-0 ul_header">
-				<li class="nav-item"><a href = "#" class = "nav-link a_header" id = "a_header">메인페이지 </a></li>
-				<li class="nav-item"><a href = "#" class = "nav-link a_header" id = "a_header">등급결제 </a> </li>
-				<li class="nav-item"><a href = "#" class = "nav-link a_header" id = "a_header">게시물 만들기  </a></li>
-				<li class="nav-item"><a href = "#" class = "nav-link a_header" id = "a_header">로그아웃  </a></li>
-			</ul>
-		</div>
-	</nav>
+	<!-- 제휴사 네비게이션 시작 -->
+	<div class = "header-top">
+    		<div class="ui header-top-inner">
+         	<img src="../image/common/logo.png" class = "header-top-img">
+         	<a class="header-top-brand" id ="txt_brand" href="#">ET Planner For Travel Agency</a>    
+     	</div>
+    </div>
+
+    <div class = "header-btn">
+       <a class = "a_logout" href = "">로그아웃 </a>
+   	</div>
+	   	
+    <div class = "header-bottom">
+    		<nav class="navbar navbar-expand-lg navbar-light nav-top">
+        	
+        	<button class="navbar-toggler" type="button" data-toggle="collapse" 
+        data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        		<div class="collapse navbar-collapse nav-left-mrg nav-div-50" id="navbarTogglerDemo02">
+            		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-div-50"> 
+                		<li class="nav_item  nav-item-first">
+                   		 <a class="nav_link" href="#">투어관리</a>
+                		</li>
+                		<li class="nav_item">
+                    		<a class="nav_link" href="#">쿠폰 히스토리</a>
+                		</li>
+                		<li class="nav_item">
+                    		<a class="nav_link" href="#">쿠폰상점</a>
+               		 </li>
+            		</ul>
+	        </div>
+		</nav>
+    </div>
 </body>
 </html>
