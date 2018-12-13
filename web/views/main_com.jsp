@@ -22,28 +22,62 @@
 	.column {
 		height : 100%;
 	}
+	
+	.img-travel-agency{
+		width: 40px;
+		border-radius :50%;
+		border : 1px solid black;
+		display : inline-block;
+	}
 </style>
 </head>
 <body>
-	<%@ include file = "header_com.jsp" %>
+	<%@ include file = "common/header_com.jsp" %>
 	
 	<div class="ui grid">
        	<div class = "two wide column"></div>
       	<div class = "twelve wide column" style="margin-top:90px;">
       		<div class = "container">
-      		<div class="ui mt-20"> 
-                <div class="ui huge header">인기 Q&A TOP 3 </div>
-                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
-                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
-                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
-                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
-
-            </div>
-      		
+	      		<img src = "../image/common/logo.png" class ="img-travel-agency">
+	      		<h2> 제휴사명 </h2>
+	      		<div class="ui mt-20"> 
+	      			<i class="certificate icon"></i>
+	                <div class="ui header">내가 작성한 투어 </div>
+	                <div>
+	                	<table>
+	                		<tr>
+	                			<td> <label> 투어명 : </label> </td>
+	                			<td> 투어명 예시 </td>
+	                		</tr>
+	                		<tr>
+	                			<td> <label> 투어컨셉 : </label> </td>
+	                			<td> 투어컨셉 예시 </td>
+	                		</tr>
+	                		<tr>
+	                			<td> <label> 투어설명 : </label> </td>
+	                			<td class = "td-tour-detail"> 투어설명 예시 </td>
+	                		</tr>
+	                		<tr>
+	                			<td> <label> 투어가격 : </label> </td>
+	                			<td> 투어가격 </td>
+	                		</tr>
+	                	</table>
+						<p> 파워링크여부 </p>
+						<p> 연결링크 </p>
+						<a> </a>
+	                </div>
+	            </div>
+	      		<div class="ui mt-20"> 
+	      			<i class="certificate icon"></i>
+	                <div class="ui header">다른 투어보기 </div>
+		            <div>
+		            
+		            </div>
+	            </div>
       		</div>
 		</div>
 		<div class = "two wide column"></div>
 	</div>
-	<%@ include file = "footer_com.jsp" %>
+	<%@ include file = "common/footer_com.jsp" %>
 </body>
 </html>
