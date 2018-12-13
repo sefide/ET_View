@@ -5,7 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>ET_Planner</title>
-<link rel="icon" href="image/common/logo.png">
+<link rel="icon" href="../image/common/logo.png">
+<!-- font -->
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
 
 <!-- Semantic UI -->
 <link rel="stylesheet"
@@ -71,6 +73,7 @@
 .mainlogo {
 	text-align: center;
 	margin-top: 60px;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 #logo {
@@ -89,8 +92,8 @@
 <body>
 	<!-- 메인로고 -->
 	<div class="mainlogo">
-		<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동"> 
-		<image src="image/common/logo.png" style="width: 50px; height: 50px;" alt="메인로고">&nbsp;ET Planner</image>
+		<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동" style="font-size : 45px;"> 
+		<image src="../image/common/logo.png" style="width: 65px; height: 65px;" alt="메인로고">&nbsp;ET Planner</image>
 		</a>
 	</div>
 
@@ -131,10 +134,11 @@
 								</div>
 							</div>
 						</div>
-						<br> <a href="http://www.naver.com"><button
-								class="ui button" style="width: 70%;">아이디 찾기</button></a> <br>
-						<br> <a href="#"><button class="ui yellow button"
-								style="width: 70%; color: black;">찾은 아이디</button></a>
+						<br> 
+						<a href="http://www.naver.com"><button class="ui button" style="width: 70%;">아이디 찾기</button></a> 
+						<br>
+						<br> 
+						<a href="#"><button class="ui yellow button" style="width: 70%; color: black;">찾은 아이디</button></a>
 					</div>
 				</div>
 			</div>
@@ -145,11 +149,9 @@
 			<!-- 비밀번호 찾기 -->
 			<div class="userSearch">
 				<div class="ui top attached tabular menu">
-					<div class="active item" style="background-color: whitesmoke;">비밀번호
-						찾기</div>
+					<div class="active item" style="background-color: whitesmoke;">비밀번호 찾기</div>
 				</div>
-				<div class="ui bottom attached active tab segment" id="usercontent"
-					style="background-color: whitesmoke;">
+				<div class="ui bottom attached active tab segment" id="usercontent" style="background-color: whitesmoke;">
 
 					<div class="pwdContent">
 						<br>
@@ -161,8 +163,10 @@
 								</div>
 							</div>
 						</div>
+						<div>
 						<br> 
-						<a href="http://www.naver.com"><button class="ui button" style="width: 70%;">임시 비밀번호 발급받기</button></a> <br>
+						<a href="http://www.naver.com"><button class="ui button" style="width: 70%;">임시 비밀번호 발급받기</button></a>
+						</div>
 						<br>
 					</div>
 				</div>
@@ -175,6 +179,7 @@
 	<div id="joinGo">
 	<a href="http://www.naver.com"><button class="ui button" style="width:200px; height:35px; background-color: deepskyblue;">ET로 회원가입 하기</button></a> 
 	</div>
+	
 	
 
 

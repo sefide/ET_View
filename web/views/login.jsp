@@ -8,7 +8,10 @@
 <meta name="viewport"
 	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
 <title>ET_Planner</title>
-<link rel="icon" href="image/common/logo.png">
+<link rel="icon" href="../image/common/logo.png">
+
+<!-- font -->
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
 
 <!-- 카카오톡 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -80,6 +83,7 @@
 
 .mainlogo {
 	text-align: center;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 #logo {
@@ -99,8 +103,8 @@
 				<tr>
 					<td>
 						<div class="mainlogo">
-							<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동">
-								<image src="image/common/logo.png" style="width: 50px; height: 50px;" alt="메인로고">&nbsp;ET Planner</image>
+							<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동" style="font-size : 40px;">
+								<image src="../image/common/logo.png" style="width: 50px; height: 50px;" alt="메인로고">&nbsp;ET Planner</image>
 							</a>
 						</div> <br> <br>
 					</td>
@@ -168,7 +172,7 @@
 						<script type="text/javascript">
 						  	var naver_id_login = new naver_id_login("tcR9vwEXbbuTYhKDCt7X", "http://127.0.0.1:8002/et/views/login_callback.jsp");
 						  	var state = naver_id_login.getUniqState();
-						  	naver_id_login.setButton("green", 6,55);
+						  	naver_id_login.setButton("green", 6,65);
 						  	naver_id_login.setDomain("http://127.0.0.1:8002/et/views/login.jsp");
 						  	naver_id_login.setState(state);
 						  	naver_id_login.setPopup();
