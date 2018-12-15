@@ -6,7 +6,6 @@
 	<meta charset="UTF-8">
 	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	
 	<!-- Semantic UI -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
@@ -38,10 +37,33 @@
             margin-top: 10%;
         }
         
-        .img_best_city{
-        		width : 300px;
-        		height : 300px;
+        .div-best-inner{
+        		width : 310px;
+        		height : 310px;
+        		position: relative;
         		border-radius: 50%;
+        }
+        
+        .img_best_city{
+        		width : 310px;
+        		height : 310px;
+        		border-radius: 50%;
+        		border : 1px solid lightgray;
+        }
+        
+        .div_best_city_ex {
+        		width : 310px;
+        		height : 310px;
+        		border-radius: 50%;
+        		background : rgba(2,2,2,0.3);
+        		color : white;
+        		text-align : center;
+        		/* display : table-cell;
+        		vertical-align : middle; */
+        		font-size : 20px;
+        		visibility : hidden; 
+        		position : absolute;
+        		margin-top : -300px;
         }
         
         .div-best-city{
@@ -70,8 +92,32 @@
         /* #last_city{
         		float:none;
         } */
+        
+        #header-city{
+        		color : gray;
+        }
        
+       	/* Q&A */
+       	.div-qna {
+       		margin : 0 0 0 10px;
+       	}
        
+       	.div-qna-inner{
+       		margin-left : 15px;
+       	}
+       	
+       	.span-qna-q{
+       		font-size : 40px;
+       		font-weight : 600;
+       	}
+       
+       	.img-qna-bar{
+       		background : rgb(254, 200, 0);
+       		width : 700px;
+       		height : 45px;
+       		border : 4px dotted rgba(238, 238, 238, 0.589);
+       		display : inline-block;
+       	}
     </style>
 </head>
 <body>
@@ -118,10 +164,10 @@
                     </div>
                     <div class="card" id = "card">
                         <div class="blurring dimmable image">
-                        <div class="ui inverted dimmer">
+                        <div class="ui dimmer">
                             <div class="content">
                             <div class="center">
-                                <div class="ui primary button">Add Friend</div>
+                                <div class="ui inverted button">Add Friend</div>
                             </div>
                             </div>
                         </div>
@@ -136,10 +182,10 @@
                     </div>
                     <div class="card" id = "card">
                         <div class="blurring dimmable image">
-                        <div class="ui inverted dimmer">
+                        <div class="ui dimmer">
                             <div class="content">
                             <div class="center">
-                                <div class="ui primary button">Add Friend</div>
+                                <div class="ui inverted button">Add Friend</div>
                             </div>
                             </div>
                         </div>
@@ -155,26 +201,77 @@
                 </div>
 
             </div>
+            
+            
+            
 			<div class="ui mt-20"> 
                 <div class="ui huge header">BEST CITY TOP 5</div>
-	           	<div class = "ui div-best-city">
-	           		<img src = "image/city/paris.jpg" alt = "paris" class = "img_best_city">
+                
+	           	<div class = "ui div-best-city" >
+	           		<div class = "div-best-inner">
+		           		<img src = "image/city/paris.jpg" alt = "paris" class = "img_best_city">
+						<div class="ui inverted dimmer">
+						    <div class="content">
+						      <h3 class="ui icon header" id = "header-city">
+						        도시 설명 
+						      </h3>
+						    </div>
+						</div>
+					</div>
 	           		<h3 class ="ui header">1. &nbsp; 프랑스, 파리 </h3>
 	           	</div>
+	           	
 	           	<div class = "ui div-best-city">
-	           		<img src = "image/city/rome.png" alt = "rome" class = "img_best_city">
+	           		<div class = "div-best-inner">
+		           		<img src = "image/city/rome.png" alt = "rome" class = "img_best_city">
+		           		<div class="ui inverted dimmer">
+						    <div class="content">
+						      <h3 class="ui icon header" id = "header-city">
+						        도시 설명 
+						      </h3>
+						    </div>
+						</div>
+					</div>
 	           		<h3 class ="ui header">2. &nbsp; 이탈리아, 로마  </h3>
 	           	</div>
+	           	
 	           	<div class = "ui div-best-city">
-	           		<img src = "image/city/bar.jpg" alt = "barselona" class = "img_best_city">
+	           		<div class = "div-best-inner">
+	           			<img src = "image/city/bar.jpg" alt = "barselona" class = "img_best_city">
+						<div class="ui inverted dimmer">
+						    <div class="content">
+						      <h3 class="ui icon header" id = "header-city">
+						        도시 설명 
+						      </h3>
+						    </div>
+						</div>
+					</div>
 	           		<h3 class ="ui header">3. &nbsp; 스페인, 바르셀로나  </h3>
 	           	</div>
 	           	<div class = "ui div-best-city 4th_city" id = "th4_city">
-	           		<img src = "image/city/praha.jpg" alt = "praha" class = "img_best_city">
+	           		<div class = "div-best-inner">
+	           			<img src = "image/city/praha.jpg" alt = "praha" class = "img_best_city">
+						<div class="ui inverted dimmer">
+						    <div class="content">
+						      <h3 class="ui icon header" id = "header-city">
+						        도시 설명 
+						      </h3>
+						    </div>
+						</div>
+					</div>
 	           		<h3 class ="ui header">4. &nbsp; 체코, 프라하  </h3>
 	           	</div>
 	           	<div class = "ui div-best-city" id = "last_city" >
-	           		<img src = "image/city/frank.jpg" alt = "frank" class = "img_best_city">
+	           		<div class = "div-best-inner">
+	           			<img src = "image/city/frank.jpg" alt = "frank" class = "img_best_city">
+						<div class="ui inverted dimmer">
+						    <div class="content">
+						      <h3 class="ui icon header" id ="header-city">
+						        도시 설명 
+						      </h3>
+						    </div>
+						</div>
+					</div>
 	           		<h3 class ="ui header">5. &nbsp; 독일, 프랑크푸르트  </h3>
 	           	</div>
             </div>
@@ -225,12 +322,34 @@
                 
             </div>
              <div class="ui mt-20"> 
-                <div class="ui huge header">인기 Q&A TOP 3 </div>
-                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
-                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
-                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
-                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
-
+                <div class="ui huge header">인기 Q&A </div>
+				<div class = "div-qna">
+					<div class = "div-qna-inner">
+						<span class = "span-qna-q"> Q. </span>
+						<div class = "img-qna-bar">
+							<p class = "">질문 예시 얍얍얍 </p>
+							<i class="heart icon">23</i>
+						</div>
+					</div>
+				</div>
+				<div class = "div-qna">
+					<div class = "div-qna-inner">
+						<span class = "span-qna-q"> Q. </span>
+						<div class = "img-qna-bar">
+							<p class = "">질문 예시 얍얍얍 </p>
+							<i class="heart icon">23</i>
+						</div>
+					</div>
+				</div>
+				<div class = "div-qna">
+					<div class = "div-qna-inner">
+						<span class = "span-qna-q"> Q. </span>
+						<div class = "img-qna-bar">
+							<p class = "">질문 예시 얍얍얍 </p>
+							<i class="heart icon">23</i>
+						</div>
+					</div>
+				</div>
             </div>
             </div>
         </div>
@@ -238,16 +357,26 @@
         <div class = "two wide column"></div>
     </div>
 
-    <!-- <script>
-           /*  $('.special.cards .image').dimmer({
-                on: 'hover'
-            }); */
-            
-            $(".img_best_city").mouseover({
-            		//alert("hello");
-            		//console.log("hello");
-            });
-    </script> -->
+	<!-- Semantic UI -->
+	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script>
+	    /* $(".img_best_city").mouseover(function() {
+			$('.div-best-inner').dimmer('show');
+		}); */
+	    $('.div-best-inner').dimmer({
+	    		on : 'hover'
+	    });
+	    
+         $('.special.cards .image').dimmer({
+             on: 'hover'
+         });
+       
+         function goHome() {
+    	   	 	location.href = "/et/index.jsp";
+    	   	 }
+           
+    </script>
+    
 
 	<!-- footer -->
 	<%@ include file= "views/common/footer.jsp" %>
