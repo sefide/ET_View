@@ -36,6 +36,17 @@
         .column{
             height: 100%;
         }
+        
+        #txt_brand:hover {
+        		color:black;
+        		text-decoration: none;
+        		cursor : pointer;
+        }
+        
+        .a_logout:hover {
+			color : black;
+			text-decoration: none;
+		}
 
 
         .nav-item{
@@ -133,8 +144,8 @@
 	<!-- 네비게이션 시작 -->
 	<div class = "header-top">
     		<div class="ui header-top-inner">
-         	<img src="image/common/logo.png" class = "header-top-img">
-         	<a class="header-top-brand" id ="txt_brand" href="#">ET Planner</a>    
+         	<img src="image/common/logo.png" class = "header-top-img" onclick = "goHome();">
+         	<a class="header-top-brand" id ="txt_brand" onclick = "goHome();">ET Planner</a>    
      	</div>
     </div>
 
