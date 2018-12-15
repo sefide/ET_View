@@ -29,6 +29,15 @@
 		border : 1px solid black;
 		display : inline-block;
 	}
+	.h2-travel-agency{
+		width: 300px;
+		display : inline-block;
+		
+	}
+	.div-ta-coupon{
+		width: 300px;
+		display : inline-block;
+	}
 	
 	.div_tour_left, .div_tour_right {
 		display : inline-block;
@@ -62,19 +71,22 @@
        	<div class = "two wide column"></div>
       	<div class = "twelve wide column" style="margin-top:90px;">
       		<div class = "container">
-	      		<img src = "../image/common/logo.png" class ="img-travel-agency">
-	      		<h2> 제휴사명 </h2>
-	      		<p> 쿠폰개수 </p>
-	      		<table>
-	      			<tr> 
-	      				<th> <label> Standard </label>  </th>
-	      				<th> <label> Premium </label>  </th>
-	      			</tr>
-	      			<tr> 
-	      				<td> <label> 10장 </label>  </td>
-	      				<td> <label> 3장  </label>  </td>
-	      			</tr>
-	      		</table>
+	      		<img src = "/et/image/common/logo_c.png" class ="img-travel-agency">
+	      		<h2 class = "h2-travel-agency"> 제휴사명 </h2>
+	      		<div class = "div-ta-coupon">
+		      		<p> 보유한 쿠폰  </p>
+		      		<table class="ui celled black table">
+		      			<tr> 
+		      				<th> <i class="star outline icon"></i> Standard </th>
+		      				<th> <i class="star icon"></i> Premium </th>
+		      			</tr>
+		      			<tr> 
+		      				<td> <label> 10장 </label>  </td>
+		      				<td> <label> 3장  </label>  </td>
+		      			</tr>
+		      		</table>
+	      		</div>
+	      		
 	      		
 	      	<hr>
 	      		<div class="ui mt-20"> 
@@ -102,13 +114,10 @@
 	                	</div>
 	                	<div class = "div_tour_right">
 						<p> 파워링크여부 </p> 
-						<i class="star icon"></i> <label> Premium </label>
-						<i class="star outline icon"></i> <label> Standard </label>
+						<span> YES</span><i class="star icon"></i> <label> Premium </label>
 						<p> 연결링크 </p> <a href = "www.naver.com">www.naver.com</a>
 						<a> </a>
-					<button class="ui yellow button">수정하기 </button>
-					<button class="ui yellow button">삭제하기 </button>
-						
+					
 	                </div>
 	                <div>
 	                		<nav aria-label="Page navigation example">
@@ -131,6 +140,9 @@
 						  </ul>
 						</nav>
 	                </div>
+	                <button class="ui yellow button">수정하기 </button>
+					<button class="ui yellow button">삭제하기 </button>
+						
 	            </div>
 	      		<div class="ui mt-20"> 
 	      			<i class="certificate icon"></i>

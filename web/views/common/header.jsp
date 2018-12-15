@@ -17,8 +17,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	
+	<!-- 글꼴  -->
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
+	
 	<title>ET_Planner</title>
-	<link rel="icon" href="../../image/common/logo.png">
+	<link rel="icon" href="/et/image/common/logo.png">
 	<style>
 		.navbar {
 			border-bottom : 1px solid rgba(228, 228, 228, 0.589);
@@ -71,6 +74,7 @@
 			color : black;
      	 	font-size : 35px;
      	 	font-weight : 600;
+  	  	 	font-family: 'Ubuntu', sans-serif;
 		}
 		
 		.img_login_btn{
