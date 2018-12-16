@@ -37,6 +37,41 @@
             margin-top: 10%;
         }
         
+        /* 인기플랜  */
+        .div-plan-list{
+			margin-left : 15px;
+		}
+		
+		.div-plan-map{
+			width : 340px;
+			height : 380px;
+			display :inline-block;
+			margin : 5px 12px 30px 10px;
+			
+		}
+		
+		.div-plan-title{
+			font-size : 25px;
+			font-weight : 500;
+			font-family: 'Ubuntu', sans-serif;
+			display : inline-block;
+		}
+		
+		.div-plan-like{
+			width : 80px;
+			height : 30px;
+			color : red;
+			font-size : 18px;
+			font-family: 'Ubuntu', sans-serif;
+			border-radius : 5px;
+			text-align : center;
+			float:right;
+			cursor : pointer;
+		}
+		
+        /* 인기도시 */
+        
+        /* 인기질문  */
         .div-best-inner{
         		width : 310px;
         		height : 310px;
@@ -96,6 +131,10 @@
         #header-city{
         		color : gray;
         }
+        
+        .card-img-top{
+			height : 230px;
+		} 
        
        	/* Q&A */
        	.div-qna {
@@ -142,8 +181,35 @@
             <div class="ui mt-20"> 
                 <div class="ui huge header">BEST Plan TOP 3</div>
                 
+                <div> 
+        				<div class = "div-plan-list">  
+        					<div class ="div-plan-map"> 
+        					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="340px" height="340px" style="border:none;"></iframe>
+        						<div class = "div-plan-title"> 플랜 제목 </div>
+        						<div class = "div-plan-like"> 
+        							<i class = "icon heart">34</i>
+        						</div>
+        					</div>
+        					<div class ="div-plan-map"> 
+        					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="340px" height="340px" style="border:none;"></iframe>
+        						<div class = "div-plan-title"> 플랜 제목 </div>
+        						<div class = "div-plan-like"> 
+        							<i class = "icon heart">34</i>
+        						</div>
+        					</div> 
+        					<div class ="div-plan-map"> 
+        					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="340px" height="340px" style="border:none;"></iframe>
+        						<div class = "div-plan-title"> 플랜 제목 </div>
+        						<div class = "div-plan-like"> 
+        							<i class = "icon heart">34</i>
+        						</div>
+        					</div>
+        					
+        				</div>
+        			</div>
+        			
                 <!-- card -->
-                <div class="ui special cards">
+                <!-- <div class="ui special cards">
                     <div class="card" id = "card">
                         <div class="blurring dimmable image">
                         <div class="ui dimmer">
@@ -198,7 +264,7 @@
 	                        </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
             
@@ -278,11 +344,49 @@
             
             <div class="ui mt-20"> 
                 <div class="ui huge header">인기 투어 TOP 4 </div>
+                
+                <div class = "div-card-tour">
+	            
+	            <div class="card-deck">
+				  <div class="card" id = "card-size">
+				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
+				    <div class="card-body">
+				      <h5 class="card-title"> [도시이름]투어명 </h5>
+				      <p class="card-text"> 69,900원 </p>
+				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
+				    </div>
+				  </div>
+				  <div class="card" id = "card-size">
+				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
+				    <div class="card-body">
+				      <h5 class="card-title"> [도시이름]투어명 </h5>
+				      <p class="card-text"> 69,900원 </p>
+				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
+				    </div>
+				  </div>
+				  <div class="card">
+				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
+				    <div class="card-body">
+				       <h5 class="card-title"> [도시이름]투어명 </h5>
+				      <p class="card-text"> 69,900원 </p>
+				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
+				    </div>
+				  </div>
+				  <div class="card">
+				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
+				    <div class="card-body">
+				      <h5 class="card-title"> [도시이름]투어명 </h5>
+				      <p class="card-text"> 69,900원 </p>
+				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
+				    </div>
+				  </div>
+				</div>
+				</div>
             	<!-- https://semantic-ui.com/views/card.html -->
-				 <div class="ui four cards">
+				 <!-- <div class="ui four cards">
 				  <div class="card">
 				    <div class="image">
-				    <!-- https://semantic-ui.com/elements/label.html -->
+				    https://semantic-ui.com/elements/label.html
 					  <a class="ui yellow tag right label">Hot</a>
 				      <img src = "image/common/logo.png">
 				    </div>
@@ -318,7 +422,7 @@
 				      <div class="ui star rating" data-rating="4"></div>
 				    </div>
 				  </div>
-                </div>
+                </div> -->
                 
             </div>
              <div class="ui mt-20"> 
