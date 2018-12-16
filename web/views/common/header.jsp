@@ -144,7 +144,7 @@
 	<!-- 네비게이션 시작 -->
 	<div class = "header-top">
     		<div class="ui header-top-inner">
-         	<img src="image/common/logo.png" class = "header-top-img" onclick = "goHome();">
+         	<img src="/et/image/common/logo.png" class = "header-top-img" onclick = "goHome();">
          	<a class="header-top-brand" id ="txt_brand" onclick = "goHome();">ET Planner</a>    
      	</div>
     </div>
@@ -155,9 +155,10 @@
     	<a class = "a_login" href = "views/login.jsp">마이페이지 </a>
        <a class = "a_join" href = "#">로그아웃 </a> 
        	<% } %>  --%> 
-       <img src = "image/common/btn_login.png" class = "img_login_btn">
-       <a class = "a_login" href = "views/login.jsp">로그인 </a>
-       <a class = "a_join" href = "#">회원가입 </a>      
+       <img src = "/et/image/common/btn_login.png" class = "img_login_btn">
+       <a class = "a_login" href = "/et/views/login.jsp">로그인 </a>
+       <a class = "a_join" href = "#">회원가입 </a>     
+       <a class = "a_login" href = 	"/et/views/myPage_main.jsp">마이페이지 확인 </a> 
    	</div>
 	   	
     <div class = "header-bottom">
@@ -171,7 +172,7 @@
         		<div class="collapse navbar-collapse nav-left-mrg nav-div-50" id="navbarTogglerDemo02">
             		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-div-50"> 
                 		<li class="nav-item  nav-item-first">
-                   		 <a class="nav-link" href="#">플랜짜기</a>
+                   		 <a class="nav-link" href="/et/views/create_plan.jsp">플랜짜기</a>
                 		</li>
                 		<li class="nav-item">
                     		<a class="nav-link" href="#">플랫엿보기</a>
@@ -186,5 +187,11 @@
 	        </div>
 		</nav>
     </div>
+    
+    <script>
+    		function goHome() {
+    			location.href = "/et/index.jsp";
+    		}
+    </script>
 </body>
 </html>

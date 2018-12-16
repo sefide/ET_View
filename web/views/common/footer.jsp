@@ -68,10 +68,10 @@
 	<footer> 
 		<div>
 			<a class = "foot-a first not_hover_stl" style ="font-weight:bold; color : gray;">ET Planner</a>
-			<a class = "foot-a not_hover_stl" href="#">제휴문의</a> <p class = "not_hover_stl"> | <p>
-			<a class = "foot-a not_hover_stl" href="views/test.jsp">개인정보 취급방침  </a> <p class = "not_hover_stl"> | <p>
+			<a class = "foot-a not_hover_stl" href="/et/views/request_com.jsp">제휴문의</a> <p class = "not_hover_stl"> | <p>
+			<a class = "foot-a not_hover_stl" href="#">개인정보 취급방침  </a> <p class = "not_hover_stl"> | <p>
 		    <a class = "foot-a not_hover_stl" id = "customer_center" href="#"> 고객센터</a>  <p class = "not_hover_stl"> |  <p>
-		    <a class = "foot-a not_hover_stl" href="views/main_com.jsp">이용약관 </a>
+		    <a class = "foot-a not_hover_stl" href="/et/views/main_com.jsp">이용약관 </a>
 		    
 		    <a class = "txt_com_login" href = "#">제휴/관리자 로그인 </a>
 		</div>

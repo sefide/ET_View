@@ -211,8 +211,8 @@
 	            <div class = "div-card-tour">
 	            
 	            <div class="card-deck">
-				  <div class="card" id = "card-size">
-				    <img class="card-img-top" src="../image/city/bar.jpg" alt="Card image cap">
+				  <div class="card">
+				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
 				    <div class="card-body">
 				      <h5 class="card-title"> [도시이름]투어명 </h5>
 				      <p class="card-text"> 69,900원 </p>
@@ -220,15 +220,15 @@
 				    </div>
 				  </div>
 				  <div class="card">
-				    <img class="card-img-top" src="../image/city/bar.jpg" alt="Card image cap">
+				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
 				    <div class="card-body">
 				       <h5 class="card-title"> [도시이름]투어명 </h5>
-				      <p class="card-text"> 69,900원 </p>
+				      <p class="card-text"> 69,900원 </p>card-img-top
 				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
 				    </div>
 				  </div>
 				  <div class="card">
-				    <img class="card-img-top" src="../image/city/bar.jpg" alt="Card image cap">
+				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
 				    <div class="card-body">
 				      <h5 class="card-title"> [도시이름]투어명 </h5>
 				      <p class="card-text"> 69,900원 </p>
