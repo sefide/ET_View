@@ -22,178 +22,41 @@
 	<link rel="stylesheet" href="/css/style.css">
 	
 <style>
-		.navbar {
-			border-bottom : 1px solid rgba(228, 228, 228, 0.589);
-			text-align : center;
-			background: white;
-			height : 70px;
-		}
-		.nav-top {
-			top: 9%;
-		}
-		
-        .column{
-            height: 100%;
-        }
-        
-        #txt_brand:hover {
-        		color:black;
-        		text-decoration: none;
-        		cursor : pointer;
-        }
-        
-        .a_logout:hover {
-			color : black;
-			text-decoration: none;
-		}
 
-
-        .nav-item{
-            margin: 5px 5% 0 5%;
-            font-weight:600; 
-        }
-        
-        .nav-item-first{
-        	margin-left:24%;
-        }
-       
-
-        .mt-2{
-            margin-top: 5%;
-            width : 100%;
-        }
-
-		.header-top{
-			display : block;
-			width: 100%;
-			height : 70px;
-		    margin-top: 1%;
-		    /* text-align : center; */
-		}
-		
-		.header-top-inner{
-			margin-left : 40%;
-		}
-		
-		.header-top-img{
-			width : 50px;
-			margin-top : -3%;
-		}
-		
-		.header-top-brand {
-			color : black;
-     	 	font-size : 35px;
-     	 	font-weight : 600;
-  	  	 	font-family: 'Ubuntu', sans-serif;
-		}
-		
-		.img_login_btn{
-			position: absolute;
-        		width : 190px;
-        		height : 40px;
-        		top: 2.5%;
-    			right: 5%;
-        }
-		
-		.a_login{
-			position: absolute;
-    			top: 4%;
-    			right: 14%;
-		}
-		
-		.a_join{
-			position: absolute;
-			top : 4%; 
-			right : 7%;
-		}
-		
-		.left-nav{
-			float:left;
-			border:1px solid black;
-			margin: 5% 5%;
-			height:150px;
-			text-align:left;
-			display : table-cell;
-			vertical-align : middle;
-		} 
-		
-		
-		.jbFixed {
-        		position: fixed;
-        		top: 0px;
-     	 }
-     	 .ul_01{
-			list-style:none;     
-			margin-top: 10px;
-    		margin-left: -30px;
-    		margin-right: 10px;
-			
-     	 }  
-     	 .main_01{
-     	 	margin:2%;
-     	 	float:left;
-     	 }
-     	 table{
-     	 	width:600px;
-     	 	height:120px;
-     	 	text-align:center;
-     	 }
-     	 table,tr,td{
-     	 	border:1px solid black;
-     	 }
-     	 td{
-     	 	width:300px;
-     	 }
-     	 th{
-     	 	background-color:lightgray;
-     	 }
-     	 
-     	 .click{
-     	 	cursor : pointer;
-     	 }
-     	 .click:hover{
-     	 	color:red;
-     	 }
-     	 
-    </style>
+.ul_01{
+	list-style:none;     
+	margin-top: 10px;
+	margin-left: -30px;
+	margin-right: 10px;
+ }  
+ .main_01{
+ 	margin:2%;
+ 	float:left;
+}
+table{
+ 	width:600px;
+ 	height:120px;
+ 	text-align:center;
+ }
+ table,tr,td{
+ 	border:1px solid black;
+ }
+ td{
+ 	width:300px;
+ }
+ th{
+ 	background-color:lightgray;
+ }
+</style>
 </head>
 <body>
 <%@ include file = "common/header_manager.jsp" %>
+<%@ include file = "common/manager_nav1.jsp" %>
 	
-	<!-- 카테고리 네비게이터 -->
-   		<div class="left-nav">
-       		<ul class="ul_01">
-           		<li>
-               		<b><div class="click" onclick = "test();">회원현황</div></b>
-           		</li>
-           		<li>
-               		<div class="click" onclick = "">회원정보 조회</div>
-           		</li>
-           		<li>
-               		<div class="click" onclick = "">블랙리스트</div>
-               		<ul>
-               			<li>
-               			<div class="click" onclick = "">블랙회원 조회</div>
-           				</li>
-           				<li>
-               			<div class="click" onclick = "">블랙회원 관리</div>
-           				</li>
-               		</ul>
-          		 	</li>
-       		</ul>
-   		 </div>
-
-    
-    <script>
-    	function test() {
-    		location.href = "/et/views/main_com.jsp";
-    	}
-    </script>
-    
     <div class="main_01">
     	<div class="ui header title">▶회원현황</div>
     	- 전체현황 <br><br>
-    	<table>
+    	<table id="tb1">
     		<tr>
     			<th>전체회원</th>
     			<td>0명</td>
@@ -208,8 +71,6 @@
     		</tr>
     	</table>
     </div>
-    
-    
 	
 	<div class = "two wide column"></div>
 	
