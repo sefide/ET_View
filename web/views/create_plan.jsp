@@ -68,14 +68,18 @@
 	.header-top-img{
 		width : 50px;
 		margin: 3px;
-		padding-bottom: -10px;
 	}
 	
-	.header-top-brand {
+	.txt-title{
+		margin: 0 10px 10px 10px;
+		font-weight : 600;
+		font-size : 35px;
 		color : black;
-   	 	font-size : 33px;
-   	 	font-weight : 600;
-  	 	font-family: 'Ubuntu', sans-serif;
+		font-family: 'Ubuntu', sans-serif;
+		line-height: 2.5em; 
+	}
+	#editTitle{
+		font-size: 1.3em;
 	}
 	
 	.btn-save, .btn-return{
@@ -104,6 +108,7 @@
 		background: rgb(255, 255, 255);
 	    border-radius: 9px;
 	    	height: 850px;
+	    	padding-top : 20px;
 	}
 	.plan-table-map{
 		float: left;
@@ -114,55 +119,132 @@
 	}
 	
 	/* 좌측 일정 상세히  */
-	.txt-title{
-		margin: 10px;
-		font-weight : 600;
-		font-size : 35px;
+	.input-date-first{
+		width : 150px;
+		border-radius : 5px;
+		height : 35px;
+		border : 1px dashed black;
+		margin : 5px 10px 5px 10px;
+		text-align : center;
+	}
+	.txt-date-first{
+		margin-left : 10px;
+		font-size : 15px;
 	}
 	
-	.input-title{
+	/* 좌측 일정 - 나라추 */
+	.bar{
+		width : 29px;
+		border-right : 3px solid black; 
+		height : 7px;
+		
+	}
+	.citybock{
+		position : relative;
+	}
 	
+	.div-day{
+		float : left;
+		width : 53px;
+		height : 53px;
+		padding-left : 7px;
+		background : white;
+		padding-top : 13px;
+		border-radius : 100px;
+		border : 3px solid black; 
+		cursor: pointer
+	}
+	.a-day > font{
+		color : #FFC23C;
+		font-size : 10px;
+		font-weight : 600;
+	}
+	.div-city{
+		float:left;
+		width : 215px;
+		padding-left : 10px;
+		padding-top : 7px;
+	}
+	.btns-city{
+		float: left;
+	    padding-right: 5px;
+	    width: 60px;
+	    height : 30px;
+	}
+	.icon-city {
+		font-size: 1.5em;
 	}
 	
 	/* 우측 상세히  */
 	.plan-map{
-		width: 100%;
+		width: 75%;
 		position: absolute;
 	}
 	.search{
 		position: absolute;
-		margin: 30px;
+		margin-top: 20px;
+		/* float:right; */
+		margin-left : 20px;
 	}
 	.input-city{
 		width : 250px;
-	}
+	} 
+	
 </style>
 </head>
 <body>
 <div class="header">
 	<img src="/et/image/common/logo.png" class = "header-top-img" onclick = "goHome();">
-    <a class="header-top-brand" id ="txt_brand" onclick = "goHome();">ET Planner</a>
-	<span style=position:absolute;top:15px;left:12px;width:300px;height:48px;font-size:16px;>
+    <span class = "txt-title">Plan 1</span>
+	<i class="pencil alternate icon" id = "editTitle" onclick = "editTitle();"></i>
+	<!-- <div class="ui input">
+	  <input class = "input-title" type="text" placeholder="나만의 여행제목을 정해주세요..">
+	</div> -->
+	<!-- <span style=position:absolute;top:15px;left:12px;width:300px;height:48px;font-size:16px;>
 		<span style="color: rgb(211, 84, 0); font-size: large;">플랜짜기</span>
-	</span>
+	</span> -->
 	
 	<button class = "btn-save" onclick = "save();"> 저장하기</button>
 	<button class = "btn-return" onclick = "returnMain();"> 돌아가기</button>
 </div>
 
 <div class = "plan-table-calendar">
-	<span class = "txt-title">Plan 1</span>
-	<i class="pencil alternate icon" onclick = ""></i>
-	<!-- <div class="ui input">
-	  <input class = "input-title" type="text" placeholder="나만의 여행제목을 정해주세요..">
-	</div> -->
-	<h1>여행 일정</h1>
+	<form>
+		<font class ="txt-date-first">여행 시작날짜를 입력해주세요 :)</font>
+		<input type ="date" class = "input-date-first" name = "dateFirst"/>
+		<!-- <div id="cityroute" style="position:relative;text-align:center;width:100%;margin-left:0px;padding-left:0px;padding-top:0px;overflow-x:hidden;overflow-y:auto;height:480px;background:#ffffff">
+			<br/><br/><br/><font style="font-size:9pt" color="#c0c0c0"><b>입력된 도시가 없습니다.</b></font>
+		</div> -->
+		<div id = "cityroute">
+			<div id ="cityblock01" class= "citybock">
+				<div class ="bar"></div>
+				<div width = "100%; overflow-x:hidden">
+					<div class = "div-day">
+						<a class ="a-day" onclick = ""><font class ="nights">1 
+						<i class="angle down icon"></i></font></a>
+					</div>
+					<div class = "div-city">
+						<div style ="float:left; width : 148px">
+							<div><font class = "font-city-name">나라이름 </font></div>
+						</div>
+						<div class ="btns-city">
+							<i class="info circle icon icon-city" onclick =""></i>
+							<i class="window close icon icon-cityn" onclick = ""> </i>
+						</div>
+					</div>
+				</div>
+				<div class ="bar"></div>
+			</div>
+		</div>
+		
+	</form>
+	
 </div>
 
 <div class = "plan-table-map">
-	<iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="100%" height="850px" style="border:none;"></iframe>
+	<iframe class = "plan-map"  src="https://snazzymaps.com/embed/117433" width="100%" height="850px" style="border:none;"></iframe>
 	<div class="ui search">
-	  <div class="ui icon input  input-city">
+	  <div class="ui icon input input-city">
 	    <input class="prompt input-city" type="text" placeholder="Search countries...">
 	    <i class="search icon"></i>
 	  </div>
@@ -177,7 +259,7 @@
 		function save(){}
 		function returnMain(){}
 		
-		
+		function editTitle() {}
 	</script>
 	
 	<script async defer
