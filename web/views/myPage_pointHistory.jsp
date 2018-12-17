@@ -19,37 +19,111 @@
 	
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">
-	<style>
-	.myPage{
 	
-		margin-top: 40px;
+	<style>
+	.container1 {
+		margin-left : 50px;
+		width : 90%;
+		border-bottom: 1px solid rgb(200,200,200);
+   		height: 300px;
 	}
- 	.column{
-     	height: 100%;
-     }
-   
-    .myPage div {
-    	display: inline-block;
-    	margin-right: 10px;
-    }
-    .introduce{
-    	margin-left: 5px;
-    
-    }
-    .myContents{
-    	float: right;
-    }
-    a{
-    	color : black;
-    }
-    #pointArea{
+	/* 프로필  */
+	.div-img-profile {
+		width : 240px;
+		height : 240px;
+		border : 1px solid gray;
+		background : rgba(42,90,133,0.5);;
+		border-radius : 50%;
+		float :left;
+		text-align : center;
+	}
+	.img-profile {
+		width : 190px;
+		height : 190px;
+		margin : 15% 0;
+	}
+	
+	.div-txt-profile{
+		float : left;
+		margin : 50px 0 30px 40px;
+	}
+	.div-name{
+		font-size : 36px;
+		font-weight : 600;
+		font-family: 'Ubuntu', sans-serif;
+	}
+	
+	.div-point{
+		font-size : 20px;
+		font-weight : 500;
+		font-family: 'Ubuntu', sans-serif;
+		margin-bottom : 1px;
+	}
+	 .div-profileTxt{
+		font-size : 18px;
+		font-weight : 300;
+		font-family: 'Ubuntu', sans-serif;
+		margin-bottom : 10px;
+	 }
+	.btn-profile{
+		margin-top : 35px;
+		font-family: 'Ubuntu', sans-serif;
+		width : 100px;
+		height : 30px;
+		border-radius : 7px;
+	}
+	
+	/* 우측 메뉴  */
+	.div-menu{
+		float : right;
+		margin-top : 40px;
+	}
+	
+	.div-menu  li {
+		list-style : none;
+		font-size : 20px;
+		margin: 10px 0;
+		font-weight : 300;
+		font-size : 20px;
+	}
+	
+	.this-page {
+		font-weight : 500;
+	}
+	
+	.div-menu a{
+		color : black;
+	}
+	.div-menu a:hover {
+		text-decoration : none;
+		color : rgb(254, 200, 0);
+	}
+	
+	/* 하단 플랜보기  */
+	.container2{
+		width : 93%;
+		margin-left : 40px;
+	}
+	.div-myPage-title{
+		margin-top : 20px;
+		font-size : 30px;
+		font-weight : 600;
+		font-family: 'Ubuntu', sans-serif;
+		display : inline-block;
+		width : 250px;
+	}
+	
+	.div-point-list{
+		margin-left : 15px;
+	}
+	#pointArea{
     	
     	width:100%;
     
     }
   
     #point{
-    	margin-top: 250px;
+    	margin-top: 100px;
     	background-color: gray;
     	height: 100px;
     	width: 200px;
@@ -60,7 +134,7 @@
     }
     #pointHistory{
     	float:right;
-    	margin-top: 150px;
+    	margin-top: 30px;
     	display:inline-block;
     	width:400px;
     	height: 300px;
@@ -82,40 +156,50 @@
     	width:184px;
     }
    
-    
-    
-</style>
+
+
+	
+
+
+	</style>
 </head>
 <body>
 	<%@ include file = "/views/common/header.jsp" %>
 	
 	<div class="ui grid">
         <div class = "two wide column"></div>
-        <div class = "twelve wide column" style="margin-top:50px;">
         
-          <!-- 내용 넣기 -->
-        <div class="myPage">
-	        <div style="border-radius: 50%; height: 150px; width: 150px; background-color: yellow;"></div>
-	        <div class = "introduce">
-	        	<h3>아이디: etPlanner</h3>
-	        	<h3>회원 소개글: 안녕하세요</h3>
-	        	<h3>잔여 포인트 : 150euro</h3>
-	        	<button class="addfiles">프로필 수정</button>
-				<input id="fileupload" type="file" name="files[]" multiple style='display: none;'>
-				
-        </div>
-        <script>
-        $('.addfiles').on('click', function() { $('#fileupload').click();return false;});
-        </script>
-        <div class="myContents">
-      		<br>
-			<h3>My 플랜</h3>
-	       	<h3>나의 활동내역</h3>
-	       	<h3><a href="#">포인트 히스토리</a></h3>
-	       	<h3>회원 정보 수정</h3>
-		</div>
-        </div>
-        <div id="pointArea">
+        <div class = "twelve wide column" style="margin-top:120px;">
+            <!-- 내용 넣기 -->
+            <div class = "container1"> <!-- 위에 자기내용  -->
+    				<div class = "div-img-profile">
+    					<img src = "/et/image/common/logo_c.png" class = "img-profile">
+    				</div>
+    				<div class = "div-txt-profile">
+    					<div class = "div-name">heedi kim</div>
+    					<div class = "div-point">20 유로 </div>
+    					<div class = "div-profileTxt">안녕하세요. 행복한 유럽여행을 꿈꾸고 있습니다. </div>
+    					<button class = "btn-profile"> 프로필 수정 </button>
+    				</div>
+    				<div class = "div-menu">
+    					<ul>
+    						<li><a href = "/et/views/myPage_main.jsp" class = "this-page"> > 내 플랜보기 </a> </li>
+    						<li><a href = "#"> > 나의 활동내역 </a></li>
+    						<li><a href = "/et/views/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
+    						<li><a href = "#"> > 회원정보 수정 </a></li>
+    					</ul>
+    				</div>
+    				
+    			</div>
+    			
+    			<br>
+     		<br clear = "both">
+        		<div class = "container2">
+        		<div class = "div-myPage-title"> 포인트 히스토리 </div>
+        		<br><br>
+        			<div> <!-- 포인트내역   -->
+        				<div class = "div-point-list">  
+        				<div id="pointArea">
         <div id="point">
         	<h1>1111€</h1>
         	<h3>보유포인트</h3>
@@ -150,11 +234,19 @@
         	</table>
         </div>
         </div>
+        								
+        			</div>
+        		</div>
+        	</div>
         </div>
         <div class = "two wide column"></div>
    	</div>
+   	
+ 
 	
 	
 	<%@ include file = "/views/common/footer.jsp" %>
+	
+
 </body>
 </html>
