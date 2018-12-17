@@ -118,10 +118,6 @@
         		position: fixed;
         		top: 0px;
      	 }
-     	 
-     	
-		
-       
     </style>
     <script>
       $( document ).ready( function() {
