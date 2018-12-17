@@ -167,11 +167,12 @@
         
         		<div class="collapse navbar-collapse nav-left-mrg nav-div-50" id="navbarTogglerDemo02">
             		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-div-50"> 
-                		<li class="nav-item  nav-item-first">
-                   		 <a class="nav-link" href="/et/views/create_plan.jsp">플랜짜기</a>
+                		
+                		<li class="nav-item  nav-item-first">               		
+                   		 	<a class="nav-link" href="/et/views/create_plan.jsp">플랜짜기</a>
                 		</li>
                 		<li class="nav-item">
-                    		<a class="nav-link" href="#">플랫엿보기</a>
+                    		<a class="nav-link" href="/et/views/seePlan_basic.jsp">플랫엿보기</a>
                 		</li>
                 		<li class="nav-item">
                     		<a class="nav-link" href="#">투어엿보기</a>
