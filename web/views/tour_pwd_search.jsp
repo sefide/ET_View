@@ -34,17 +34,36 @@
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous"></script>
 <style>
+/* 메인로고 */
+.mainlogo {
+	text-align:center;
+	margin-top: 40px;
+	font-family: 'Ubuntu', sans-serif;
+}
+#logo {
+	color: black;
+	font-size: 25px;
+	text-decoration: none;
+}
 .main {
 	position: absolute;
 	left: 420px;
-	top: 110px;
+	top: 200px;
 	font-family: 'Nanum Gothic', sans-serif;
 }
-.userSearch {
+.nav{
+	width: 100%;
+	height: 50px;
+	background-color: #FFCC00;
+}
+/* 컨텐츠 박스 내용 */
+.userSearch{
+	margin-left: 50px;
+}
+#usercontent {
 	width: 350px;
-	height: 370px;
+	height: 300px;
 	margin: 0 auto;
-	float: left;
 	font-family:'Nanum Gothic', sans-serif;"
 }
 .idContent {
@@ -65,10 +84,19 @@
 	margin-left:140px;
 	font-size: 11px;
 }
+
 </style>
+</head>
 <body>
+<div class="nav"></div>
+	<!-- 메인로고 -->
+	<div class="mainlogo">
+		<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> 
+			<image src="../image/common/logo.png"style="width: 60px; height: 60px;" alt="메인로고">&nbsp;ET Planner For Travel Agency</image>
+		</a>
+	</div>
 	<form>
-		<!-- 아이디 찾기 -->
+		<!-- 비밀번호 찾기 -->
 		<div class="main">
 			<div class="userSearch">
 				<div class="ui top attached tabular menu" id="one">
@@ -90,7 +118,8 @@
 							style="width: 70%; color: black; font-family: 'Nanum Gothic', sans-serif;">임시 비밀번호 발급받기</button></a>
 						<br><br>
 						<div class="pTag">회원가입시 입력한 이메일로 임시 비밀번호가</div>
-						<div class="pTag2">발급되었습니다.</div>
+						<div class="pTag2">발급되었습니다.</div><br><br>
+						<a href="http://127.0.0.1:8002/et/views/manager_login.jsp" style="color: black; text-decoration:none; font-size: 17px;">로그인</a>
 					</div>
 				</div>
 			</div>

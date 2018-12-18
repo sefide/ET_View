@@ -86,7 +86,7 @@
 
 	<div align="center">
 		<div class="ui top attached tabular menu" id="form">
-			<a class="item active" data-tab="manager" style="font-family:'Nanum Gothic', sans-serif; background:black; ">관리자</a>
+			<a class="item active" data-tab="manager" style="font-family:'Nanum Gothic', sans-serif;">관리자</a>
 			<a class="item" data-tab="tour" style="font-family:'Nanum Gothic', sans-serif;">제휴사</a>
 		</div>
 		<!-- 관리자 -->
@@ -135,7 +135,7 @@
 			<br>
 			<br>
 			<div class="search">
-				<a href="#" style="color: black; text-decoration:none">비밀번호를 잊으셨나요?</a>
+				<a href="http://127.0.0.1:8002/et/views/tour_pwd_search.jsp" style="color: black; text-decoration:none">비밀번호를 잊으셨나요?</a>
 			</div>
 			<br>
 			<a href="#"><button class="ui yellow button" id="loginBtn">제휴사 로그인</button></a>
