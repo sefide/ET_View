@@ -46,6 +46,7 @@
 	.div-txt-profile{
 		float : left;
 		margin : 50px 0 30px 40px;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
 	.div-name{
 		font-size : 36px;
@@ -55,22 +56,23 @@
 	
 	.div-point{
 		font-size : 20px;
-		font-weight : 500;
-		font-family: 'Ubuntu', sans-serif;
+		font-weight : 800;
 		margin-bottom : 1px;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
 	 .div-profileTxt{
-		font-size : 18px;
-		font-weight : 300;
-		font-family: 'Ubuntu', sans-serif;
+		font-size : 15px;
+		font-weight : 700;
+		font-family: 'Nanum Gothic', sans-serif;
 		margin-bottom : 10px;
 	 }
 	.btn-profile{
 		margin-top : 35px;
-		font-family: 'Ubuntu', sans-serif;
+		font-family: 'Nanum Gothic', sans-serif;
 		width : 100px;
 		height : 30px;
 		border-radius : 7px;
+		font-weight:700;
 	}
 	
 	/* 우측 메뉴  */
@@ -85,10 +87,11 @@
 		margin: 10px 0;
 		font-weight : 300;
 		font-size : 20px;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
 	
 	.this-page {
-		font-weight : 500;
+		font-weight : 800;
 	}
 	
 	.div-menu a{
@@ -108,7 +111,7 @@
 		margin-top : 20px;
 		font-size : 30px;
 		font-weight : 600;
-		font-family: 'Ubuntu', sans-serif;
+		font-family: 'Nanum Gothic', sans-serif;
 		display : inline-block;
 		width : 170px;
 	}
@@ -126,9 +129,9 @@
 	}
 	
 	.div-plan-title{
-		font-size : 28px;
-		font-weight : 500;
-		font-family: 'Ubuntu', sans-serif;
+		font-size : 26px;
+		font-weight : 700;
+		font-family: 'Nanum Gothic', sans-serif;
 		display : inline-block;
 	}
 	
@@ -137,7 +140,7 @@
 		height : 30px;
 		color : rgba(255,255,255,0.8);
 		font-size : 18px;
-		font-family: 'Ubuntu', sans-serif;
+		font-family: 'Nanum Gothic', sans-serif;
 		background : rgba(42,90,133,0.5);
 		border-radius : 5px;
 		text-align : center;
@@ -145,6 +148,7 @@
 		cursor : pointer;
 	}
 	
+	/* 플랜 저장공간 늘리기  */
 	.div-plan-add{
 		font-weight : 600;
 		color : white;
@@ -156,6 +160,14 @@
 		background : rgba(200,200,200,0.4);
 		border-radius : 10px;
 		display : inline-block;
+	}
+	#icon-plan-add{
+		
+	}
+	
+	#txt-plan-add{
+		font-family: 'Nanum Gothic', sans-serif;
+		font-size : 20px;
 	}
 	</style>
 </head>
@@ -198,32 +210,30 @@
         			<div> <!-- 뒤에 지도  등   -->
         				<div class = "div-plan-list">  
         					<div class ="div-plan-map"> 
-        					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="380px" height="380px" style="border:none;"></iframe>
+        					    <iframe class = "plan-map" src="" width="380px" height="380px" style="border:none;"></iframe>
         						<div class = "div-plan-title"> 플랜 제목 </div>
         						<div class = "div-plan-private" onclick = "setPrivate();"> 공개 </div>
         					</div>
         					<div class ="div-plan-map"> 
-        					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="380px" height="380px" style="border:none;"></iframe>
+        					    <iframe class = "plan-map" src="" width="380px" height="380px" style="border:none;"></iframe>
         						<div class = "div-plan-title"> 플랜 제목 </div>
         						<div class = "div-plan-private" onclick = "setPrivate();"> 공개 </div>
         					</div> 
         					
         					<div class ="div-plan-map"> 
-        					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="380px" height="380px" style="border:none;"></iframe>
+        					    <iframe class = "plan-map" src="" width="380px" height="380px" style="border:none;"></iframe>
         						<div class = "div-plan-title"> 플랜 제목 </div>
         						<div class = "div-plan-private" onclick = "setPrivate();"> 비공개 </div>
         					</div>
         					
         					<div class ="div-plan-map"> 
 	        					<div class ="div-plan-add" onclick = "addPlanMemory();"> 
-	        						플랜 저장공간 추가 
+	        						 <i class="calendar plus outline inverted big icon" id = "icon-plan-add"></i>
 	        					    <div class="ui dimmer">
 								    <div class="content">
-								    	  <i class="calendar plus outline inverted icon"></i>
-								    	  <br>
-								      <h4 class="ui icon inverted header" id = "header-city">
-								         플랜 저장공간을 늘리려면 200포인트가 필요합니당. <br>
-								         추가를 원하시면 클릭해주세요.
+								      <h4 class="ui icon inverted header" id = "txt-plan-add">
+									         플랜 저장공간을 늘리려면 200포인트가 필요합니당. <br>
+									         추가를 원하시면 클릭해주세요.
 								      </h4>
 								    </div>
 								</div>
@@ -259,8 +269,6 @@
 	
 	<%@ include file = "/views/common/footer.jsp" %>
 	
-	<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0&callback=initMap">
-    </script>
+	
 </body>
 </html>

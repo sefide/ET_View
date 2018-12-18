@@ -20,6 +20,7 @@
 	
 	<!-- 글꼴  -->
 	<link rel="stylesheet" href="/css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Noto+Sans+KR" rel="stylesheet">
 	
 <style>
 	.column {
@@ -50,17 +51,18 @@
 		display : inline-block;
 		font-size : 36px;
 		font-family: 'Ubuntu', sans-serif;
-		
 	}
+	
 	.div-ta-coupon{
 		width: 250px;
 		display : inline-block;
-		
+		font-family: 'Nanum Gothic', sans-serif;
 	}
 	
 	.p-txt-coupon{
 	    margin: -10px 2px;
-   		font-weight: 500;
+   		font-weight: 700;
+   		font-family: 'Nanum Gothic', sans-serif;
 	}
 	
 	.div_tour_left {
@@ -74,9 +76,16 @@
 		float : right;
 		pardding-left : 15px;
 	}
-	.title{
+	#title{
 	   display: inline-block;
  	   width: 70%;
+ 	   font-family: 'Nanum Gothic', sans-serif;
+ 	   font-weight : 800;
+	}
+	
+	.span-tour-ex{
+		font-family: 'Nanum Gothic', sans-serif;
+		
 	}
 	
 	#page-link{
@@ -105,9 +114,10 @@
 	}
 	
 	.span-tour-title{
-		font-weight : 600;
+		font-weight : 800;
 		margin-top : 5px;
 		font-size : 16px;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
 	.div-tour-paging{
 		display:inline-block;
@@ -152,27 +162,27 @@
 	      	
       		<div class="ui mt-20"> 
       			<i class="certificate icon"></i>
-                <div class="ui header title">내가 작성한 투어 </div>
+                <div class="ui header title" id ="title">내가 작성한 투어 </div>
                 
                 <div id = "div-my-tour">
                 <div class = "div_tour_left">
                 <div class = "span-tour-title"> 투어명 </div> 
-				<span> 투어명 예시</span> <br>
+				<span class = "span-tour-ex"> 투어명 예시</span> <br>
                 	<div class = "span-tour-title"> 투어컨셉 </div> 
-				<span> 투어컨셉 예시</span> <br>
+				<span class = "span-tour-ex"> 투어컨셉 예시</span> <br>
 				<div class = "span-tour-title"> 설명 </div> 
-				<span> 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 예시</span> <br>
+				<span class = "span-tour-ex"> 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 예시</span> <br>
 				<div class = "span-tour-title"> 가격 </div> 
-				<span> 투어가격 예시</span><br>
+				<span class = "span-tour-ex"> 투어가격 예시</span><br>
                 
                 	</div>
                 	<div class = "div_tour_right">
 					<div  class = "span-tour-title"> 파워링크여부 </div> 
-					<span> YES</span><i class="star icon"></i> <label> Premium </label>
+					<span class = "span-tour-ex"> YES</span><i class="star icon"></i> <label> Premium </label>
 					<div  class = "span-tour-title"> 연결링크 </div>
 					<a href = "www.naver.com">www.naver.com</a>
 					<div  class = "span-tour-title"> 대표사진  </div>
-					<span> 사진명 tour.jpg </span>
+					<span class = "span-tour-ex"> 사진명 tour.jpg </span>
                 </div>
                 </div>
                 
@@ -206,7 +216,7 @@
             
       		<div class="ui mt-20"> 
       			<i class="certificate icon"></i>
-                <div class="ui header title">다른 투어보기 </div>
+                <div class="ui header title" id ="title">다른 투어보기 </div>
                 
 	            <div class = "div-card-tour">
 	            
