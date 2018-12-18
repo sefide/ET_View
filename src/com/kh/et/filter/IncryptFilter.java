@@ -8,11 +8,14 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+
+import com.kh.et.wrapper.LoginWrapper;
 
 /**
  * Servlet Filter implementation class IncryptFilter
  */
-@WebFilter("/IncryptFilter")
+@WebFilter("/IncryptFilter") // @WebFilter("*.me") 추후에 수정 
 public class IncryptFilter implements Filter {
 
     /**
@@ -33,11 +36,10 @@ public class IncryptFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
-
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
+		HttpServletRequest hRequest = (HttpServletRequest)request;
+		LoginWrapper lw = new LoginWrapper(hRequest);
+		
+		chain.doFilter(lw, response);
 	}
 
 	/**
