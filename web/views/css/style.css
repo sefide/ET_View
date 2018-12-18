@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
 <!-- 글꼴  -->
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Noto+Sans+KR" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
+
+font-family: 'Nanum Gothic', sans-serif;
+font-family: 'Ubuntu', sans-serif;

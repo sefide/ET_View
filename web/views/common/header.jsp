@@ -154,9 +154,9 @@
        <a class = "a_join" href = "#">로그아웃 </a> 
        	<% } %>  --%> 
        <img src = "/et/image/common/btn_login.png" class = "img_login_btn">
-       <a class = "a_login" href = "/et/views/login.jsp">로그인 </a>
+       <a class = "a_login" href = "/et/views/normal/member/login.jsp">로그인 </a>
        <a class = "a_join" href = "#">회원가입 </a>     
-       <a class = "a_login" href = 	"/et/views/myPage_main.jsp">마이페이지 확인 </a> 
+       <a class = "a_login" href = 	"/et/views/normal/member/myPage_main.jsp">마이페이지 확인 </a> 
    	</div>
 	   	
     <div class = "header-bottom">
@@ -171,13 +171,13 @@
             		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-div-50"> 
                 		
                 		<li class="nav-item  nav-item-first">               		
-                   		 	<a class="nav-link" href="/et/views/create_plan.jsp">플랜짜기</a>
+                   		 	<a class="nav-link" href="/et/views/normal/plan/create_plan.jsp">플랜짜기</a>
                 		</li>
                 		<li class="nav-item">
-                    		<a class="nav-link" href="/et/views/seePlan_main.jsp">플랫엿보기</a>
+                    		<a class="nav-link" href="/et/views/normal/plan/seePlan_main.jsp">플랫엿보기</a>
                 		</li>
                 		<li class="nav-item">
-                    		<a class="nav-link" href="/et/views/seeTour_main.jsp">투어엿보기</a>
+                    		<a class="nav-link" href="/et/views/normal/tourBoard/seeTour_main.jsp">투어엿보기</a>
                		 </li>
                 		<li class="nav-item">
                         	<a class="nav-link" href="#">Q&A</a>

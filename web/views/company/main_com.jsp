@@ -134,7 +134,7 @@
 </style>
 </head>
 <body>
-	<%@ include file = "common/header_com.jsp" %>
+	<%@ include file = "/views/common/header_com.jsp" %>
 	
 	<div class="ui grid">
        	<div class = "two wide column"></div>
@@ -255,6 +255,6 @@
 	</div>
 	<div class = "two wide column"></div>
 	
-	<%@ include file = "common/footer_com.jsp" %>
+	<%@ include file = "/views/common/footer_com.jsp" %>
 </body>
 </html>

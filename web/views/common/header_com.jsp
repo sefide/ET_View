@@ -144,13 +144,13 @@
         		<div class="collapse navbar-collapse nav-left-mrg nav-div-50" id="navbarTogglerDemo02">
             		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-div-50"> 
                 		<li class="nav_item  nav-item-first">
-                   		 <a class="nav_link" href="/et/views/main_com.jsp">회원관리</a>
+                   		 <a class="nav_link" href="/et/views/company/main_com.jsp">회원관리</a>
                 		</li>
                 		<li class="nav_item">
                     		<a class="nav_link" href="#">쿠폰 히스토리</a>
                 		</li>
                 		<li class="nav_item">
-                    		<a class="nav_link" href="#">쿠폰상점</a>
+                    		<a class="nav_link" href="/et/views/company/payment/com_Store.jsp">쿠폰상점</a>
                		 	</li>
                		 	</li>
             		</ul>
@@ -165,7 +165,7 @@
 	    
 	    
 	    function goComHome(){
-	   	 location.href = "/views/main_com.jsp";
+	   	 location.href = "/views/company/main_com.jsp";
 	    }
     </script>
     

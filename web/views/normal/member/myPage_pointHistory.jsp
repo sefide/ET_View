@@ -46,6 +46,7 @@
 	.div-txt-profile{
 		float : left;
 		margin : 50px 0 30px 40px;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
 	.div-name{
 		font-size : 36px;
@@ -55,22 +56,23 @@
 	
 	.div-point{
 		font-size : 20px;
-		font-weight : 500;
-		font-family: 'Ubuntu', sans-serif;
+		font-weight : 800;
+		font-family: 'Nanum Gothic', sans-serif;
 		margin-bottom : 1px;
 	}
 	 .div-profileTxt{
 		font-size : 18px;
-		font-weight : 300;
-		font-family: 'Ubuntu', sans-serif;
+		font-weight : 700;
+		font-family: 'Nanum Gothic', sans-serif;
 		margin-bottom : 10px;
 	 }
 	.btn-profile{
 		margin-top : 35px;
-		font-family: 'Ubuntu', sans-serif;
+		font-family: 'Nanum Gothic', sans-serif;
 		width : 100px;
 		height : 30px;
 		border-radius : 7px;
+		font-weight:700;
 	}
 	
 	/* 우측 메뉴  */
@@ -85,10 +87,12 @@
 		margin: 10px 0;
 		font-weight : 300;
 		font-size : 20px;
+		font-family: 'Nanum Gothic', sans-serif;
+		
 	}
 	
 	.this-page {
-		font-weight : 500;
+		font-weight : 800;
 	}
 	
 	.div-menu a{
@@ -108,7 +112,7 @@
 		margin-top : 20px;
 		font-size : 30px;
 		font-weight : 600;
-		font-family: 'Ubuntu', sans-serif;
+		font-family: 'Nanum Gothic', sans-serif;
 		display : inline-block;
 		width : 250px;
 	}
@@ -183,9 +187,9 @@
     				</div>
     				<div class = "div-menu">
     					<ul>
-    						<li><a href = "/et/views/myPage_main.jsp" class = "this-page"> > 내 플랜보기 </a> </li>
+    						<li><a href = "/et/views/normal/member/myPage_main.jsp"> > 내 플랜보기 </a> </li>
     						<li><a href = "#"> > 나의 활동내역 </a></li>
-    						<li><a href = "/et/views/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
+    						<li><a href = "/et/views/normal/member/myPage_pointHistory.jsp" class = "this-page"> > 포인트 히스토리 </a></li>
     						<li><a href = "#"> > 회원정보 수정 </a></li>
     					</ul>
     				</div>

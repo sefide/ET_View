@@ -191,9 +191,9 @@
     				</div>
     				<div class = "div-menu">
     					<ul>
-    						<li><a href = "/et/views/myPage_main.jsp" class = "this-page"> > 내 플랜보기 </a> </li>
+    						<li><a href = "/et/views/normal/member/myPage_main.jsp" class = "this-page"> > 내 플랜보기 </a> </li>
     						<li><a href = "#"> > 나의 활동내역 </a></li>
-    						<li><a href = "/et/views/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
+    						<li><a href = "/et/views/normal/member/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
     						<li><a href = "#"> > 회원정보 수정 </a></li>
     					</ul>
     				</div>
