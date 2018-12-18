@@ -10,8 +10,10 @@
 <title>ET_Planner</title>
 <link rel="icon" href="../image/common/logo.png">
 
-<!-- font -->
+<!-- font 영어 -->
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
+<!-- font 한글 -->
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:700" rel="stylesheet">
 
 <!-- 카카오톡 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -62,16 +64,18 @@
 	height: 48px;
 }
 
-#usersearch {
+.search {
 	font-size: 12px;
 	text-align: center;
-	text-decoration: none; /*a태그 밑줄 없애기*/
+	font-family:'Nanum Gothic', sans-serif;
 }
 
 #join {
 	font-size: 12px;
 	text-align: center;
 	text-decoration: none;
+	color: black;
+	
 }
 
 #managerlogin {
@@ -79,6 +83,7 @@
 	text-align: center;
 	text-decoration: none;
 	vertical-align: middle;
+	font-family:'Nanum Gothic', sans-serif;"
 }
 
 .mainlogo {
@@ -115,6 +120,7 @@
 							<input type="text" placeholder="ID" class="login"> 
 							<i class="lock icon"></i>
 						</div>
+						<br><br>
 					</td>
 				</tr>
 				<tr>
@@ -127,9 +133,9 @@
 				</tr>
 				<tr>
 					<td>
-						<div id="usersearch">
+						<div class="search">
 							<br> 
-							<a href="http://127.0.0.1:8002/et/views/userSearch.jsp" style="color: black">혹시 아이디 혹은 비밀번호를 잊으셨나요?</a>
+							<a href="http://127.0.0.1:8002/et/views/user_search.jsp" style="color: black; text-decoration:none;">혹시 아이디 혹은 비밀번호를 잊으셨나요?</a>
 						</div>
 					</td>
 				</tr>
@@ -197,7 +203,7 @@
 				<tr>
 					<td>
 						<div id="join">
-							<br><a href="#" style="color: black">아이디가 없으시다면 지금 바로 회원가입 하세요!</a>
+							<br><a href="#" style="color: black; text-decoration:none; font-family:'Nanum Gothic', sans-serif;">아이디가 없으시다면 지금 바로 회원가입 하세요!</a>
 							<br>
 						</div>
 					</td>
@@ -206,9 +212,9 @@
 					<td>
 						<div id="managerlogin">
 							<br> 
-							<span>관리자/제휴사 로그인 하러가기</span>&nbsp; <span>
-							<a href="#" style="color: black"> <i class="large hand point right outline icon"></i></a>
-							</span>
+							<div>관리자/제휴사 로그인 하러가기 &nbsp;
+							<a href="#" style="color: black; text-decoration:none"> <i class="large hand point right outline icon"></i></a>
+							</div>
 							<br>
 						</div>
 					</td>
