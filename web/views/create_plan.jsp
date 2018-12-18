@@ -242,7 +242,7 @@
 </div>
 
 <div class = "plan-table-map">
-	<iframe class = "plan-map"  src="https://snazzymaps.com/embed/117433" width="100%" height="850px" style="border:none;"></iframe>
+	<iframe class = "plan-map"  src="#" width="100%" height="850px" style="border:none;"></iframe>
 	<div class="ui search">
 	  <div class="ui icon input input-city">
 	    <input class="prompt input-city" type="text" placeholder="Search countries...">
@@ -262,8 +262,6 @@
 		function editTitle() {}
 	</script>
 	
-	<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0&callback=initMap">
-    </script>
+	
 </body>
 </html>

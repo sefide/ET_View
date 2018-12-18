@@ -19,6 +19,7 @@
 	
 	<!-- 글꼴  -->
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Noto+Sans+KR" rel="stylesheet">
 	
 	<title>ET_Planner</title>
 	<link rel="icon" href="/et/image/common/logo.png">
@@ -52,6 +53,7 @@
         .nav-item{
             margin: 5px 5% 0 5%;
             font-weight:600; 
+            font-family: 'Nanum Gothic', sans-serif;
         }
         
         .nav-item-first{
