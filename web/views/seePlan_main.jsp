@@ -241,6 +241,7 @@
 						<i class="icon heart">34</i>
 					</div>
 					<span class="glyphicon paperclip"></span>
+					<a href="seePlan_detail.jsp">Go</a>
 				</div>
 				
 			</div>
