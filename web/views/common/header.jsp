@@ -188,7 +188,7 @@
                     		<a class="nav-link" href="/et/views/normal/tourBoard/seeTour_main.jsp">투어엿보기</a>
                		 </li>
                 		<li class="nav-item">
-                        	<a class="nav-link" href="#">Q&A</a>
+                        	<a class="nav-link" href="/et/views/normal/memberBoard.jsp">Q&A</a>
                 		</li>
             		</ul>
 	        </div>

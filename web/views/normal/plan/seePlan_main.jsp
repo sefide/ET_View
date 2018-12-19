@@ -125,7 +125,7 @@
 	/* width: 380px; */
 	height: 420px;
 	display: inline-block;
-	margin: 5px 10px 10px 0;
+	margin: 5px 10px 10px 0px;
 }
 
 .div-plan-title {
@@ -166,6 +166,7 @@
 	margin-left: 40px;
 	width: 93%;
 }
+
 
 #custom-search-input {
 	padding: 3px;
@@ -211,6 +212,17 @@
 	float: left;
 	cursor: pointer;
 }
+
+.div-like{
+	font-size: 18px;
+	font-family: 'Ubuntu', sans-serif;
+	width: 100px;
+	height: 75px;
+	
+}
+.ui yellow button{
+	float: right;
+}
 </style>
 </head>
 <body>
@@ -226,32 +238,45 @@
 				<!-- 위에 자기내용  -->
 				<div class="div-txt-profile">
 					<div class="div-best-plan-map">
-						<iframe class="plan-map" src="https://snazzymaps.com/embed/120714"
-							width="300px" height="300px" style="border: none;"></iframe>
+						<iframe class="plan-map" src=""
+							width="300px" height="300px" style="border-color: yellow ;"></iframe>
 					</div>
 				</div>
 				
 				<div class="div-txt-profile">
-					<div class="div-name">이번주 Best 플랜</div>
+					<div class="div-name">
+					<i class="thumbs up outline icon"></i>이번주 Best 플랜</div>
 					<div class="div-point">플랜제목</div>
 					<div class="div-profileTxt">여행목록</div>
-					<br><br>
-					<div>좋아요 수 : </div>
-					<div class="div-plan-like">
-						<i class="icon heart">34</i>
+					
+					<div>
+					<div class="div-like">
+						<div>좋아요 수 </div>
+						<div class="div-plan-like">
+							<i class="icon heart">34</i>
+						</div>
 					</div>
-					<span class="glyphicon paperclip"></span>
-					<a href="seePlan_detail.jsp">Go</a>
+					<div class="div-like">
+						<div>스크랩 수 </div>
+						<div class="div-plan-like">
+							<i class="cut icon">14</i>
+						</div>
+					</div>	
+					</div>
+					<button class="ui yellow button" onclick="location.href ='seePlan_detail.jsp'">보러가기</button>			
 				</div>
 				
+				
+			
 			</div>
+			
 			<br>
 			<div class="container3">
 				<div class="row">
 					<div class="col-md-6">
 						<!-- <h2>Custom search field</h2> -->
 						<div id="custom-search-input">
-							<div class="input-group col-md-12">
+							<div class="input-group col-md-12" id="div-search-plan">
 								<input type="text" class="form-control input-lg"
 									placeholder="여행플랜검색" /> <span class="input-group-btn">
 									<button class="btn btn-info btn-lg" type="button">
@@ -276,35 +301,47 @@
 					<div class="div-plan-list">
 						<div class="div-plan-map">
 							<iframe class="plan-map"
-								src="https://snazzymaps.com/embed/120714" width="200px"
-								height="200px" style="border: none;"></iframe>
+								src="" width="200px"
+								height="200px" style="border-color: yellow ;"></iframe>
 							<div class="div-plan-title">플랜 제목</div>
-
 						</div>
+						
 						<div class="div-plan-map">
 							<iframe class="plan-map"
-								src="https://snazzymaps.com/embed/120714" width="200px"
-								height="200px" style="border: none;"></iframe>
+								src="" width="200px"
+								height="200px" style="border-color: yellow ;"></iframe>
 							<div class="div-plan-title">플랜 제목</div>
 
-						</div>
-
-						<div class="div-plan-map">
-							<iframe class="plan-map"
-								src="https://snazzymaps.com/embed/120714" width="200px"
-								height="200px" style="border: none;"></iframe>
-							<div class="div-plan-title">플랜 제목</div>
 						</div>
 
 						<div class="div-plan-map">
 							<iframe class="plan-map"
-								src="https://snazzymaps.com/embed/120714" width="200px"
-								height="200px" style="border: none;"></iframe>
+								src="" width="200px"
+								height="200px" style="border-color: yellow ;"></iframe>
+							<div class="div-plan-title">플랜 제목</div>
+						</div>
+						<div class="div-plan-map">
+							<iframe class="plan-map"
+								src="" width="200px"
+								height="200px" style="border-color: yellow ;"></iframe>
+							<div class="div-plan-title">플랜 제목</div>
+						</div>
+						<div class="div-plan-map">
+							<iframe class="plan-map"
+								src="" width="200px"
+								height="200px" style="border-color: yellow ;"></iframe>
+							<div class="div-plan-title">플랜 제목</div>
+						</div>
+						<div class="div-plan-map">
+							<iframe class="plan-map"
+								src="" width="200px"
+								height="200px" style="border-color: yellow ;"></iframe>
 							<div class="div-plan-title">플랜 제목</div>
 						</div>
 
 
 					</div>
+					
 				</div>
 			</div>
 		</div>

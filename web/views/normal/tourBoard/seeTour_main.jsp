@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <!-- jquery -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -31,11 +32,70 @@
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous"></script>
 
+
 <title>ET_Planner</title>
 <link rel="icon" href="/views/image/common/logo.png">
+
 <style>
 .column {
 	height: 100%;
+}
+
+/* 상단 투어 검색 */
+.div-search-area{
+	width: 95%;
+	display: inline-block;
+	vertical-align: middle;
+	/* background: red; */
+}
+
+.div-dropdown{
+	/* background: yellow; */
+	width: 300px;	
+	display: inline-block;
+	margin: 10px 20px 10px 35px;
+	display: inline-block;
+	vertical-align: middle;
+	
+}
+
+.div-search-text {
+	
+	font-size: 27px;
+	font-weight: 700;
+	font-family: 'Ubuntu', sans-serif;
+	margin-top: 10px;
+	margin-bottom: 1px;
+	text-align: center;
+}
+
+/* 하단 투어 보기 */
+.container2 {
+	width: 95%;
+	margin-top: 30px;
+	margin-left: 40px;
+	/* background: blue; */
+}
+
+.div-tour-list {
+	margin-left: 5px;
+	/* background: red; */
+}
+
+.div-tour-img {
+	background: yellow;
+	width: 330px;
+	height: 280px;
+	display: inline-block;
+	margin: 5px 35px 10px 0;
+}
+
+.div-tour-title {
+	margin-top: 5px;
+	font-size: 24px;
+	font-weight: 500;
+	font-family: 'Ubuntu', sans-serif;
+	display: block;
 }
 </style>
 
@@ -49,95 +109,167 @@
 		<div class="two wide column"></div>
 		<div class="twelve wide column" style="margin-top: 50px;">
 
+			<!-- 내용시작 -->
 
-			<select class="ui search selection dropdown" id="search-select">
-				<option value="">나라선택</option>
-				<option value="France">프랑스</option>
-				<option value="Germany">독일</option>
-				<option value="Uk">영국</option>
-				<option value="Netherlands">네덜란드</option>
-				<option value="Italy">이탈리아</option>
-				<option value="Czech">체코</option>
-				<option value="Greece">그리스</option>
-				<option value="Hungary">헝가리</option>
-				<option value="Austria">오스트리아</option>
-				<option value="Croatia">크로아티아</option>
-				<option value="Denmark">덴마크</option>
-				<option value="Switzerland">스위스</option>
-				<option value="Turkey">터키</option>
-				<option value="Portugal">포르투갈</option>
-				<option value="Spain">스페인</option>
-			</select> <select class="ui search selection dropdown" id="search-select">
-				<option value="">도시선택</option>
-				<option value=""></option>
-				<option value=""></option>
-				<option value=""></option>
-				<option value=""></option>
-				<option value=""></option>
-			</select>
+			<!-- 상단 검색 창 -->
+		
+				<div class="div-search-area">
+				<form class="ui form">
+				<div class="div-search-text">나라 및 도시 검색</div>
+					<div class="div-dropdown">
+						<div class="field">
+							<label>도시 선택</label> 
+							<select class="ui fluid dropdown">
+								<option value="">State</option>
+								<option value="AL">Alabama</option>
+								<option value="AK">Alaska</option>
+								<option value="AZ">Arizona</option>
+							</select>
+						</div>
+					</div>
+					<div class = "div-dropdown">
+						<div class="field">
+							<label>나라 선택</label>
+							<div class="ui fluid search selection dropdown">
+								<input name="country" > 
+								<i class="dropdown icon"></i>
+								<div class="default text">나라를 선택해 주세요</div>
+								<div class="menu">
+								 	<input type="hidden" name="country">
+									<div class="item" data-value="nl">
+										<i class="nl flag"></i>Netherlands
+									</div>
+									<div class="item" data-value="nc">
+										<i class="nc flag"></i>New Caledonia
+									</div>
+									<div class="item" data-value="pg">
+										<i class="pg flag"></i>New Guinea
+									</div>
 
-			<center>
+								</div>
+							</div>
+						</div>						
+					</div>
+					
+					<button class="ui yellow basic button" style="margin: auto;">검색하기</button>
+				</form>	
+			</div>
+			<hr>
+			<!-- 하단 투어 리스트  -->
+			<br>
+			<br>
+			<div class="ui mt-20">
+				<div class="ui huge header">BEST 투어!</div>
 
-				<form name="select">
-						<select class="ui search selection dropdown" id="search-select" onChange="redirect(this.options.selectedIndex)">
-							<option value="France">프랑스</option>
-							<option value="Germany">독일</option>
-							<option value="Uk">영국</option>
-							<option value="Netherlands">네덜란드</option>
-							<option value="Italy">이탈리아</option>
-							<option value="Czech">체코</option>
-							<option value="Greece">그리스</option>
-							<option value="Hungary">헝가리</option>
-							<option value="Austria">오스트리아</option>
-							<option value="Croatia">크로아티아</option>
-							<option value="Denmark">덴마크</option>
-							<option value="Switzerland">스위스</option>
-							<option value="Turkey">터키</option>
-							<option value="Portugal">포르투갈</option>
-							<option value="Spain">스페인</option>
-							</select> 
-							<select class="ui search selection dropdown" id="search-select2">
-							<option value="http://www.yahoo.co.kr">야후! 코리아</option>
-							<option value="http://www.naver.com">한미르</option>
-							<option value="http://www.lycos.co.kr">라이코스</option>
-							</select> 
-							<input type="button" name="test" value=" 가자 " onClick="go()">
-							</form>
-					<script>
-					var groups=document.select.search-select.options.length
-					var group=new Array(groups)
-					for (i=0; i<groups; i++)
-					group[i]=new Array()
-					
-					<!-- -------- 아래와 같은 방법으로 각 항목을 설정 합니다 -------------- -->
-					
-					group[0][0]=new Option("파리") 
-					group[0][1]=new Option("리옹")           
-					group[0][2]=new Option("니스") 
-					
-					group[1][0]=new Option("엠뷔씨~") 
-					group[1][1]=new Option("한거레신문") 
-					
-					group[2][0]=new Option("웹마스트") 
-					group[2][2]=new Option("회원문의") 
-					group[2][3]=new Option("마이따링") 
-					
-					var temp=document.select.search-select2
-					
-					function redirect(x){
-					for (m=temp.options.length-1;m>0;m--)
-					temp.options[m]=null
-					for (i=0;i<group[x].length;i++){
-					temp.options[i]=new Option(group[x][i].text,group[x][i].value)
-					}
-					temp.options[0].selected=true
-					}
-					
-					/* function go(){
-						location=temp.options[temp.selectedIndex].value
-					} */
-	</script>
-				
+				<div class="div-card-tour">
+
+					<div class="card-deck">
+						<div class="card" id="card-size">
+							<img class="card-img-top" src="/et/image/city/bar.jpg"
+								alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">[도시이름]투어명</h5>
+								<p class="card-text">69,900원</p>
+								<p class="card-text">
+									<small class="text-muted">투어컨셉 </small>
+								</p>
+							</div>
+						</div>
+						<div class="card" id="card-size">
+							<img class="card-img-top" src="/et/image/city/bar.jpg"
+								alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">[도시이름]투어명</h5>
+								<p class="card-text">69,900원</p>
+								<p class="card-text">
+									<small class="text-muted">투어컨셉 </small>
+								</p>
+							</div>
+						</div>
+						<div class="card">
+							<img class="card-img-top" src="/et/image/city/bar.jpg"
+								alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">[도시이름]투어명</h5>
+								<p class="card-text">69,900원</p>
+								<p class="card-text">
+									<small class="text-muted">투어컨셉 </small>
+								</p>
+							</div>
+						</div>
+						<div class="card">
+							<img class="card-img-top" src="/et/image/city/bar.jpg"
+								alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">[도시이름]투어명</h5>
+								<p class="card-text">69,900원</p>
+								<p class="card-text">
+									<small class="text-muted">투어컨셉 </small>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<hr>
+			<div class="ui mt-20">
+				<div class="ui huge header">투어 엿보기</div>
+
+				<div class="div-card-tour">
+
+					<div class="card-deck">
+						<div class="card" id="card-size">
+							<img class="card-img-top" src="/et/image/city/bar.jpg"
+								alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">[도시이름]투어명</h5>
+								<p class="card-text">69,900원</p>
+								<p class="card-text">
+									<small class="text-muted">투어컨셉 </small>
+								</p>
+							</div>
+						</div>
+						<div class="card" id="card-size">
+							<img class="card-img-top" src="/et/image/city/bar.jpg"
+								alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">[도시이름]투어명</h5>
+								<p class="card-text">69,900원</p>
+								<p class="card-text">
+									<small class="text-muted">투어컨셉 </small>
+								</p>
+							</div>
+						</div>
+						<div class="card">
+							<img class="card-img-top" src="/et/image/city/bar.jpg"
+								alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">[도시이름]투어명</h5>
+								<p class="card-text">69,900원</p>
+								<p class="card-text">
+									<small class="text-muted">투어컨셉 </small>
+								</p>
+							</div>
+						</div>
+						<div class="card">
+							<img class="card-img-top" src="/et/image/city/bar.jpg"
+								alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">[도시이름]투어명</h5>
+								<p class="card-text">69,900원</p>
+								<p class="card-text">
+									<small class="text-muted">투어컨셉 </small>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+
 		</div>
 		<div class="two wide column"></div>
 	</div>
