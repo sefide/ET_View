@@ -6,13 +6,14 @@
 <meta charset="UTF-8">
 <title>ET_Planner</title>
 <link rel="icon" href="/et/image/common/logo.png">
+
+<!-- jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <!-- font 영어 -->
-<link
-	href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
 <!-- font 한글 -->
-<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:700"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:700" rel="stylesheet">
 
 <!-- Semantic UI -->
 <link rel="stylesheet"
@@ -76,7 +77,7 @@
 .div-profileTxt {
 	font-size: 18px;
 	font-weight: 300;
-	font-family: 'Ubuntu', sans-serif;
+	font-family:'Nanum Gothic', sans-serif;
 	margin-bottom: 10px;
 }
 
@@ -91,6 +92,7 @@
 .div-menu {
 	float: right;
 	margin-top: 40px;
+	margin-right: 50px;
 }
 
 .div-menu  li {
@@ -114,8 +116,37 @@
 	color: rgb(254, 200, 0);
 }
 /* 새 소식 */
+
 .news{
-	float: left;
+	margin-left: 170px;
+	font-size: 20px;
+	font-family:'Nanum Gothic', sans-serif;
+	padding-top: 50px;
+}
+#news-content{
+	margin-left: 90px;
+	font-family:'Nanum Gothic', sans-serif;
+}
+.container2{
+	/* margin-right: 100px; */
+	margin-top: 100px;
+	margin-left: 50px;
+}
+
+<!-- 나의 Q&A / 스크랩 Q&A -->
+.myQnA-content{
+	margin-left: 300px;
+}
+.myQnA{
+	font-size: 20px;
+	padding-top: 50px;
+}
+.scrapQnA-content{
+	margin-left: 540px;
+}
+.scrapQnA{
+	font-size: 20px;
+	
 }
 </style>
 </head>
@@ -126,7 +157,7 @@
 
 	<div class="ui grid">
 		<div class="two wide column"></div>
-		<div class="twelve wide column" style="margin-top: 50px;">
+		<div class="twelve wide column" style="margin-top:120px; margin-left: 30px;">
 			<div class="container1">
 				<!-- 위에 자기내용  -->
 				<div class="div-img-profile">
@@ -134,30 +165,73 @@
 				</div>
 				<div class="div-txt-profile">
 					<div class="div-name">aerin lee</div>
-					<div class="div-point">100 €</div>
+					<div class="div-point">100<i class="euro sign icon"></i>
+					</div>
 					<div class="div-profileTxt">안녕하세요. 귀여운 애디니 입니다.</div>
 					<button class="btn-profile">프로필 수정</button>
 				</div>
 				<div class="div-menu">
 					<ul>
-						<li><a href="/et/views/normal/member/myPage_main.jsp" class="this-page">
-								> 내 플랜보기 </a></li>
+						<li><a href="/et/views/normal/member/myPage_main.jsp" class="this-page"> > 내 플랜보기 </a></li>
 						<li><a href="#"> > 나의 활동내역 </a></li>
-						<li><a href="/et/views/normal/member/myPage_pointHistory.jsp"> > 포인트
-								히스토리 </a></li>
+						<li><a href="/et/views/normal/member/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
 						<li><a href="/et/views/normal/member/user_update.jsp"> > 회원정보 수정 </a></li>
 					</ul>
 				</div>
-
 			</div>
 			<!-- 좌측 하단 새 소식 -->
-			<div class="container2">
-				<div class="news">새 소식</div>
+			<div style='display:inline; min-width:1000px;'>
+				<div class="container2" style='display:inline; float:left; width:400px'>
+					<div class="news"><b>새 소식</b></div>
+					<div class="ui relaxed divided list" id="news-content">
+					  <div class="item">
+					    <i class="big bell outline icon"></i>
+					    <div class="content">		      
+					      <div class="description"><b>아진님, 애린님이 회원님의 
+					      <br>"이동수단~" 게시물을 좋아합니다.</b></div>
+					    </div>
+					  </div>
+					</div>
+					<div class="ui relaxed divided list" id="news-content">
+					  <div class="item">
+					    <i class="big bell outline icon"></i>
+					    <div class="content">		      
+					      <div class="description"><b>병현님이 회원님의 "파리는~"
+					      <br>게시물을 스크랩했습니다.</b></div>
+					    </div>
+					  </div>
+					</div>
+				</div>
+				<!-- 나의 Q&A -->	
+				<div class="myQnA-content" style='display:inline; float:right; width:400px'>
+					<div class="myQnA"><b>나의 Q&A</b></div>
+					  <div class="column">
+					    <div class="ui raised segment">
+					      <a class="ui red ribbon label">제목</a>
+					      <span>안녕하세요</span>
+					      <p></p>
+					      <a class="ui blue ribbon label">내용</a>제 이름은 애리닝이에오
+					      <p></p>
+					    </div>
+					  </div>
+				</div>
+				<!-- 스크랩 Q&A -->
+				<div class="scrapQnA-content" style='display:inline; float:left; width:400px'>
+					<div class="scrapQnA"><b>스크랩 Q&A</b></div>
+						<div class="column">
+							<div class="ui raised segment">
+								<a class="ui red ribbon label">제목</a>
+							    <span>안녕하세요</span>
+							    <p></p>
+							    <a class="ui blue ribbon label">내용</a>제 이름은 애리닝이에오
+							    <p></p>
+							</div>
+						</div>
+				</div>
 			</div>
-			
-			
-
 		</div>
+				
+		
 		<div class="two wide column"></div>
 	</div>
 

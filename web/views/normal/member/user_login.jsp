@@ -9,6 +9,8 @@
 	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
 <title>ET_Planner</title>
 <link rel="icon" href="/et/image/common/logo.png">
+<!-- jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- font 영어 -->
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
@@ -83,7 +85,7 @@
 	text-align: center;
 	text-decoration: none;
 	vertical-align: middle;
-	font-family:'Nanum Gothic', sans-serif;"
+	font-family:'Nanum Gothic', sans-serif;
 }
 
 .mainlogo {
@@ -176,10 +178,10 @@
 						<div id="naver_id_login"> 
 						<!-- //네이버아이디로로그인 버튼 노출 영역 --> 
 						<script type="text/javascript">
-						  	var naver_id_login = new naver_id_login("KEY-VALUE", "/et/views/normal/member/user_login_callback.jsp");
+						  	var naver_id_login = new naver_id_login("KEY-VALUE", "http://127.0.0.1:8002/et/views/normal/member/user_login_callback.jsp");
 						  	var state = naver_id_login.getUniqState();
 						  	naver_id_login.setButton("green", 6,65);
-						  	naver_id_login.setDomain("http://127.0.0.1:8002/et/views/login.jsp");
+						  	naver_id_login.setDomain("http://127.0.0.1:8002/et/views/normal/member/user_login.jsp");
 						  	naver_id_login.setState(state);
 						  	naver_id_login.setPopup();
 						  	naver_id_login.init_naver_id_login();
