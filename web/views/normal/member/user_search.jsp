@@ -5,9 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>ET_Planner</title>
-<link rel="icon" href="../image/common/logo.png">
-<!-- font -->
+<link rel="icon" href="/et/image/common/logo.png">
+<!-- font 영어 -->
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
+<!-- font 한글 -->
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:700" rel="stylesheet">
 
 <!-- Semantic UI -->
 <link rel="stylesheet"
@@ -38,6 +40,7 @@
 
 .answer {
 	width: 70%;
+	
 }
 
 .userSearch {
@@ -45,6 +48,7 @@
 	height: 350px;
 	margin: 0 auto;
 	float: left;
+	font-family:'Nanum Gothic', sans-serif;"
 }
 
 #usercontent {
@@ -53,13 +57,9 @@
 }
 
 .idContent {
-	margin-left: 55px;
+	font-family:'Nanum Gothic', sans-serif;"
 }
 
-.pwdContent {
-	margin-left: 50px;
-	margin-top: 30px;
-}
 
 .active item {
 	width: 15px;
@@ -86,6 +86,19 @@
 	margin-left: 550px;
 	
 }
+.font{
+	margin-left: 50px;
+}
+.pTag{
+	text-align: center;
+	font-size: 11px;
+}
+.pTag2{
+	text-align: center;
+	margin-left:140px;
+	font-size: 11px;
+}
+
 </style>
 
 </head>
@@ -93,7 +106,7 @@
 	<!-- 메인로고 -->
 	<div class="mainlogo">
 		<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동" style="font-size : 46px;"> 
-		<image src="../image/common/logo.png" style="width: 65px; height: 65px;" alt="메인로고">&nbsp;ET Planner</image>
+		<image src="/et/image/common/logo.png" style="width: 65px; height: 65px;" alt="메인로고">&nbsp;ET Planner</image>
 		</a>
 	</div>
 
@@ -104,13 +117,12 @@
 				<div class="ui top attached tabular menu" id="one">
 					<div class="active item" style="background-color: whitesmoke;">아이디 찾기</div>
 				</div>
-				<div class="ui bottom attached active tab segment" id="usercontent"
-					style="background-color: whitesmoke;">
+				<div class="ui bottom attached active tab segment" id="usercontent" style="background-color: whitesmoke;">
 
-					<div class="idContent">
+					<div class="idContent" align = "center">
 						<div class="ui form">
 							<div class="field">
-								<label>아이디 질문 찾기</label>
+								<div align="left" class="font"><label style="font-weight: 600;">아이디 질문 찾기</label></div>
 								<div class="ui form">
 									<div class="question">
 										<select>
@@ -128,17 +140,17 @@
 						<br>
 						<div class="ui form">
 							<div class="field">
-								<label>답안</label>
+								<div align="left" class="font"><label style="font-weight: 600;">답안</label></div>
 								<div class="answer">
 									<input type="text" placeholder="내용을 입력해주세요">
 								</div>
 							</div>
 						</div>
 						<br> 
-						<a href="http://www.naver.com"><button class="ui button" style="width: 70%;">아이디 찾기</button></a> 
+						<a href="#"><button class="ui button" style="width: 70%; font-family:'Nanum Gothic', sans-serif;"">아이디 찾기</button></a> 
 						<br>
 						<br> 
-						<a href="#"><button class="ui yellow button" style="width: 70%; color: black;">찾은 아이디</button></a>
+						<a href="#"><button class="ui yellow button" style="width: 70%; color: black; font-family:'Nanum Gothic', sans-serif;"">찾은 아이디</button></a>
 					</div>
 				</div>
 			</div>
@@ -151,13 +163,13 @@
 				<div class="ui top attached tabular menu">
 					<div class="active item" style="background-color: whitesmoke;">비밀번호 찾기</div>
 				</div>
-				<div class="ui bottom attached active tab segment" id="usercontent" style="background-color: whitesmoke;">
+				<div class="ui bottom attached active tab segment" id="usercontent" style="background-color: whitesmoke;" align="center">
 
 					<div class="pwdContent">
 						<br>
 						<div class="ui form">
 							<div class="field">
-								<label>아이디</label>
+								<div align="left" class="font"><label style="font-weight: 600; font-family:'Nanum Gothic', sans-serif;">아이디</label></div>
 								<div class="answer">
 									<input type="text" placeholder="내용을 입력해주세요">
 								</div>
@@ -165,9 +177,11 @@
 						</div>
 						<div>
 						<br> 
-						<a href="http://www.naver.com"><button class="ui button" style="width: 70%;">임시 비밀번호 발급받기</button></a>
+						<a href="#"><button class="ui button" style="width: 70%; font-family:'Nanum Gothic', sans-serif;">임시 비밀번호 발급받기</button></a>
 						</div>
 						<br>
+						<div class="pTag">회원가입시 입력한 이메일로 임시 비밀번호가</div>
+						<div class="pTag2">발급되었습니다.</div>
 					</div>
 				</div>
 			</div>
@@ -177,7 +191,8 @@
 	</form>
 	<!-- 회원가입 하러가기 버튼 -->
 	<div id="joinGo">
-	<a href="http://www.naver.com"><button class="ui button" style="width:200px; height:35px; background-color: deepskyblue;">ET로 회원가입 하기</button></a> 
+		<a href="/et/views/normal/member/user_join.jsp"><button class="ui blue button"
+			style="width:200px; height:35px; color:black; font-family:'Nanum Gothic', sans-serif;">ET로 회원가입 하기</button></a> 
 	</div>
 	
 	

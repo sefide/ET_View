@@ -8,10 +8,12 @@
 <meta name="viewport"
 	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
 <title>ET_Planner</title>
-<link rel="icon" href="../image/common/logo.png">
+<link rel="icon" href="/et/image/common/logo.png">
 
-<!-- font -->
+<!-- font 영어 -->
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
+<!-- font 한글 -->
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:700" rel="stylesheet">
 
 <!-- 카카오톡 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -62,16 +64,18 @@
 	height: 48px;
 }
 
-#usersearch {
+.search {
 	font-size: 12px;
 	text-align: center;
-	text-decoration: none; /*a태그 밑줄 없애기*/
+	font-family:'Nanum Gothic', sans-serif;
 }
 
 #join {
 	font-size: 12px;
 	text-align: center;
 	text-decoration: none;
+	color: black;
+	
 }
 
 #managerlogin {
@@ -79,6 +83,7 @@
 	text-align: center;
 	text-decoration: none;
 	vertical-align: middle;
+	font-family:'Nanum Gothic', sans-serif;"
 }
 
 .mainlogo {
@@ -103,8 +108,8 @@
 				<tr>
 					<td>
 						<div class="mainlogo">
-							<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동" style="font-size : 39px;">
-								<image src="../image/common/logo.png" style="width: 50px; height: 50px;" alt="메인로고">&nbsp;ET Planner</image>
+							<a href="/et/" id="logo" title="메인페이지로 이동" style="font-size : 39px;">
+								<image src="/et/image/common/logo.png" style="width: 50px; height: 50px;" alt="메인로고">&nbsp;ET Planner</image>
 							</a>
 						</div> <br> <br>
 					</td>
@@ -115,6 +120,7 @@
 							<input type="text" placeholder="ID" class="login"> 
 							<i class="lock icon"></i>
 						</div>
+						<br><br>
 					</td>
 				</tr>
 				<tr>
@@ -127,9 +133,9 @@
 				</tr>
 				<tr>
 					<td>
-						<div id="usersearch">
+						<div class="search">
 							<br> 
-							<a href="http://127.0.0.1:8002/et/views/userSearch.jsp" style="color: black">혹시 아이디 혹은 비밀번호를 잊으셨나요?</a>
+							<a href="/et/views/normal/member/user_search.jsp" style="color: black; text-decoration:none;">혹시 아이디 혹은 비밀번호를 잊으셨나요?</a>
 						</div>
 					</td>
 				</tr>
@@ -146,7 +152,7 @@
 							<script type='text/javascript'>
 							  //<![CDATA[
 							    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-							    Kakao.init('15a9324659e56b04d48506cedaead3f5');
+							    Kakao.init('KEY-VALUE');
 							    function loginWithKakao() {
 							      // 로그인 창을 띄웁니다.
 							      Kakao.Auth.login({
@@ -170,7 +176,7 @@
 						<div id="naver_id_login"> 
 						<!-- //네이버아이디로로그인 버튼 노출 영역 --> 
 						<script type="text/javascript">
-						  	var naver_id_login = new naver_id_login("tcR9vwEXbbuTYhKDCt7X", "http://127.0.0.1:8002/et/views/login_callback.jsp");
+						  	var naver_id_login = new naver_id_login("KEY-VALUE", "/et/views/normal/member/user_login_callback.jsp");
 						  	var state = naver_id_login.getUniqState();
 						  	naver_id_login.setButton("green", 6,65);
 						  	naver_id_login.setDomain("http://127.0.0.1:8002/et/views/login.jsp");
@@ -197,7 +203,7 @@
 				<tr>
 					<td>
 						<div id="join">
-							<br><a href="#" style="color: black">아이디가 없으시다면 지금 바로 회원가입 하세요!</a>
+							<br><a href="/et/views/normal/member/user_join.jsp" style="color: black; text-decoration:none; font-family:'Nanum Gothic', sans-serif;">아이디가 없으시다면 지금 바로 회원가입 하세요!</a>
 							<br>
 						</div>
 					</td>
@@ -206,9 +212,9 @@
 					<td>
 						<div id="managerlogin">
 							<br> 
-							<span>관리자/제휴사 로그인 하러가기</span>&nbsp; <span>
-							<a href="#" style="color: black"> <i class="large hand point right outline icon"></i></a>
-							</span>
+							<div>관리자/제휴사 로그인 하러가기 &nbsp;
+							<a href="/et/views/manager/manager_login.jsp" style="color: black; text-decoration:none"> <i class="large hand point right outline icon"></i></a>
+							</div>
 							<br>
 						</div>
 					</td>
