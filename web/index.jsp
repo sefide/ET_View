@@ -34,9 +34,82 @@
         }
 
         .mt-20{
-            margin-top: 10%;
+            margin-top: 8%;
         }
         
+        /* 상단  */
+        .top-div{
+        		display: flex;
+        }
+        
+        .top-img{
+        		width : 70%;
+        }
+        
+        .top-btn{
+        		width : 30%;
+        		text-align: center;
+        }
+        .img_main {
+        		width : 100%;
+        		height : 500px;
+        }
+        .mySlides {display:none;}
+        
+        #a_makePlan{
+        		border : none;
+            width : 160px;
+            height : 42px;
+            font-size : 18px;
+            top : 30%;
+            background-color : rgb(237,197,58);
+            color : white;
+            cursor : pointer;
+            box-shadow : 3px 3px 1px 0 rgb(200,180, 48);;
+            position:relative;
+        }
+        #a_makePlan::before{
+            content:"";
+            position:absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            transition:0.7s;
+            background-attachment: transparent;
+        }
+        #a_makePlan:hover::before{
+           background-color : gray;
+            opacity:0.2;
+        }
+        
+        
+         #a_seePlan{
+        		border : none;
+            width : 160px;
+            height : 42px;
+            font-size : 18px;
+            top : 40%;
+            background-color : rgb(237,197,58);
+            color : white;
+            cursor : pointer;
+            box-shadow : 3px 3px 1px 0 rgb(200,180, 48);
+            position:relative;
+        }
+        #a_seePlan::before{
+            content:"";
+            position:absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            transition:0.7s;
+            background-attachment: transparent;
+        }
+        #a_seePlan:hover::before{
+            background-color : gray;
+            opacity:0.2;
+        }
         /* 인기플랜  */
         .div-plan-list{
 			margin-left : 15px;
@@ -107,26 +180,9 @@
         		margin: 2%;
         }
         
-        /* #th4_city{
-        		margin-left:20%;
-        	}
-         */
         #card{
         		margin-left : 3%;
         }
-        
-        
-        .img_main {
-        		width : 600px;
-        }
-        
-        .div_img_main{
-        		text-align : center;
-        }
-        
-        /* #last_city{
-        		float:none;
-        } */
         
         #header-city{
         		color : gray;
@@ -157,6 +213,17 @@
        		border : 4px dotted rgba(238, 238, 238, 0.589);
        		display : inline-block;
        	}
+       	
+       	#img-qna-bar{
+       		border : none;
+            width : 700px;
+            height : 42px;
+            font-size : 18px;
+            top : 40%;
+            background-color : rgb(237,197,58);
+            cursor : pointer;
+            box-shadow : 3px 3px 1px 0 rgb(200,180, 48);
+       	}
     </style>
 </head>
 <body>
@@ -169,11 +236,19 @@
         <div class = "twelve wide column" style="margin-top:50px;">
           <!-- 내용 넣기 -->
           <div class = "container">
-            <div class="ui mt-20 div_img_main"> 
-                <div class="ui image ">
-                    <img class = "img_main" src="https://d1blyo8czty997.cloudfront.net/tour-photos/n/2231/1200x600/2036422203.jpg">
-                </div>
-                
+            <div class="ui mt-20 top-div"> 
+                <div class="ui top-img">
+                    <img class = "img_main mySlides" src="https://d1blyo8czty997.cloudfront.net/tour-photos/n/2231/1200x600/2036422203.jpg">
+                    <img class = "img_main mySlides" src="https://img-wishbeen.akamaized.net/plan/1466139331562_shutterstock_128300366.jpg">
+               	    <img class = "img_main mySlides" src="http://www.travelnbike.com/news/photo/201706/40021_37790_466.jpg">
+                    <img class = "img_main mySlides" src="https://previews.123rf.com/images/ventdusud/ventdusud1601/ventdusud160100003/50960502-%EB%91%90%EC%98%A4%EB%AA%A8-%EC%9D%BC%EC%B6%9C-%EB%B0%80%EB%9D%BC%EB%85%B8-%EC%9C%A0%EB%9F%BD%EC%9E%85%EB%8B%88%EB%8B%A4-.jpg">
+        		        <img class = "img_main mySlides" src="http://www.seoulmilkblog.co.kr/wp/wp-content/uploads/2016/10/%EA%B2%A8%EC%9A%B8%EC%9C%A0%EB%9F%BD%EC%97%AC%ED%96%892.jpg">
+                	</div>
+                <div class ="top-btn">
+          	      	<button id="a_makePlan" onclick = "goPlan();"><span>플랜 짜기</span></button>
+          	      	<br>
+	       			<button id="a_seePlan" onclick = "go"><span>플랫 엿보기</span></button>
+	       		</div>
             </div>
             
             <div >
@@ -329,27 +404,32 @@
                 <div class="ui huge header">인기 Q&A </div>
 				<div class = "div-qna">
 					<div class = "div-qna-inner">
-						<span class = "span-qna-q"> Q. </span>
-						<div class = "img-qna-bar">
+						<!-- <span class = "span-qna-q"> Q. </span> -->
+						<!-- <div class = "img-qna-bar">
 							<p class = "">질문 예시 얍얍얍 </p>
+							<i class="heart icon">23</i>
+						</div> -->
+						<div id="img-qna-bar">
+							<span class = "span-qna-q"> Q1. </span>
+							<span>질문 예시 얍얍얍얍 </span>
 							<i class="heart icon">23</i>
 						</div>
 					</div>
 				</div>
 				<div class = "div-qna">
 					<div class = "div-qna-inner">
-						<span class = "span-qna-q"> Q. </span>
-						<div class = "img-qna-bar">
-							<p class = "">질문 예시 얍얍얍 </p>
+						<div id="img-qna-bar">
+							<span class = "span-qna-q"> Q2. </span>
+							<span>질문 예시 얍얍얍얍 </span>
 							<i class="heart icon">23</i>
 						</div>
 					</div>
 				</div>
 				<div class = "div-qna">
 					<div class = "div-qna-inner">
-						<span class = "span-qna-q"> Q. </span>
-						<div class = "img-qna-bar">
-							<p class = "">질문 예시 얍얍얍 </p>
+						<div id="img-qna-bar">
+							<span class = "span-qna-q"> Q3. </span>
+							<span>질문 예시 얍얍얍얍 </span>
 							<i class="heart icon">23</i>
 						</div>
 					</div>
@@ -381,7 +461,22 @@
            
     </script>
     
-
+	<script>
+		var myIndex = 0;
+		carousel();
+		
+		function carousel() {
+		    var i;
+		    var x = document.getElementsByClassName("mySlides");
+		    for (i = 0; i < x.length; i++) {
+		       x[i].style.display = "none";  
+		    }
+		    myIndex++;
+		    if (myIndex > x.length) {myIndex = 1}    
+		    x[myIndex-1].style.display = "block";  
+		    setTimeout(carousel, 2000); // Change image every 2 seconds
+		}
+	</script>
 	<!-- footer -->
 	<%@ include file= "views/common/footer.jsp" %>
 	

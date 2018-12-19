@@ -102,30 +102,36 @@
 	}
 	
 	/* 좌측 일정 - 나라추 */
+	#cityroute{
+		width : 100%;
+		display : flex;
+		flex-wrap: wrap;
+	}
 	.bar{
-		width : 29px;
+		width : 35px;
 		border-right : 3px solid black; 
-		height : 7px;
+		height : 8px;
 		
 	}
 	.citybock{
+		width : 90%;
 		position : relative;
 	}
 	
 	.div-day{
 		float : left;
-		width : 53px;
-		height : 53px;
-		padding-left : 7px;
+		width : 65px;
+		height : 65px;
+		padding-left : 6%;
 		background : white;
-		padding-top : 13px;
+		padding-top : 20px;
 		border-radius : 100px;
 		border : 3px solid black; 
 		cursor: pointer
 	}
-	.a-day > font{
+	.nights{
 		color : #FFC23C;
-		font-size : 10px;
+		font-size : 13px;
 		font-weight : 600;
 	}
 	.div-city{
@@ -133,6 +139,11 @@
 		width : 215px;
 		padding-left : 10px;
 		padding-top : 7px;
+	}
+	.font-city-name{
+		font-weight : 700;
+		font-family: 'Nanum Gothic', sans-serif;
+		font-size : 20px;
 	}
 	.btns-city{
 		float: left;
@@ -163,7 +174,7 @@
 </head>
 <body>
 	<div class="header">
-		<img src="/et/image/common/logo.png" class = "header-top-img" onclick = "goHome();">
+		<img src="/et/image/common/logo.png" class = "header-top-img" onclick = "returnMain();">
 	    <span class = "txt-title">Plan 1</span>
 		<i class="pencil alternate icon" id = "editTitle" onclick = "editTitle();"></i>
 		<div class="ui input">
@@ -184,8 +195,40 @@
 			<!-- <div id="cityroute" style="position:relative;text-align:center;width:100%;margin-left:0px;padding-left:0px;padding-top:0px;overflow-x:hidden;overflow-y:auto;height:480px;background:#ffffff">
 				<br/><br/><br/><font style="font-size:9pt" color="#c0c0c0"><b>입력된 도시가 없습니다.</b></font>
 			</div> -->
+			<hr>
 			<div id = "cityroute">
 				<div id ="cityblock01" class= "citybock">
+					<div class ="bar"></div>
+					<div width = "100%; overflow-x:hidden">
+						<div class = "div-day">
+							<a class ="a-day" onclick = ""><font class ="nights">1 
+							<i class="angle down icon"></i></font></a>
+						</div>
+						<div class = "div-city">
+							<div style ="float:left; width : 148px">
+								<div><font class = "font-city-name">나라이름 </font></div>
+							</div>
+							<div class ="btns-city">
+								<i class="info circle icon icon-city" onclick =""></i>
+								<i class="window close icon icon-cityn" onclick = ""> </i>
+							</div>
+						</div>
+					</div>
+					<div class ="bar"></div>
+				</div>
+				<br>
+				<div id ="cityblock02" class= "citybock">
+					<div class ="bar"></div>
+					<div width = "100%; overflow-x:hidden">
+						<div class = "div-trans">
+							<select>
+						      <option value="">비행기 </option>
+						      <option value="rail">기차 </option>
+						      <option value="">항구 </option>
+						    </select>
+				
+						</div>
+					</div>
 					<div class ="bar"></div>
 					<div width = "100%; overflow-x:hidden">
 						<div class = "div-day">
@@ -261,7 +304,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 	<script> 
 		function save(){}
-		function returnMain(){}
+		function returnMain(){
+			location.href = "/et/index.jsp";
+		}
 		
 		function editTitle() {}
 	</script>
