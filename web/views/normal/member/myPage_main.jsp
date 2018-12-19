@@ -187,14 +187,14 @@
     					<div class = "div-name">heedi kim</div>
     					<div class = "div-point">20 유로 </div>
     					<div class = "div-profileTxt">안녕하세요. 행복한 유럽여행을 꿈꾸고 있습니다. </div>
-    					<button class = "btn-profile"> 프로필 수정 </button>
+    					<button class = "btn-profile" onclick = "editProfile();"> 프로필 수정 </button>
     				</div>
     				<div class = "div-menu">
     					<ul>
     						<li><a href = "/et/views/normal/member/myPage_main.jsp" class = "this-page"> > 내 플랜보기 </a> </li>
-    						<li><a href = "#"> > 나의 활동내역 </a></li>
+    						<li><a href = "/et/views/normal/member/myPage_activity_history.jsp"> > 나의 활동내역 </a></li>
     						<li><a href = "/et/views/normal/member/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
-    						<li><a href = "#"> > 회원정보 수정 </a></li>
+    						<li><a href = "/et/views/normal/member/user_update.jsp"> > 회원정보 수정 </a></li>
     					</ul>
     				</div>
     				
@@ -254,6 +254,10 @@
 	    $('.div-plan-add').dimmer({
 			on : 'hover'
 		});
+	  
+	    function editProfile() {
+	    	window.open("myPage_profile_edit.jsp", "프로필 수정", "width=600, height=500, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+	    }
 	    
 	    function addPlanMemory(){
 	    		alert("저장공간 늘리기");
@@ -261,9 +265,11 @@
 	    }
 	    
 	    function setPrivate() {
-	    		alert("플랜 공개/비공개 설정 바꾸기 ");
+	    	alert("비공개/ 공개 설정");
+
 	    }
-   	
+   		
+	  
    	</script>
 	
 	

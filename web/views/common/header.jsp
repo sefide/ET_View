@@ -97,11 +97,17 @@
         		top: 2.5%;
     			right: 5%;
         }
+        
+        .a_myPage{
+        	position: absolute;
+   			top: 4%;
+   			right: 19%;
+        }
 		
 		.a_login{
 			position: absolute;
-    			top: 4%;
-    			right: 14%;
+   			top: 4%;
+   			right: 14%;
 		}
 		
 		.a_join{
@@ -154,10 +160,12 @@
        <a class = "a_join" href = "#">로그아웃 </a> 
        	<% } %>  --%> 
        <img src = "/et/image/common/btn_login.png" class = "img_login_btn">
-       <a class = "a_login" href = "/et/views/normal/member/login.jsp">로그인 </a>
-       <a class = "a_join" href = "#">회원가입 </a>     
-       <a class = "a_login" href = 	"/et/views/normal/member/myPage_main.jsp">마이페이지 확인 </a> 
-   	</div>
+       <a class = "a_myPage" href = "/et/views/normal/member/myPage_main.jsp">마이페이지 </a>
+       <a class = "a_login" href = "/et/views/normal/member/user_login.jsp">로그인 </a>
+       <a class = "a_join" href = "#">회원가입 </a> 
+  
+<!--        <a class = "a_login" href = 	"/et/views/normal/member/myPage_main.jsp">마이페이지 확인 </a> 
+ -->   	</div>
 	   	
     <div class = "header-bottom">
     		<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white nav-top">

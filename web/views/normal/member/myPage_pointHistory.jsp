@@ -61,7 +61,7 @@
 		margin-bottom : 1px;
 	}
 	 .div-profileTxt{
-		font-size : 18px;
+		font-size : 15px;
 		font-weight : 700;
 		font-family: 'Nanum Gothic', sans-serif;
 		margin-bottom : 10px;
@@ -188,9 +188,9 @@
     				<div class = "div-menu">
     					<ul>
     						<li><a href = "/et/views/normal/member/myPage_main.jsp"> > 내 플랜보기 </a> </li>
-    						<li><a href = "#"> > 나의 활동내역 </a></li>
+    						<li><a href = "/et/views/normal/member/myPage_activity_history.jsp"> > 나의 활동내역 </a></li>
     						<li><a href = "/et/views/normal/member/myPage_pointHistory.jsp" class = "this-page"> > 포인트 히스토리 </a></li>
-    						<li><a href = "#"> > 회원정보 수정 </a></li>
+    						<li><a href = "/et/views/normal/member/user_update.jsp"> > 회원정보 수정 </a></li>
     					</ul>
     				</div>
     				

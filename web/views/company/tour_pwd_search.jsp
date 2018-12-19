@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ET_Planner</title>
-<link rel="icon" href="../image/common/logo.png">
+<link rel="icon" href="/et/image/common/logo.png">
 <!-- font 영어 -->
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
 <!-- font 한글 -->
@@ -91,8 +91,8 @@
 <div class="nav"></div>
 	<!-- 메인로고 -->
 	<div class="mainlogo">
-		<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> 
-			<image src="../image/common/logo.png"style="width: 60px; height: 60px;" alt="메인로고">&nbsp;ET Planner For Travel Agency</image>
+		<a href="/et/" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> 
+			<image src="/et/image/common/logo.png"style="width: 60px; height: 60px;" alt="메인로고">&nbsp;ET Planner For Travel Agency</image>
 		</a>
 	</div>
 	<form>

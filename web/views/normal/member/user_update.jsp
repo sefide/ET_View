@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+myPage_<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ET_Planner</title>
-<link rel="icon" href="../image/common/logo.png">
+<link rel="icon" href="/et/image/common/logo.png">
 <!-- font 영어 -->
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
 <!-- font 한글 -->
@@ -54,37 +54,35 @@
 
 #joinForm {
 	width: 430px;
-	height: 550px;
+	height: 480px;
 }
-.pwdQuestion{
-	width: 200px;
-}
+
 .content{
 	margin-left: 30px;
 }
-
 </style>
 </head>
 
 <body>
 	<div class="mainlogo">
-		<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> <image src="../image/common/logo.png"
-				style="width: 60px; height: 60px;" alt="메인로고">&nbsp;ET Planner</image>
+		<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> 
+			<image src="/et/image/common/logo.png"style="width: 60px; height: 60px;" alt="메인로고">&nbsp;ET Planner</image>
 		</a>
 	</div>
 
 	<div class="main">
 		<div align="center" class="ui piled segment" id="joinForm">
-			<h4 class="ui header" style="font-weight: 500; font-size: 30px; font-family: 'Nanum Gothic', sans-serif;">회 원 가 입</h4>
+			<h4 class="ui header" style="font-weight: 500; font-size: 30px; font-family: 'Nanum Gothic', sans-serif;">회원 정보 수정</h4>
 			<div class="content">
 				<div align="left" class="font">
 					<label style="font-weight: 600;">아이디</label>
 				</div>
 				<div align="left">
 					<div class="ui transparent input">
-						<input type="text" placeholder="아이디를 입력해주세요"><button class="ui button" style="width: 85px; height: 30px; font-size: 12px;">중복확인</button>
+						<input type="text" placeholder="ex)aerin1234">
 					</div>
 				</div>
+				<br>
 				<div align="left" class="font">
 					<label style="font-weight: 600;">비밀번호</label>
 				</div>
@@ -93,62 +91,45 @@
 						<input type="text" placeholder="비밀번호를 입력하세요">
 					</div>
 				</div>
+				<br>
 				<div align="left" class="font">
-					<label style="font-weight: 600;">비밀번호 확인</label>
+					<label style="font-weight: 600;">수정할 비밀번호</label>
 				</div>
 				<div align="left">
 					<div class="ui transparent input">
-						<input type="text" placeholder="비밀번호를 입력하세요">
-					</div>
-				</div>
-				<div align="left" class="font">
-					<label style="font-weight: 600;">비밀번호 찾기 질문</label>
-				</div>
-				<div align="left" class="ui form">
-					<div class="field">
-						<div class="ui form">
-							<div class="pwdQuestion">
-								<select>
-									<option value="">질문을 선택해주세요</option>
-									<option value="어렸을 적 꿈은?">어렸을 적 꿈은?</option>
-									<option value="가장 좋아하는 꽃은?">가장 좋아하는 꽃은?</option>
-									<option value="어머니 성함은?">어머니 성함은?</option>
-									<option value="내가 좋아하는 연예인은?">내가 좋아하는 연예인은?</option>
-									<option value="가장 좋아하는 동물은?">가장 좋아하는 동물은?</option>
-								</select>
-							</div>
-						</div>
+						<input type="text" placeholder="수정할 비밀번호를 입력하세요">
 					</div>
 				</div>
 				<br>
 				<div align="left" class="font">
-					<label style="font-weight: 600;">질문의 답</label>
+					<label style="font-weight: 600;">수정할 비밀번호 확인</label>
 				</div>
 				<div align="left">
 					<div class="ui transparent input">
-						<input type="text" placeholder="답을 입력해주세요">
+						<input type="text" placeholder="수정할 비밀번호를 입력하세요">
 					</div>
 				</div>
+				<br>
 				<div align="left" class="font">
 					<label style="font-weight: 600;">이메일</label>
 				</div>
 				<div align="left">
 					<div class="ui transparent input">
-						<input type="text" placeholder="이메일을 입력해주세요"><button class="ui button" style="width: 97px; height: 30px; font-size: 12px;">이메일인증</button>
+						<input type="text" placeholder="이메일을 입력해주세요">
 					</div>
 				</div>
+				<br>
 				<div align="left" class="font">
 					<label style="font-weight: 600;">이름</label>
 				</div>
 				<div align="left">
 					<div class="ui transparent input">
 						<input type="text" placeholder="이름을 입력해주세요">
-						<a href="#"><button class="ui blue right labeled icon button" style="width: 130px; height: 35px; font-size: 13px; color:white;">
-						  <i class="right arrow icon"></i>가입하기
-						</button></a>
-					</div>
+					</div>&nbsp;&nbsp;
+					<button class="ui secondary button" style="width: 85px; height: 35px; font-size: 12px;">수정하기</button>
+					&nbsp;&nbsp;&nbsp;
+					<button class="ui secondary button" style="width: 80px; height: 35px; font-size: 12px;">취소</button>
 				</div>
-				
 			</div>
 		</div>
 	</div>
