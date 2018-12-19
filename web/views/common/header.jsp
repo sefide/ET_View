@@ -67,15 +67,17 @@
         }
 
 		.header-top{
-			display : block;
-			width: 100%;
+			display : flex;
+			width: 98%;
 			height : 70px;
-		    margin-top: 1%;
+		    margin: 1% 1% 0 1%;
 		    /* text-align : center; */
 		}
 		
 		.header-top-inner{
-			margin-left : 40%;
+			/* margin-left : 40%; */
+			width: 55%;
+			text-align : right;
 		}
 		
 		.header-top-img{
@@ -90,31 +92,72 @@
   	  	 	font-family: 'Ubuntu', sans-serif;
 		}
 		
-		.img_login_btn{
+		/* .img_login_btn{
 			position: absolute;
         		width : 190px;
         		height : 40px;
         		top: 2.5%;
     			right: 5%;
+        } */
+        .header-btn{
+        		width : 45%;
+ 			text-align : right;
         }
         
-        .a_myPage{
-        	position: absolute;
-   			top: 4%;
-   			right: 19%;
+        
+        #a_login{
+        		border : none;
+            width : 90px;
+            height : 35px;
+            background-color : rgb(150,208,248);
+            color : white;
+            cursor : pointer;
+            box-shadow : 3px 3px 1px 0 rgb(70,155,214);
+            position:relative;
+            right : 6%;
         }
-		
-		.a_login{
-			position: absolute;
-   			top: 4%;
-   			right: 14%;
-		}
-		
-		.a_join{
-			position: absolute;
-			top : 4%; 
-			right : 7%;
-		}
+        #a_login::before{
+            content:"";
+            position:absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            transition:0.7s;
+            background-attachment: transparent;
+        }
+        #a_login:hover::before{
+            background-color : white;
+            opacity:0.4;
+        }
+        
+        
+        #a_join{
+        		border : none;
+             width : 90px;
+            height : 35px;
+            background-color :rgb(150,208,248);
+            color : white;
+            cursor : pointer;
+            box-shadow : 3px 3px 1px 0 rgb(70,155,214);
+            position:relative;
+            right : 3%;
+        }
+        #a_join::before{
+            content:"";
+            position:absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            transition:0.7s;
+            background-attachment: transparent;
+        }
+        #a_join:hover::before{
+            background-color : white;
+            opacity:0.4;
+        }
+        
 		
 		.header-bottom{
 			display : block;
@@ -151,21 +194,21 @@
          	<img src="/et/image/common/logo.png" class = "header-top-img" onclick = "goHome();">
          	<a class="header-top-brand" id ="txt_brand" onclick = "goHome();">ET Planner</a>    
      	</div>
+	    	<div class = "header-btn">
+	    	<%-- <% if(loginUser != null) {%>
+	    	<% } else { %>
+	    <button id="a_login" onclick = "goMyPage();"><span>마이페이지</span></button>
+	    <button id="a_join" onclick = "goLogout();><span>로그아웃</span></button>
+	       	<% } %>  --%> 
+	       
+	      <button id="a_login" onclick = "goLogin();"><span>로그인</span></button>
+	      <button id="a_join" onclick = "goJoin();"><span>회원가입</span></button>
+	      
+	      <button id="a_login" style ="right:35%" onclick = "goMyPage();"><span>마이페이지</span></button>
+	  	
+	  	</div>
     </div>
 
-    	<div class = "header-btn">
-    	<%-- <% if(loginUser != null) {%>
-    	<% } else { %>
-    	<a class = "a_login" href = "views/login.jsp">마이페이지 </a>
-       <a class = "a_join" href = "#">로그아웃 </a> 
-       	<% } %>  --%> 
-       <img src = "/et/image/common/btn_login.png" class = "img_login_btn">
-       <a class = "a_myPage" href = "/et/views/normal/member/myPage_main.jsp">마이페이지 </a>
-       <a class = "a_login" href = "/et/views/normal/member/user_login.jsp">로그인 </a>
-       <a class = "a_join" href = "#">회원가입 </a> 
-  
-<!--        <a class = "a_login" href = 	"/et/views/normal/member/myPage_main.jsp">마이페이지 확인 </a> 
- -->   	</div>
 	   	
     <div class = "header-bottom">
     		<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white nav-top">
@@ -199,6 +242,24 @@
     		function goHome() {
     			location.href = "/et/index.jsp";
     		}
+    		
+    		function goLogin(){
+    			location.href = "/et/views/normal/member/user_login.jsp";
+    		}
+    		
+    		function goJoin(){
+    			location.href = "/et/views/normal/member/user_join.jsp";
+    		}
+    		
+    		function goMyPage() {
+    			location.href = "/et/views/normal/member/myPage_main.jsp";
+    			
+    		}
+    		
+    		function goLogout(){
+    			location.href = "#";
+    		}
+    		
     </script>
 </body>
 </html>

@@ -73,7 +73,7 @@
 		    <a class = "foot-a not_hover_stl" id = "customer_center" href="#"> 고객센터</a>  <p class = "not_hover_stl"> |  <p>
 		    <a class = "foot-a not_hover_stl" href="/et/views/company/main_com.jsp">이용약관 </a>
 		    
-		    <a class = "txt_com_login" href = "#">제휴/관리자 로그인 </a>
+		    <a class = "txt_com_login" href = "/et/views/manager/manager_login.jsp">제휴/관리자 로그인 </a>
 		</div>
 		<br>
 		<p class = "foot-a first"> Copyright ETs Company. All rights reserved.  </p>
