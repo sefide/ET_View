@@ -48,37 +48,53 @@
 		height:150px;
 		margin-top:20px;
 		text-align: left;
+		margin-right: 50px;
 	}
 	
 	
-	.div-payment-std{
-		background-color: white;
-		width: 350px;
-		height: 350px;
-		display: inline-block;
-		margin-top: 20px;
-		margin-left: 200px;
-		text-align: center;
-		background-color:gray;
-		
+	/* .outer1{
+		background-color: gray;
+		width: 750px;
+		height: 500px;
+		float: right;
+		margin-left:50px;
+	} */
+	.outer{
+		width: 750px;
+		height: 500px;
+		background: white;
+		color:black;
+		float: right;
+		margin-left:50px;
 	}
-	.div-payment-prm{
-		background-color: white;
-		width: 350px;
-		height: 350px;
-		display: inline-block;
-		margin-top: 20px;
-		margin-left: 30px;
-		text-align: center;
-		background-color:gray;
-		float: right
+	table,td,tr{
+		border: 1px solid white;
 	}
-	.price{
-		background-color: yellow;
-		height: 50px;
-		width: 250px;
+	.tableArea{
+		width:700px;
+		height: 350px;
 		margin-left: auto;
 		margin-right: auto;
+	}
+	
+	.attr1{
+		font-size: 25px;
+		width:105px;
+	}
+	.attr2{
+		width:80px;
+	}
+	.attr3{
+		width:160px;
+	}
+	.img{
+		border : 2px dashed white;
+		width:120px;
+		height: 120px;
+	}
+	select{
+		width:120px;
+		height: 30px;
 	}
 </style>
 
@@ -107,38 +123,67 @@
     	<h2>아이디</h2>
     	</div>
           <!-- 내용 넣기 -->
+			
+          
+          	<div class="outer">
+	          <br>
+		<h2>게시물 올리기</h2>
+		<div class="tableArea">
+			<form action="" method="post">
+				<table>
+					<tr>
+						<td class="attr1">제목</td>
+						<td colspan="5">
+							<input type="text" size="80" name="title">
+						</td>
+					</tr>
+					<tr>
+						<td class="attr1">파일첨부</td>
+						<td class="attr2"><button>사진등록</button></td>
+						<td class="attr3"><div class="img">
+						
+						</div>
+						<td class="attr1" align="center">파워링크 여부</td>
+						<td><input type="radio">&nbsp;&nbsp;Yes</td>
+						<td><input type="radio">&nbsp;&nbsp;No</td>
+					</tr>
+					<tr>
+						<td class="attr1">투어컨셉</td>
+						<td colspan="2">
+							<select name="concept">
+								<option>해상레저</option>
+								<option>열기구</option>
+								<option>클라이밍</option>
+							</select>
+						</td>
 
-          	<!-- <div class="div-payment-std">
-          		<br>
-          		<br>
-          		<h3>standard</h3>
-          		<h1>15000</h1>
-          		<h5>won</h5>
-          		<div class="price">
-          			<h1>Buy Now</h1>
-          		</div>
-          		<br>
-          		<br>
-          		<h3>글 유효기간 : 30일</h3>
-          		<h3>일반 글 게시 가능</h3>
-          	</div>
-          	<div class="div-payment-prm">
-          	<br>
-          		<br>
-          		<h3>Premium</h3>
-          		<h1>20000</h1>
-          		<h5>won</h5>
-          		<div class="price">
-          			<h1>Buy Now</h1>
-          		</div>
-          		<br>
-          		<br>
-          		<h3>글 유효기간 : 30일</h3>
-          		<h3>파워링크 게시 가능</h3>
-          	</div> -->
-          	<div class="store">
-          		<%@ include file="/views/company/includeStore.jsp" %>
-          	</div>
+						<td class="attr1" align="center">투어가격</td>
+						<td colspan="2"><input type="text" style="width:100%;"></td>
+					</tr>
+					<tr>
+						<td class="attr1">설명</td>
+						<td colspan="5"><textarea name="content" rows="6" cols="83"></textarea> 
+						</td>
+					
+					</tr>
+					<tr>
+						<td class="attr1">연결링크</td>
+						<td colspan="5"><a href="#">Go to the Link</a></td>
+					
+					</tr>
+					
+				</table>
+				<br>
+				<div align="center">
+					<button type="reset">취소하기</button>
+					<button type="submit">등록하기</button>
+				</div>
+			</form>
+		</div>
+	          	
+          	
+          	
+
 
 
     	
