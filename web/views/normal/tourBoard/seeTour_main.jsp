@@ -31,6 +31,13 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous"></script>
+<!-- 드롭다운 -->
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
 
 <title>ET_Planner</title>
@@ -42,31 +49,33 @@
 }
 
 /* 상단 투어 검색 */
-.div-search-area{
+.div-search-area {
 	width: 95%;
 	display: inline-block;
 	vertical-align: middle;
 	/* background: red; */
+	padding-left: 250px;
+	padding-top: 10px;
 }
 
-.div-dropdown{
-	/* background: yellow; */
-	width: 300px;	
+.div-dropdown {
+	/* background: yellow;  */
+	width: 300px;
 	display: inline-block;
 	margin: 10px 20px 10px 35px;
 	display: inline-block;
 	vertical-align: middle;
-	
 }
 
 .div-search-text {
-	
+	padding-top: 15px;
 	font-size: 27px;
 	font-weight: 700;
 	font-family: 'Ubuntu', sans-serif;
 	margin-top: 10px;
 	margin-bottom: 1px;
 	text-align: center;
+	font-size: 27px;
 }
 
 /* 하단 투어 보기 */
@@ -83,7 +92,7 @@
 }
 
 .div-tour-img {
-	background: yellow;
+	/* background: yellow; */
 	width: 330px;
 	height: 280px;
 	display: inline-block;
@@ -112,52 +121,72 @@
 			<!-- 내용시작 -->
 
 			<!-- 상단 검색 창 -->
-		
-				<div class="div-search-area">
+
+			<div class="div-search-text">나라 및 도시 검색</div>
+			<div class="div-search-area">
 				<form class="ui form">
-				<div class="div-search-text">나라 및 도시 검색</div>
+
 					<div class="div-dropdown">
 						<div class="field">
-							<label>도시 선택</label> 
-							<select class="ui fluid dropdown">
-								<option value="">State</option>
-								<option value="AL">Alabama</option>
-								<option value="AK">Alaska</option>
-								<option value="AZ">Arizona</option>
+							<label>나라 선택</label> <select class="ui fluid dropdown">
+								<option value="">프랑스</option>
+								<option value="">독일</option>
+								<option value="">영국</option>
+								<option value="">네덜란드</option>
+								<option value="">이탈리아</option>
+								<option value="">체코</option>
+								<option value="">그리스</option>
+								<option value="">헝가리</option>
+								<option value="">오스트리아</option>
+								<option value="">크로아티아</option>
+								<option value="">덴마크</option>
+								<option value="">스위스</option>
+								<option value="">터키</option>
+								<option value="">포르투갈</option>
+								<option value="">스페인</option>
 							</select>
 						</div>
-					</div>
-					<div class = "div-dropdown">
 						<div class="field">
-							<label>나라 선택</label>
-							<div class="ui fluid search selection dropdown">
-								<input name="country" > 
-								<i class="dropdown icon"></i>
-								<div class="default text">나라를 선택해 주세요</div>
-								<div class="menu">
-								 	<input type="hidden" name="country">
-									<div class="item" data-value="nl">
-										<i class="nl flag"></i>Netherlands
-									</div>
-									<div class="item" data-value="nc">
-										<i class="nc flag"></i>New Caledonia
-									</div>
-									<div class="item" data-value="pg">
-										<i class="pg flag"></i>New Guinea
-									</div>
+							<label>도시 선택</label> <select class="ui fluid dropdown">
+								<option value="">파리</option>
+								<option value="">리옹</option>
+								<option value="">니스</option>
+								<option value="">뮌헨</option>
+								<option value="">베를린</option>
+								<option value="">뉘른베르크</option>
+								<option value="">프랑크푸르트</option>
+								<option value="">런던</option>
+								<option value="">옥스포드</option>
+								<option value="">암스테르담</option>
+								<option value="">밀라노</option>
+								<option value="">베네치아</option>
+								<option value="">피렌체</option>
+								<option value="">로마</option>
+								<option value="">프라하</option>
+								<option value="">아테네</option>
+								<option value="">부다페스트</option>
+								<option value="">빈</option>
+								<option value="">잘츠부르크</option>
+								<option value="">자그레브</option>
+								<option value="">코펜하겐</option>
+								<option value="">오덴세</option>
+								<option value="">인터라켄</option>
+								<option value="">취리히</option>
+								<option value="">이스탄불</option>
+								<option value="">앙카라</option>
+								<option value="">리스본</option>
+								<option value="">바르셀로나</option>
+								<option value="">마드리드</option>
+							</select>
+						</div>
 
-								</div>
-							</div>
-						</div>						
 					</div>
-					
-					<button class="ui yellow basic button" style="margin: auto;">검색하기</button>
-				</form>	
+					<button class="ui yellow basic button" style="margin-left: 50px;">검색하기</button>
+				</form>
 			</div>
 			<hr>
 			<!-- 하단 투어 리스트  -->
-			<br>
-			<br>
+			<br> <br>
 			<div class="ui mt-20">
 				<div class="ui huge header">BEST 투어!</div>
 
@@ -212,6 +241,32 @@
 				</div>
 			</div>
 			<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			<hr>
 			<div class="ui mt-20">
 				<div class="ui huge header">투어 엿보기</div>
