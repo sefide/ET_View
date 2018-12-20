@@ -92,6 +92,7 @@
 		display:inline-block;
 		width : 150px;
 		margin-left: 40%;	
+		/* height : 500px; */
 	}
 	.couponArea{
 		width:800px;
@@ -100,7 +101,7 @@
 		
 	
 	}
-	.couponArea table,th,tr,td{
+	.couponArea table,.couponArea th,.couponArea tr,.couponArea td{
 		border : 1px solid black;
 		text-align: center;
 	}
@@ -125,7 +126,7 @@
 	      	</div>
 	      		<div class = "div-ta-coupon">
 		      		<p class = "p-txt-coupon"> 보유한 쿠폰  </p>
-		      		<table class="ui celled black table">
+		      		<table class="ui celled black table" id = "couponStatus">
 		      			<tr> 
 		      				<th> <i class="star outline icon"></i> Standard </th>
 		      				<th> <i class="star icon"></i> Premium </th>

@@ -32,7 +32,81 @@
  	.column{
      	height: 100%;
      }
+     
+     .div-outer{
+		width : 100%;
+		display : flex;
+		flex-wrap: wrap;
+	}
+	
+	.div-profile{
+		width : 29%;
+	}
+	
     .div-img-profile {
+		width : 50px;
+		height : 50px;
+		border : 1px solid gray;
+		background : rgba(42,90,133,0.5);;
+		border-radius : 50%;
+		float :left;
+		text-align : center;
+		padding : 2%;
+	}
+	.img-profile {
+		width : 35px;
+		height : 35px;
+	}
+	
+	.div-com-id{
+		margin-left: 10px;
+		font-weight : 800;
+		font-size : 26px;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+	
+	.coupon-type{
+		font-weight : 700;
+		font-size : 16px;
+		font-family: 'Ubuntu', sans-serif;
+		border-right : 1px solid lightgray;
+	}
+	font{
+		font-weight : 700;
+		font-size : 16px;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+	
+	#table1{
+		width :240px;
+		margin : 1px;
+	}
+	
+	.div-com-activity{
+		width:100%;
+		margin-top:20px;
+		text-align: left;
+		margin-right: 50px;
+	}
+	
+	.txt-activity{
+		font-size : 18px;
+		font-weight : 700;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+	
+	.txt-activity-title {
+		font-size : 15px;
+		font-weight : 700;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+	
+	.txt-coupon {
+		font-size : 15px;
+		font-weight : 700;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+/*     .div-img-profile {
 		width : 120px;
 		height : 120px;
 		border : 1px solid gray;
@@ -57,8 +131,12 @@
 		height:150px;
 		margin-top:20px;
 		text-align: left;
+	} */
+	.store{
+		width : 68%;
+		height : 570px;
+		/* margin : 1%; */
 	}
-	
 	
 	.div-payment-std{
 		background-color: white;
@@ -102,7 +180,7 @@
         <div class = "two wide column"></div>
         <div class = "twelve wide column" style="margin-top:50px;">
         
-        <div class = "div-img-profile">
+        <!-- <div class = "div-img-profile">
     		<img src = "/et/image/common/logo_c.png" class = "img-profile">
     		<div class="div-com-activity">
 	    		<h3>내 활동내역</h3>
@@ -116,11 +194,52 @@
     	<br>
     	<br>
     	<h2>아이디</h2>
-    	</div>
-    	<div class="store">
-          		<%@ include file="/views/company/includeStore.jsp" %>
+    	</div> -->
+    	
+    		<div class = "div-outer">
+        	<div class = "div-profile">
+        	
+	        	<div class = "div-profile-inner">
+	        		<div class = "div-img-profile">
+		    		<img src = "/et/image/common/logo_c.png" class = "img-profile">
+			    	</div>
+			    	<span class="div-com-id"> 아이디 </span>
+	        	</div>
+        	
+		    	<br>
+		    	<div class="div-com-activity">
+				    <div class = "txt-activity">자사 활동내역</div> <br>
+			    	
+			    	<table class="ui called small table" id ="table1">
+			    		<tr>
+			    			<td class ="coupon-type"><i class="star outline icon"></i> Standard <font>쿠폰</font> </td>
+			    			<td><label class = "txt-coupon"> 10 </label><td>
+			    		</tr>
+			    		
+			    		<tr>
+			    			<td class ="coupon-type"><i class="star icon"></i> Premium <font>쿠폰</font> </td>
+			    			<td><label class = "txt-coupon"> 10 </label><td>
+			    		</tr>
+			    		
+			    		<tr>
+			    			<td class = "coupon-type"> <i class="star outline icon"></i><font>글 개수</font></td>
+			    			<td> <label class = "txt-coupon"> 10 </label> </td>
+			    		</tr>
+			    		<tr>
+			    			<td class = "coupon-type"> <i class="star icon"></i><font>글 개수</font></td>
+			    			<td> <label class = "txt-coupon"> 10 </label> </td>
+			    		</tr>
+					</table>
+					<br>
+		    	</div>
+		    	
+	        </div>
+	          
+	        
+		    	<div class="store">
+		    		<%@ include file="/views/company/payment/includeStore.jsp" %>
+		    </div>
           </div>
-          
           	
 
 

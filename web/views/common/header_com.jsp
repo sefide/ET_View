@@ -125,7 +125,7 @@
 	<div class = "header-top">
     		<div class="ui header-top-inner">
          	<img src="/et/image/common/logo.png" class = "header-top-img" onclick = "goHome();">
-         	<a class="header-top-brand" id ="txt_brand" onclick = "goComeHome();">ET Planner For Travel Agency</a>    
+         	<a class="header-top-brand" id ="txt_brand" onclick = "goComHome();">ET Planner For Travel Agency</a>    
      	</div>
     </div>
 
@@ -144,7 +144,7 @@
         		<div class="collapse navbar-collapse nav-left-mrg nav-div-50" id="navbarTogglerDemo02">
             		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-div-50"> 
                 		<li class="nav_item  nav-item-first">
-                   		 <a class="nav_link" href="/et/views/company/main_com.jsp">회원관리</a>
+                   		 <a class="nav_link" href="/et/views/company/com_main.jsp">투어관리 </a>
                 		</li>
                 		<li class="nav_item">
                     		<a class="nav_link" href="/et/views/company/com_InsertBoard.jsp">투어글 작성</a>
@@ -167,7 +167,7 @@
 	    
 	    
 	    function goComHome(){
-	   	 location.href = "/views/company/main_com.jsp";
+	   	 location.href = "/et/views/company/com_main.jsp";
 	    }
     </script>
     
