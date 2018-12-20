@@ -37,6 +37,24 @@
 .column {
 	height: 100%;
 }
+
+#container {
+	display: flex;
+}
+
+#box-left {
+	flex: 1;
+}
+
+#box-center {
+	flex: 3;
+	text-align: center;
+}
+
+#box-right {
+	flex: 1;
+	text-align: right;
+}
 </style>
 
 </head>
@@ -52,7 +70,7 @@
 			<!-- 내용 넣기 -->
 
 			<!-- 상단 공지사항  -->
-			<div class="ui segment">
+			<div class="ui segment" style="margin-top: 40px;">
 				<div class="ui two column very relaxed grid">
 					<div class="column">
 						<h1 class="ui header">
@@ -67,63 +85,173 @@
 					</div>
 				</div>
 			</div>
-
+			<br>
 			<!-- 중간 회원이 글쓰는 부분 -->
 
-
-
+			<div class="ui segment" >
+				<div id="container">
+					<div id='box-left'>
+						<img class="ui small circular image" src="/et/image/common/logo.png">
+					</div>
+					<div id='box-center'>
+						<div class="ui form">
+							<div class="field">
+								<textarea rows="2" cols="10">QnA내용</textarea>
+							</div>
+								<div class="ui list" style="text-align: left;">
+									
+									<div class="content">
+									<img class="ui avatar image" src="/et/image/common/logo.png">
+										<a class="header"> <span style="color: yellow; ">내아이디</span> </a>
+										<div class="ui form">
+											<div class="field">
+												<div>
+												<input type="text" size="100px;" placeholder="댓글을 입력해주세요">
+												 <div class="ui right yellow button">입력 </div>
+												</div>
+											</div>
+										</div>
+									</div>
+								
+									</div>
+								
+								</div>
+							</div>
+						</div>
+					</div>
 
 
 			<!-- 글 목록 -->
-
-			<div class="ui middle aligned divided list">
-				<div class="item">
-					<img class="ui avatar image" src="/et/image/common/logo.png">
-					<div class="content">
-						<a class="header">Daniel Louise</a>
-					</div>
-				</div>
-				<div class="item">
-					<img class="ui avatar image" src="/et/image/common/logo.png">
-					<div class="content">
-						<a class="header">Stevie Feliciano</a>
-						<textarea rows="5" cols="60">sdasdadsdada</textarea><br>
-						<textarea rows="5" cols="60"></textarea>
-					</div>
-				</div>
-				<div class="item">
-					<img class="ui avatar image" src="/et/image/common/logo.png">
-					<div class="content">
-						<a class="header">Elliot Fu</a>
-					</div>
+			<div class="ui secondary pointing menu">
+				<div class="right menu">
+					<button class="ui yellow basic button" style="margin-bottom: 5px;">수정하기</button>
 				</div>
 			</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			<div></div>
-
-
-
-
-
-
-
-
+			<div class="ui segment">
+				<div id="container">
+					<div id='box-left'>
+						<label><h2>회원아이디</h2></label><br>
+						<div class="ui labeled button" tabindex="0" style="margin-top : 10px;">
+							<div class="ui basic red button">
+								<i class="heart icon"></i> 좋아요 수
+							</div>
+							<a class="ui basic red left pointing label"> 56 </a>
+						</div><br>
+						<div class="ui labeled button" tabindex="0" style="margin-top : 10px;">
+							<div class="ui basic blue button">
+								<i class="fork icon"></i> 스크랩 수 
+							</div>
+							<a class="ui basic left pointing blue label"> 87 </a>
+						</div><br>
+						<div class="ui labeled button" tabindex="0" style="margin-top : 10px;">
+							<div class="ui basic black button">
+								<i class="fork icon"></i> 신고 수 
+							</div>
+							<a class="ui basic left pointing black label"> 7 </a>
+						</div>
+					</div>
+					<div id='box-center'>
+						<div class="ui form">
+							<div class="field">
+								<textarea rows="2" cols="10">QnA내용</textarea>
+							</div>
+							<div class="ui list" style="text-align: left;">
+								<div class="item">
+									<img class="ui avatar image" src="/et/image/common/logo.png">
+									<div class="content">
+										<a class="header"><span style="color: yellow; ">아진</span> </a> 그건 정말 좋은생각이야!
+									</div>
+								</div>
+								<div class="item">
+									<img class="ui avatar image" src="/et/image/common/logo.png">
+									<div class="content">
+										<a class="header"><span style="color: yellow; ">애린</span> </a> 맞아맞아!
+									</div>
+								</div>
+								<div class="item" style="">
+									<img class="ui avatar image" src="/et/image/common/logo.png">
+									<div class="content">
+										<a class="header"> <span style="color: yellow; ">내아이디</span> </a>
+										<div class="ui form">
+											<div class="field">
+												<div  >
+												<input type="text" size="100px;" placeholder="댓글을 입력해주세요">
+												 <div class="ui right yellow button">입력 </div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>					
+				</div>
+			</div>
+			<div class="ui secondary pointing menu">
+				<div class="right menu">
+					<button class="ui yellow basic button" style="margin-bottom: 5px;">수정하기</button>
+				</div>
+			</div>
+			<div class="ui segment">
+				<div id="container">
+					<div id='box-left'>
+						<label><h2>회원아이디</h2></label><br>
+						<div class="ui labeled button" tabindex="0" style="margin-top : 10px;">
+							<div class="ui basic red button">
+								<i class="heart icon"></i> 좋아요 수
+							</div>
+							<a class="ui basic red left pointing label"> 56 </a>
+						</div><br>
+						<div class="ui labeled button" tabindex="0" style="margin-top : 10px;">
+							<div class="ui basic blue button">
+								<i class="fork icon"></i> 스크랩 수 
+							</div>
+							<a class="ui basic left pointing blue label"> 87 </a>
+						</div><br>
+						<div class="ui labeled button" tabindex="0" style="margin-top : 10px;">
+							<div class="ui basic black button">
+								<i class="fork icon"></i> 신고 수 
+							</div>
+							<a class="ui basic left pointing black label"> 7 </a>
+						</div>
+					</div>
+					<div id='box-center'>
+						<div class="ui form">
+							<div class="field">
+								<textarea rows="2" cols="10">QnA내용</textarea>
+							</div>
+							<div class="ui list" style="text-align: left;">
+								<div class="item">
+									<img class="ui avatar image" src="/et/image/common/logo.png">
+									<div class="content">
+										<a class="header"><span style="color: yellow; ">아진</span> </a> 그건 정말 좋은생각이야!
+									</div>
+								</div>
+								<div class="item">
+									<img class="ui avatar image" src="/et/image/common/logo.png">
+									<div class="content">
+										<a class="header"><span style="color: yellow; ">애린</span> </a> 맞아맞아!
+									</div>
+								</div>
+								<div class="item" style="">
+									<img class="ui avatar image" src="/et/image/common/logo.png">
+									<div class="content">
+										<a class="header"> <span style="color: yellow; ">내아이디</span> </a>
+										<div class="ui form">
+											<div class="field">
+												<div  >
+												<input type="text" size="100px;" placeholder="댓글을 입력해주세요">
+												 <div class="ui right yellow button">입력 </div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>					
+				</div>
+			</div>
 
 
 
