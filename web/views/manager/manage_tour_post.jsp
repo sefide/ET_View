@@ -34,7 +34,7 @@
  	float:left; 
 }
 table{
- 	width:600px;
+ 	width:1050px;
  	height:120px;
  	text-align:center;
  }
@@ -55,34 +55,41 @@ table{
 </head>
 <body>
 <%@ include file = "../common/header_manager.jsp" %>
-<%@ include file = "../common/manager_plan_nav.jsp" %>
+<%@ include file = "../common/manager_company_nav1.jsp" %>
 	
     <div class="main_01">
-    	<div class="ui header title">▶여행지 관리</div>
-    	- 여행지 조회 <br><br>
+    	<div class="ui header title">▶투어글 관리</div>
+    	- 투어 정보 <br><br>
     	<table id="tb1">
     		<tr>
-    			<th> </th>
-    			<th style=width:60px;>번호</th>
-    			<th>나라명</th>
-    			<th>도시명</th>
-    			<th>인기순위</th>
+    			<th></th>
+    			<th>투어명</th>
+    			<th>제휴사명</th>
+    			<th>나라/도시</th>
+    			<th>컨셉</th>
+    			<th>가격</th>
+    			<th>작성날짜</th>
+    			<th>링크</th>
+    			<th>클릭수</th>
     			
     		</tr>
     		<tr>
     			<td class="num"><input type="checkbox" name="checkbox"></td>
-    			<td>1</td>
-    			<td>영국</td>
-    			<td>런던</td>
-    			<td>2</td>
+    			<td>바티칸 하이패스 반일 투어</td>
+    			<td>헬로우유럽</td>
+    			<td>이탈리아/로마</td>
+    			<td>도보/그룹투어</td>
+    			<td>25000원</td>
+    			<td>20181202</td>
+    			<td>https://www.hellowtrip.com/offers/7511</td>
+    			<td>7</td>
     		</tr>
     		
     		
   
     	</table>
     	<br>
-    	<button style=float:right>삭제하기</button>
-    	<button style=float:right;margin-right:30px>수정하기</button>
+    	<button style=float:right;>삭제하기</button>
     </div>
 	
  <div class = "two wide column"></div> 

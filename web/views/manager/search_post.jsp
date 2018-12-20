@@ -31,10 +31,10 @@
  }  
  .main_01{
  	margin:2%;
- 	float:left; 
+ 	float:left;
 }
 table{
- 	width:600px;
+ 	width:800px;
  	height:120px;
  	text-align:center;
  }
@@ -43,50 +43,49 @@ table{
  }
  td{
  	width:300px;
- } 
- th{
- 	background-color:lightgray;
- 	border:1px solid black;
  }
- .num{
- 	width:116px;
+ th{
+ 	border:1px solid black;
+ 	background-color:lightgray;
  }
 </style>
 </head>
 <body>
 <%@ include file = "../common/header_manager.jsp" %>
-<%@ include file = "../common/manager_plan_nav.jsp" %>
+<%@ include file = "../common/manager_community.jsp" %>
 	
     <div class="main_01">
-    	<div class="ui header title">▶여행지 관리</div>
-    	- 여행지 조회 <br><br>
+    	<div class="ui header title">▶게시글 조회</div>
+    	- 게시글 정보 <br><br>
     	<table id="tb1">
     		<tr>
-    			<th> </th>
-    			<th style=width:60px;>번호</th>
-    			<th>나라명</th>
-    			<th>도시명</th>
-    			<th>인기순위</th>
-    			
+    			<th style=width:150px;>글 번호</th>
+    			<th>제목</th>
+    			<th>작성자</th>
+    			<th>내용</th>
+    			<th>날짜</th>
+    			<th>조회수</th>
+    			<th>좋아요 수 </th>
+    			<th>댓글 수 </th>
     		</tr>
     		<tr>
-    			<td class="num"><input type="checkbox" name="checkbox"></td>
-    			<td>1</td>
-    			<td>영국</td>
-    			<td>런던</td>
+    			<td>1 </td>
+    			<td>파리 내 이동수단 추천해주...</td>
+    			<td>Tajan</td>
+    			<td>안녕하세요 제가 파리...</td>
+    			<td>20181128</td>
+    			<td>56</td>
+    			<td>3</td>
     			<td>2</td>
     		</tr>
     		
-    		
-  
     	</table>
     	<br>
-    	<button style=float:right>삭제하기</button>
-    	<button style=float:right;margin-right:30px>수정하기</button>
+    	<button style=float:right;>삭제하기</button>
     </div>
 	
- <div class = "two wide column"></div> 
-		
+	<div class = "two wide column"></div>
+	
 	<%@ include file = "../common/footer_com.jsp" %>
 </body>
 </html>

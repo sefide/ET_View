@@ -46,6 +46,7 @@ table{
  } 
  th{
  	background-color:lightgray;
+ 	border:1px solid black;
  }
  .num{
  	width:116px;
@@ -61,14 +62,14 @@ table{
     	- 여행플랜 <br><br>
     	<table id="tb1">
     		<tr>
-    			<th>번호<th>
-    			<td>제목</td>
-    			<td>작성자</td>
-    			<td>공개여부</td>
-    			<td>좋아요수</td>
+    			<th>번호</th>
+    			<th>제목</th>
+    			<th>작성자</th>
+    			<th>공개여부</th>
+    			<th>좋아요수</th>
     		</tr>
     		<tr>
-    			<th class="num">1<th>
+    			<td>1</td>
     			<td>나의 첫 유럽~</td>
     			<td>박현우</td>
     			<td>Y</td>
@@ -76,14 +77,14 @@ table{
     		</tr>
     		
     		<tr>
-    			<th>2<th>
+    			<td>2</td>
     			<td>파리~</td>
     			<td>민병현</td>
     			<td>Y</td>
     			<td>5</td>
     		</tr>
     		<tr>
-    			<th>2<th>
+    			<td>2</td>
     			<td>파리~</td>
     			<td>민병현</td>
     			<td>Y</td>
