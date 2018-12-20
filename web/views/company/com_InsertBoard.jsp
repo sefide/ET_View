@@ -19,59 +19,102 @@
 
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">
+	
+	<!-- 글꼴  -->
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
+	
 <style>
  	.column{
      	height: 100%;
      }
+     
+     .div-outer{
+		width : 100%;
+		display : flex;
+		flex-wrap: wrap;
+	}
+	
+	.div-profile{
+		width : 29%;
+	}
+	
     .div-img-profile {
-		width : 120px;
-		height : 120px;
+		width : 50px;
+		height : 50px;
 		border : 1px solid gray;
 		background : rgba(42,90,133,0.5);;
 		border-radius : 50%;
 		float :left;
 		text-align : center;
+		padding : 2%;
 	}
 	.img-profile {
-		width : 80px;
-		height : 80px;
-		margin : 15% ;
+		width : 35px;
+		height : 35px;
 	}
+	
 	.div-com-id{
-		width:120px;
-		height: 34px;
-		margin-left: 150px;
+		margin-left: 10px;
+		font-weight : 800;
+		font-size : 26px;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+	
+	.coupon-type{
+		font-weight : 700;
+		font-size : 16px;
+		font-family: 'Ubuntu', sans-serif;
+		border-right : 1px solid lightgray;
+	}
+	font{
+		font-weight : 700;
+		font-size : 16px;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+	
+	#table1{
+		width :240px;
 	}
 	
 	.div-com-activity{
-		width:260px;
-		height:150px;
+		width:100%;
 		margin-top:20px;
 		text-align: left;
 		margin-right: 50px;
 	}
 	
+	.txt-activity{
+		font-size : 18px;
+		font-weight : 700;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
 	
-	/* .outer1{
-		background-color: gray;
-		width: 750px;
-		height: 500px;
-		float: right;
-		margin-left:50px;
-	} */
+	.txt-activity-title {
+		font-size : 15px;
+		font-weight : 700;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+	
+	.txt-coupon {
+		font-size : 15px;
+		font-weight : 700;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+	
+	
 	.outer{
-		width: 750px;
-		height: 500px;
+		width : 68%;
+		height : 700px;
 		background: white;
 		color:black;
 		float: right;
-		margin-left:50px;
+		
 	}
 	table,td,tr{
 		border: 1px solid white;
 	}
 	.tableArea{
-		width:700px;
+		width: 100%;
 		height: 350px;
 		margin-left: auto;
 		margin-right: auto;
@@ -96,102 +139,153 @@
 		width:120px;
 		height: 30px;
 	}
+	
+	
 </style>
 
 </head>
 <body>
 	<!-- navigation - header.jsp -->
 	<%@ include file= "/views/common/header_com.jsp" %>
-	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다	면 include path를 수정해야합니 -->
-
+	
     <div class="ui grid">
         <div class = "two wide column"></div>
         <div class = "twelve wide column" style="margin-top:50px;">
-        <div class = "div-img-profile">
-    		<img src = "/et/image/common/logo_c.png" class = "img-profile">
-    		<div class="div-com-activity">
-	    		<h3>내 활동내역</h3>
-	    		<br>
-	    		<h4>Standard 쿠폰개수 : 5개</h4>
-	    		<h4>Premium 쿠폰개수 : 5개</h4>
-	    		<h4>내 글 개수: 6개</h4>
-    		</div>
-    	</div>
-    	<div class="div-com-id">
-    	<br>
-    	<br>
-    	<h2>아이디</h2>
-    	</div>
-          <!-- 내용 넣기 -->
-			
-          
-          	<div class="outer">
-	          <br>
-		<h2>게시물 올리기</h2>
-		<div class="tableArea">
-			<form action="" method="post">
-				<table>
-					<tr>
-						<td class="attr1">제목</td>
-						<td colspan="5">
-							<input type="text" size="80" name="title">
-						</td>
-					</tr>
-					<tr>
-						<td class="attr1">파일첨부</td>
-						<td class="attr2"><button>사진등록</button></td>
-						<td class="attr3"><div class="img">
+        
+       	<div class = "div-outer">
+        	<div class = "div-profile">
+        	
+	        	<div class = "div-profile-inner">
+	        		<div class = "div-img-profile">
+		    		<img src = "/et/image/common/logo_c.png" class = "img-profile">
+			    	</div>
+			    	<span class="div-com-id"> 아이디 </span>
+	        	</div>
+        	
+		        <!-- <div class = "div-img-profile">
+		    		<img src = "/et/image/common/logo_c.png" class = "img-profile">
+		    		<div class="div-com-activity">
+			    		<h3>내 활동내역</h3>
+			    		<br>
+			    		<h4>Standard 쿠폰개수 : 5개</h4>
+			    		<h4>Premium 쿠폰개수 : 5개</h4>
+			    		<h4>내 글 개수: 6개</h4>
+		    		</div>
+		    	</div> -->
+		    	<br>
+		    	<div class="div-com-activity">
+				    <div class = "txt-activity">자사 활동내역</div> <br>
+			    	
+			    	<table class="ui called small table" id ="table1">
+			    		<tr>
+			    			<td class ="coupon-type"><i class="star outline icon"></i> Standard <font>쿠폰</font> </td>
+			    			<td><label class = "txt-coupon"> 10 </label><td>
+			    		</tr>
+			    		
+			    		<tr>
+			    			<td class ="coupon-type"><i class="star icon"></i> Premium <font>쿠폰</font> </td>
+			    			<td><label class = "txt-coupon"> 10 </label><td>
+			    		</tr>
+			    		
+			    		<tr>
+			    			<td class = "coupon-type"> <i class="star outline icon"></i><font>글 개수</font></td>
+			    			<td> <label class = "txt-coupon"> 10 </label> </td>
+			    		</tr>
+			    		<tr>
+			    			<td class = "coupon-type"> <i class="star icon"></i><font>글 개수</font></td>
+			    			<td> <label class = "txt-coupon"> 10 </label> </td>
+			    		</tr>
+					</table>
+					<br>
+		    	</div>
+		    	
+	        </div>
+	          
+	        <div class="outer">
+			<h2>게시물 올리기</h2>
+			<div class="tableArea">
+				<form action="" method="post">
+					<table>
+						<tr>
+							<td class="attr1">제목</td>
+							<td colspan="5">
+							<div class="ui form">
+							  <div class="field">
+							    <input type="text" class="ui input" size="80" name="title">
+							  </div>
+							</div>
+								
+							</td>
+						</tr>
+						<tr>
+							<td class="attr1">파일첨부</td>
+							<td class="attr2"><button>사진등록</button></td>
+							<td class="attr3"><div class="img">
+							
+							</div>
+							<td class="attr1" align="center">파워링크 여부</td>
+							<td>
+								<div class ="ui radio checkbox">
+								<input type="radio" name = "powerLink" id = "powerYes"><label for = "powerYes">Yes</label>
+								</div>
+							</td>
+							<td>
+								<div class ="ui radio checkbox">
+								<input type="radio" name = "powerLink" id = "powerNo"><label for = "powerNo">No</label>
+								</div>
+							</td>
+		
+						</tr>
+						<tr>
+							<td class="attr1">투어컨셉</td>
+							<td colspan="2">
+								<select name="concept">
+									<option>해상레저</option>
+									<option>열기구</option>
+									<option>클라이밍</option>
+								</select>
+							</td>
+	
+							<td class="attr1" align="center">투어가격</td>
+							<td colspan="2"><input type="text" style="width:100%;"></td>
+						</tr>
+						<tr>
+							<td class="attr1">설명</td>
+							<td colspan="5"><textarea name="content" rows="6" cols="83"></textarea> 
+							</td>
 						
-						</div>
-						<td class="attr1" align="center">파워링크 여부</td>
-						<td><input type="radio">&nbsp;&nbsp;Yes</td>
-						<td><input type="radio">&nbsp;&nbsp;No</td>
-					</tr>
-					<tr>
-						<td class="attr1">투어컨셉</td>
-						<td colspan="2">
-							<select name="concept">
-								<option>해상레저</option>
-								<option>열기구</option>
-								<option>클라이밍</option>
-							</select>
-						</td>
-
-						<td class="attr1" align="center">투어가격</td>
-						<td colspan="2"><input type="text" style="width:100%;"></td>
-					</tr>
-					<tr>
-						<td class="attr1">설명</td>
-						<td colspan="5"><textarea name="content" rows="6" cols="83"></textarea> 
-						</td>
-					
-					</tr>
-					<tr>
-						<td class="attr1">연결링크</td>
-						<td colspan="5"><a href="#">Go to the Link</a></td>
-					
-					</tr>
-					
-				</table>
-				<br>
-				<div align="center">
-					<button type="reset">취소하기</button>
-					<button type="submit">등록하기</button>
-				</div>
-			</form>
-		</div>
-	          	
-          	
-          	
-
-
-
+						</tr>
+						<tr>
+							<td class="attr1">연결링크</td>
+							<td colspan="5"><a href="#">Go to the Link</a></td>
+						
+						</tr>
+						
+					</table>
+					<br>
+					<div align="center">
+						<button type="reset">취소하기</button>
+						<button type="submit">등록하기</button>
+					</div>
+				</form>
+			</div>
+			</div>
     	
+        </div>
         </div>
         <div class = "two wide column"></div>
         
     	
    	</div>
+   	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+   	<script>
+   	$(function() {
+   	 	$('.ui.radio.checkbox')
+	    .checkbox()
+	  ;
+   	});
+	  
+   	</script>
    	
    	<!-- footer -->
 	<%@ include file= "/views/common/footer.jsp" %>
