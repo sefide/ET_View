@@ -46,9 +46,8 @@
 	text-decoration: none;
 }
 .main {
-	position: absolute;
-	left: 420px;
-	top: 200px;
+	width:30%;
+	margin : 50px auto 0 auto;
 	font-family: 'Nanum Gothic', sans-serif;
 }
 .nav{
@@ -57,8 +56,14 @@
 	background-color: #FFCC00;
 }
 /* 컨텐츠 박스 내용 */
+#one{
+	width: 76%;
+	margin-left: 12%;
+	font-size: 17px;
+}
 .userSearch{
-	margin-left: 50px;
+	width: 90%;
+	margin : 25px auto 0 auto;
 }
 #usercontent {
 	width: 350px;
@@ -84,15 +89,23 @@
 	margin-left:140px;
 	font-size: 11px;
 }
+.font{
+	font-size: 20px;
+}
+#font{
+	font-size: 15px;
+}
 
 </style>
 </head>
 <body>
-<div class="nav"></div>
+<!-- <div class="nav"></div> -->
+<br>
+<%@ include file="/views/common/header_com.jsp"%>
 	<!-- 메인로고 -->
 	<div class="mainlogo">
 		<a href="/et/" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> 
-			<image src="/et/image/common/logo.png"style="width: 60px; height: 60px;" alt="메인로고">&nbsp;ET Planner For Travel Agency</image>
+			<br><image src="/et/image/common/logo.png"style="width: 60px; height: 60px;" alt="메인로고">&nbsp;ET Planner For Travel Agency</image>
 		</a>
 	</div>
 	<form>
@@ -109,12 +122,12 @@
 							<div class="field">
 								<div align="left" class="font"><label style="font-weight: 600;">ID</label></div>
 								<div class="answer">
-									<input type="text" placeholder="ID를 입력해주세요">
+									<input type="text" class="font" placeholder="ID를 입력해주세요">
 								</div>
 							</div>
 						</div>
 						<br>
-						<a href="#"><button class="ui yellow button" 
+						<a href="#"><button class="ui yellow button" id="font"
 							style="width: 70%; color: black; font-family: 'Nanum Gothic', sans-serif;">임시 비밀번호 발급받기</button></a>
 						<br><br>
 						<div class="pTag">회원가입시 입력한 이메일로 임시 비밀번호가</div>

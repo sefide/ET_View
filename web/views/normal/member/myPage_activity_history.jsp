@@ -119,7 +119,7 @@
 
 .news{
 	margin-left: 170px;
-	font-size: 20px;
+	font-size: 30px;
 	font-family:'Nanum Gothic', sans-serif;
 	padding-top: 50px;
 }
@@ -128,26 +128,20 @@
 	font-family:'Nanum Gothic', sans-serif;
 }
 .container2{
-	/* margin-right: 100px; */
-	margin-top: 100px;
-	margin-left: 50px;
+	width : 80%;
+	margin-left : 25%;
 }
 
 <!-- 나의 Q&A / 스크랩 Q&A -->
-.myQnA-content{
-	margin-left: 300px;
+.description{
+	font-size: 15px;
+	width: 90%;
+	height: 50px;
 }
-.myQnA{
-	font-size: 20px;
-	padding-top: 50px;
+#redBlue-avel{
+	font-size: 15px;
 }
-.scrapQnA-content{
-	margin-left: 540px;
-}
-.scrapQnA{
-	font-size: 20px;
-	
-}
+
 </style>
 </head>
 <body>
@@ -179,61 +173,80 @@
 					</ul>
 				</div>
 			</div>
-			<!-- 좌측 하단 새 소식 -->
-			<div style='display:inline; min-width:1000px;'>
-				<div class="container2" style='display:inline; float:left; width:400px'>
-					<div class="news"><b>새 소식</b></div>
-					<div class="ui relaxed divided list" id="news-content">
-					  <div class="item">
-					    <i class="big bell outline icon"></i>
-					    <div class="content">		      
-					      <div class="description"><b>아진님, 애린님이 회원님의 
-					      <br>"이동수단~" 게시물을 좋아합니다.</b></div>
-					    </div>
-					  </div>
-					</div>
-					<div class="ui relaxed divided list" id="news-content">
-					  <div class="item">
-					    <i class="big bell outline icon"></i>
-					    <div class="content">		      
-					      <div class="description"><b>병현님이 회원님의 "파리는~"
-					      <br>게시물을 스크랩했습니다.</b></div>
-					    </div>
-					  </div>
-					</div>
-				</div>
-				<!-- 나의 Q&A -->	
-				<div class="myQnA-content" style='display:inline; float:right; width:400px'>
-					<div class="myQnA"><b>나의 Q&A</b></div>
-					  <div class="column">
-					    <div class="ui raised segment">
-					      <a class="ui red ribbon label">제목</a>
-					      <span>안녕하세요</span>
-					      <p></p>
-					      <a class="ui blue ribbon label">내용</a>제 이름은 애리닝이에오
-					      <p></p>
-					    </div>
-					  </div>
-				</div>
-				<!-- 스크랩 Q&A -->
-				<div class="scrapQnA-content" style='display:inline; float:left; width:400px'>
-					<div class="scrapQnA"><b>스크랩 Q&A</b></div>
-						<div class="column">
-							<div class="ui raised segment">
-								<a class="ui red ribbon label">제목</a>
-							    <span>안녕하세요</span>
-							    <p></p>
-							    <a class="ui blue ribbon label">내용</a>제 이름은 애리닝이에오
-							    <p></p>
+			<table>
+				<tr>
+				<!-- 좌측 하단 새 소식 -->
+					<div style='display:inline; min-width:1000px;'>
+					<td rowspan="2">
+						<div class="container2" style='display:inline; float:left; width:400px'>
+							<div class="news"><b>새 소식</b></div>
+							<div class="ui relaxed divided list" id="news-content">
+							  <div class="item">
+							    <i class="big bell outline icon"></i>
+							    <div class="content">		      
+							      <div class="description"><b>아진님, 애린님이 회원님의 
+							      	<br>"이동수단~" 게시물을 좋아합니다.</b>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+							<br>
+							<div class="ui relaxed divided list" id="news-content">
+							  <div class="item">
+							    <i class="big bell outline icon"></i>
+							    <div class="content">		      
+							      <div class="description"><b>병현님이 회원님의 "파리는~"
+							      <br>게시물을 스크랩했습니다.</b></div>
+							    </div>
+							  </div>
 							</div>
 						</div>
-				</div>
+					</td>
+					<td><div></div></td>
+					<td>
+						<div>
+							<!-- 나의 Q&A -->	
+							<div class="myQnA-content" style='display:inline; float:left; width:500px'>
+								<div class="QnA"><b style="font-size: 25px;">나의 Q&A</b></div>
+								  <div class="column">
+								    <div class="ui raised segment">
+								      <a class="ui red ribbon label" id="redBlue-avel">제목</a>
+								      <span>안녕하세요</span>
+								      <p></p>
+								      <a class="ui blue ribbon label" id="redBlue-avel">내용</a>제 이름은 애리닝이에오
+								      <p></p>
+								    </div>
+								  </div>
+							</div>
+						</div>	
+					</td>		
+				</tr>
+				<tr>
+					<td><div style="width: 250px;"></div></td>
+					<td>
+					<!-- 스크랩 Q&A -->
+						<br>
+						<div class="scrapQnA-content" style='display:inline; float:left; width:500px; height: 100px;'>
+							<div class="QnA"><b style="font-size: 25px;">스크랩 Q&A</b></div>
+								<div class="column" >
+									<div class="ui raised segment">
+										<a class="ui red ribbon label" id="redBlue-avel">제목</a>
+									    <span>안녕하세요</span>
+									    <p></p>
+									    <a class="ui blue ribbon label" id="redBlue-avel">내용</a>
+									    <sapn><p>제 이름은 애리닝이에오</p></sapn>
+									</div>
+								</div>
+						</div>
+					</td>	
+					<td><div></div></td>
+				</tr>	
+			</table>
 			</div>
-		</div>
-				
-		
 		<div class="two wide column"></div>
 	</div>
+	<div style="height: 50px;"></div>
+	<br><br>
 
 	<!-- footer -->
 	<%@ include file="/views/common/footer.jsp"%>
