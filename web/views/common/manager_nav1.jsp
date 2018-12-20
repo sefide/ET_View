@@ -56,22 +56,22 @@
 	<script>
     
     	function test() {
-    		location.href = "/et/views/main_manager.jsp";
+    		location.href = "/et/views/manager/main_manager.jsp";
     		/* $("#tb1").css({"visibility":"visible"}); */
     	}
     	
     	function check_manager(){
     		/*	회원정보조회 누르면 회원현황테이블 숨기기
     		$("#tb1").css({"visibility":"hidden"}); */
-    		location.href="/et/views/check_manager.jsp";
+    		location.href="/et/views/manager/check_manager.jsp";
     	}
     	
     	function check_black(){
-    		location.href="/et/views/check_black.jsp";
+    		location.href="/et/views/manager/check_black.jsp";
     	}
     	
     	function manager_black(){
-    		location.href="/et/views/manager_black.jsp";
+    		location.href="/et/views/manager/manager_black.jsp";
     	}
     	
     </script>
