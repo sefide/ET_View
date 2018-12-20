@@ -147,11 +147,13 @@
                    		 <a class="nav_link" href="/et/views/company/main_com.jsp">회원관리</a>
                 		</li>
                 		<li class="nav_item">
-                    		<a class="nav_link" href="#">쿠폰 히스토리</a>
+                    		<a class="nav_link" href="/et/views/company/com_InsertBoard.jsp">투어글 작성</a>
+                		</li>
+                		<li class="nav_item">
+                    		<a class="nav_link" href="/et/views/company/com_couponHistory.jsp">쿠폰 히스토리</a>
                 		</li>
                 		<li class="nav_item">
                     		<a class="nav_link" href="/et/views/company/payment/com_Store.jsp">쿠폰상점</a>
-               		 	</li>
                		 	</li>
             		</ul>
 	        </div>
