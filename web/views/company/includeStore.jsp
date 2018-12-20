@@ -5,8 +5,14 @@
 <html>
 <head>
     <title>CSS3 pricing table - demo</title>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
     <style> 
+    
+
+	
 	body {
+		font-family: 'Nanum Gothic', sans-serif;
+		font-family: 'Ubuntu', sans-serif;
 		
 	}
 	
@@ -23,7 +29,7 @@
 	/* --------------- */
 		
 	#pricing-table {
-		margin: 100px auto 50px auto;
+		margin-left:400px;
 		text-align: center;
 		width: 892px; /* total computed width = 222 x 3 + 226 */
 	}
@@ -196,51 +202,31 @@
 
 	.clear	{
 	  zoom:1
-	}	
+	}
+
+	
     </style>
 </head>
 
 <body>
 
 <div id="pricing-table" class="clear">
-    <div class="plan">
-        <h3>Enterprise<span>$59</span></h3>
-        <a class="signup" href="">Sign up</a>         
+    <div class="plan" style="width:350px;">
+        <h3>Standard<span style="width:150px; height:150px;">15000</span>won</h3>
+        
+		<a class="signup" href="" style="width:200px; height:50px; font-size:x-large; font-weight: 800;">Buy Now</a>
         <ul>
-            <li><b>10GB</b> Disk Space</li>
-            <li><b>100GB</b> Monthly Bandwidth</li>
-            <li><b>20</b> Email Accounts</li>
-			<li><b>Unlimited</b> subdomains</li>			
-        </ul> 
-    </div >
-    <div class="plan" id="most-popular">
-        <h3>Professional<span>$29</span></h3>
-        <a class="signup" href="">Sign up</a>        
-        <ul>
-            <li><b>5GB</b> Disk Space</li>
-            <li><b>50GB</b> Monthly Bandwidth</li>
-            <li><b>10</b> Email Accounts</li>
-			<li><b>Unlimited</b> subdomains</li>			
-        </ul>    
-    </div>
-    <div class="plan">
-        <h3>Standard<span>$17</span></h3>
-		<a class="signup" href="">Sign up</a>
-        <ul>
-            <li><b>3GB</b> Disk Space</li>
-            <li><b>25GB</b> Monthly Bandwidth</li>
-            <li><b>5</b> Email Accounts</li>
-			<li><b>Unlimited</b> subdomains</li>			
+            <li style="font-size: large; font-weight: 800;">글 유효기간 1달</li>
+			<li style="font-size: large; font-weight: 800;">일반 글 게시 가능</li>			
         </ul>
     </div>
-    <div class="plan">
-        <h3>Basic<span>$9</span></h3>
-        <a class="signup" href="">Sign up</a>		
+    <div class="plan" style="width:350px;">
+        <h3>Premium<span style="width:150px; height:150px;">20000</span>won</h3>
+        <a class="signup" href="" style="width:200px; height:50px; font-size:x-large; font-weight: 800;">Buy Now</a>	
         <ul>
-            <li><b>1GB</b> Disk Space</li>
-            <li><b>10GB</b> Monthly Bandwidth</li>
-            <li><b>2</b> Email Accounts</li>
-			<li><b>Unlimited</b> subdomains</li>			
+     
+            <li style="font-size: large; font-weight: 800;">글 유효기간 1달</li>
+			<li style="font-size: large; font-weight: 800;">파워링크 게시 가능</li>			
         </ul>
     </div> 	
 </div>

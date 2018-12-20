@@ -21,8 +21,10 @@
 	<!-- 글꼴  -->
 	<link rel="stylesheet" href="/css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Noto+Sans+KR" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
 	
 <style>
+	
 	.column {
 		height : 100%;
 	}
@@ -91,6 +93,16 @@
 	}
 	.couponArea th {
 		background-color: gray;
+	}
+	table{
+		font-family: 'Nanum Gothic', sans-serif;
+		font-size:larger;
+	}
+	tr{
+		height:60px;
+	}
+	td{
+		font-weight: 600;
 	}
 	
 	
