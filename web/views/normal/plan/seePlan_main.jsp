@@ -356,8 +356,7 @@
 
 	<%@ include file="/views/common/footer.jsp"%>
 
-	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0&callback=initMap">
+
 		
 	</script>
 </body>

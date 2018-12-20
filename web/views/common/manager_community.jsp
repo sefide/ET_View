@@ -34,45 +34,29 @@
    		<div class="left-nav">
        		<ul class="ul_01">
            		<li>
-               		<div class="click" onclick = "test();">회원현황</div>
+               		<div class="click" onclick = "test();">커뮤니티 현황</div>
            		</li>
            		<li>
-               		<div class="click" onclick = "check_manager();">회원정보 조회</div>
+               		<div class="click" onclick = "check_manager();">게시글 조회</div>
            		</li>
-           		<li>
-               		<div class="click">블랙리스트</div>
-               		<ul>
-               			<li>
-               			<div class="click" onclick = "check_black();">블랙회원 조회</div>
-           				</li>
-           				<li>
-               			<div class="click" onclick = "manager_black();">블랙회원 관리</div>
-           				</li>
-               		</ul>
-          		 	</li>
+           		
        		</ul>
    		 </div>
 
 	<script>
     
     	function test() {
-    		location.href = "/et/views/manager/main_manager.jsp";
+    		location.href = "/et/views/manager/manager_total_community.jsp";
     		/* $("#tb1").css({"visibility":"visible"}); */
     	}
     	
     	function check_manager(){
     		/*	회원정보조회 누르면 회원현황테이블 숨기기
     		$("#tb1").css({"visibility":"hidden"}); */
-    		location.href="/et/views/manager/check_manager.jsp";
+    		location.href="/et/views/manager/search_post.jsp";
     	}
     	
-    	function check_black(){
-    		location.href="/et/views/manager/check_black.jsp";
-    	}
-    	
-    	function manager_black(){
-    		location.href="/et/views/manager/manager_black.jsp";
-    	}
+    
     	
     </script>
     
