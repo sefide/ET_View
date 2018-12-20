@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ET_Planner_city</title>
+<link rel="icon" href="image/common/logo.png">
 </head>
 <body>
-	<h2> 제휴 문의 페이지 </h2>
-	<h3> google form 어떻게 가져오즹 </h3>
+
 </body>
 </html>

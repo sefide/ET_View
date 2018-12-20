@@ -74,6 +74,7 @@
 	
 	#table1{
 		width :240px;
+		margin : 1px;
 	}
 	
 	.div-com-activity{
@@ -101,43 +102,78 @@
 		font-family: 'Nanum Gothic', sans-serif;
 	}
 	
-	
+	/* 우측 투어글 작성 form */
 	.outer{
 		width : 68%;
-		height : 700px;
+		height : 1000px;
 		background: white;
 		color:black;
 		float: right;
 		
 	}
-	table,td,tr{
-		border: 1px solid white;
+	.bar-insertTour{
+		width : 100%;
+		border-top : 3px solid rgb(237,197,58);
+		/* rgb(42,90,133); */
+		height : 30px;
+		margin-top : 12px;
+		margin-bottom : 15px;
 	}
-	.tableArea{
+	
+	#icon{
+		width : 35px;
+		font-size : 28px;
+		color : rgb(42,90,133);
+		/* display : inline-block; */
+	}
+	
+	.txt-insertTour{
+		color : rgb(42,90,133);
+		font-weight : 800;
+		font-size : 30px;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+	
+	
+	/* .tableArea{
 		width: 100%;
 		height: 350px;
 		margin-left: auto;
 		margin-right: auto;
-	}
+	} */
 	
 	.attr1{
-		font-size: 25px;
+		font-size: 18px;
 		width:105px;
+		color : rgb(42,90,133);
+		font-weight : 700;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
 	.attr2{
-		width:80px;
+		width:100px;
+		
 	}
-	.attr3{
-		width:160px;
+	#attr3{
+		width : 150px;
 	}
-	.img{
-		border : 2px dashed white;
-		width:120px;
-		height: 120px;
+	
+	
+	table td {
+		/* border : 1px solid black;  */
+		padding : 15px 0;
 	}
-	select{
-		width:120px;
-		height: 30px;
+	
+	.div-img-ex{
+		border : 1px solid lightgray;
+		border-radius : 5px;
+		color : lightgray;
+	}
+	
+	#tourImgSelect{
+		width : 100%;
+		height : 340px;
+		
+		border :none;
 	}
 	
 	
@@ -162,16 +198,6 @@
 			    	<span class="div-com-id"> 아이디 </span>
 	        	</div>
         	
-		        <!-- <div class = "div-img-profile">
-		    		<img src = "/et/image/common/logo_c.png" class = "img-profile">
-		    		<div class="div-com-activity">
-			    		<h3>내 활동내역</h3>
-			    		<br>
-			    		<h4>Standard 쿠폰개수 : 5개</h4>
-			    		<h4>Premium 쿠폰개수 : 5개</h4>
-			    		<h4>내 글 개수: 6개</h4>
-		    		</div>
-		    	</div> -->
 		    	<br>
 		    	<div class="div-com-activity">
 				    <div class = "txt-activity">자사 활동내역</div> <br>
@@ -202,34 +228,33 @@
 	        </div>
 	          
 	        <div class="outer">
-			<h2>게시물 올리기</h2>
-			<div class="tableArea">
+            <i class="certificate icon" id = "icon"></i>
+	        <span class ="txt-insertTour">투어글 올리기</span>
+			<div class = "bar-insertTour"></div>
+			<div class="tableArea  ui form">
 				<form action="" method="post">
 					<table>
 						<tr>
 							<td class="attr1">제목</td>
 							<td colspan="5">
-							<div class="ui form">
-							  <div class="field">
-							    <input type="text" class="ui input" size="80" name="title">
-							  </div>
-							</div>
-								
+								<div class="field">
+									<input type="text" class="ui input" size="80" name="title">
+								</div>
 							</td>
 						</tr>
 						<tr>
-							<td class="attr1">파일첨부</td>
-							<td class="attr2"><button>사진등록</button></td>
-							<td class="attr3"><div class="img">
+							<td class="attr1">대표사진 </td>
+							<td class="attr2" colspan = "3">
+								<input type ="file" name = "tourPhoto"  onchange = "loadImg(this)">
+							</td>
 							
-							</div>
-							<td class="attr1" align="center">파워링크 여부</td>
+							<!-- <td class="attr3" ></td> -->
+							<td class="attr1"  id = "attr3" align="center">파워링크 여부</td>
 							<td>
 								<div class ="ui radio checkbox">
 								<input type="radio" name = "powerLink" id = "powerYes"><label for = "powerYes">Yes</label>
 								</div>
-							</td>
-							<td>
+							
 								<div class ="ui radio checkbox">
 								<input type="radio" name = "powerLink" id = "powerNo"><label for = "powerNo">No</label>
 								</div>
@@ -237,38 +262,64 @@
 		
 						</tr>
 						<tr>
+							<td></td>
+							<td colspan = "5">
+								<div class ="div-img-ex">
+									<img id = "tourImgSelect">대표사진 미리보기
+								</div>
+							</td>
+						</tr>
+						<tr>
 							<td class="attr1">투어컨셉</td>
 							<td colspan="2">
-								<select name="concept">
-									<option>해상레저</option>
-									<option>열기구</option>
-									<option>클라이밍</option>
-								</select>
+								<div class ="field">
+									<select class="ui dropdown" name="concept">
+										<option value =""> -----  선택  ----- </option> 
+										<option value =""> 식도락 </option> 
+										<option value =""> 인문학/교양 </option>
+										<option value =""> 레저/취미 </option>
+										<option value =""> 감성 </option>
+									</select>
+								</div>
 							</td>
 	
 							<td class="attr1" align="center">투어가격</td>
-							<td colspan="2"><input type="text" style="width:100%;"></td>
+							<td colspan="2">
+								<div class="field">
+									<input type="text" class="ui input" size="50" name="price">
+								</div>
+							
+							</td>
 						</tr>
 						<tr>
 							<td class="attr1">설명</td>
-							<td colspan="5"><textarea name="content" rows="6" cols="83"></textarea> 
+							<td colspan="5">
+							    <div class="field">
+								    <textarea name = "tourContent" placeholder = "투어에 대해 설명해주세요. "></textarea>
+							    </div>
 							</td>
 						
 						</tr>
 						<tr>
 							<td class="attr1">연결링크</td>
-							<td colspan="5"><a href="#">Go to the Link</a></td>
-						
+							<td colspan="5"><!-- <a href="#">Go to the Link</a> -->
+							  <div class="field">
+							    <input type="text" class="ui input" size="50" name="link" placeholder = "투어 상세링크를 넣어주세요.">
+							  </div>
+							</td>
 						</tr>
 						
 					</table>
 					<br>
+					
 					<div align="center">
-						<button type="reset">취소하기</button>
-						<button type="submit">등록하기</button>
+						<button type="reset" class="ui grey basic button">취소하기</button>
+						<button type="submit" class="ui grey basic button">등록하기</button>
 					</div>
 				</form>
+				
 			</div>
+				
 			</div>
     	
         </div>
@@ -277,13 +328,31 @@
         
     	
    	</div>
+   	
    	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-   	<script>
+   	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js">
    	$(function() {
    	 	$('.ui.radio.checkbox')
-	    .checkbox()
-	  ;
+	   		.checkbox()
+	  	;
+   	 	
+   	 	$('select.dropdown')
+     		.dropdown()
+  		 ;
    	});
+   	</script>
+   	
+   	<script>
+   	function loadImg(value) {
+		if(value.files && value.files[0]) { // value는 요소 파일이 있는 상태에 동작한다. 
+			var reader = new FileReader(); // reader는 스트림 
+			reader.onload = function(e) {
+				$("#tourImgSelect").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(value.files[0]); //value의 files에 0번째 있는 애를 읽어온다. 
+		}
+		
+	} 
 	  
    	</script>
    	

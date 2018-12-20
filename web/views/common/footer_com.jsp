@@ -21,6 +21,10 @@
 		height : 75px; 
 		background-color : rgba(228, 228, 228, 0.589);
 		border-top : 0.1px solid rgba(190, 188, 190, 1);
+		position: fixed;
+		  left: 0;
+		  bottom: 0;
+		  width: 100%;
 	}
 	
 	.not_hover_stl{  /* a태 */

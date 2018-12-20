@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ET_Planner</title>
+<link rel="icon" href="/et/image/common/logo.png">
 	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -140,11 +141,12 @@
        	<div class = "two wide column"></div>
       	<div class = "twelve wide column" style="margin-top:50px;">
       		<div class = "container">
+      		
       		<div style = "margin-bottom:20px;">
-      		<div class = "div-travel-agency">
-	      		<img src = "/et/image/common/logo_c.png" class ="img-travel-agency">
-	      		<h2 class = "h2-travel-agency"> Travel Agency </h2>
-	      	</div>
+	      		<div class = "div-travel-agency">
+		      		<img src = "/et/image/common/logo_c.png" class ="img-travel-agency">
+		      		<h2 class = "h2-travel-agency"> Travel Agency </h2>
+		      	</div>
 	      		<div class = "div-ta-coupon">
 		      		<p class = "p-txt-coupon"> 보유한 쿠폰  </p>
 		      		<table class="ui celled black table">
@@ -158,32 +160,32 @@
 		      			</tr>
 		      		</table>
 	      		</div>
-	      	</div>
+	      	</div> <!-- 끄엥  -->
 	      	
       		<div class="ui mt-20"> 
       			<i class="certificate icon"></i>
                 <div class="ui header title" id ="title">내가 작성한 투어 </div>
                 
                 <div id = "div-my-tour">
-                <div class = "div_tour_left">
-                <div class = "span-tour-title"> 투어명 </div> 
-				<span class = "span-tour-ex"> 투어명 예시</span> <br>
-                	<div class = "span-tour-title"> 투어컨셉 </div> 
-				<span class = "span-tour-ex"> 투어컨셉 예시</span> <br>
-				<div class = "span-tour-title"> 설명 </div> 
-				<span class = "span-tour-ex"> 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 예시</span> <br>
-				<div class = "span-tour-title"> 가격 </div> 
-				<span class = "span-tour-ex"> 투어가격 예시</span><br>
-                
-                	</div>
-                	<div class = "div_tour_right">
-					<div  class = "span-tour-title"> 파워링크여부 </div> 
-					<span class = "span-tour-ex"> YES</span><i class="star icon"></i> <label> Premium </label>
-					<div  class = "span-tour-title"> 연결링크 </div>
-					<a href = "www.naver.com">www.naver.com</a>
-					<div  class = "span-tour-title"> 대표사진  </div>
-					<span class = "span-tour-ex"> 사진명 tour.jpg </span>
-                </div>
+	                <div class = "div_tour_left">
+		                <div class = "span-tour-title"> 투어명 </div> 
+						<span class = "span-tour-ex"> 투어명 예시</span> <br>
+		                	<div class = "span-tour-title"> 투어컨셉 </div> 
+						<span class = "span-tour-ex"> 투어컨셉 예시</span> <br>
+						<div class = "span-tour-title"> 설명 </div> 
+						<span class = "span-tour-ex"> 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 예시</span> <br>
+						<div class = "span-tour-title"> 가격 </div> 
+						<span class = "span-tour-ex"> 투어가격 예시</span><br>
+	                	</div>
+	                	
+	                	<div class = "div_tour_right">
+						<div  class = "span-tour-title"> 파워링크여부 </div> 
+						<span class = "span-tour-ex"> YES</span><i class="star icon"></i> <label> Premium </label>
+						<div  class = "span-tour-title"> 연결링크 </div>
+						<a href = "www.naver.com">www.naver.com</a>
+						<div  class = "span-tour-title"> 대표사진  </div>
+						<span class = "span-tour-ex"> 사진명 tour.jpg </span>
+	                </div>
                 </div>
                 
                 <div class = "div-tour-paging">
@@ -208,10 +210,10 @@
 					</nav>
                 </div>
                 <div class = "div-tour-btn">
-             	  	<button class="ui yellow button">수정하기 </button>
+             	  	<button class="ui yellow button" onclick = "goEditTour();">수정하기 </button>
 					<button class="ui yellow button">삭제하기 </button>
 				</div>
-            </div>
+            </div> <!-- 내가 작성한 투어  mt-20  -->
             
             
       		<div class="ui mt-20"> 
@@ -247,13 +249,18 @@
 				  </div>
 				</div>
 				</div>
-				
-            </div>
-	            
-           </div>
-     	</div>
-	</div>
-	<div class = "two wide column"></div>
+            </div> <!-- 다른 투어보기 mt-20  -->
+            
+           </div> <!-- container -->
+     	</div> <!-- twelve column 끝  -->
+		<div class = "two wide column"></div>
+	</div> <!-- ui grid 끝  -->
+	
+	<script>
+		function goEditTour() {
+			location.href = "/et/views/company/com_EditBoard.jsp";
+		}
+	</script>
 	
 	<%@ include file = "/views/common/footer_com.jsp" %>
 </body>
