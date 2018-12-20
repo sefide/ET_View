@@ -20,8 +20,14 @@
 	
 	<!-- 글꼴  -->
 	<link rel="stylesheet" href="/css/style.css">
-	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
 <style>
+body {
+
+font-family: 'Nanum Gothic', sans-serif;
+font-family: 'Ubuntu', sans-serif;
+}
+
 
 .ul_01{
 	list-style:none;     
@@ -34,15 +40,18 @@
  	float:left; 
 }
 table{
- 	width:600px;
+ 	width:800px;
  	height:120px;
  	text-align:center;
+ 	
  }
  table,tr,td{
  	border:1px solid black;
+ 	
  }
  td{
  	width:300px;
+ 	
  } 
  th{
  	background-color:lightgray;
@@ -51,38 +60,48 @@ table{
  .num{
  	width:116px;
  }
+ #td111 {
+ font-family: 'Nanum Gothic', sans-serif;
+ }
 </style>
 </head>
 <body>
 <%@ include file = "../common/header_manager.jsp" %>
-<%@ include file = "../common/manager_plan_nav.jsp" %>
+<%@ include file = "../common/manager_company_nav1.jsp" %>
 	
     <div class="main_01">
-    	<div class="ui header title">▶여행지 관리</div>
-    	- 여행지 조회 <br><br>
+    	<div class="ui header title" >▶제휴사 관리</div>
+    	- 제휴사 조회 <br><br>
     	<table id="tb1">
     		<tr>
-    			<th> </th>
-    			<th style=width:60px;>번호</th>
-    			<th>나라명</th>
-    			<th>도시명</th>
-    			<th>인기순위</th>
+    			<th></th>
+    			<th id="td111">번호</th>
+    			<th>제휴사명</th>
+    			<th>사업자번호</th>
+    			<th>연락처</th>
+    			<th>등급</th>
+    			<th>계약기간</th>
+    			<th>대표자</th>
     			
     		</tr>
     		<tr>
     			<td class="num"><input type="checkbox" name="checkbox"></td>
     			<td>1</td>
-    			<td>영국</td>
-    			<td>런던</td>
-    			<td>2</td>
+    			<td>하나투어</td>
+    			<td>114-86-977987</td>
+    			<td>02-1234-5678</td>
+    			<td>premium</td>
+    			<td>2018-02-02</td>
+    			<td>박현우</td>
     		</tr>
     		
     		
   
     	</table>
     	<br>
-    	<button style=float:right>삭제하기</button>
-    	<button style=float:right;margin-right:30px>수정하기</button>
+    	<button style=float:right;>삭제하기</button>
+    	<button style=float:right;margin-right:30px;>수정하기</button>
+    	<button style=float:right;margin-right:30px; >추가하기</button>
     </div>
 	
  <div class = "two wide column"></div> 

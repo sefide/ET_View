@@ -50,8 +50,8 @@ table{
 </style>
 </head>
 <body>
-<%@ include file = "common/header_manager.jsp" %>
-<%@ include file = "common/manager_nav1.jsp" %>
+<%@ include file = "../common/header_manager.jsp" %>
+<%@ include file = "../common/manager_nav1.jsp" %>
 	
     <div class="main_01">
     	<div class="ui header title">▶회원현황</div>
@@ -74,6 +74,6 @@ table{
 	
 	<div class = "two wide column"></div>
 	
-	<%@ include file = "common/footer_com.jsp" %>
+	<%@ include file = "../common/footer_com.jsp" %>
 </body>
 </html>

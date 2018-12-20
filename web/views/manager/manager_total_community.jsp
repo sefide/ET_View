@@ -5,93 +5,79 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	
+	<!-- Semantic UI -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	
+	<!-- 글꼴  -->
+	<link rel="stylesheet" href="/css/style.css">
+	
 <style>
 
-	table.small {
-		margin-left:200px;
-		border:1px solid black;
-		cursor: pointer;
-		
-	}
-	#td1 {
-		font-size:20px;
-		font-style: bold;
-	}
-	
-	table.type02 {
-    border-collapse: separate;
-    border-spacing: 0;
-    text-align: left;
-    line-height: 1.5;
-    border-top: 1px solid #ccc;
-    border-left: 1px solid #ccc;
- 	margin-left:auto;
-	margin-right:auto;
+.ul_01{
+	list-style:none;     
+	margin-top: 10px;
+	margin-left: -30px;
+	margin-right: 10px;
+ }  
+ .main_01{
+ 	margin:2%;
+ 	float:left;
 }
-	table.type02 th {
-    width: 150px;
-    padding: 10px;
-    font-weight: bold;
-    vertical-align: top;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    border-top: 1px solid #fff;
-    border-left: 1px solid #fff;
-    background: #eee;
-}
-	table.type02 td {
-    width: 350px;
-    padding: 10px;
-    vertical-align: top;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-}
-
-	#h1 {
-		margin-top:100px;
-		text-align:center;
-	}
-	#h3 {
-		text-align:center;
-	}
-
+table{
+ 	width:600px;
+ 	height:120px;
+ 	text-align:center;
+ }
+ table,tr,td{
+ 	border:1px solid black;
+ }
+ td{
+ 	width:300px;
+ }
+ th{
+ 	background-color:lightgray;
+ }
 </style>
 </head>
 <body>
-	<h1 id="h1">커뮤니티 현황</h1>
-	<h3 id="h3">-커뮤니티 정보</h3>
-		<table class="small">
-			<tr>
-				<td onclick="location.href='#'" id="td1">커뮤니티 현황</td>
-			</tr>
-			<tr>
-				<td></td>
-			</tr>
-			
-			<tr>
-				<td>게시글 조회</td>
-			</tr>
-		
-		</table>
-
-	<table class="type02">
-    <tr>
-        <th scope="row">총 게시물 수 </th>
-        <td>0개</td>
-    </tr>
-    <tr>
-        <th scope="row">오늘의 게시물 수</th>
-        <td>0개</td>
-    </tr>
-    <tr>
-        <th scope="row">일일 평균 게시물 수</th>
-        <td>0개</td>
-    </tr>
-    
-      <tr>
-        <th scope="row">오늘 글 올린 회원 수</th>
-        <td>0명</td>
-    </tr>
-</table>
+<%@ include file = "../common/header_manager.jsp" %>
+<%@ include file = "../common/manager_community.jsp" %>
+	
+    <div class="main_01">
+    	<div class="ui header title">▶커뮤니티 현황</div>
+    	- 커뮤니티 정보 <br><br>
+    	<table id="tb1">
+    		<tr>
+    			<th>총 게시물 수</th>
+    			<td>0명</td>
+    		</tr>
+    		<tr>
+    			<th>오늘의 게시물 수 </th>
+    			<td>0명</td>
+    		</tr>
+    		<tr>
+    			<th>일일 평균 게시물 수</th>
+    			<td>0명</td>
+    		</tr>
+    		<tr>
+    			<th>오늘 글 올린 회원 수</th>
+    			<td>0명</td>
+    		</tr>
+    	</table>
+    </div>
+	
+	<div class = "two wide column"></div>
+	
+	<%@ include file = "../common/footer_com.jsp" %>
 </body>
 </html>

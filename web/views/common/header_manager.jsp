@@ -146,15 +146,15 @@
         		<div class="collapse navbar-collapse nav-left-mrg nav-div-50" id="navbarTogglerDemo02">
             		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-div-50"> 
                 		<li class="nav_item  nav-item-first">
-                   		 <a class="nav_link" href="/et/views/main_manager.jsp">회원관리</a>
+                   		 <a class="nav_link" href="/et/views/manager/main_manager.jsp">회원관리</a>
                 		</li>
                 		<li class="nav_item">
-                    		<a class="nav_link" href="#">커뮤니티 관리</a>
+                    		<a class="nav_link" href="/et/views/manager/manager_total_community.jsp">커뮤니티 관리</a>
                 		</li>
                 		<li class="nav_item">
-                    		<a class="nav_link" href="#">여행플랜&여행지 관리</a>
+                    		<a class="nav_link" href="/et/views/manager/search_plan_manager.jsp">여행플랜&여행지 관리</a>
                		 	</li><li class="nav_item">
-                    		<a class="nav_link" href="#">투어&제휴사 관리</a>
+                    		<a class="nav_link" href="/et/views/manager/manage_company.jsp">투어&제휴사 관리</a>
                		 	</li><li class="nav_item">
                     		<a class="nav_link" href="#">평가지 관리</a>
                		 	</li>

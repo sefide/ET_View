@@ -26,53 +26,40 @@
 			display : table-cell;
 			vertical-align : middle;
 		} 
+		.ul_01 {
+			vertical-align:middle;
+		}
+		
 		
 </style>
 </head>
 <body>
 <!-- 카테고리 네비게이터 -->
    		<div class="left-nav">
-       		<ul class="ul_01">
+       		<ul class="ul_01" style= vertical-align:middle;>
            		<li>
-               		<div class="click" onclick = "test();">회원현황</div>
+               		<div class="click" onclick = "test();">제휴사 관리</div>
            		</li>
            		<li>
-               		<div class="click" onclick = "check_manager();">회원정보 조회</div>
+               		<div class="click" onclick = "searchPost();">투어글 관리</div>
            		</li>
-           		<li>
-               		<div class="click">블랙리스트</div>
-               		<ul>
-               			<li>
-               			<div class="click" onclick = "check_black();">블랙회원 조회</div>
-           				</li>
-           				<li>
-               			<div class="click" onclick = "manager_black();">블랙회원 관리</div>
-           				</li>
-               		</ul>
-          		 	</li>
+           		
        		</ul>
    		 </div>
 
 	<script>
     
     	function test() {
-    		location.href = "/et/views/manager/main_manager.jsp";
+    		location.href = "/et/views/manager/manage_company.jsp";
     		/* $("#tb1").css({"visibility":"visible"}); */
     	}
     	
-    	function check_manager(){
+    	function searchPost(){
     		/*	회원정보조회 누르면 회원현황테이블 숨기기
     		$("#tb1").css({"visibility":"hidden"}); */
-    		location.href="/et/views/manager/check_manager.jsp";
+    		location.href="/et/views/manager/manage_tour_post.jsp";
     	}
-    	
-    	function check_black(){
-    		location.href="/et/views/manager/check_black.jsp";
-    	}
-    	
-    	function manager_black(){
-    		location.href="/et/views/manager/manager_black.jsp";
-    	}
+   
     	
     </script>
     
