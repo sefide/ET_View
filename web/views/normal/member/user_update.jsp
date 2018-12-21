@@ -36,14 +36,13 @@ myPage_<%@ page language="java" contentType="text/html; charset=UTF-8"
 
 <style>
 .main {
-	position: absolute;
-	left: 420px;
-	top: 110px;
+	width: 38%;
+	margin : 0 auto;
 	font-family: 'Nanum Gothic', sans-serif;
 }
 .mainlogo {
-	text-align:center;
-	margin-top: 20px;
+	
+	text-align: center;
 	font-family: 'Ubuntu', sans-serif;
 }
 #logo {
@@ -54,7 +53,7 @@ myPage_<%@ page language="java" contentType="text/html; charset=UTF-8"
 
 #joinForm {
 	width: 430px;
-	height: 480px;
+	height: 440px;
 }
 
 .content{
@@ -64,74 +63,87 @@ myPage_<%@ page language="java" contentType="text/html; charset=UTF-8"
 </head>
 
 <body>
-	<div class="mainlogo">
-		<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> 
-			<image src="/et/image/common/logo.png"style="width: 60px; height: 60px;" alt="메인로고">&nbsp;ET Planner</image>
-		</a>
-	</div>
-
-	<div class="main">
-		<div align="center" class="ui piled segment" id="joinForm">
-			<h4 class="ui header" style="font-weight: 500; font-size: 30px; font-family: 'Nanum Gothic', sans-serif;">회원 정보 수정</h4>
-			<div class="content">
-				<div align="left" class="font">
-					<label style="font-weight: 600;">아이디</label>
-				</div>
-				<div align="left">
-					<div class="ui transparent input">
-						<input type="text" placeholder="ex)aerin1234">
+<div class="main">
+	<form>
+		<table>
+			<tr>
+				<td>
+					<div class="mainlogo">
+						<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> 
+							<image src="/et/image/common/logo.png"style="width:50px; height: 50px;" alt="메인로고">&nbsp;ET Planner</image>
+						</a>
+					</div><br><br>
+				</td>
+			</tr>
+			<tr>		
+				<td>
+					<div class="join-content">
+						<div align="center" class="ui piled segment" id="joinForm">
+							<h4 class="ui header" style="font-weight: 500; font-size: 30px; font-family: 'Nanum Gothic', sans-serif;">회원 정보 수정</h4>
+							<div class="content">
+								<div align="left" class="font">
+									<label style="font-weight: 600;">아이디</label>
+								</div>
+								<div align="left">
+									<div class="ui transparent input">
+										<input type="text" placeholder="ex)aerin1234">
+									</div>
+								</div>
+								<br>
+								<div align="left" class="font">
+									<label style="font-weight: 600;">비밀번호</label>
+								</div>
+								<div align="left">
+									<div class="ui transparent input">
+										<input type="text" placeholder="비밀번호를 입력하세요">
+									</div>
+								</div>
+								<br>
+								<div align="left" class="font">
+									<label style="font-weight: 600;">수정할 비밀번호</label>
+								</div>
+								<div align="left">
+									<div class="ui transparent input">
+										<input type="text" placeholder="수정할 비밀번호를 입력하세요">
+									</div>
+								</div>
+								<br>
+								<div align="left" class="font">
+									<label style="font-weight: 600;">수정할 비밀번호 확인</label>
+								</div>
+								<div align="left">
+									<div class="ui transparent input">
+										<input type="text" placeholder="수정할 비밀번호를 입력하세요">
+									</div>
+								</div>
+								<br>
+								<div align="left" class="font">
+									<label style="font-weight: 600;">이메일</label>
+								</div>
+								<div align="left">
+									<div class="ui transparent input">
+										<input type="text" placeholder="이메일을 입력해주세요">
+									</div>
+								</div>
+								<br>
+								<div align="left" class="font">
+									<label style="font-weight: 600;">이름</label>
+								</div>
+								<div align="left">
+									<div class="ui transparent input">
+										<input type="text" placeholder="이름을 입력해주세요">
+									</div>&nbsp;&nbsp;
+									<button class="ui secondary button" style="width: 85px; height: 35px; font-size: 12px;">수정하기</button>
+									&nbsp;&nbsp;&nbsp;
+									<button class="ui secondary button" style="width: 80px; height: 35px; font-size: 12px;">취소</button>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-				<br>
-				<div align="left" class="font">
-					<label style="font-weight: 600;">비밀번호</label>
-				</div>
-				<div align="left">
-					<div class="ui transparent input">
-						<input type="text" placeholder="비밀번호를 입력하세요">
-					</div>
-				</div>
-				<br>
-				<div align="left" class="font">
-					<label style="font-weight: 600;">수정할 비밀번호</label>
-				</div>
-				<div align="left">
-					<div class="ui transparent input">
-						<input type="text" placeholder="수정할 비밀번호를 입력하세요">
-					</div>
-				</div>
-				<br>
-				<div align="left" class="font">
-					<label style="font-weight: 600;">수정할 비밀번호 확인</label>
-				</div>
-				<div align="left">
-					<div class="ui transparent input">
-						<input type="text" placeholder="수정할 비밀번호를 입력하세요">
-					</div>
-				</div>
-				<br>
-				<div align="left" class="font">
-					<label style="font-weight: 600;">이메일</label>
-				</div>
-				<div align="left">
-					<div class="ui transparent input">
-						<input type="text" placeholder="이메일을 입력해주세요">
-					</div>
-				</div>
-				<br>
-				<div align="left" class="font">
-					<label style="font-weight: 600;">이름</label>
-				</div>
-				<div align="left">
-					<div class="ui transparent input">
-						<input type="text" placeholder="이름을 입력해주세요">
-					</div>&nbsp;&nbsp;
-					<button class="ui secondary button" style="width: 85px; height: 35px; font-size: 12px;">수정하기</button>
-					&nbsp;&nbsp;&nbsp;
-					<button class="ui secondary button" style="width: 80px; height: 35px; font-size: 12px;">취소</button>
-				</div>
-			</div>
-		</div>
-	</div>
+				</td>	
+			</tr>
+		</table>
+	</form>
+</div>	
 </body>
 </html>

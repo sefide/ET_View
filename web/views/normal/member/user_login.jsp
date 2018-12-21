@@ -50,10 +50,9 @@
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous"></script>
 <style>
-.main {
-	position: absolute;
-	left: 490px;
-	top: 80px;
+#main {
+	width: 17%;
+	margin : 0 auto 0 auto;
 }
 
 .login {
@@ -104,7 +103,7 @@
 </head>
 <body>
 	<!--로그인페이지 시작-->
-	<div class="main">
+	<div class="main" id = "main">
 		<form>
 			<table>
 				<tr>
