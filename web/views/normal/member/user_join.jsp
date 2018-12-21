@@ -41,7 +41,7 @@
 	font-family: 'Nanum Gothic', sans-serif;
 }
 .mainlogo {
-	width:40%;
+	width:70%;
 	margin : 0 auto;
 	text-align:center;
 	font-family: 'Ubuntu', sans-serif;

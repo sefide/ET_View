@@ -1,4 +1,4 @@
-myPage_<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -41,7 +41,7 @@ myPage_<%@ page language="java" contentType="text/html; charset=UTF-8"
 	font-family: 'Nanum Gothic', sans-serif;
 }
 .mainlogo {
-	
+	margin-top:25px;
 	text-align: center;
 	font-family: 'Ubuntu', sans-serif;
 }
@@ -53,7 +53,7 @@ myPage_<%@ page language="java" contentType="text/html; charset=UTF-8"
 
 #joinForm {
 	width: 430px;
-	height: 440px;
+	height: 490px;
 }
 
 .content{
@@ -72,7 +72,7 @@ myPage_<%@ page language="java" contentType="text/html; charset=UTF-8"
 						<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> 
 							<image src="/et/image/common/logo.png"style="width:50px; height: 50px;" alt="메인로고">&nbsp;ET Planner</image>
 						</a>
-					</div><br><br>
+					</div><br>
 				</td>
 			</tr>
 			<tr>		

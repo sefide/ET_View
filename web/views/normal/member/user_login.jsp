@@ -51,8 +51,8 @@
 	crossorigin="anonymous"></script>
 <style>
 #main {
-	width: 17%;
-	margin : 0 auto 0 auto;
+	width: 27%;
+	margin : 120px auto 0 auto;
 }
 
 .login {
