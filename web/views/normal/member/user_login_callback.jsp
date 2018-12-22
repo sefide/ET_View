@@ -9,7 +9,7 @@
 <body>
 <script type="text/javascript">
 
-  var naver_id_login = new naver_id_login("KEY-VALUE", "http://127.0.0.1:8002/et/views/login_callback.jsp");
+  var naver_id_login = new naver_id_login("KEY-VALUE", "http://127.0.0.1:8003/et/views/login_callback.jsp");
 
   
   // 접근 토큰 값 출력

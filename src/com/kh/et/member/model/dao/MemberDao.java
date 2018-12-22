@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import com.kh.et.member.model.vo.MemberManagerCompany;
 import com.kh.et.member.model.vo.MemberNormal;
 
 import static com.kh.et.common.JDBCTemplate.*;
@@ -29,6 +30,7 @@ public class MemberDao {
 		}
 	}
 
+	//일반회원 로그인 체크용 메소드
 	public MemberNormal loginCheck(Connection con, MemberNormal reqMember) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -67,6 +69,7 @@ public class MemberDao {
 		return loginUser;
 	}
 
+	//일반회원 회원가입용 메소드
 	public int insertMember(Connection con, MemberNormal reqMember) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -91,12 +94,13 @@ public class MemberDao {
 		return result;
 	}
 	
+	//일반 회원 회원가입을 위해 전체 회원 테이블이에서 회원번호 가져오기
 	public int selectMemberNo(Connection con, MemberNormal reqMember) {
-		int Mno = -1;
+		int mNo = -1;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = prop.getProperty("selectMemberNo");
+		String query = prop.getProperty("selectMemberNo");	//회원아이디를 이용해서 회원번호 가져오기
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -104,8 +108,8 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				Mno = rset.getInt("M_NO");
-				System.out.println(Mno);
+				mNo = rset.getInt("M_NO");
+				System.out.println(mNo);
 			}
 			
 		} catch (SQLException e) {
@@ -113,9 +117,10 @@ public class MemberDao {
 		}
 		
 		
-		return Mno;
+		return mNo;
 	}
 
+	//일반 회원 회원가입을 위
 	public int insertMemberPlus(Connection con, MemberNormal reqMember, int mNo) {
 		PreparedStatement pstmt = null;
 		int finalResult = 0;
@@ -142,6 +147,71 @@ public class MemberDao {
 		
 		
 		return finalResult;
+	}
+
+	//관리자 로그인 메소드
+	public MemberManagerCompany managerLogin(Connection con, MemberManagerCompany reqMember) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		MemberManagerCompany loginManager = null;
+		
+		String query = prop.getProperty("managerLogin");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqMember.getM_id());
+			pstmt.setString(2, reqMember.getM_pwd());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				loginManager = new MemberManagerCompany();
+				
+				loginManager.setM_id(rset.getString("M_ID"));
+				loginManager.setM_pwd(rset.getString("M_PWD"));
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return loginManager;
+	}
+
+	//제휴사 로그인 메소드
+	public MemberManagerCompany companyLogin(Connection con, MemberManagerCompany reqMember) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		MemberManagerCompany loginCompany = null;
+		
+		String query = prop.getProperty("companyLogin");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqMember.getM_id());
+			pstmt.setString(2, reqMember.getM_pwd());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				loginCompany = new MemberManagerCompany();
+				
+				loginCompany.setM_id(rset.getString("M_ID"));
+				loginCompany.setM_pwd(rset.getString("M_PWD"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(con);
+			close(rset);
+		}
+		
+		return loginCompany;
 	}
 
 
