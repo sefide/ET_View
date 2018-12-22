@@ -14,52 +14,48 @@
      	 	font-weight:600;
      	 }
      	 .click:{
-     	 	font-weight:600;
+    
+     	 	
      	 }
      	 
      	 .left-nav{
 			float:left;
 			border:1px solid black;
 			margin: 5% 5%;
-			height:150px;
+			height:120px;
 			text-align:left;
 			display : table-cell;
-			vertical-align : middle;
+			vertical-align: middle;
 		} 
-		.ul_01 {
-			vertical-align:middle;
-		}
-		
 		
 </style>
 </head>
 <body>
 <!-- 카테고리 네비게이터 -->
    		<div class="left-nav">
-       		<ul class="ul_01" style= vertical-align:middle;>
+       		<ul class="ul_01">
+       			<br>
            		<li>
-               		<div class="click" onclick = "test();">제휴사 관리</div>
+               		<div class="click" onclick = "test();"><h5>평가지 관리</h5></div>
            		</li>
-           		<li>
-               		<div class="click" onclick = "searchPost();">투어글 관리</div>
-           		</li>
-           		
+               		<ul>
+       			<li>
+       				<div class="click" onclick = "check_black();">평가지 결과 조회</div>
+   				</li>
+           				
+               		</ul>
+          		 	</li>
        		</ul>
    		 </div>
 
 	<script>
     
     	function test() {
-    		location.href = "/et/views/manager/manage_company.jsp";
+    		location.href = "/et/views/manager/city/manager_eval.jsp";
     		/* $("#tb1").css({"visibility":"visible"}); */
     	}
     	
-    	function searchPost(){
-    		/*	회원정보조회 누르면 회원현황테이블 숨기기
-    		$("#tb1").css({"visibility":"hidden"}); */
-    		location.href="/et/views/manager/manage_tour_post.jsp";
-    	}
-   
+
     	
     </script>
     

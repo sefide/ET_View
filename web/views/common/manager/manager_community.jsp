@@ -14,18 +14,17 @@
      	 	font-weight:600;
      	 }
      	 .click:{
-    
-     	 	
+     	 	font-weight:600;
      	 }
      	 
      	 .left-nav{
 			float:left;
 			border:1px solid black;
 			margin: 5% 5%;
-			height:120px;
+			height:150px;
 			text-align:left;
 			display : table-cell;
-			vertical-align: middle;
+			vertical-align : middle;
 		} 
 		
 </style>
@@ -34,28 +33,30 @@
 <!-- 카테고리 네비게이터 -->
    		<div class="left-nav">
        		<ul class="ul_01">
-       			<br>
            		<li>
-               		<div class="click" onclick = "test();"><h5>평가지 관리</h5></div>
+               		<div class="click" onclick = "test();">커뮤니티 현황</div>
            		</li>
-               		<ul>
-       			<li>
-       				<div class="click" onclick = "check_black();">평가지 결과 조회</div>
-   				</li>
-           				
-               		</ul>
-          		 	</li>
+           		<li>
+               		<div class="click" onclick = "check_manager();">게시글 조회</div>
+           		</li>
+           		
        		</ul>
    		 </div>
 
 	<script>
     
     	function test() {
-    		location.href = "/et/views/main_eval.jsp";
+    		location.href = "/et/views/manager/board/manager_total_community";
     		/* $("#tb1").css({"visibility":"visible"}); */
     	}
     	
-
+    	function check_manager(){
+    		/*	회원정보조회 누르면 회원현황테이블 숨기기
+    		$("#tb1").css({"visibility":"hidden"}); */
+    		location.href="/et/views/manager/board/manager_board.jsp";
+    	}
+    	
+    
     	
     </script>
     

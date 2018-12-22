@@ -60,8 +60,8 @@
 	<footer> 
 		<div>
 			<a class = "foot-a first not_hover_stl" style ="font-weight:bold; color : gray;">ET Planner for Company</a>
-			<a class = "foot-a not_hover_stl" href="#">제휴 관련문의</a> <p class = "not_hover_stl"> | <p>
-		    <a class = "foot-a not_hover_stl" id = "customer_center" href="#"> 고객센터</a>  <p class = "not_hover_stl"> |  <p>
+			<a class = "foot-a not_hover_stl" id ="request_center">제휴 관련문의</a> <p class = "not_hover_stl"> | <p>
+		    <a class = "foot-a not_hover_stl" id = "customer_center"> 고객센터</a>  <p class = "not_hover_stl"> |  <p>
 		    <a class = "foot-a not_hover_stl" href="#">이용약관 </a>
 		    
 		</div>
@@ -74,6 +74,9 @@
     $("#customer_center").click(function () {
     		alert("고객센터 080-1234-1234로 연락바랍니다.");
     });
+    $("#request_center").click(function () {
+		alert("제휴 관련 문의는 직접 연락바랍니다.");
+	});
     </script>
 </body>
 </html>

@@ -232,7 +232,7 @@
                     		<a class="nav-link" href="/et/views/normal/tourBoard/seeTour_main.jsp">투어엿보기</a>
                		 </li>
                 		<li class="nav-item">
-                        	<a class="nav-link" href="/et/views/normal/memberBoard.jsp">Q&A</a>
+                        	<a class="nav-link" href="/et/views/normal/board/memberBoard.jsp">Q&A</a>
                 		</li>
             		</ul>
 	        </div>
@@ -253,7 +253,7 @@
     		}
     		
     		function goMyPage() {
-    			location.href = "/et/views/normal/member/myPage_main.jsp";
+    			location.href = "/et/views/normal/myPage/myPage_main.jsp";
     			
     		}
     		

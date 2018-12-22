@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-	
+<head>
+<meta charset="UTF-8">
 	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -17,9 +18,9 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	
 	<!-- 글꼴  -->
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
 
-<script>
+	<script>
 	$(function() {
 		$("#a_header:first").css("color","rgb(20, 91, 137)");
 	});
@@ -35,7 +36,7 @@
 		.navbar {
 			border-bottom : 1px solid rgba(228, 228, 228, 0.589);
 			text-align : center;
-			background: rgb(20, 91, 137);
+			background: rgb(237,197,58);
 			height : 45px;
 		}
 		.nav-top {
@@ -58,7 +59,7 @@
         }
         
         .nav_link:hover{
-            color : rgb(237,197,58);
+            color : rgb(42,90,133);
             text-decoration : none;
         }
         
@@ -118,16 +119,13 @@
 		} 
 
 </style>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
-<!-- 제휴사 네비게이션 시작 -->
+	<!-- 관리자 네비게이션 시작 -->
 	<div class = "header-top">
     		<div class="ui header-top-inner">
          	<img src="/et/image/common/logo.png" class = "header-top-img" onclick = "goHome();">
-         	<a class="header-top-brand" id ="txt_brand" onclick = "goComeHome();">ET Planner For Manager</a>    
+         	<a class="header-top-brand" id ="txt_brand" onclick = "goComHome();">ET Planner For Travel Agency</a>    
      	</div>
     </div>
 
@@ -146,17 +144,16 @@
         		<div class="collapse navbar-collapse nav-left-mrg nav-div-50" id="navbarTogglerDemo02">
             		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-div-50"> 
                 		<li class="nav_item  nav-item-first">
-                   		 <a class="nav_link" href="/et/views/manager/main_manager.jsp">회원관리</a>
+                   		 <a class="nav_link" href="/et/views/company/tourBoard/com_main.jsp">투어관리 </a>
                 		</li>
                 		<li class="nav_item">
-                    		<a class="nav_link" href="/et/views/manager/manager_total_community.jsp">커뮤니티 관리</a>
+                    		<a class="nav_link" href="/et/views/company/tourBoard/com_InsertBoard.jsp">투어글 작성</a>
                 		</li>
                 		<li class="nav_item">
-                    		<a class="nav_link" href="/et/views/manager/search_plan_manager.jsp">여행플랜&여행지 관리</a>
-               		 	</li><li class="nav_item">
-                    		<a class="nav_link" href="/et/views/manager/manage_company.jsp">투어&제휴사 관리</a>
-               		 	</li><li class="nav_item">
-                    		<a class="nav_link" href="#">평가지 관리</a>
+                    		<a class="nav_link" href="/et/views/company/coupon/com_couponHistory.jsp">쿠폰 히스토리</a>
+                		</li>
+                		<li class="nav_item">
+                    		<a class="nav_link" href="/et/views/company/coupon/com_Store.jsp">쿠폰상점</a>
                		 	</li>
             		</ul>
 	        </div>
@@ -170,8 +167,9 @@
 	    
 	    
 	    function goComHome(){
-	   	 location.href = "/views/main_com.jsp";
+	   	 location.href = "/et/views/company/tourBoard/com_main.jsp";
 	    }
     </script>
+    
 </body>
 </html>

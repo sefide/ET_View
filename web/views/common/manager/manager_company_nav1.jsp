@@ -38,10 +38,10 @@
    		<div class="left-nav">
        		<ul class="ul_01" style= vertical-align:middle;>
            		<li>
-               		<div class="click" onclick = "test();">여행플랜 조회</div>
+               		<div class="click" onclick = "test();">제휴사 관리</div>
            		</li>
            		<li>
-               		<div class="click" onclick = "searchPost();">여행지 관리</div>
+               		<div class="click" onclick = "searchPost();">투어글 관리</div>
            		</li>
            		
        		</ul>
@@ -50,14 +50,14 @@
 	<script>
     
     	function test() {
-    		location.href = "/et/views/manager/search_plan_manager.jsp";
+    		location.href = "/et/views/manager/tourCompany/manager_company.jsp";
     		/* $("#tb1").css({"visibility":"visible"}); */
     	}
     	
     	function searchPost(){
     		/*	회원정보조회 누르면 회원현황테이블 숨기기
     		$("#tb1").css({"visibility":"hidden"}); */
-    		location.href="/et/views/manager/manage_travel.jsp";
+    		location.href="/et/views/manager/tourCompany/manager_tourBoard.jsp";
     	}
    
     	

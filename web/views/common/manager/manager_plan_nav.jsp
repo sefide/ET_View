@@ -26,18 +26,22 @@
 			display : table-cell;
 			vertical-align : middle;
 		} 
+		.ul_01 {
+			vertical-align:middle;
+		}
+		
 		
 </style>
 </head>
 <body>
 <!-- 카테고리 네비게이터 -->
    		<div class="left-nav">
-       		<ul class="ul_01">
+       		<ul class="ul_01" style= vertical-align:middle;>
            		<li>
-               		<div class="click" onclick = "test();">커뮤니티 현황</div>
+               		<div class="click" onclick = "test();">여행플랜 조회</div>
            		</li>
            		<li>
-               		<div class="click" onclick = "check_manager();">게시글 조회</div>
+               		<div class="click" onclick = "searchPost();">여행지 관리</div>
            		</li>
            		
        		</ul>
@@ -46,17 +50,16 @@
 	<script>
     
     	function test() {
-    		location.href = "/et/views/manager/manager_total_community.jsp";
+    		location.href = "/et/views/manager/plan/manager_plan.jsp";
     		/* $("#tb1").css({"visibility":"visible"}); */
     	}
     	
-    	function check_manager(){
+    	function searchPost(){
     		/*	회원정보조회 누르면 회원현황테이블 숨기기
     		$("#tb1").css({"visibility":"hidden"}); */
-    		location.href="/et/views/manager/search_post.jsp";
+    		location.href="/et/views/manager/plan/manager_travel.jsp";
     	}
-    	
-    
+   
     	
     </script>
     

@@ -196,64 +196,8 @@
 	font-family: 'Nanum Gothic', sans-serif;
 	}
 	
-	/* .div-plan-list{
-		margin-left : 15px;
-	}
 	
-	.div-plan-map{
-		width : 380px;
-		height : 420px;
-		display :inline-block;
-		margin : 5px 10px 30px 0;
-		
-	}
 	
-	.div-plan-title{
-		font-size : 26px;
-		font-weight : 700;
-		font-family: 'Nanum Gothic', sans-serif;
-		display : inline-block;
-	}
-	
-	.div-plan-private{
-		width : 80px;
-		height : 30px;
-		color : rgba(255,255,255,0.8);
-		font-size : 18px;
-		font-family: 'Nanum Gothic', sans-serif;
-		background : rgba(42,90,133,0.5);
-		border-radius : 5px;
-		text-align : center;
-		float:right;
-		cursor : pointer;
-	} */
-	
-	/* 플랜 저장공간 늘리기  */
-	/* .div-plan-add{
-		font-weight : 600;
-		color : rgb(200,200,200);
-		font-size : 40px;
-		text-align : center;
-		width : 380px;
-		height : 380px;
-		border : 2px dashed white;
-		background : rgb(200,200,200);
-		border-radius : 10px;
-		display : inline-block;
-		transition : 0.7s;
-	}
-	.div-plan-add:hover{
-		background : gray;
-	}
-	#icon-plan-add{
-		
-	}
-	
-	#txt-plan-add{
-		font-family: 'Nanum Gothic', sans-serif;
-		font-size : 20px;
-	}
-	 */
 	
 	</style>
 </head>
@@ -277,10 +221,10 @@
     				</div>
     				<div class = "div-menu">
     					<ul>
-    						<li><a href = "/et/views/normal/member/myPage_main.jsp" class = "this-page"> > 내 플랜보기 </a> </li>
-    						<li><a href = "/et/views/normal/member/myPage_activity_history.jsp"> > 나의 활동내역 </a></li>
-    						<li><a href = "/et/views/normal/member/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
-    						<li><a href = "/et/views/normal/member/user_update.jsp"> > 회원정보 수정 </a></li>
+    						<li><a href = "#" class = "this-page"> > 내 플랜보기 </a> </li>
+    						<li><a href = "/et/views/normal/myPage/myPage_activity_history.jsp"> > 나의 활동내역 </a></li>
+    						<li><a href = "/et/views/normal/myPage/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
+    						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
     					</ul>
     				</div>
     				
@@ -294,58 +238,29 @@
 	        		<div class = "div-myPage-title"> 내 플랜보기 </div>
 	        		<br><br>
 	        		
-	        		<!-- <div class = "plan-list-outer"> -->
-	        			<div class = "plan-list-inner">
-	        				<div class ="planBox map01">
- 							<iframe class = "plan-map" src="" width="380px" height="380px" style="border:none;"></iframe>
-	    						<div class = "div-plan-title"> 플랜 제목 </div>
-	    						<div class = "div-plan-private" onclick = "setPrivate();"> 공개 </div>
-    						</div>
-	        				<div class ="planBox map02">
+        			<div class = "plan-list-inner">
+        				<div class ="planBox map01">
 							<iframe class = "plan-map" src="" width="380px" height="380px" style="border:none;"></iframe>
-	    						<div class = "div-plan-title"> 플랜 제목 </div>
-	    						<div class = "div-plan-private" onclick = "setPrivate();"> 공개 </div>
+    						<div class = "div-plan-title"> 플랜 제목 </div>
+    						<div class = "div-plan-private" onclick = "setPrivate();"> 공개 </div>
+   						</div>
+        				<div class ="planBox map02">
+						<iframe class = "plan-map" src="" width="380px" height="380px" style="border:none;"></iframe>
+    						<div class = "div-plan-title"> 플랜 제목 </div>
+    						<div class = "div-plan-private" onclick = "setPrivate();"> 공개 </div>
+					</div>
+        				<div class ="planBox map03 plan-add-outer">
+        					<div class ="plan-add-inner" onclick = "addPlanMemory();"> 
+     						 <i class="plus big icon" id = "icon-plan-add"></i>
+     						<div class ="txt-add">플랜 저장공간을 더 늘리고 싶다면 <br>클릭해주세욥 !! </div>
 						</div>
-	        				<div class ="planBox map03 plan-add-outer">
-	        					<div class ="plan-add-inner" onclick = "addPlanMemory();"> 
-	     						 <i class="plus big icon" id = "icon-plan-add"></i>
-	     						<div class ="txt-add">플랜 저장공간을 더 늘리고 싶다면 <br>클릭해주세욥 !! </div>
-							</div>
-	        				</div>
-	        				<div class ="planBox map04"></div>
-	        				<div class ="planBox map05"></div>
-	        				<div class ="planBox map04"></div>
-	        			</div>
-	        		<!-- </div> -->
+        				</div>
+        				<div class ="planBox map04"></div>
+        				<div class ="planBox map05"></div>
+        				<div class ="planBox map04"></div>
+        			</div>
 	        		
-	    			<!-- <div> 뒤에 지도  등  
-	    				<div class = "div-plan-list">  
-	    					<div class ="div-plan-map"> 
-	    					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="380px" height="380px" style="border:none;"></iframe>
-	    						<div class = "div-plan-title"> 플랜 제목 </div>
-	    						<div class = "div-plan-private" onclick = "setPrivate();"> 공개 </div>
-	    					</div>
-	    					<div class ="div-plan-map"> 
-	    					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="380px" height="380px" style="border:none;"></iframe>
-	    						<div class = "div-plan-title"> 플랜 제목 </div>
-	    						<div class = "div-plan-private" onclick = "setPrivate();"> 공개 </div>
-	    					</div> 
-	    					
-	    					<div class ="div-plan-map"> 
-	    					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="380px" height="380px" style="border:none;"></iframe>
-	    						<div class = "div-plan-title"> 플랜 제목 </div>
-	    						<div class = "div-plan-private" onclick = "setPrivate();"> 비공개 </div>
-	    					</div>
-	    					
-	    					<div class ="div-plan-map"> 
-	     					<div class ="div-plan-add" onclick = "addPlanMemory();"> 
-	     						 <i class="calendar plus outline inverted big icon" id = "icon-plan-add"></i>
-	     					플랜 저장 공간을 늘리고 싶다면 클릭해주세욥 !!
-							</div>
-	    					</div>
-	    					
-	    				</div>
-	    			</div> -->
+	    			
         		</div>
         </div>
         <div class = "two wide column"></div>
