@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "com.kh.et.member.model.vo.*"%>
+<%
+	MemberNormal loginUser = (MemberNormal)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -190,21 +193,19 @@
 <body>
 	<!-- 네비게이션 시작 -->
 	<div class = "header-top">
-    		<div class="ui header-top-inner">
+    	<div class="ui header-top-inner">
          	<img src="/et/image/common/logo.png" class = "header-top-img" onclick = "goHome();">
          	<a class="header-top-brand" id ="txt_brand" onclick = "goHome();">ET Planner</a>    
      	</div>
-	    	<div class = "header-btn">
-	    	<%-- <% if(loginUser != null) {%>
-	    	<% } else { %>
+	    <div class = "header-btn">
+    	<% if(loginUser != null) {%>
 	    <button id="a_login" onclick = "goMyPage();"><span>마이페이지</span></button>
-	    <button id="a_join" onclick = "goLogout();><span>로그아웃</span></button>
-	       	<% } %>  --%> 
-	       
-	      <button id="a_login" onclick = "goLogin();"><span>로그인</span></button>
+	    <button id="a_join" onclick = "goLogout();"><span>로그아웃</span></button>
+    	<% } else { %>
+	    <button id="a_login" onclick = "goLogin();"><span>로그인</span></button>
 	      <button id="a_join" onclick = "goJoin();"><span>회원가입</span></button>
+	     <% } %>   
 	      
-	      <button id="a_login" style ="right:35%" onclick = "goMyPage();"><span>마이페이지</span></button>
 	  	
 	  	</div>
     </div>

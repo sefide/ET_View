@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.et.member.model.vo.MemberNormal"%>
+<%
+	String msg = (String)request.getAttribute("msg");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,7 +108,7 @@
 <body>
 	<!--로그인페이지 시작-->
 	<div class="main" id = "main">
-		<form>
+		<form id="loginForm" action="<%= request.getContextPath() %>/login.me" method="post">
 			<table>
 				<tr>
 					<td>
@@ -118,7 +122,7 @@
 				<tr>
 					<td>
 						<div class="ui left icon input">
-							<input type="text" placeholder="ID" class="login"> 
+							<input type="text" placeholder="ID" class="login" name="userId"> 
 							<i class="lock icon"></i>
 						</div>
 						<br><br>
@@ -127,7 +131,7 @@
 				<tr>
 					<td>
 						<div class="ui left icon input">
-							<input type="text" placeholder="PASSWORD" class="login">
+							<input type="text" placeholder="PASSWORD" class="login" name="userPwd">
 							<i class="key icon"></i>
 						</div>
 					</td>
@@ -142,7 +146,7 @@
 				</tr>
 				<tr>
 					<td>
-						<button class="ui blue button" id="loginBtn">LOGIN</button> <br>
+						<button class="ui blue button" id="loginBtn" onclick="login();">LOGIN</button> <br>
 						<br> 
 						
 						<!-- 카카오톡 로그인 연동 시작 -->
@@ -204,7 +208,8 @@
 				<tr>
 					<td>
 						<div id="join">
-							<br><a href="/et/views/normal/member/user_join.jsp" style="color: black; text-decoration:none; font-family:'Nanum Gothic', sans-serif;">아이디가 없으시다면 지금 바로 회원가입 하세요!</a>
+							<br><a href="/et/views/normal/member/user_join.jsp"
+							style="color: black; text-decoration:none; font-family:'Nanum Gothic', sans-serif;" >아이디가 없으시다면 지금 바로 회원가입 하세요!</a>
 							<br>
 						</div>
 					</td>
@@ -223,6 +228,19 @@
 			</table>
 		</form>
 	</div>
-
+	
+	<script>
+		function login(){
+			$("#loginForm").submit;
+		}
+		
+		$(function(){
+			<% System.out.println("msg : " + msg);
+			if(msg != null){ %>
+			alert("<%=msg%>");
+			<%} %>
+		});
+	</script>
+	
 </body>
 </html>
