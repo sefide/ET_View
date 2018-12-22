@@ -53,6 +53,7 @@ table{
 
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
 <%@ include file = "/views/common/manager/manager_nav1.jsp" %>
+
 	
     <div class="main_01">
     	<div class="ui header title">▶회원현황</div>

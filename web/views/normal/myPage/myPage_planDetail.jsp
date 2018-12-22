@@ -41,7 +41,7 @@
 
 </head>
 <body>
-<%@ include file="/views/common/header.jsp"%>
+	<%@ include file = "/views/common/normal/header.jsp" %>
 <br>
 <br>
 <br>
@@ -152,6 +152,6 @@ gapi.client.load('calendar', 'v3', function () { // load the calendar api (versi
 <div class="two wide column"></div>
 
 	<!-- footer -->
-	<%@ include file="/views/common/footer.jsp"%>
+	<%@ include file="/views/common/normal/footer.jsp"%>
 </body>
 </html>

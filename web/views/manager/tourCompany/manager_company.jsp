@@ -66,8 +66,8 @@ table{
 </style>
 </head>
 <body>
-<%@ include file = "../common/header_manager.jsp" %>
-<%@ include file = "../common/manager_company_nav1.jsp" %>
+<%@ include file = "/views/common/manager/header_manager.jsp" %>
+<%@ include file = "/views/common/manager/manager_eval_nav.jsp" %>
 	
     <div class="main_01">
     	<div class="ui header title" >▶제휴사 관리</div>
@@ -106,6 +106,6 @@ table{
 	
  <div class = "two wide column"></div> 
 		
-	<%@ include file = "../common/footer_com.jsp" %>
+	<%@ include file = "/views/common/company/footer_com.jsp" %>
 </body>
 </html>
