@@ -181,8 +181,10 @@
 						</div>
 
 					</div>
-					<button class="ui yellow basic button" style="margin-left: 50px;">검색하기</button>
+					
 				</form>
+				<button class="ui yellow basic button"
+						onclick="location.href ='seeTour_detail.jsp'"  style="margin-left: 35px;" >검색하기</button>
 			</div>
 			<hr>
 			<!-- 하단 투어 리스트  -->
