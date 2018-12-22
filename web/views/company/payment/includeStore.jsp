@@ -223,7 +223,7 @@
     </div>
     <div class="plan" style="width:350px;">
         <h3>Premium<span style="width:150px; height:150px;">20000</span>won</h3>
-        <a class="signup" href="" style="width:200px; height:50px; font-size:x-large; font-weight: 800;">Buy Now</a>   
+        <a class="signup" href="#" onclick="pay();" style="width:200px; height:50px; font-size:x-large; font-weight: 800;">Buy Now</a>   
         <ul>
      
             <li style="font-size: large; font-weight: 800;">글 유효기간 1달</li>
@@ -231,7 +231,11 @@
         </ul>
     </div>    
 </div>
-
+<script>
+function pay() {
+	window.open("com_pay.jsp", "쿠폰 개수 설정", "width=326, height=298, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+}
+</script>
 
 
 </body>
