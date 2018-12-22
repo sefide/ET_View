@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<!-- jquery -->
+	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	
@@ -51,9 +51,8 @@ table{
 </head>
 <body>
 
-<%@ include file = "/views/common/header_manager.jsp" %>
-<%@ include file = "/views/common/manager_nav1.jsp" %>
-
+<%@ include file = "/views/common/manager/header_manager.jsp" %>
+<%@ include file = "/views/common/manager/manager_nav1.jsp" %>
 	
     <div class="main_01">
     	<div class="ui header title">▶회원현황</div>
@@ -77,7 +76,7 @@ table{
 	<div class = "two wide column"></div>
 	
 
-	<%@ include file = "/views/common/footer_com.jsp" %>
+	<%@ include file = "/views/common/company/footer_com.jsp" %>
 
 </body>
 </html>
