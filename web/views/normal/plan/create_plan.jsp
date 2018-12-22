@@ -141,18 +141,28 @@
 		border-radius : 100px;
 		border : 3px solid black; 
 		cursor: pointer;
-		padding-top : 17px;
-		padding-left : 15px;
+		padding-top : 20px;
+		padding-left : 10px;
 	}
 	#a-day {
 		width : 50px;
-		
 	}
-	.nights{
-		color : #FFC23C;
+	
+	select{
+		/* -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+		-moz-appearance: none; 
+		appearance: none; */
+		border-radius: 0px;
+		background : white;
+		border : none;
+		font-size : 15px;
+	}
+	/* .nights{
+		color : rgba(50,50,50);
+		 #FFC23C
 		font-size : 15px;
 		font-weight : 600;
-	}
+	} */
 	.txt-city{
 		float:left; 
 		width : 130px;
@@ -261,6 +271,12 @@
 		border: 1px solid white;
 		background : skyblue;
 		cursor : pointer;
+		border-radius : 7px;
+		padding-top : 10px; 
+		text-align : center;
+		/* display : table-cell;
+		vertical-align : middle; */
+		color : white;
 	}
 	
 	.p-p {
@@ -311,8 +327,83 @@
 		font-family: 'Nanum Gothic', sans-serif;
 	}
 	
+	/* 이동수단 팝업  */
+	#icon-close{
+		margin : 5px 3px 0 0;
+		font-size : 20px;
+	}
 	
+	#trans-pop-txt{
+		margin-left : 30px;
+		font-weight : 700;
+		font-size : 18px;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
 	
+	.trans-pop{
+		position : absolute;
+		visibility : hidden;
+		width : 800px;
+		height : 270px;
+		background : rgb(171, 199, 244);
+		border-radius : 7px;
+		/* border : 3px solid white; */
+		top : 100px;
+		left : 80px;
+		z-index : 200;
+	}
+	
+	.trans-flex{
+		width : 100%;
+		display : flex;
+		flex-wrap : wrap;
+		
+	}
+	
+	.trans-in{
+		width : 18%;
+		line-height : 7.5em;
+		margin : 2% 1% 0 1%;
+		text-align : center;
+		
+	}
+	
+	.tr-circle {
+		border : 3px solid rgb(171, 199, 244);
+		background : white;
+		border-radius : 50%;
+		width : 130px;
+		height : 130px;
+		margin-bottom : -20px;
+		cursor : pointer;
+	}
+	
+	#icon-trans{
+		font-size : 70px;
+		margin-left : 9px;
+		margin-top : 10px;
+	}
+	
+	.trans-txt{
+		font-weight : 500;
+		font-size : 18px;
+		font-family: 'Nanum Gothic', sans-serif;
+		color : white;
+		/* margin-left : 20px; */
+	}
+	
+	.trans-txt{
+		color : white;
+	}
+	.trans-txt-num{
+		font-weight : 500;
+		font-size : 18px;
+		font-family: 'Nanum Gothic', sans-serif;
+		color : rgb(85, 124, 186);
+	}
+	.trans-txt-num:hover{
+		color : rgb(85, 124, 186);
+	}
 </style>
 </head>
 <body>
@@ -345,8 +436,13 @@
 					<div class = "div-flex">
 						<div class ="div-day">
 							<div class = "div-day-circle">
-								<a id ="a-day" onclick = ""><font class ="nights">1 
-								<i class="angle down icon"></i></font></a>
+								<select class ="nights">
+								    <option value="one">1박 </option>
+								    <option value="two">2박  </option>
+								    <option value="three">3박  </option>
+								    <option value="four">4박 </option>
+								    <option value="five">5박  </option>
+							    </select> 
 							</div>
 						</div>
 						<div class = "div-city">
@@ -366,7 +462,7 @@
 					<div class ="bar2"></div>
 					<div width = "100%; overflow-x:hidden">
 						<div class = "div-trans">
-							<select class="ui dropdown">
+							<select class="ui dropdown" id ="trans" name = "transform">
 						      <option value="plane">비행기 </option>
 						      <option value="train">기차 </option>
 						      <option value="ship">항구 </option>
@@ -380,8 +476,13 @@
 					<div class = "div-flex">
 						<div class ="div-day">
 							<div class = "div-day-circle">
-								<a id ="a-day" onclick = ""><font class ="nights">1 
-								<i class="angle down icon"></i></font></a>
+								<select class ="nights">
+								    <option value="one">1박 </option>
+								    <option value="two">2박  </option>
+								    <option value="three">3박  </option>
+								    <option value="four">4박 </option>
+								    <option value="five">5박  </option>
+							    </select>  
 							</div>
 						</div>
 						<div class = "div-city">
@@ -418,7 +519,7 @@
 				 <br>
 				 <div class ="p-weather-div"> 
 				 	<div class ="p-title"> 월 평균 기온 </div>
-				 	<div class ="p-flex"> 
+				 	<div class ="p-flex" id ="weather-div"> 
 				 		<div class ="p-w">1월 </div>
 				 		<div class ="p-w">2월 </div>
 				 		<div class ="p-w">3월 </div>
@@ -503,44 +604,75 @@
 		</div>
 	</div>
 	
-	 <script type="text/javascript">
-	 $(function() {
-		 
-		 map = new google.maps.Map(document.getElementById('gg-map'));
-		 console.log(map);
-		 poly = new google.maps.Polyline({
-	          strokeColor: '#000000',
-	          strokeOpacity: 1.0,
-	          strokeWeight: 3
-	        });
-	        poly.setMap(map);
-
-	        // Add a listener for the click event
-	        map.addListener('click', addLatLng);
-	 });
-	 
-	 // Handles click events on a map, and adds a new point to the Polyline.
-     function addLatLng(event) {
-       var path = poly.getPath();
-
-       // Because path is an MVCArray, we can simply append a new coordinate
-       // and it will automatically appear.
-       path.push(event.latLng);
-
-       // Add a new marker at the new plotted point on the polyline.
-       var marker = new google.maps.Marker({
-         position: event.latLng,
-         title: '#' + path.getLength(),
-         map: map
-       });
-     }
-  </script>
+	<div class ="trans-pop">
+	<div style = "float : right "> <i class="close icon" id = "icon-close"></i></div>
+	<br clear = "both">
+		<font id = "trans-pop-txt"> 파리에서 프랑크푸르트 가는 방법 </font>
+		<div class = "trans-flex">
+			<div class ="trans-in">
+				<div class = "tr-circle" onclick = "selTrans(1);">
+					<i class="plane icon" id = "icon-trans"></i>
+				</div>
+				<a class = "trans-txt">비행기 </a>
+				<a class ="trans-txt-num">30%</a>
+			</div>
+			<div class ="trans-in">
+				<div class = "tr-circle" onclick = "selTrans(2);">
+					<i class="train icon" id = "icon-trans"></i>
+				</div>
+				<a class = "trans-txt">기차 </a>
+				<a class ="trans-txt-num">30%</a>
+			</div>
+			<div class ="trans-in">
+				<div class = "tr-circle" onclick = "selTrans(3);">
+					<i class="ship icon" id = "icon-trans"></i>
+				</div>
+				<a class = "trans-txt">선박 </a>
+				<a class ="trans-txt-num">30%</a>
+			</div>
+			<div class ="trans-in">
+				<div class = "tr-circle" onclick = "selTrans(4);">
+					<i class="bus icon" id = "icon-trans"></i>
+				</div>
+				<a class = "trans-txt">버스 </a>
+				<a class ="trans-txt-num">30%</a>
+			</div>
+			<div class ="trans-in">
+				<div class = "tr-circle" onclick = "selTrans(5);">
+					<i class="rocket icon" id = "icon-trans"></i>
+				</div>
+				<a class = "trans-txt">기타 </a>
+				<a class ="trans-txt-num">30%</a>
+			</div>
+			
+		</div>
+	</div>
 
 
 
 	<!-- Semantic UI -->
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 	<script> 
+		$("#trans").click(function() {
+	        $(".trans-pop").css("visibility", "visible");
+	    });
+		
+		$("#icon-close").click(function(){
+			  $(".trans-pop").css("visibility", "hidden");
+		});
+		
+		function selTrans(num){
+			console.log(num);
+			switch(num){
+				case 1: $("#trans option:eq(0)").prop("selected", true); break;
+				case 2: $("#trans option:eq(1)").prop("selected", true); break;
+				case 3: $("#trans option:eq(2)").prop("selected", true); break;
+				case 4: $("#trans option:eq(3)").prop("selected", true); break;
+				case 5: $("#trans option:eq(4)").prop("selected", true); break;
+			}
+		}
+
+			
 		function save(){}
 		function returnMain(){
 			location.href = "/et/index.jsp";
@@ -555,11 +687,11 @@
 		}
 		
 		$(".p-w").mouseenter(function(){
-			$(this).text("i dont know");
+			$(this).css("background", "teal");
 		}).mouseout(function() {
-			$(this).text("월 ");
+			$(this).css("background","skyblue");
+			
 		});
-		
 		function closePop() {
 			$("#detailPop").css("display", "none");
 		}
