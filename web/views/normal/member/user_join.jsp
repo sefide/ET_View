@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.et.member.model.vo.MemberNormal"%>
+<%
+	String msg = (String)request.getAttribute("msg");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ET_Planner</title>
+
+<!-- jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <link rel="icon" href="/et/image/common/logo.png">
 <!-- font 영어 -->
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
@@ -70,7 +77,7 @@ table{
 </head>
 
 <body>
-<form>
+<form id="joinForm" action="<%=request.getContextPath()%>/insert.me" method="post">
 	<table>
 		<tr>
 			<td>
@@ -92,7 +99,7 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="text" placeholder="아이디를 입력해주세요"><button class="ui button" style="width: 85px; height: 30px; font-size: 12px;">중복확인</button>
+									<input type="text" name="userId" placeholder="아이디를 입력해주세요"><button class="ui button" style="width: 85px; height: 30px; font-size: 12px;">중복확인</button>
 								</div>
 							</div>
 							<div align="left" class="font">
@@ -100,7 +107,7 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="text" placeholder="비밀번호를 입력하세요">
+									<input type="text" name="userPwd" placeholder="비밀번호를 입력하세요">
 								</div>
 							</div>
 							<div align="left" class="font">
@@ -108,7 +115,7 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="text" placeholder="비밀번호를 입력하세요">
+									<input type="text"  placeholder="비밀번호를 입력하세요">
 								</div>
 							</div>
 							<div align="left" class="font">
@@ -118,7 +125,7 @@ table{
 								<div class="field">
 									<div class="ui form">
 										<div class="pwdQuestion">
-											<select>
+											<select name="userQuestion">
 												<option value="">질문을 선택해주세요</option>
 												<option value="어렸을 적 꿈은?">어렸을 적 꿈은?</option>
 												<option value="가장 좋아하는 꽃은?">가장 좋아하는 꽃은?</option>
@@ -136,7 +143,7 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="text" placeholder="답을 입력해주세요">
+									<input type="text" name="userAwser" placeholder="답을 입력해주세요">
 								</div>
 							</div>
 							<div align="left" class="font">
@@ -144,7 +151,7 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="text" placeholder="이메일을 입력해주세요"><button class="ui button" style="width: 97px; height: 30px; font-size: 12px;">이메일인증</button>
+									<input type="text" name="userEmail" placeholder="이메일을 입력해주세요"><button class="ui button" style="width: 97px; height: 30px; font-size: 12px;">이메일인증</button>
 								</div>
 							</div>
 							<div align="left" class="font">
@@ -152,10 +159,11 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="text" placeholder="이름을 입력해주세요">
-									<a href="#"><button class="ui blue right labeled icon button" style="width: 130px; height: 35px; font-size: 13px; color:white;">
+									<input type="text" name="userName" placeholder="이름을 입력해주세요">
+									<button class="ui blue right labeled icon button" onclick="join();"
+											style="width: 130px; height: 35px; font-size: 13px; color:white;">
 									  <i class="right arrow icon"></i>가입하기
-									</button></a>
+									</button>
 								</div>
 							</div>
 							
@@ -166,5 +174,20 @@ table{
 		</tr>
 	</table>
 	</form>
+	
+	<script>
+	function join(){
+		$("#joinForm").submit;
+	}
+	$(function(){
+		<% System.out.println("msg : " + msg);
+			if(msg != null){%>
+			alert("<%=msg%>");
+		<%} %>
+				
+			}
+		%>
+	});
+	</script>
 </body>
 </html>
