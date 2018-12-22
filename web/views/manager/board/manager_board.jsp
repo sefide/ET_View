@@ -51,8 +51,8 @@ table{
 </style>
 </head>
 <body>
-<%@ include file = "/views/common/header_manager.jsp" %>
-<%@ include file = "/views/common/manager_community.jsp" %>
+<%@ include file = "/views/common/manager/header_manager.jsp" %>
+<%@ include file = "/views/common/manager/manager_community.jsp" %>
 	
     <div class="main_01">
     	<div class="ui header title">▶게시글 조회</div>
@@ -86,6 +86,6 @@ table{
 	
 	<div class = "two wide column"></div>
 	
-	<%@ include file = "../common/footer_com.jsp" %>
+	<%@ include file = "/views/common/company/footer_com.jsp" %>
 </body>
 </html>

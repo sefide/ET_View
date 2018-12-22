@@ -54,8 +54,8 @@ table{
 </style>
 </head>
 <body>
-<%@ include file = "../common/header_manager.jsp" %>
-<%@ include file = "../common/manager_plan_nav.jsp" %>
+<%@ include file = "/views/common/manager/header_manager.jsp" %>
+<%@ include file = "/views/common/manager/manager_eval_nav.jsp" %>
 	
     <div class="main_01">
     	<div class="ui header title">▶여행플랜 조회</div>
@@ -96,6 +96,6 @@ table{
 	
  <div class = "two wide column"></div> 
 		
-	<%@ include file = "../common/footer_com.jsp" %>
+	<%@ include file = "/views/common/company/footer_com.jsp" %>
 </body>
 </html>

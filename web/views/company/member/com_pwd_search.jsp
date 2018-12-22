@@ -101,7 +101,7 @@
 <body>
 <!-- <div class="nav"></div> -->
 <br>
-<%@ include file="/views/common/header_com.jsp"%>
+	<%@ include file = "/views/common/company/header_com.jsp" %>
 	<!-- 메인로고 -->
 	<div class="mainlogo">
 		<a href="/et/" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> 

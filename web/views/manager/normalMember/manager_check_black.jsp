@@ -36,8 +36,8 @@
 </style>
 </head>
 <body>
-<%@ include file = "/views/common/header_manager.jsp" %>
-<%@ include file = "/views/common/manager_nav1.jsp" %>
+<%@ include file = "/views/common/manager/header_manager.jsp" %>
+<%@ include file = "/views/common/manager/manager_nav1.jsp" %>
    
     <div class="main_02">
     
@@ -98,6 +98,6 @@
 	
 	<div class = "two wide column"></div>
 	
-	<%@ include file = "/views/common/footer_com.jsp" %>
+	<%@ include file = "/views/common/company/footer_com.jsp" %>
 </body>
 </html>

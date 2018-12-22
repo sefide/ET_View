@@ -202,7 +202,7 @@
 	</style>
 </head>
 <body>
-	<%@ include file = "/views/common/header.jsp" %>
+	<%@ include file = "/views/common/normal/header.jsp" %>
 	
 	<div class="ui grid">
         <div class = "two wide column"></div>
@@ -292,7 +292,7 @@
    	</script>
 	
 	
-	<%@ include file = "/views/common/footer.jsp" %>
+	<%@ include file = "/views/common/normal/footer.jsp" %>
 	
 	
 </body>
