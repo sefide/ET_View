@@ -228,7 +228,7 @@
 </head>
 <body>
 	<!-- navigation - header.jsp -->
-	<%@ include file= "views/common/header.jsp" %>
+	<%@ include file= "views/common/normal/header.jsp" %>
 
     <!-- 주 내용 담기 -->
     <div class="ui grid">
@@ -478,7 +478,7 @@
 		}
 	</script>
 	<!-- footer -->
-	<%@ include file= "views/common/footer.jsp" %>
+	<%@ include file= "views/common/normal/footer.jsp" %>
 	
 </body>
 </html>

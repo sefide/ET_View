@@ -146,7 +146,7 @@
 </head>
 <body>
 	<!-- navigation - header.jsp -->
-	<%@ include file="/views/common/header.jsp"%>
+	<%@ include file = "/views/common/normal/header.jsp" %>
 	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다면 include path를 수정해야합니다-->
 
 	<div class="ui grid">
@@ -249,6 +249,6 @@
 	<br><br>
 
 	<!-- footer -->
-	<%@ include file="/views/common/footer.jsp"%>
+	<%@ include file="/views/common/normal/footer.jsp"%>
 </body>
 </html>

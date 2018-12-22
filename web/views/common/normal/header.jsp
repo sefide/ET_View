@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "com.kh.et.member.model.vo.*"%>
-<%
+    pageEncoding="UTF-8" %>
+<%-- <%
+    import = "com.kh.et.member.model.vo.MemberNormal" 
 	MemberNormal loginUser = (MemberNormal)session.getAttribute("loginUser");
-%>
+%> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -198,13 +199,13 @@
          	<a class="header-top-brand" id ="txt_brand" onclick = "goHome();">ET Planner</a>    
      	</div>
 	    <div class = "header-btn">
-    	<% if(loginUser != null) {%>
+    	<%-- <% if(loginUser != null) {%> --%>
 	    <button id="a_login" onclick = "goMyPage();"><span>마이페이지</span></button>
 	    <button id="a_join" onclick = "goLogout();"><span>로그아웃</span></button>
-    	<% } else { %>
+    <%-- 	<% } else { %>
 	    <button id="a_login" onclick = "goLogin();"><span>로그인</span></button>
 	      <button id="a_join" onclick = "goJoin();"><span>회원가입</span></button>
-	     <% } %>   
+	     <% } %>    --%>
 	      
 	  	
 	  	</div>
