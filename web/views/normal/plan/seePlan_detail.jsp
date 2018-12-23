@@ -45,7 +45,7 @@
 </head>
 <body>
 	<!-- navigation - header.jsp -->
-	<%@ include file = "/views/common/normal/header.jsp" %>
+	<%@ include file="/views/common/normal/header.jsp"%>
 	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다	면 include path를 수정해야합니 -->
 
 	<div class="ui grid">
@@ -61,16 +61,124 @@
 						<div class="column" style="border: none;">
 							<h1 class="ui header">플랜제목 HOT</h1>
 							<div class="div-best-plan-map">
-								<iframe class="plan-map" src="" width="700px" height="300px"
-									style="border-color: yellow; float: center; padding-right: 10px;"></iframe>
+								
 							</div>
 						</div>
 						<!-- 달력 -->
 						<div class="column">
 							<h1 class="ui header">달력</h1>
 							<div class="div-best-plan-map">
-								<iframe class="plan-map" src="" width="400px" height="300px"
-									style="border-color: yellow;"></iframe>
+								<div class="outer">
+									<select name="manage">
+										<option>관리</option>
+										<option>수정</option>
+										<option>삭제</option>
+									</select> <a target="_blank"
+										href="https://calendar.google.com/event?action=TEMPLATE&amp;tmeid=NmdqaGI0Z3E0bzBzbzVudmUzZ2Rjc3F1NnYgd285OTA1MTBAbQ&amp;tmsrc=wo990510%40gmail.com"><img
+										border="0"
+										src="https://www.google.com/calendar/images/ext/gc_button1_ko.gif"></a>
+									<script
+										src=https://calendar.google.com/event?action=TEMPLATE&tmeid=NWtmZ2toNWpqdDE3ZG9yYm5yaTI2MGVtdWsgd285OTA1MTBAbQ&tmsrc=wo990510%40gmail.com></script>
+									<script>
+//Google api console clientID and apiKey 
+
+var clientId = "";
+var apiKey = "";
+
+// enter the scope of current project (this API must be turned on in the Google console)
+  var scopes = 'https://www.googleapis.com/auth/calendar';
+
+
+//OAuth2 functions
+    function handleClientLoad() {
+          gapi.client.setApiKey(apiKey);
+          window.setTimeout(checkAuth, 1);
+       }
+
+//To authenticate
+ function checkAuth() {
+   gapi.auth.authorize({ client_id: clientId, scope: scopes, immediate: true }, handleAuthResult);
+       }
+
+//This is the resource we will pass while calling api function
+var resource = {
+           "summary": "My Event",
+           "start": {
+               "dateTime": today
+           },
+           "end": {
+               "dateTime": twoHoursLater
+           },
+           "description":"We are organizing events",
+           "location":"US",
+           "attendees":[
+           {
+                   "email":"attendee1@gmail.com",
+                   "displayName":"Jhon",
+                   "organizer":true,
+                   "self":false,
+                   "resource":false,
+                   "optional":false,
+                   "responseStatus":"needsAction",
+                   "comment":"This is my demo event",
+                   "additionalGuests":3
+                   
+           },
+           {    
+               "email":"attendee2@gmail.com",
+                   "displayName":"Marry",
+                   "organizer":true,
+                   "self":false,
+                   "resource":false,
+                   "optional":false,
+                   "responseStatus":"needsAction",
+                   "comment":"This is an official event",
+                   "additionalGuests":3
+           }
+           ],
+       };
+
+function makeApiCall(){
+gapi.client.load('calendar', 'v3', function () { // load the calendar api (version 3)
+               var request = gapi.client.calendar.events.insert
+               ({
+                   'calendarId': '24tn4fht2tr6m86efdiqqlsedk@group.calendar.google.com', 
+                   
+//calendar ID which id of Google Calendar where you are creating events. this can be copied from your Google Calendar user view.
+
+                   "resource": resource 	// above resource will be passed here
+                  
+               });                
+}
+
+
+</script>
+									<button id="btnCreateEvents" class="btn btn-primary"
+										onclick="makeApiCall();">Create Events</button>
+
+									<div id="divifm">
+										<iframe id="ifmCalendar"
+											src="https://www.google.com/calendar/embed?
+                    height=550&amp;wkst=1&amp;bgcolor=%23FFFFFF&
+                    amp;src=24tn4fht2sssdssfdiqqlsedk%40group.calendar.google.com&
+                    amp;color=%238C500B&amp;ctz=Asia%2FCalcutta"
+											style="border-width: 0" width="950" height="520"
+											frameborder="0" scrolling="no"> </iframe>
+									</div>
+
+								</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 							</div>
