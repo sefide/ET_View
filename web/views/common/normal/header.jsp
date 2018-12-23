@@ -200,12 +200,12 @@
      	</div>
 	    <div class = "header-btn">
     	<%-- <% if(loginUser != null) {%> --%>
-	    <button id="a_login" onclick = "goMyPage();"><span>마이페이지</span></button>
-	    <button id="a_join" onclick = "goLogout();"><span>로그아웃</span></button>
-    <%-- 	<% } else { %>
+	    <!-- <button id="a_login" onclick = "goMyPage();"><span>마이페이지</span></button>
+	    <button id="a_join" onclick = "goLogout();"><span>로그아웃</span></button> -->
+    <%-- 	<% } else { %> --%>
 	    <button id="a_login" onclick = "goLogin();"><span>로그인</span></button>
 	      <button id="a_join" onclick = "goJoin();"><span>회원가입</span></button>
-	     <% } %>    --%>
+	     <%-- <% } %>  --%>   
 	      
 	  	
 	  	</div>
