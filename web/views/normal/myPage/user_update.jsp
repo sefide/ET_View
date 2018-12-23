@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.et.member.model.vo.MemberNormal"%>
+<%
+	String msg = (String)request.getAttribute("msg");
+%>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ET_Planner</title>
 <link rel="icon" href="/et/image/common/logo.png">
+
+<!-- jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <!-- font 영어 -->
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
 <!-- font 한글 -->
@@ -59,12 +66,15 @@
 .content{
 	margin-left: 30px;
 }
+input{
+	width: 20%;
+}
 </style>
 </head>
 
 <body>
 <div class="main">
-	<form>
+	<form id="updateForm" action="<%= request.getContextPath()%>/update.me" method="post">
 		<table>
 			<tr>
 				<td>
@@ -86,7 +96,7 @@
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="text" placeholder="ex)aerin1234">
+										<input type="text" placeholder="아이디를 입력하세요" name="userId">
 									</div>
 								</div>
 								<br>
@@ -95,7 +105,7 @@
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="text" placeholder="비밀번호를 입력하세요">
+										<input type="password" placeholder="비밀번호를 입력하세요" name="userPwd">
 									</div>
 								</div>
 								<br>
@@ -104,7 +114,7 @@
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="text" placeholder="수정할 비밀번호를 입력하세요">
+										<input type="password" placeholder="수정할 비밀번호를 입력하세요" name="newPwd1">
 									</div>
 								</div>
 								<br>
@@ -113,7 +123,7 @@
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="text" placeholder="수정할 비밀번호를 입력하세요">
+										<input type="password" placeholder="수정할 비밀번호를 입력하세요" name="newPwd2">
 									</div>
 								</div>
 								<br>
@@ -122,7 +132,7 @@
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="text" placeholder="이메일을 입력해주세요">
+										<input type="email" placeholder="이메일을 입력해주세요" name="userEmail">
 									</div>
 								</div>
 								<br>
@@ -131,9 +141,9 @@
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="text" placeholder="이름을 입력해주세요">
+										<input type="text" placeholder="이름을 입력해주세요" name="userName">
 									</div>&nbsp;&nbsp;
-									<button class="ui secondary button" style="width: 85px; height: 35px; font-size: 12px;">수정하기</button>
+									<button class="ui secondary button" style="width: 85px; height: 35px; font-size: 12px;" onclick="update();">수정하기</button>
 									&nbsp;&nbsp;&nbsp;
 									<button class="ui secondary button" style="width: 80px; height: 35px; font-size: 12px;">취소</button>
 								</div>
@@ -145,5 +155,18 @@
 		</table>
 	</form>
 </div>	
+
+	<script>
+		function update(){
+			$("#updateForm").submit;
+		}
+		
+		<%-- $(function(){
+			<% System.out.println("msg : " + msg)
+				if(msg != null){%>
+				alert("<%= msg%>");
+			<%}%>	
+		}); --%>
+	</script>
 </body>
 </html>

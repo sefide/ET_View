@@ -35,12 +35,12 @@
 	crossorigin="anonymous"></script>
 <style>
 .main {
-	width: 83%;
+	width: 70%;
 	margin : 100px auto 0 auto;
 	font-family: 'Nanum Gothic', sans-serif;
 }
 #main-children{
-	width: 60%;
+	width: 80%;
 	margin-right: 10%;
 }
 .question {
@@ -58,16 +58,15 @@
 
 #usercontent {
 	width: 350px;
-	height: 300px;
+	height: 400px;
 }
 
 .idContent {
 	font-family:'Nanum Gothic', sans-serif;"
 }
 
-
-.active item {
-	width: 15px;
+.pwdContent{
+	margin-top: 25px;
 }
 
 .content{
@@ -76,7 +75,7 @@
 
 .mainlogo {
 	width:90%;
-	margin :0 auto; 
+	margin-left:55%;
 	font-family: 'Ubuntu', sans-serif;
 }
 
@@ -87,12 +86,15 @@
 }
 #joinGo{
 	width:60%;
-	margin: 0 auto;
-	/* margin : 20px auto 0 auto; */
+	height: 35px; 
+	margin-top: 120px;
+	margin-left: 65%;
 	
 }
 .font{
 	margin-left: 50px;
+	font-weight: 600; 
+	font-family: 'Nanum Gothic', sans-serif;
 }
 .pTag{
 	text-align: center;
@@ -156,10 +158,17 @@
 										<div class="ui form">
 											<div class="field">
 												<div align="left" class="font">
-													<label style="font-weight: 600;">답안</label>
+													<label>답안</label>
 												</div>
 												<div class="answer">
-													<input type="text" placeholder="내용을 입력해주세요">
+													<input type="text" placeholder="답안을 입력해주세요">
+												</div>
+												<br>
+												<div align="left" class="font">
+													<label>이메일</label>
+												</div>
+												<div class="answer">
+													<input type="email" placeholder="이메일을 입력해주세요">
 												</div>
 											</div>
 										</div>
@@ -179,18 +188,25 @@
 						<div class="content">
 							<div class="userSearch">
 								<div class="ui top attached tabular menu">
-									<div class="active item" style="background-color: whitesmoke;">비밀번호 찾기</div>
+									<div class="active item" style="background-color: whitesmoke; font-family: 'Nanum Gothic', sans-serif;">비밀번호 찾기</div>
 								</div>
 								<div class="ui bottom attached active tab segment" id="usercontent" style="background-color: whitesmoke;" align="center">
-									<div class="pwdContent">
+									<div class="pwdContent" >
 										<br>
 										<div class="ui form">
 											<div class="field">
 												<div align="left" class="font">
-													<label style="font-weight: 600; font-family: 'Nanum Gothic', sans-serif;">아이디</label>
+													<label>아이디</label>
 												</div>
 												<div class="answer">
 													<input type="text" placeholder="내용을 입력해주세요">
+												</div>
+												<br>
+												<div align="left" class="font">
+													<label>이메일</label>
+												</div>
+												<div class="answer">
+													<input type="email" placeholder="이메일을 입력해주세요">
 												</div>
 											</div>
 										</div>
@@ -207,12 +223,13 @@
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<td colspan="2">
 						<!-- 회원가입 하러가기 버튼 -->
 						<div id="joinGo" align="center">
-							<a href="/et/views/normal/member/user_join.jsp"><button class="ui blue button" style="width: 200px; height: 35px; color: black; font-family: 'Nanum Gothic', sans-serif;">ET로 회원가입 하기</button></a>
+							<a href="/et/views/normal/member/user_join.jsp"><button class="ui blue button" style="color: black; font-family: 'Nanum Gothic', sans-serif; font-size: 15px;">ET로 회원가입 하기</button></a>
 						</div>
 					</td>
+					<td></td>
 				</tr>
 			</table>
 				

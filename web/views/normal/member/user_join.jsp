@@ -151,7 +151,7 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="text" name="userEmail" placeholder="이메일을 입력해주세요"><button class="ui button" style="width: 97px; height: 30px; font-size: 12px;">이메일인증</button>
+									<input type="email" name="userEmail" placeholder="이메일을 입력해주세요"><button class="ui button" style="width: 97px; height: 30px; font-size: 12px;">이메일인증</button>
 								</div>
 							</div>
 							<div align="left" class="font">
@@ -181,12 +181,9 @@ table{
 	}
 	$(function(){
 		<% System.out.println("msg : " + msg);
-			if(msg != null){%>
-			alert("<%=msg%>");
+		if(msg != null){ %>
+		alert("<%=msg%>");
 		<%} %>
-				
-			}
-		%>
 	});
 	</script>
 </body>
