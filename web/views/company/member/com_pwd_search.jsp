@@ -132,7 +132,7 @@
 						<br><br>
 						<div class="pTag">회원가입시 입력한 이메일로 임시 비밀번호가</div>
 						<div class="pTag2">발급되었습니다.</div><br><br>
-						<a href="http://127.0.0.1:8002/et/views/manager_login.jsp" style="color: black; text-decoration:none; font-size: 17px;">로그인</a>
+						<a href="http://127.0.0.1:8003/et/views/manager_login.jsp" style="color: black; text-decoration:none; font-size: 17px;">로그인</a>
 					</div>
 				</div>
 			</div>

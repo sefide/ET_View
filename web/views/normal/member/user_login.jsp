@@ -24,6 +24,8 @@
 <!-- 카카오톡 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
+
+
 <!-- 네이버 -->
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
@@ -131,7 +133,7 @@
 				<tr>
 					<td>
 						<div class="ui left icon input">
-							<input type="text" placeholder="PASSWORD" class="login" name="userPwd">
+							<input type="password" placeholder="PASSWORD" class="login" name="userPwd">
 							<i class="key icon"></i>
 						</div>
 					</td>
@@ -173,18 +175,20 @@
 							</script>
 						</div> 
 						<!-- 카카오톡 로그인 연동 끝 --> 
-						<br> 
 						
+						<!-- 가운데 여백 주기 div -->
+						<div class="userSearch" style="width: 10px; height: 20px;"></div>
+	
 						<!-- 네이버 로그인 연동 시작 -->
 						<!-- 네이버아이디로로그인 버튼 노출 영역 -->
 
 						<div id="naver_id_login"> 
 						<!-- //네이버아이디로로그인 버튼 노출 영역 --> 
 						<script type="text/javascript">
-						  	var naver_id_login = new naver_id_login("KEY-VALUE", "http://127.0.0.1:8002/et/views/normal/member/user_login_callback.jsp");
+						  	var naver_id_login = new naver_id_login("KEY-VALUE", "http://127.0.0.1:8003/et/views/normal/member/user_login_callback.jsp");
 						  	var state = naver_id_login.getUniqState();
-						  	naver_id_login.setButton("green", 6,65);
-						  	naver_id_login.setDomain("http://127.0.0.1:8002/et/views/normal/member/user_login.jsp");
+						  	naver_id_login.setButton("green", 6,48);
+						  	naver_id_login.setDomain("http://127.0.0.1:8003/et/views/normal/member/user_login.jsp");
 						  	naver_id_login.setState(state);
 						  	naver_id_login.setPopup();
 						  	naver_id_login.init_naver_id_login();
@@ -192,7 +196,7 @@
 						  	/* var naverLogin = new naver.LoginWithNaverId(
 						  			{
 						  				clientId: "{tcR9vwEXbbuTYhKDCt7X}",
-						  				callbackUrl: "{http://127.0.0.1:8002/et/views/login.jsp}",
+						  				callbackUrl: "{http://127.0.0.1:8003/et/views/login.jsp}",
 						  				isPopup: true, ->팝업을 통한 연동처리 여부 
 						  				loginButton: {color: "green", type: 3, height: 48} 
 						  			}

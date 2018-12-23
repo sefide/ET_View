@@ -15,13 +15,13 @@ import com.kh.et.member.model.vo.MemberNormal;
  * Servlet implementation class MemberInsertServlet
  */
 @WebServlet("/insert.me")
-public class MemberInsertServlet extends HttpServlet {
+public class Member_Insert_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberInsertServlet() {
+    public Member_Insert_Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }

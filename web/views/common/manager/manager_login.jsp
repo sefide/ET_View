@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.et.member.model.vo.MemberManagerCompany"%>
+<%
+	String msg1 = (String)request.getAttribute("msg1");
+	String msg2 = (String)request.getAttribute("msg2");
+
+%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,25 +82,25 @@
 <body>
 <div class="main" >
 	<div class="mainlogo">
-		<a href="http://127.0.0.1:8002/et/" id="logo" title="메인페이지로 이동" style="font-size: 39px; text-decoration:none; color:black"> 
-		<image src="../image/common/logo.png" style="width: 50px; height: 50px;" alt="메인로고">&nbsp;ET Planner</image>
+		<a href="http://127.0.0.1:8003/et/" id="logo" title="메인페이지로 이동" style="font-size: 39px; text-decoration:none; color:black"> 
+		<image src="/et/image/common/logo.png" style="width: 50px; height: 50px;" alt="메인로고">&nbsp;ET Planner</image>
 		</a>
 	</div>
 	<br>
 	<br>
-
 	<div align="center">
 		<div class="ui top attached tabular menu" id="form">
 			<a class="item active" data-tab="manager" style="font-family:'Nanum Gothic', sans-serif;">관리자</a>
 			<a class="item" data-tab="tour" style="font-family:'Nanum Gothic', sans-serif;">제휴사</a>
 		</div>
 		<!-- 관리자 -->
+	<form id="managerLoginForm" action="<%=request.getContextPath() %>/login.manager" method="post">
 		<div align="center" class="ui bottom attached tab segment active" data-tab="manager" id="form" style="background-color: whitesmoke;">
 			<div align="left" class="font">
 				<label style="font-weight: 600;">ID</label>
 			</div>
 			<div class="ui input">
-				<input type="text" placeholder="아이디를 입력해주세요">
+				<input type="text" placeholder="아이디를 입력해주세요" name="managerId">
 			</div>
 			<br>
 			<br>
@@ -103,7 +108,7 @@
 				<label style="font-weight: 600;">PASSWORD</label>
 			</div>
 			<div class="ui input">
-				<input type="text" placeholder="비밀번호를 입력해주세요">
+				<input type="password" placeholder="비밀번호를 입력해주세요" name="managerPwd">
 			</div>
 			<br>
 			<br>
@@ -111,18 +116,19 @@
 				<a href="#" style="color: black; text-decoration:none">혹시 아이디 혹은 비밀번호를 잊으셨나요?</a>
 			</div>
 			<br>
-			<a href="#"></a><button class="ui blue button" id="loginBtn">관리자 로그인</button></a>
+			<a href="#"></a><button class="ui blue button" id="loginBtn" onclick="manager_login();">관리자 로그인</button></a>
 			<br>
 			<br>
 		</div>
-
-		<!-- 제휴사 -->
+	</form>
+	<!-- 제휴사 -->
+	<form id="companyLoginForm" action="<%= request.getContextPath()%>/login.company" method="post">
 		<div align="center" class="ui bottom attached tab segment" data-tab="tour" id="form" style="background-color: whitesmoke;">
 			<div align="left" class="font">
 				<label style="font-weight: 600;">ID</label>
 			</div>
 			<div class="ui input">
-				<input type="text" placeholder="아이디를 입력해주세요" >
+				<input type="text" placeholder="아이디를 입력해주세요" name="companyId">
 			</div>
 			<br>
 			<br>
@@ -130,20 +136,22 @@
 				<label style="font-weight: 600;">PASSWORD</label>
 			</div>
 			<div class="ui input">
-				<input type="text" placeholder="비밀번호를 입력해주세요">
+				<input type="password" placeholder="비밀번호를 입력해주세요" name="companyPwd">
 			</div>
 			<br>
 			<br>
 			<div class="search">
-				<a href="http://127.0.0.1:8002/et/views/tour_pwd_search.jsp" style="color: black; text-decoration:none">비밀번호를 잊으셨나요?</a>
+				<a href="http://127.0.0.1:8003/et/views/tour_pwd_search.jsp" style="color: black; text-decoration:none">비밀번호를 잊으셨나요?</a>
 			</div>
 			<br>
-			<a href="#"><button class="ui yellow button" id="loginBtn">제휴사 로그인</button></a>
+			<a href="#"><button type="submit" class="ui yellow button" id="loginBtn" onclick="company_login();">제휴사 로그인</button></a>
 			<br>
 			<br>
-		</div>
-	</div>
-</div>	
+		</div>	
+	</form>	
+	</div>	
+</div>
+
 	<!-- J-query CDN -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -155,6 +163,28 @@
 	<!-- tab 스크립트 -->
 	<script>
 		$('.menu .item').tab();
+		
+		function manager_login(){
+			$("#managerLoginForm").submit;
+		}
+		
+		$(function(){
+			<% System.out.println("msg : " + msg1);
+				if(msg1 != null){%>
+				alert("<%= msg1%>");
+			<%} %>
+		});
+		
+		function company_login(){
+			$("#companyLoginForm").submit;
+		}
+		
+		$(function(){
+			<% System.out.println("msg : " + msg2);
+				if(msg2 != null){%>
+				alert("<%= msg2%>");
+			<%} %>	
+		});
 	</script>
 
 </body>
