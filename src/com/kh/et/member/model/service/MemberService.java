@@ -27,6 +27,7 @@ public class MemberService {
 	//일반 회원 회원가입용 메소드
 	public int insertMember(MemberNormal reqMember) {
 		Connection con = getConnection();
+		
 		int result = new MemberDao().insertMember(con, reqMember);
 		
 		int finalResult = 0;
@@ -63,6 +64,18 @@ public class MemberService {
 		close(con);
 		
 		return loginCompany;
+	}
+
+	public int updateMember(MemberNormal reqMember) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().updateMember(con, reqMember);
+		
+		/*if() {
+			
+		}*/
+				
+		return result;
 	}
 
 	

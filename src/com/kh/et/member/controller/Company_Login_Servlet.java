@@ -15,13 +15,13 @@ import com.kh.et.member.model.vo.MemberManagerCompany;
  * Servlet implementation class Company_login_Servlet
  */
 @WebServlet("/login.company")
-public class Company_login_Servlet extends HttpServlet {
+public class Company_Login_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Company_login_Servlet() {
+    public Company_Login_Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -53,13 +53,7 @@ public class Company_login_Servlet extends HttpServlet {
 			request.getRequestDispatcher("views/common/manager/manager_login.jsp").forward(request, response);	//실패 메세지를 띄워줄 페이지로 경로 설정을 해준다.
 		}
 		
-		
-		
-		
-		
-		
-		
-		
+
 	}
 
 	/**

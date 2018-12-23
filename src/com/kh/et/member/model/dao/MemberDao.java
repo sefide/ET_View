@@ -214,6 +214,11 @@ public class MemberDao {
 		return loginCompany;
 	}
 
+	public int updateMember(Connection con, MemberNormal reqMember) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 
 	
