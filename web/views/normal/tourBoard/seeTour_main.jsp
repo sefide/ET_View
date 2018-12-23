@@ -197,7 +197,7 @@
 					<div class="card-deck">
 						<div class="card" id="card-size">
 							<img class="card-img-top" src="/et/image/city/bar.jpg"
-								alt="Card image cap">
+								alt="Card image cap" onclick="goTourDetail();" >
 							<div class="card-body">
 								<h5 class="card-title">[도시이름]투어명</h5>
 								<p class="card-text">69,900원</p>
@@ -324,6 +324,13 @@
 				</div>
 
 			</div>
+	<script>
+		function goTourDetail() {
+			window.open("seeTour_detail.jsp", "상세 여행 정보 ", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+		}
+	</script>
+
+
 
 
 
