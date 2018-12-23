@@ -64,29 +64,35 @@
     		<table>
     			<tr>
     				<th>정지목록</th>
-    				<th>블랙회원번호</th>
+    				<th>회원번호</th>
     				<th>아이디</th>
     				<th>이메일</th>
     				<th>가입일</th>
     				<th>이름</th>
+    				<th>정지 시작일</th>
+    				<th>정지 종료일</th>
     				<th>정지기간</th>
     			</tr>
     			<tr>
     				<td><input type="checkbox" ></td>
-    				<td>1</td>
+    				<td>001</td>
     				<td>dog</td>
     				<td>dog@naver.com</td>
     				<td>2018-12-12</td>
     				<td>개</td>
+    				<td>2018-12-15</td>
+    				<td>2018-12-25</td>
     				<td>10일</td>
     			</tr>
     			<tr>
     				<td><input type="checkbox" ></td>
-    				<td>2</td>
+    				<td>002</td>
     				<td>cat</td>
     				<td>cat@naver.com</td>
     				<td>2018-12-17</td>
     				<td>고냔</td>
+    				<td>2018-12-17</td>
+    				<td>2018-12-22</td>
     				<td>5일</td>
     			</tr>
     		</table>
@@ -96,31 +102,31 @@
     	</div>
     	<br><br>
     	<div>
-    		- 강제 탈퇴 회원 조회 <br><br>
+    		- 탈퇴 회원 조회 <br><br>
     		<table>
     			<tr>
-    				<th>블랙회원번호</th>
+    				<th>회원번호</th>
     				<th>아이디</th>
     				<th>이메일</th>
     				<th>가입일</th>
     				<th>이름</th>
-    				<th>정지기간</th>
+    				<th>탈퇴일</th>
     			</tr>
     			<tr>
-    				<td>1</td>
+    				<td>001</td>
     				<td>dog</td>
     				<td>dog@naver.com</td>
     				<td>2018-12-12</td>
     				<td>개</td>
-    				<td>10일</td>
+    				<td>2018-12-25</td>
     			</tr>
     			<tr>
-    				<td>2</td>
+    				<td>002</td>
     				<td>cat</td>
     				<td>cat@naver.com</td>
     				<td>2018-12-17</td>
     				<td>고냔</td>
-    				<td>5일</td>
+    				<td>2018-12-22</td>
     			</tr>
     		</table>
     	</div>
