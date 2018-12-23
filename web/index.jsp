@@ -337,21 +337,21 @@
                 <div> 
         				<div class = "div-plan-list">  
         					<div class ="div-plan-map"> 
-        					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="340px" height="340px" style="border:none;"></iframe>
+        					    <iframe class = "plan-map" src="" width="340px" height="340px" style="border:none;"></iframe>
         						<div class = "div-plan-title"> 플랜 제목 </div>
         						<div class = "div-plan-like"> 
         							<i class = "icon heart">34</i>
         						</div>
         					</div>
         					<div class ="div-plan-map"> 
-        					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="340px" height="340px" style="border:none;"></iframe>
+        					    <iframe class = "plan-map" src="" width="340px" height="340px" style="border:none;"></iframe>
         						<div class = "div-plan-title"> 플랜 제목 </div>
         						<div class = "div-plan-like"> 
         							<i class = "icon heart">34</i>
         						</div>
         					</div> 
         					<div class ="div-plan-map"> 
-        					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="340px" height="340px" style="border:none;"></iframe>
+        					    <iframe class = "plan-map" src="" width="340px" height="340px" style="border:none;"></iframe>
         						<div class = "div-plan-title"> 플랜 제목 </div>
         						<div class = "div-plan-like"> 
         							<i class = "icon heart">34</i>
