@@ -34,7 +34,7 @@
 	}
 
 	 #tb1{
-	 	width:900px;
+	 	width:800px;
 	 	text-align:center;
 	 }
 	 table,tr,td,th{
@@ -43,12 +43,19 @@
 	 td{
 	 	width:50px;
 	 }
+	  th{
+ 		background-color:lightgray;
+ 	}
+ 	
 	 .btn{
-	 	margin-left:47%;
+	 	margin-left:78%;
 	 }
 	 .notice{
 	 	float:left;
 	 	margin-left:2%;
+	 }
+	 .tb{
+	 	width:900px;
 	 }
 </style>
 </head>
@@ -59,45 +66,44 @@
     <div class="main_02">
     
     	<div class="ui header title"><br>▶블랙리스트</div>
+    	
+    	<div class="tb">
     	- 블랙 회원 조회 <br><br>
     	<table id="tb1">
     		<tr>
     			<th>선택</th>
-    			<th>번호</th>
-    			<th>신고글번호</th>
+    			<th>회원번호</th>
     			<th>아이디</th>
     			<th>이메일</th>
     			<th>신고수</th>
-    			<th>연락처</th>
     		</tr>
     		<tr>
     			<td><input type="checkbox"></td>
-    			<td>1</td>
-    			<td>185</td>
+    			<td>001</td>
     			<td>dog</td>
     			<td>dog@daum.net</td>
     			<td>1</td>
-    			<td>-</td>
     		</tr>
     		<tr>
     			<td><input type="checkbox"></td>
-    			<td>2</td>
-    			<td>104</td>
+    			<td>002</td>
     			<td>cat</td>
     			<td>cat@daum.net</td>
     			<td>12</td>
-    			<td>010-123-1233</td>
     		</tr>	
     		
     		<!-- 정보뽑아오는거는 나중에 for문 이용하기!  -->
     		
     	</table>
-    </div>
-    
-    <div class="btn">
+    	<div class="btn">
     	<button onclick="">정지</button>
     	<button onclick="">탈퇴</button>
+    	</div>
+    	
     </div>
+    </div>
+    
+    
     
     
     <div class="notice">
