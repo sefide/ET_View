@@ -38,17 +38,25 @@
 		width : 50px;
 		margin: 3px;
 	}
-	
+	.div-title{
+		display : inline-block;
+		position : absolute;
+		margin-top: 20px;
+		/*left : 50px; */
+		width : 600px;
+		
+	}
 	.txt-title{
-		margin: 0 10px 10px 10px;
+		margin: -15px 10px 10px 10px;
 		font-weight : 600;
-		font-size : 35px;
+		font-size : 33px;
 		color : black;
 		font-family: 'Ubuntu', sans-serif;
-		line-height: 2.5em; 
 	}
 	#editTitle{
 		font-size: 1.3em;
+		margin-left:15px;
+		
 	}
 	
 	.btn-save, .btn-return{
@@ -70,6 +78,22 @@
 		margin-right:30px; 
 	}
 	
+	#input-title{
+		position : absolute;
+		margin-top: 12px;
+		width : 250px;
+		visibility : hidden;
+		}
+	#btn-save-title{
+		margin : 2px;
+		height : 35px;
+		width : 30px;
+		background : rgb(42,90,133); 
+		color : white;
+		border-radius : 7px;
+	}
+	
+	
 	/* 하단 */
 	.plan-table-calendar{
 		float : left;
@@ -84,8 +108,9 @@
 	    width: 75%;
 	    overflow: hidden;
 	    background: rgb(53, 86, 155);
-	   
 	}
+	
+	
 	
 	/* 좌측 일정 상세히  */
 	.input-date-first{
@@ -404,15 +429,18 @@
 	.trans-txt-num:hover{
 		color : rgb(85, 124, 186);
 	}
+	
 </style>
 </head>
 <body>
 	<div class="header">
 		<img src="/et/image/common/logo.png" class = "header-top-img" onclick = "returnMain();">
-	    <span class = "txt-title">Plan 1</span>
-		<i class="pencil alternate icon" id = "editTitle" onclick = "editTitle();"></i>
-		<div class="ui input">
-		  <input class = "input-title" type="text" placeholder="나만의 여행제목을 정해주세요..">
+		<div class ="div-title">
+		<font class = "txt-title" name = "title">Plan 1</font>
+		<i class="pencil alternate icon" id = "editTitle" onclick = "editTitle();"></i></div>
+		<div class="ui input" id = "input-title">
+		  <input class = "input-title" type="text" placeholder="나만의 여행제목을 정해주세요.." >
+		  <button id = "btn-save-title" onclick = "saveTitle();"> > </button>
 		</div> 
 		<!-- <span style=position:absolute;top:15px;left:12px;width:300px;height:48px;font-size:16px;>
 			<span style="color: rgb(211, 84, 0); font-size: large;">플랜짜기</span>
@@ -678,13 +706,32 @@
 			location.href = "/et/index.jsp";
 		}
 		
-		function editTitle() {}
+		function editTitle() {
+			$("#input-title").css("visibility", "visible");
+			$(".div-title").css("visibility", "hidden");
+		}
+		
+		function saveTitle() {
+			var title = $(".input-title").val();
+			if(title != ""){
+				$(".txt-title").text(title);
+			}
+			$("#input-title").css("visibility", "hidden");
+			$(".div-title").css("visibility", "visible");
+		}
 		
 		function cityInfo() {
 			/* $("#detailPop").css("visibility", "visible"); */
 			$("#detailPop").css("display", "block");
 		   /*  	window.open("detail_city.jsp", "도시 정보창 ", "width=1000, height=700, toolbar=no, menubar=no, location = no, resizable=no, left=400, top=0" ); */  
 		}
+		
+		$(".tr-circle").mouseover(function(){
+			$(this).css("background", "teal");
+		}).mouseout(function() {
+			$(this).css("background","white");
+			
+		});
 		
 		$(".p-w").mouseenter(function(){
 			$(this).css("background", "teal");

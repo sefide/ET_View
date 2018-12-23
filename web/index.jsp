@@ -43,30 +43,85 @@
         }
         
         .top-img{
-        		width : 70%;
+        		width : 62%;
+        		/* margin-right : 1%; */
         }
         
         .top-btn{
-        		width : 30%;
-        		text-align: center;
+        		width : 37%;
+        		/* text-align: center; */
+        		margin-left :1%;
         }
         .img_main {
         		width : 100%;
-        		height : 500px;
+        		height : 460px;
         }
         .mySlides {display:none;}
         
+        .top-btn-inner, .et-main{
+        		width : 100%;
+        		display : flex;
+        		flex-wrap : wrap;
+        	}
+        	#bol1{
+			font-family: 'Ubuntu', sans-serif;
+        		font-weight : 800;
+        		font-size : 46px;
+        		color : rgb(252,198,0);
+        		margin-top : 5px;
+        		margin-bottom : 13px;
+        		text-shadow: 1px 1px 1px rgb(171, 199, 244);
+        	}
+        	#bol2{
+        		font-family: 'Nanum Gothic', sans-serif;
+        		font-weight : 800;
+        		font-size : 24px;
+        		margin-bottom : 10px;
+        	}
+        	.et-explain{
+        		margin-left : 10px;
+        		margin-top : 10px;
+        		margin-bottom : 50px;
+        		width : 100%;
+        		height : 140px;
+        		font-family: 'Nanum Gothic', sans-serif;
+        		font-weight : 500;
+        		font-size : 20px;
+        		/* text-align : center; */
+        	}
+        	.et-logoes{
+        		margin-left : 9%;
+        		height : 88px;
+        		margin-bottom : 10px;
+        	}
+        	.et-logo1 {
+        		width : 300px;
+        		 height : 92px; 
+        		/* display : inline-block; */
+        	}
+        	.et-logo2{
+       	 	width : 70px;
+        		height : 70px;
+        	}
+         .btn-makePlan{
+        		width : 99%;
+        		height : 160px;
+        	} 
+        
         #a_makePlan{
         		border : none;
-            width : 160px;
-            height : 42px;
-            font-size : 18px;
-            top : 30%;
-            background-color : rgb(237,197,58);
-            color : white;
-            cursor : pointer;
-            box-shadow : 3px 3px 1px 0 rgb(200,180, 48);;
-            position:relative;
+        		width : 93%;
+	        height : 56px;
+	        font-size : 18px;
+	        /* top : 2%; */
+	        margin: 1%;
+	        background-color : rgb(171, 199, 244);
+	        color : white;
+	        font-family: 'Nanum Gothic', sans-serif;
+        		font-weight : 800;
+	        cursor : pointer;
+	        box-shadow : 3px 3px 1px 0 rgb(151, 179, 234);
+	        position:relative;
         }
         #a_makePlan::before{
             content:"";
@@ -86,14 +141,17 @@
         
          #a_seePlan{
         		border : none;
-            width : 160px;
-            height : 42px;
+            width : 93%;
+            height : 56px;
             font-size : 18px;
-            top : 40%;
-            background-color : rgb(237,197,58);
+            /* top : 2%; */
+	        margin: 2% 1%;
+            background-color : rgb(171, 199, 244);
+            font-family: 'Nanum Gothic', sans-serif;
+        		font-weight : 800;
             color : white;
             cursor : pointer;
-            box-shadow : 3px 3px 1px 0 rgb(200,180, 48);
+            box-shadow : 3px 3px 1px 0 rgb(151, 179, 234);
             position:relative;
         }
         #a_seePlan::before{
@@ -245,9 +303,29 @@
         		        <img class = "img_main mySlides" src="http://www.seoulmilkblog.co.kr/wp/wp-content/uploads/2016/10/%EA%B2%A8%EC%9A%B8%EC%9C%A0%EB%9F%BD%EC%97%AC%ED%96%892.jpg">
                 	</div>
                 <div class ="top-btn">
-          	      	<button id="a_makePlan" onclick = "goPlan();"><span>플랜 짜기</span></button>
-          	      	<br>
-	       			<button id="a_seePlan" onclick = "go"><span>플랫 엿보기</span></button>
+                	<div class ="top-btn-inner">
+                		<div class = "et-explain"> 
+                		<h3 id = "bol1"> ET Planner </h3>
+                		<h3 id = "bol2">누구에게나 맞춤화된 <br>심플한 유럽 여행 계획 플랫폼  </h3>
+                		우리 모두 행복한 유럽 여행에 도전하세요 ! </div>
+                		<div class ="et-logoes">
+                		<img src = "/et/image/common/logo_ev3.png" alt = "logo" class = "et-logo1 et-logo1">
+                		<!-- <img src = "/et/image/common/logo.png" alt = "logo" class = "et-logo2 et-logo2">
+                		<img src = "/et/image/common/logo_min2.png" alt = "logo" class = "et-logo1 et-logo3">
+                		<img src = "/et/image/common/logo_min3.png" alt = "logo" class = "et-logo1 et-logo4">
+                		<img src = "/et/image/common/logo_c.png" alt = "logo" class = "et-logo2 et-logo5"> -->
+                		</div>
+                		<div class ="et-main">
+	                		<div class = "btn-makePlan">
+	                			<button id="a_makePlan" onclick = "goPlan();"><span>플랜 짜기</span></button> <br>
+	                			<button id="a_seePlan" onclick = "goSeePlan();"><span>플랫 엿보기</span></button>
+	                		</div>
+                		</div>
+                	</div>
+                	
+                	
+          	      	
+	       			
 	       		</div>
             </div>
             
@@ -259,21 +337,21 @@
                 <div> 
         				<div class = "div-plan-list">  
         					<div class ="div-plan-map"> 
-        					    <iframe class = "plan-map" src="#" width="340px" height="340px" style="border:none;"></iframe>
+        					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="340px" height="340px" style="border:none;"></iframe>
         						<div class = "div-plan-title"> 플랜 제목 </div>
         						<div class = "div-plan-like"> 
         							<i class = "icon heart">34</i>
         						</div>
         					</div>
         					<div class ="div-plan-map"> 
-        					    <iframe class = "plan-map" src="#" width="340px" height="340px" style="border:none;"></iframe>
+        					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="340px" height="340px" style="border:none;"></iframe>
         						<div class = "div-plan-title"> 플랜 제목 </div>
         						<div class = "div-plan-like"> 
         							<i class = "icon heart">34</i>
         						</div>
         					</div> 
         					<div class ="div-plan-map"> 
-        					    <iframe class = "plan-map" src="#" width="340px" height="340px" style="border:none;"></iframe>
+        					    <iframe class = "plan-map" src="https://snazzymaps.com/embed/120714" width="340px" height="340px" style="border:none;"></iframe>
         						<div class = "div-plan-title"> 플랜 제목 </div>
         						<div class = "div-plan-like"> 
         							<i class = "icon heart">34</i>
@@ -458,6 +536,14 @@
          function goHome() {
     	   	 	location.href = "/et/index.jsp";
     	   	 }
+         
+         function goPlan(){
+      	  	 location.href = "/et/views/normal/plan/create_plan.jsp";
+         }
+         
+         function goSeePlan(){
+        		 location.href = "/et/views/normal/plan/Seeplan_main.jsp";
+         }
            
     </script>
     
