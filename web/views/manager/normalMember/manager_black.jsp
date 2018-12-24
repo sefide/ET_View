@@ -23,7 +23,7 @@
 <style>
  	.main_01{
  		margin:2%;
- 		float:left;
+ 		display:flex;
 	}
 	.ul_01{
 		list-style:none;     
@@ -46,7 +46,13 @@
  		background-color:lightgray;
  	}
  	.btn{
- 		margin-left:87%;
+ 		margin-left:81%;
+ 	}
+ 	.nav{
+ 		width:20%;
+ 	}
+ 	.sub{
+ 		width:75%;
  	}
 	
 		
@@ -54,10 +60,17 @@
 </head>
 <body>
 	<%@ include file = "/views/common/manager/header_manager.jsp" %>
-	<%@ include file = "/views/common/manager/manager_nav1.jsp" %>
+
 	
 	
     <div class="main_01">
+    
+    <div class="nav">
+   		<%@ include file = "/views/common/manager/manager_nav1.jsp" %> 
+    </div>
+    
+    <div class="sub">
+    
     	<div class="ui header title">▶블랙리스트</div>
     	- 정지 회원 조회 <br><br>
     	<div>
@@ -100,6 +113,7 @@
     			<button>정지 취소하기</button>
     		</div>
     	</div>
+    	
     	<br><br>
     	<div>
     		- 탈퇴 회원 조회 <br><br>
@@ -129,8 +143,8 @@
     				<td>2018-12-22</td>
     			</tr>
     		</table>
+    		</div>
     	</div>
-    	
     </div>
 	
 	<div class = "two wide column"></div>

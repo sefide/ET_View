@@ -31,7 +31,7 @@
  }  
  .main_01{
  	margin:2%;
- 	float:left;
+ 	display:flex;
 }
 table{
  	width:600px;
@@ -47,32 +47,44 @@ table{
  th{
  	background-color:lightgray;
  }
+ .nav{
+ 	width:20%;
+ }
+ .sub{
+ 	width:75%;
+ }
 </style>
 </head>
 <body>
 
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
-<%@ include file = "/views/common/manager/manager_nav1.jsp" %>
 
 	
     <div class="main_01">
-    	<div class="ui header title">▶회원현황</div>
-    	- 전체현황 <br><br>
-    	<table id="tb1">
-    		<tr>
-    			<th>전체회원</th>
-    			<td>0명</td>
-    		</tr>
-    		<tr>
-    			<th>오늘의 신규회원</th>
-    			<td>0명</td>
-    		</tr>
-    		<tr>
-    			<th>탈퇴한 회원</th>
-    			<td>0명</td>
-    		</tr>
-    	</table>
-    </div>
+    	
+    	<div class="nav">
+			<%@ include file = "/views/common/manager/manager_nav1.jsp" %>
+    	</div>
+    
+    	<div class="sub">
+	    	<div class="ui header title">▶회원현황</div>
+	    	- 전체현황 <br><br>
+	    	<table id="tb1">
+	    		<tr>
+	    			<th>전체회원</th>
+	    			<td>0명</td>
+	    		</tr>
+	    		<tr>
+	    			<th>오늘의 신규회원</th>
+	    			<td>0명</td>
+	    		</tr>
+	    		<tr>
+	    			<th>탈퇴한 회원</th>
+	    			<td>0명</td>
+	    		</tr>
+	    	</table>
+	    </div>
+	</div>
 	
 	<div class = "two wide column"></div>
 	

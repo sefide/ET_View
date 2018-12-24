@@ -31,7 +31,7 @@
 	}  
 	.main_01{
 	   	 margin:2%;
-	   	 float:left;
+	   	 display:flex;
 	}
 	#tb1{
 	 	width:900px;
@@ -47,78 +47,89 @@
  		background-color:lightgray;
  	}
 	 #tb2{
-	 	float:left;
 	 	width:500px;
 	 	text-align:center;
-	 	
 	 }
+	 
+	.nav{
+ 		width:20%;
+ 	}
+ 	.sub{
+ 		width:75%;
+ 	}
 	 
    	 
 </style>
 </head>
 <body>
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
-<%@ include file = "/views/common/manager/manager_nav1.jsp" %>
    
-    <div class="main_02">
+    <div class="main_01">
     
-    	<div class="ui header title"><br>▶회원정보 조회</div>
-    	- 회원정보 <br><br>
-    	<table id="tb1">
-    		<tr>
-    			<th>번호</th>
-    			<th>아이디</th>
-    			<th>이메일</th>
-    			<th>가입일</th>
-    			<th>이름</th>
-    			<th>블랙회원여부</th>
-    			<th>포인트</th>
-    			<th>질문</th>
-    			<th>답변</th>
-    		</tr>
-    		<tr>
-    			<td>0001</td>
-    			<td>wzoo</td>
-    			<td>wzoo@daum.net</td>
-    			<td>2018-12-17</td>
-    			<td>공주</td>
-    			<td>Y</td>
-    			<td>200</td>
-    			<td>내가 존경하는 인물은?</td>
-    			<td>이순신</td>
-    		</tr>
-    		<tr>
-    			<td>0002</td>
-    			<td>dog</td>
-    			<td>dog@daum.net</td>
-    			<td>2018-12-17</td>
-    			<td>개</td>
-    			<td>N</td>
-    			<td>1234</td>
-    			<td>내가 존경하는 인물은?</td>
-    			<td>불독</td>
-    		</tr>
-    		
-    		<!-- 정보뽑아오는거는 나중에 for문 이용하기!  -->
-    		
-    	</table>
+    <div class="nav">
+		<%@ include file = "/views/common/manager/manager_nav1.jsp" %>
     </div>
     
+    <div class="sub">
     
+	    	<div class="ui header title"><br>▶회원정보 조회</div>
+	    	- 회원정보 <br><br>
+	   
+	    	<table id="tb1">
+	    		<tr>
+	    			<th>번호</th>
+	    			<th>아이디</th>
+	    			<th>이메일</th>
+	    			<th>가입일</th>
+	    			<th>이름</th>
+	    			<th>블랙회원여부</th>
+	    			<th>포인트</th>
+	    			<th>질문</th>
+	    			<th>답변</th>
+	    		</tr>
+	    		<tr>
+	    			<td>0001</td>
+	    			<td>wzoo</td>
+	    			<td>wzoo@daum.net</td>
+	    			<td>2018-12-17</td>
+	    			<td>공주</td>
+	    			<td>Y</td>
+	    			<td>200</td>
+	    			<td>내가 존경하는 인물은?</td>
+	    			<td>이순신</td>
+	    		</tr>
+	    		<tr>
+	    			<td>0002</td>
+	    			<td>dog</td>
+	    			<td>dog@daum.net</td>
+	    			<td>2018-12-17</td>
+	    			<td>개</td>
+	    			<td>N</td>
+	    			<td>1234</td>
+	    			<td>내가 존경하는 인물은?</td>
+	    			<td>불독</td>
+	    		</tr>
+	    		
+	    		<!-- 정보뽑아오는거는 나중에 for문 이용하기!  -->
+	    	</table>
+	    
+	    <div>
+	    <br><br><br>
+	    -회원 포인트 현황<br><br>
+	    	<table id="tb2">
+	    		<tr>
+	    			<th bgcolor="lightgray" width="1px">회원 최대 포인트</th>
+	    			<td>244</td>
+	    		</tr>
+	    		<tr>
+	    			<th bgcolor="lightgray">200포인트 이상 회원 수 </th>
+	    			<td>3</td>
+	    	</table>
+	    </div>
     
-    <div>
-    <br><br><br>
-    -회원 포인트 현황<br><br>
-    	<table id="tb2">
-    		<tr>
-    			<th bgcolor="lightgray" width="1px">회원 최대 포인트</th>
-    			<td>244</td>
-    		</tr>
-    		<tr>
-    			<th bgcolor="lightgray">200포인트 이상 회원 수 </th>
-    			<td>3</td>
-    	</table>
-    </div>
+     </div>
+     
+     </div>
 	
 	<div class = "two wide column"></div>
 	

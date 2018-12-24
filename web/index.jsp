@@ -257,6 +257,15 @@
        
        	.div-qna-inner{
        		margin-left : 15px;
+       		width : 95%;
+            /* height : 55px; */
+            font-size : 18px;
+            top : 40%;
+            background-color : white;
+            border : 6px solid rgb(260,220,108);
+            cursor : pointer;
+            box-shadow : 3px 3px 1px 0 rgba(200,180, 48);
+            padding : 1%;
        	}
        	
        	.span-qna-q{
@@ -264,24 +273,43 @@
        		font-weight : 600;
        	}
        
-       	.img-qna-bar{
-       		background : rgb(254, 200, 0);
-       		width : 700px;
-       		height : 45px;
-       		border : 4px dotted rgba(238, 238, 238, 0.589);
-       		display : inline-block;
-       	}
-       	
        	#img-qna-bar{
-       		border : none;
-            width : 700px;
-            height : 42px;
+       		margin : 1%;
+            width : 97%;
+            border-bottom : 1px dashed gray;
+            position : relative;
+            /* height : 55px;
             font-size : 18px;
             top : 40%;
-            background-color : rgb(237,197,58);
+            background-color : white;
+            border : 5px solid rgb(260,220,108);
             cursor : pointer;
-            box-shadow : 3px 3px 1px 0 rgb(200,180, 48);
+            box-shadow : 3px 3px 1px 0 rgba(200,180, 48); */
        	}
+       	#like-qna{
+       		display : inline-block;
+       		width : 100px;
+			position : absolute;
+			margin-right: 10%;
+    			margin-top: 10px;
+		}
+       	
+       	/* 더보기  */
+       	.more-div{
+			position : absolute;
+			margin-top: -50px;
+  			right: 10%;
+  			cursor : pointer;
+		}
+		#more-icon {
+			font-size : 18px;
+		}
+		#more-txt {
+			color : rgb(50,50,50);
+	        font-family: 'Nanum Gothic', sans-serif;
+        		font-weight : 800;
+		}
+		
     </style>
 </head>
 <body>
@@ -330,10 +358,13 @@
             </div>
             
             <div >
-
+			
             <div class="ui mt-20"> 
                 <div class="ui huge header">BEST Plan TOP 3</div>
-                
+                <div class = "more-div" onclick = "location.href ='/et/views/normal/plan/seePlan_main.jsp'">
+	                <i class="chevron circle right icon" id = "more-icon"></i>
+	                <font id ="more-txt">더보기 </font>
+                </div>
                 <div> 
         				<div class = "div-plan-list">  
         					<div class ="div-plan-map"> 
@@ -366,7 +397,7 @@
             
 			<div class="ui mt-20"> 
                 <div class="ui huge header">BEST CITY TOP 5</div>
-                
+                 
 	           	<div class = "ui div-best-city" >
 	           		<div class = "div-best-inner">
 		           		<img src = "image/city/paris.jpg" alt = "paris" class = "img_best_city">
@@ -438,9 +469,12 @@
             
             <div class="ui mt-20"> 
                 <div class="ui huge header">인기 투어 TOP 4 </div>
+                 <div class = "more-div" onclick = "location.href ='/et/views/normal/tourBoard/seeTour_main.jsp'">
+	                <i class="chevron circle right icon" id = "more-icon"></i>
+	                <font id ="more-txt">더보기 </font>
+                </div>
                 
                 <div class = "div-card-tour">
-	            
 	            <div class="card-deck">
 				  <div class="card" id = "card-size">
 				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
@@ -480,21 +514,37 @@
             </div>
              <div class="ui mt-20"> 
                 <div class="ui huge header">인기 Q&A </div>
+                 <div class = "more-div" onclick = "location.href ='/et/views/normal/board/memberBoard.jsp'">
+	                <i class="chevron circle right icon" id = "more-icon"></i>
+	                <font id ="more-txt">더보기 </font>
+                </div>
+                
 				<div class = "div-qna">
 					<div class = "div-qna-inner">
-						<!-- <span class = "span-qna-q"> Q. </span> -->
-						<!-- <div class = "img-qna-bar">
-							<p class = "">질문 예시 얍얍얍 </p>
-							<i class="heart icon">23</i>
-						</div> -->
 						<div id="img-qna-bar">
 							<span class = "span-qna-q"> Q1. </span>
 							<span>질문 예시 얍얍얍얍 </span>
-							<i class="heart icon">23</i>
+							<div id ="like-qna">
+							<i class="heart icon" id ="like-qna">23</i>
+							</div>
+						</div>
+						<div id="img-qna-bar">
+							<span class = "span-qna-q"> Q2. </span>
+							<span>질문 예시 얍얍얍얍 </span>
+							<div id ="like-qna">
+							<i class="heart icon" id ="like-qna">23</i>
+							</div>
+						</div>
+						<div id="img-qna-bar">
+							<span class = "span-qna-q"> Q3. </span>
+							<span>질문 예시 얍얍얍얍 </span>
+							<div id ="like-qna">
+							<i class="heart icon" id ="like-qna">23</i>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class = "div-qna">
+				<!-- <div class = "div-qna">
 					<div class = "div-qna-inner">
 						<div id="img-qna-bar">
 							<span class = "span-qna-q"> Q2. </span>
@@ -511,10 +561,13 @@
 							<i class="heart icon">23</i>
 						</div>
 					</div>
-				</div>
+				</div> -->
             </div>
             </div>
         </div>
+        <br><br><br><br><br><br><br><br><br>
+        <div width = "100%" align = "center">
+        <img src = "/et/image/common/logo_ev3.png" alt = "logo" ></div>
     </div>
         <div class = "two wide column"></div>
     </div>
@@ -545,6 +598,7 @@
         		 location.href = "/et/views/normal/plan/Seeplan_main.jsp";
          }
            
+        
     </script>
     
 	<script>
