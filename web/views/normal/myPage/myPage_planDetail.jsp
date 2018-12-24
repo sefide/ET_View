@@ -1,91 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="kr">
+<!DOCTYPE html>
+<html>
 <head>
-       
-        <!-- Add the datepicker script and set the ARIA describedby property to
-             point to to the table that explains keyboard control. Don't worry
-             you don't have to set the describedby parameter, I'm just showing
-             you how it can be done! -->
-        <script type="text/javascript" src="http://www.blueb.co.kr/data/201010/IJ12873724731095/datepicker.js">{"describedby":"fd-dp-aria-describedby"}</script>
-        <link href="http://www.blueb.co.kr/data/201010/IJ12873724731095/demo.css"       rel="stylesheet" type="text/css" />
-        
-        <!-- Add the datepicker's stylesheet -->
-        <link href="http://www.blueb.co.kr/data/201010/IJ12873724731095/datepicker.css" rel="stylesheet" type="text/css" />
-    
-
-<script type="text/javascript">
-//  
-
-// Utility function - not needed by the datepicker script but used by a few of the demos below   
-function pad(value, length) { 
-        length = length || 2; 
-        return "0000".substr(0,length - Math.min(String(value).length, length)) + value; 
-};
-
-// 
-</script>
-<style>
+<meta charset="UTF-8">
+	<!-- jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	
-  .square {
-  	margin-left:80px;
-    width: 900px;
-    height: 600px;
-    border: 1px solid red;
-    float:left;
-  }
+	<!-- Semantic UI -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+	<title>ET_Planner</title>
+	<link rel="icon" href="/views/image/common/logo.png">
+<style>
+ 	.column{
+     	height: 100%;
+     }
+    
 </style>
 
-</style>
 </head>
 <body>
-<%@ include file = "/views/common/normal/header.jsp" %>
-<br>
-<br>
-<br></br>
-<h1 style=float:left;margin-left:80px;>플랜 제목</h1>&nbsp;&nbsp;
-<select>
-	<option>관리</option>
-	<option>수정</option>
-	<option>삭제</option>
-</select>
-   
-<br>
-<br>
-<br>
-<script>
-$("body").append("<div class='square'></div>");
-</script>
-       
-       <br></br>
+	<!-- navigation - header.jsp -->
+	<%@ include file= "/views/common/normal/header.jsp" %>
+	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다	면 include path를 수정해야합니 -->
 
-
-</span>
-
-					
-			
-					</div>
-      <div style=float:right;margin-right:80px>
-      <label for="dp-s1">날짜</label> : <input type="text" class="w18em" id="dp-s1" name="dp-s1" value="" /></div>
-
-      <script type="text/javascript">
-      //   
-        var opts = {                            
-                formElements:{"dp-s1":"d-sl-m-sl-Y"},                
-                staticPos:true,
-                fillGrid:true,
-                constrainSelection:false,
-                finalOpacity:100         
-                };           
-        datePickerController.createDatePicker(opts);
-      // 
-      </script>
-      </div>
-      
-   <div class = "two wide column"></div>
-    	<%@ include file = "/views/common/normal/footer.jsp" %>
-
+    <div class="ui grid">
+        <div class = "two wide column"></div>
+        <%@ include file = "/views/normal/myPage/calendarTest.jsp" %>
+        <div class = "twelve wide column" style="margin-top:50px;">
+        
+          <!-- 내용 넣기 -->
+         
+        </div>
+        
+        <div class = "two wide column"></div>
+         
+   	</div>
+   	
+   	<!-- footer -->
+	
 </body>
 </html>
+
