@@ -58,8 +58,8 @@
 	crossorigin="anonymous"></script>
 <style>
 #main {
-	width: 27%;
-	margin : 120px auto 0 auto;
+	width: 36%;
+	margin : 60px auto 0 auto;
 }
 
 .login {
@@ -144,7 +144,7 @@
 						<div class="search">
 							<br> 
 							<a href="/et/views/normal/member/user_search.jsp" style="color: black; text-decoration:none;">혹시 아이디 혹은 비밀번호를 잊으셨나요?</a>
-						</div>
+						</div><br>
 					</td>
 				</tr>
 				<tr>
