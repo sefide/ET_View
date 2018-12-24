@@ -69,7 +69,7 @@
 	margin-top: 25px;
 }
 
-.content{
+.allContent{
 	margin-top: 40px;
 }
 
@@ -126,7 +126,7 @@
 				<tr>
 					<td>
 						<!-- 아이디 찾기 -->
-						<div class="content">
+						<div class="allContent">
 							<div class="userSearch">
 								<div class="ui top attached tabular menu" id="one">
 									<div class="active item" style="background-color: whitesmoke;">아이디 찾기</div>
@@ -173,7 +173,6 @@
 											</div>
 										</div>
 										<br><a href="#"><button class="ui button" style="width: 70%; font-family: 'Nanum Gothic', sans-serif;"">아이디 찾기</button></a> <br> <br> 
-											<a href="#"><button class="ui yellow button" style="width: 70%; color: black; font-family: 'Nanum Gothic', sans-serif;">찾은 아이디</button></a>
 									</div>
 								</div>
 							</div>
