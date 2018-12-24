@@ -129,7 +129,7 @@
 	.div-tour-btn{
 		display:inline-block;
 		width : 200px;
-		margin-left: 15%;
+		margin-right: 5%;
 	}
 	
 </style>
@@ -211,7 +211,7 @@
                 </div>
                 <div class = "div-tour-btn">
              	  	<button class="ui yellow button" onclick = "goEditTour();">수정하기 </button>
-					<button class="ui yellow button">삭제하기 </button>
+					<!-- <button class="ui yellow button">삭제하기 </button> -->
 				</div>
             </div> <!-- 내가 작성한 투어  mt-20  -->
             
@@ -249,16 +249,39 @@
 				  </div>
 				</div>
 				</div>
+				<div class = "div-tour-paging" style = "margin-top : 25px;">
+                		<nav aria-label="Page navigation">
+					  <ul class="pagination pagination-sm">
+					    <li class="page-item">
+					      <a class="page-link" href="#" aria-label="Previous"  id = "page-link" >
+					        <span aria-hidden="true">&laquo;</span>
+					        <span class="sr-only">Previous</span>
+					      </a>
+					    </li>
+					    <li class="page-item"><a class="page-link" id = "page-link" href="#">1</a></li>
+					    <li class="page-item"><a class="page-link" id = "page-link" href="#">2</a></li>
+					    <li class="page-item"><a class="page-link" id = "page-link" href="#">3</a></li>
+					    <li class="page-item"><a class="page-link" id = "page-link" href="#">4</a></li>
+					    <li class="page-item"><a class="page-link" id = "page-link" href="#">5</a></li>
+					    <li class="page-item">
+					      <a class="page-link" href="#" aria-label="Next"  id = "page-link" >
+					        <span aria-hidden="true">&raquo;</span>
+					        <span class="sr-only">Next</span>
+					      </a>
+					    </li>
+					  </ul>
+					</nav>
+                </div>
             </div> <!-- 다른 투어보기 mt-20  -->
             
            </div> <!-- container -->
      	</div> <!-- twelve column 끝  -->
 		<div class = "two wide column"></div>
 	</div> <!-- ui grid 끝  -->
-	
+	<div class = "two wide column"></div>
 	<script>
 		function goEditTour() {
-			location.href = "/et/views/company/com_EditBoard.jsp";
+			location.href = "/et/views/company/tourBoard/com_EditBoard.jsp";
 		}
 	</script>
 	

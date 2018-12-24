@@ -232,7 +232,7 @@
 	        <span class ="txt-insertTour">투어글 수정하기 </span>
 			<div class = "bar-insertTour"></div>
 			<div class="tableArea  ui form">
-				<form action="" method="post">
+				<form method="post" id ="updateForm">
 					<table>
 						<tr>
 							<td class="attr1">제목</td>
@@ -324,9 +324,19 @@
 					<br>
 					
 					<div align="center">
-						<button type="reset" class="ui grey basic button">다시쓰기</button>
-						<button type="submit" class="ui grey basic button">수정하기</button>
+						<button onclick = "complete();" class="ui grey basic button">수정하기 </button>
+						<button onclick = "deleteTourBoard();" class="ui grey basic button">삭제하기 </button>
 					</div>
+					
+					<script>
+						function complete() {
+							$("#updateForm").attr("action", "<%=request.getContextPath()%>/update.to");
+						}
+						function deleteTourBoard(){
+							$("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteTourBoard.to");
+						}
+					
+					</script>
 				</form>
 				
 			</div>
