@@ -30,7 +30,7 @@
 	}  
 	.main_02{
 	   	 margin:2%;
-	   	 float:left;
+	   	 display:flex;
 	}
 
 	 #tb1{
@@ -57,14 +57,24 @@
 	 .tb{
 	 	width:900px;
 	 }
+	 .nav{
+ 		width:20%;
+ 	}
+ 	.sub{
+ 		width:75%;
+ 	}
 </style>
 </head>
 <body>
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
-<%@ include file = "/views/common/manager/manager_nav1.jsp" %>
    
     <div class="main_02">
+    	<div class="nav">	
+			<%@ include file = "/views/common/manager/manager_nav1.jsp" %>
+    	</div>
     
+    	<div class="sub">
+    	
     	<div class="ui header title"><br>▶블랙리스트</div>
     	
     	<div class="tb">
@@ -93,18 +103,14 @@
     		</tr>	
     		
     		<!-- 정보뽑아오는거는 나중에 for문 이용하기!  -->
-    		
     	</table>
+    	
     	<div class="btn">
     	<button onclick="">정지</button>
     	<button onclick="">탈퇴</button>
     	</div>
-    	
+
     </div>
-    </div>
-    
-    
-    
     
     <div class="notice">
     <br><br>
@@ -115,6 +121,8 @@
     		신고 20개 - 강제탈퇴 <br>
     	</div>
     	
+    </div>
+    
     </div>
     
 	<div class = "two wide column"></div>

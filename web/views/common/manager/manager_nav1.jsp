@@ -19,18 +19,16 @@
      	 }
      	 
      	 .left-nav{
-			float:left;
 			border:1px solid black;
 			margin: 5% 5%;
 			height:150px;
-			width:80%;
 			text-align:left;
 			display : table-cell;
 			vertical-align : middle;
 		} 
 		.root-div{
 			margin:5% 5%;
-			float:left;
+			/* float:left; */
 			width:15%;
 			height:100%;
 			
@@ -41,7 +39,7 @@
 </head>
 <body>
 <!-- 카테고리 네비게이터 -->
-	<div class="root-div">
+	<!-- <div class="root-div"> -->
    		<div class="left-nav">
        		<ul class="ul_01" >
            		<li>
@@ -51,7 +49,7 @@
                		<div class="click" onclick = "check_manager();">회원정보 조회</div>
            		</li>
            		<li>
-               		<div class="click" onclick = "check_black();">블랙리스트</div>
+               		<div>블랙리스트</div>
                		<ul>
                			<li>
                			<div class="click" onclick = "check_black();">블랙회원 조회</div>
@@ -63,7 +61,7 @@
           		 	</li>
        		</ul>
    		 </div>
-	</div>
+	<!-- </div> -->
 	
 	<script>
     
