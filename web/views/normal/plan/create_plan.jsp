@@ -17,7 +17,7 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
-	
+	<script src="API-KEY" type="text/javascript"></script>
  
 	
 <style>
@@ -214,10 +214,37 @@
 	}
 	
 	/* 우측 상세히  */
+	/* 지도  */
+	
+	#map-canvas{
+		width : 100%;
+		height : 850px;
+	}
+	
 	.plan-map{
 		width: 75%;
 		position: absolute;
 	}
+	
+	#win-title {
+		font-weight : 800;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+	#win-info{
+		font-weight : 500;
+		font-size : 16px;
+		font-family: 'Nanum Gothic', sans-serif;
+		margin-top : -20px;
+	}
+	
+	#win-plus-icon{
+		margin-left : 20px;
+		color : gray;
+		font-size : 50px;
+		cursor : pointer;
+	}
+	
+	
 	.search{
 		position: absolute;
 		margin-top: 20px;
@@ -235,7 +262,7 @@
 		/* height : 100%; */
 		background : rgba(250, 250, 250, 0.9);
 		z-index : 100;
-		/* visibility : hidden; */
+		visibility : hidden;
 		/* display : none; */
 	} 
 	
@@ -430,6 +457,10 @@
 		color : rgb(85, 124, 186);
 	}
 	
+	/* .cityblock {
+		border : 1px solid blue;
+	} */
+	
 </style>
 </head>
 <body>
@@ -459,7 +490,7 @@
 			</div> -->
 			<hr>
 			<div id = "cityroute">
-				<div id ="cityblock01" class= "citybock">
+				<div id ="cityblock01" class= "cityblock">
 					<div class ="bar1"></div>
 					<div class = "div-flex">
 						<div class ="div-day">
@@ -486,7 +517,8 @@
 					<div class ="bar2"></div>
 				</div>
 				<br>
-				<div id ="cityblock02" class= "citybock">
+				
+				<div id ="cityblock02" class= "cityblock">
 					<div class ="bar2"></div>
 					<div width = "100%; overflow-x:hidden">
 						<div class = "div-trans">
@@ -620,9 +652,10 @@
 				 
 				</div>
 			</div>
-	
-<!-- 	<iframe class = "plan-map"  src="https://snazzymaps.com/embed/117433" width="100%" height="850px" style="border:none;"></iframe>
- -->	 <iframe class = "plan-map"  id = "gg-map" src=".." width="100%" height="850px" style="border:none;"></iframe> 
+	    <!-- 지도 위치  -->
+ 	 	<!-- <iframe class = "plan-map"  id = "gg-map" src=".." width="100%" height="850px" style="border:none;"></iframe>  -->
+ 		<div id="map-canvas" class = "plan-map"></div>
+ 		<!-- style="width: 1000px; height: 700px" -->
 		<div class="ui search">
 		  <div class="ui icon input input-city">
 		    <input class="prompt input-city" type="text" placeholder="Search countries...">
@@ -742,7 +775,116 @@
 		function closePop() {
 			$("#detailPop").css("display", "none");
 		}
+		
+		
 	</script>
+	
+	<!--  지도 스크립트 -->
+	<script type="text/javascript">
+        var locations = [
+          ['paris', 48.888828, 2.343899, '파리'],
+          ['lyon', 45.731777, 4.841401, '리옹'],
+          ['nice', 43.7102723, 7.265773, '니스'],
+          ['munchen', 48.124575, 11.583401, '뮌헨'],
+          ['nurmberg', 49.427678, 11.051079, '뉘른베르크'],
+          ['frankfurt', 50.080674, 8.700005, '프랑크푸르트'],
+          ['rondon', 51.51101, -0.133002, '런던'],
+          ['oxford', 51.742931, -1.24, '옥스포드'],
+          ['amsterdam', 52.351028, 4.910753, '암스테르담'],
+          ['mardrid', 40.416319, -3.712486, '마드리드'],
+          ['barcelona', 41.363101, 2.154214, '바르셀로나'],
+          ['praha', 50.02446, 14.491175, '프라하'],
+          ['budapest', 47.505094, 19.0942, '부다페스트'],
+          ['milano', 45.416718, 9.173792, '밀라노'],
+          ['roma', 41.905289,12.502649, '로마' ],
+          ['firenze', 43.760812, 11.2646, '피렌체'],
+          ['venezia', 45.450143, 12.308302, '베네치아' ],
+          ['athens', 37.980072, 23.74111, '아테네'],
+          ['wien', 48.193741, 16.390641, ''],
+          ['salzburg', 47.796737, 13.07277, '잘츠부르크'],
+          ['zagreb', 45.811764,15.995133, '자브레그'],
+          ['istanbul', 40.99462, 29.002945, '이스탄불'],
+          ['lisboa', 38.722252, -9.139337, '리스본'],
+          ['zurich', 47.363644, 8.546196, '취리히'],
+          ['bern', 46.945272, 7.458549, '베른'],
+          ['odense', 55.412284, 10.400628, '오덴세'],
+          ['kobenhavn', 55.679548, 12.570429, '코펜하겐 '],
+          ['ankara', 39.933363, 32.859742, '앙카라'],
+          ['berlin', 52.520007, 13.404954, '베를린'],
+        ];
+    
+        // 맵 정보 설정
+        var map = new google.maps.Map(document.getElementById('map-canvas'), { 
+          zoom: 6,
+          center: new google.maps.LatLng(47.778744, 7.397438),
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.province","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.neighborhood","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"administrative.neighborhood","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"all","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.highway.controlled_access","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"transit","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"transit","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]}]
+        });
+
+        
+        // 맵 띄우기
+        var infowindow = new google.maps.InfoWindow();
+        
+        // 마커 정보 설정
+        var marker, i;
+        /* var image = {
+            url :'marker.png',
+            size: new google.maps.Size(40, 60),
+          // The origin for this image is (0, 0).
+          origin: new google.maps.Point(0, 0),
+          // The anchor for this image is the base of the flagpole at (0, 32).
+          anchor: new google.maps.Point(0, 320)
+        }; */
+
+        // for (var i = 0; i < neighborhoods.length; i++) {
+        //   addMarkerWithTimeout(neighborhoods[i], i * 200);
+        // }
+        // console.log(locations.length);
+        // function addMarkerWithTimeout(position, timeout) {
+        //   window.setTimeout(function() {
+        //     markers.push(new google.maps.Marker({
+        //       position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        //       map: map,
+        //       animation: google.maps.Animation.DROP
+        //     }));
+        //   }, timeout);
+        // }
+
+        for (i = 0; i < locations.length; i++) { // 마커 찍기 
+            console.log(i); 
+            marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            map: map,
+            animation: google.maps.Animation.DROP
+            // ,
+            // icon : image
+          });
+            
+    
+          google.maps.event.addListener(marker, 'click', (function(marker, i) { // 마커 선택 시 
+            return function() {
+              var cityName = "<h2 id ='win-title'>" + locations[i][3] + " </h2>";
+              var cityInfo = "<font id = 'win-info'>" + "여행정보 얍얍얍 "+ "<font>";
+              var plusBtn = "<span><i class='plus square outline icon' id = 'win-plus-icon' onclick = 'hello();'></i><span>";
+
+              infowindow.setContent(cityName+cityInfo+plusBtn);
+              infowindow.open(map, marker);
+            }
+          })(marker, i));
+
+        }
+        
+        function hello(){
+			var cityblock = "<div id ='cityblock01' class= 'cityblock'>";
+			var s1 = "<div class ='bar2'></div> <div width = '100%; overflow-x:hidden'> <div class = 'div-trans'> <select class='ui dropdown' id ='trans' name = 'transform'>  <option value='plane'>비행기 </option>  <option value='train'>기차 </option>  <option value='ship'>항구 </option>  <option value='bus'>버스 </option>  <option value='etc'>기타  </option> </select> </div> </div> <div class ='bar2'></div>"
+			var s2 = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights'> <option value='one'>1박 </option>  <option value='two'>2박  </option>  <option value='three'>3박  </option>  <option value='four'>4박 </option> <option value='five'>5박  </option> </select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>파리  </span> </div>	</div> 	<div class ='btns-city'> 	<i class='info circle icon'  id= 'icon-city1' onclick ='cityInfo();'></i> <i class='window close icon'  id= 'icon-city2' onclick = ''> </i> </div> </div>	<div class ='bar2'></div> </div>";
+			/* $(cityblock).append(s1); */
+			$("#cityroute").append(cityblock+s1+s2);
+			/* $("cityblock").appendTo("#cityroute"); */
+			   
+			alert("hello");
+		}
+      </script>
 	
 	      
 	<!-- <script>
