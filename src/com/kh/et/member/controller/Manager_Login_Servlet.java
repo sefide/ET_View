@@ -15,13 +15,13 @@ import com.kh.et.member.model.vo.MemberManagerCompany;
  * Servlet implementation class Manager_login_Servlet
  */
 @WebServlet("/login.manager")
-public class Manager_login_Servlet extends HttpServlet {
+public class Manager_Login_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Manager_login_Servlet() {
+    public Manager_Login_Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
