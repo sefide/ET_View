@@ -55,7 +55,7 @@ table{
 </head>
 <body>
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
-<%@ include file = "/views/common/manager/manager_eval_nav.jsp" %>
+<%@ include file = "/views/common/manager/manager_company_nav1.jsp" %>
 	
     <div class="main_01">
     	<div class="ui header title">▶투어글 관리</div>
