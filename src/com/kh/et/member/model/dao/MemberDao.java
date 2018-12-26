@@ -1,5 +1,8 @@
 package com.kh.et.member.model.dao;
 
+import static com.kh.et.common.JDBCTemplate.close;
+
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,13 +10,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 
-import com.kh.et.member.model.vo.MemberManagerCompany;
-import com.kh.et.member.model.vo.MemberNormal;
 
-import static com.kh.et.common.JDBCTemplate.*;
+import com.kh.et.member.model.vo.Member;
 
 public class MemberDao {
 	private Properties prop = new Properties();
@@ -31,12 +31,12 @@ public class MemberDao {
 	}
 
 	//일반회원 로그인 체크용 메소드
-	public MemberNormal loginCheck(Connection con, MemberNormal reqMember) {
+	public Member loginCheck(Connection con, Member reqMember) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		MemberNormal loginUser = null;
+		Member loginUser = null;
 		
-		String query = prop.getProperty("loginSelect");
+		String query = prop.getProperty("loginCheck");
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, reqMember.getM_id());
@@ -45,19 +45,26 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				loginUser = new MemberNormal();
+				loginUser = new Member();
 				
 				loginUser.setM_no(rset.getInt("M_NO"));
 				loginUser.setM_id(rset.getString("M_ID"));
 				loginUser.setM_pwd(rset.getString("M_PWD"));
 				loginUser.setM_name(rset.getString("M_NAME"));
 				loginUser.setM_email(rset.getString("M_EMAIL"));
+				loginUser.setM_profile(rset.getString("M_PROFILE"));
+				loginUser.setM_point(rset.getInt("M_POINT"));
+				loginUser.setM_storage(rset.getInt("M_STORAGE"));
+				loginUser.setM_question(rset.getString("M_QUESTION"));
+				loginUser.setM_answer(rset.getString("M_ANSWER"));
 				loginUser.setM_date(rset.getDate("M_DATE"));
-				loginUser.setM_status(rset.getString("M_STATUS"));
-				
+				loginUser.setM_black_status(rset.getString("M_BLACK_STATUS"));
+				loginUser.setM_stop_status(rset.getString("M_STOP_STATUS"));
+				loginUser.setM_out_status(rset.getString("M_OUT_STATUS"));
+				loginUser.setM_out_date(rset.getDate("M_OUT_DATE"));
 			}
 			
-	
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -69,7 +76,37 @@ public class MemberDao {
 		return loginUser;
 	}
 
-	//일반회원 회원가입용 메소드
+	public int insertMember(Connection con, Member reqMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertMember");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqMember.getM_id());
+			pstmt.setString(2, reqMember.getM_pwd());
+			pstmt.setString(3, reqMember.getM_name());
+			pstmt.setString(4, reqMember.getM_email());
+			pstmt.setString(5, "테스트입니다");
+			pstmt.setInt(6, 200);
+			pstmt.setInt(7, 3);
+			pstmt.setString(8, reqMember.getM_question());
+			pstmt.setString(9, reqMember.getM_answer());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	/*//일반회원 회원가입용 메소드
 	public int insertMember(Connection con, MemberNormal reqMember) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -147,9 +184,9 @@ public class MemberDao {
 		
 		
 		return finalResult;
-	}
+	}*/
 
-	//관리자 로그인 메소드
+	/*//관리자 로그인 메소드
 	public MemberManagerCompany managerLogin(Connection con, MemberManagerCompany reqMember) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -180,45 +217,15 @@ public class MemberDao {
 		}
 		
 		return loginManager;
-	}
+	}*/
 
-	//제휴사 로그인 메소드
-	public MemberManagerCompany companyLogin(Connection con, MemberManagerCompany reqMember) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		MemberManagerCompany loginCompany = null;
-		
-		String query = prop.getProperty("companyLogin");
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, reqMember.getM_id());
-			pstmt.setString(2, reqMember.getM_pwd());
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				loginCompany = new MemberManagerCompany();
-				
-				loginCompany.setM_id(rset.getString("M_ID"));
-				loginCompany.setM_pwd(rset.getString("M_PWD"));
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(con);
-			close(rset);
-		}
-		
-		return loginCompany;
-	}
+	
 
-	public int updateMember(Connection con, MemberNormal reqMember) {
+	/*public int updateMember(Connection con, MemberNormal reqMember) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+*/
 
 
 	

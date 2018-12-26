@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.et.member.model.vo.MemberNormal"%>
+	pageEncoding="UTF-8" import="com.kh.et.member.model.vo.Member"%>
 <%
 	String msg = (String)request.getAttribute("msg");
 %>
@@ -224,7 +224,7 @@
 						<div id="managerlogin">
 							<br> 
 							<div>관리자/제휴사 로그인 하러가기 &nbsp;
-							<a href="/et/views/manager/manager_login.jsp" style="color: black; text-decoration:none"> <i class="large hand point right outline icon"></i></a>
+							<a href="/et/views/common/manager/manager_login.jsp" style="color: black; text-decoration:none"> <i class="large hand point right outline icon"></i></a>
 							</div>
 							<br>
 						</div>

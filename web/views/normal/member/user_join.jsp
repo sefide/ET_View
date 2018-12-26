@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.et.member.model.vo.MemberNormal"%>
+	pageEncoding="UTF-8" import="com.kh.et.member.model.vo.Member"%>
 <%
 	String msg = (String)request.getAttribute("msg");
 %>
@@ -107,7 +107,7 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="text" name="userPwd" placeholder="비밀번호를 입력하세요">
+									<input type="password" name="userPwd" placeholder="비밀번호를 입력하세요">
 								</div>
 							</div>
 							<div align="left" class="font">
@@ -115,7 +115,7 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="text"  placeholder="비밀번호를 입력하세요">
+									<input type="password"  placeholder="비밀번호를 입력하세요">
 								</div>
 							</div>
 							<div align="left" class="font">

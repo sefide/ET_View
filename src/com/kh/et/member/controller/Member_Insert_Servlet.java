@@ -2,6 +2,7 @@ package com.kh.et.member.controller;
 
 import java.io.IOException;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.et.member.model.service.MemberService;
-import com.kh.et.member.model.vo.MemberNormal;
+import com.kh.et.member.model.vo.Member;
 
 /**
  * Servlet implementation class MemberInsertServlet
@@ -32,20 +33,29 @@ public class Member_Insert_Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
+		String userName = request.getParameter("userName");
 		String userQuestion = request.getParameter("userQuestion");
 		String userAwser = request.getParameter("userAwser");
 		String userEmail = request.getParameter("userEmail");
-		String userName = request.getParameter("userName");
 		
-		MemberNormal reqMember = new MemberNormal();
+		System.out.println(userId);
+		System.out.println(userPwd);
+		System.out.println(userName);
+		System.out.println(userQuestion);
+		System.out.println(userAwser);
+		System.out.println(userEmail);
+		
+		Member reqMember = new Member();
 		reqMember.setM_id(userId);
 		reqMember.setM_pwd(userPwd);
-		reqMember.setN_quetion(userQuestion);
-		reqMember.setN_answer(userAwser);
-		reqMember.setM_email(userEmail);
 		reqMember.setM_name(userName);
+		reqMember.setM_question(userQuestion);
+		reqMember.setM_answer(userAwser);
+		reqMember.setM_email(userEmail);
 		
+
 		int result = new MemberService().insertMember(reqMember);
+		
 		
 		if(result > 0) {
 			response.sendRedirect("views/normal/member/user_login.jsp");
@@ -53,7 +63,7 @@ public class Member_Insert_Servlet extends HttpServlet {
 			request.setAttribute("msg", "회원가입에 실패햇어ㅠㅠ");
 			request.getRequestDispatcher("views/normal/member/user_join.jsp").forward(request, response);
 		}
-	
+
 		
 		
 		
