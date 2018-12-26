@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.et.member.model.service.MemberService;
-import com.kh.et.member.model.vo.MemberNormal;
+import com.kh.et.member.model.vo.Member;
 
 /**
  * Servlet implementation class Member_Login_Servlet
@@ -38,11 +38,11 @@ public class Member_Login_Servlet extends HttpServlet {
 		/*System.out.println("userId : " + userId);
 		System.out.println("userPwd : " + userPwd);*/
 		
-		MemberNormal reqMember = new MemberNormal();
+		Member reqMember = new Member();
 		reqMember.setM_id(userId);
 		reqMember.setM_pwd(userPwd);
 		
-		MemberNormal loginUser = new MemberService().loginCheck(reqMember);
+		Member loginUser = new MemberService().loginCheck(reqMember);
 		
 		if(loginUser != null) {//성공
 			request.getSession().setAttribute("loginUser", loginUser);	//세션불러와서 로그인 정보 넣고
