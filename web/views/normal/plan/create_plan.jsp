@@ -17,122 +17,27 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
-	<script src="API-KEY" type="text/javascript"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
  
+ 	<!-- css 불러오기  -->
+ 	<link href = "/et/views/css/create_plan.css" type = "text/css" rel= "stylesheet">
 	
 <style>
 	body{
 	margin:0px;
 	}
 	
-	/* header */
-	.header {
-		width:100%;
-		height:60px;
-		background : rgba(241, 196, 15, 0.32);
-		/* background-color: white;
-		border-bottom: 3px solid rgba(241, 196, 15, 0.32);	 */	
-	}
 	
-	.header-top-img{
-		width : 50px;
-		margin: 3px;
-	}
-	.div-title{
-		display : inline-block;
-		position : absolute;
-		margin-top: 20px;
-		/*left : 50px; */
-		width : 600px;
-		
-	}
-	.txt-title{
-		margin: -15px 10px 10px 10px;
-		font-weight : 600;
-		font-size : 33px;
-		color : black;
-		font-family: 'Ubuntu', sans-serif;
-	}
-	#editTitle{
-		font-size: 1.3em;
-		margin-left:15px;
-		
-	}
-	
-	.btn-save, .btn-return{
-		font-size: 14px; 
-		/* color: rgb(0, 1, 255);  */
-		color : white;
-		background : rgb(42,90,133); 
-		float:right; 
-		text-align: center; 
-		line-height: 2.5em; 
-		border-radius: 8px; 
-		width : 90px;
-		margin-top:8px;
-	}
-	.btn-save {
-		margin-right:50px; 
-	}
-	.btn-return{
-		margin-right:30px; 
-	}
-	
-	#input-title{
-		position : absolute;
-		margin-top: 12px;
-		width : 250px;
-		visibility : hidden;
-		}
-	#btn-save-title{
-		margin : 2px;
-		height : 35px;
-		width : 30px;
-		background : rgb(42,90,133); 
-		color : white;
-		border-radius : 7px;
-	}
-	
-	
-	/* 하단 */
-	.plan-table-calendar{
-		float : left;
-		width : 25%;
-		background: rgb(255, 255, 255);
-	    border-radius: 9px;
-	    	height: 850px;
-	    	padding-top : 20px;
-	}
-	.plan-table-map{
-		float: left;
-	    width: 75%;
-	    overflow: hidden;
-	    background: rgb(53, 86, 155);
-	}
-	
-	
-	
-	/* 좌측 일정 상세히  */
-	.input-date-first{
-		width : 150px;
-		border-radius : 5px;
-		height : 35px;
-		border : 1px dashed black;
-		margin : 5px 10px 5px 10px;
-		text-align : center;
-	}
-	.txt-date-first{
-		margin-left : 10px;
-		font-size : 15px;
-	}
-	
-	/* 좌측 일정 - 나라추 */
+	/* 좌측 일정 - 나라추가  */
 	#cityroute{
+		height : 500px;
+		overflow-y : auto;
 		width : 100%;
 		display : flex;
 		flex-wrap: wrap;
 		padding : 0 15px;
 	}
+	
 	.div-flex{
 		display : flex;
 		flex-wrap : wrap;
@@ -150,10 +55,9 @@
 		border-right : 3px solid black; 
 		height : 10px;
 	}
-	.citybock{
+	.cityblock{
 		width : 99%;
 		position : relative;
-		/* margin-left : 1px; */
 	}
 	
 	.div-day{
@@ -255,212 +159,6 @@
 	}
 	
 	
-	/* 도시 상세정보보기  */
-	#detailPop{
-		position : absolute;
-		width : 1050px;
-		/* height : 100%; */
-		background : rgba(250, 250, 250, 0.9);
-		z-index : 100;
-		visibility : hidden;
-		/* display : none; */
-	} 
-	
-	#borderPop{
-		position : relative;
-		top : 20px;
-		left : 20px;
-		border : 1px solid lightgray;
-		width : 1000px;
-		/* height : 90%; */
-		border-radius : 5px;
-		padding : 13px;
-	}
-	
-	#closePop {
-		font-size : 1.8em;
-		margin-right : 100px;
-		/* margin-left : 18px;
-		margin-top : 18px; */
-		
-	}
-	
-	/* pop 안에 내용  */
-	/* 간단 소개  */
-	.p-city-name{
-		font-weight : 700;
-		font-size : 22px;
-		font-family: 'Nanum Gothic', sans-serif;
-	}
-	.p-info-img{
-		width : 600px;
-		height : 390px;
-		border-radius : 7px;
-		border : 1px solid white;
-	}
-	.p-info-txt{
-		font-weight : 500;
-		font-size : 15px;
-		color : gray;
-		font-family: 'Nanum Gothic', sans-serif;
-	}
-	
-	/* 날씨  */
-	.p-flex{
-		display : flex;
-		flex-wrap : wrap;
-		width : 100%;
-	}
-	.p-title{
-		font-weight : 500;
-		font-size : 18px;
-		font-family: 'Nanum Gothic', sans-serif;
-		margin : 4% 0 1% 0;
-	}
-	.p-w{
-		width : 16%;
-		height : 44px;
-		border: 1px solid white;
-		background : skyblue;
-		cursor : pointer;
-		border-radius : 7px;
-		padding-top : 10px; 
-		text-align : center;
-		/* display : table-cell;
-		vertical-align : middle; */
-		color : white;
-	}
-	
-	.p-p {
-		width : 23%;
-		margin: 0 1% 1% 1%;
-		height : 250px;
-		/* border: 1px solid skyblue; */
-		text-align : center;
-	}
-	
-	 .p-t {
-		width : 23%;
-		margin: 0 1% 1% 1%;
-		height : 270px;
-		/* border: 1px solid skyblue; */
-		
-	}
-	
-	.p-p-img{
-		width : 100%;
-		height : 200px;
-		border-radius : 10px;
-		margin-bottom : 10px;
-	}
-	
-	.p-p-name{
-		font-weight : 700;
-		font-size : 18px;
-		font-family: 'Nanum Gothic', sans-serif;
-	}
-	
-	.p-t-img{
-		width : 100%;
-		height : 200px;
-		border-radius : 10px;
-		margin-bottom : 10px;
-	}
-	
-	.p-t-name{
-		font-weight : 700;
-		font-size : 18px;
-		font-family: 'Nanum Gothic', sans-serif;
-	}
-	
-	.p-t-price{
-		font-weight : 800;
-		font-size : 18px;
-		font-family: 'Nanum Gothic', sans-serif;
-	}
-	
-	/* 이동수단 팝업  */
-	#icon-close{
-		margin : 5px 3px 0 0;
-		font-size : 20px;
-	}
-	
-	#trans-pop-txt{
-		margin-left : 30px;
-		font-weight : 700;
-		font-size : 18px;
-		font-family: 'Nanum Gothic', sans-serif;
-	}
-	
-	.trans-pop{
-		position : absolute;
-		visibility : hidden;
-		width : 800px;
-		height : 270px;
-		background : rgb(171, 199, 244);
-		border-radius : 7px;
-		/* border : 3px solid white; */
-		top : 100px;
-		left : 80px;
-		z-index : 200;
-	}
-	
-	.trans-flex{
-		width : 100%;
-		display : flex;
-		flex-wrap : wrap;
-		
-	}
-	
-	.trans-in{
-		width : 18%;
-		line-height : 7.5em;
-		margin : 2% 1% 0 1%;
-		text-align : center;
-		
-	}
-	
-	.tr-circle {
-		border : 3px solid rgb(171, 199, 244);
-		background : white;
-		border-radius : 50%;
-		width : 130px;
-		height : 130px;
-		margin-bottom : -20px;
-		cursor : pointer;
-	}
-	
-	#icon-trans{
-		font-size : 70px;
-		margin-left : 9px;
-		margin-top : 10px;
-	}
-	
-	.trans-txt{
-		font-weight : 500;
-		font-size : 18px;
-		font-family: 'Nanum Gothic', sans-serif;
-		color : white;
-		/* margin-left : 20px; */
-	}
-	
-	.trans-txt{
-		color : white;
-	}
-	.trans-txt-num{
-		font-weight : 500;
-		font-size : 18px;
-		font-family: 'Nanum Gothic', sans-serif;
-		color : rgb(85, 124, 186);
-	}
-	.trans-txt-num:hover{
-		color : rgb(85, 124, 186);
-	}
-	
-	/* .cityblock {
-		border : 1px solid blue;
-	} */
-	
 </style>
 </head>
 <body>
@@ -490,73 +188,7 @@
 			</div> -->
 			<hr>
 			<div id = "cityroute">
-				<div id ="cityblock01" class= "cityblock">
-					<div class ="bar1"></div>
-					<div class = "div-flex">
-						<div class ="div-day">
-							<div class = "div-day-circle">
-								<select class ="nights">
-								    <option value="one">1박 </option>
-								    <option value="two">2박  </option>
-								    <option value="three">3박  </option>
-								    <option value="four">4박 </option>
-								    <option value="five">5박  </option>
-							    </select> 
-							</div>
-						</div>
-						<div class = "div-city">
-							<div class = "txt-city">
-								<span class = "font-city-name">파리  </span>
-							</div>
-						</div>
-						<div class ="btns-city">
-							<i class="info circle icon"  id= "icon-city1" onclick ="cityInfo();"></i>
-							<i class="window close icon"  id= "icon-city2" onclick = ""> </i>
-						</div>
-					</div>
-					<div class ="bar2"></div>
-				</div>
-				<br>
 				
-				<div id ="cityblock02" class= "cityblock">
-					<div class ="bar2"></div>
-					<div width = "100%; overflow-x:hidden">
-						<div class = "div-trans">
-							<select class="ui dropdown" id ="trans" name = "transform">
-						      <option value="plane">비행기 </option>
-						      <option value="train">기차 </option>
-						      <option value="ship">항구 </option>
-						      <option value="bus">버스 </option>
-						      <option value="etc">기타  </option>
-						    </select>
-						</div>
-					</div>
-					
-					<div class ="bar2"></div>
-					<div class = "div-flex">
-						<div class ="div-day">
-							<div class = "div-day-circle">
-								<select class ="nights">
-								    <option value="one">1박 </option>
-								    <option value="two">2박  </option>
-								    <option value="three">3박  </option>
-								    <option value="four">4박 </option>
-								    <option value="five">5박  </option>
-							    </select>  
-							</div>
-						</div>
-						<div class = "div-city">
-							<div class = "txt-city">
-								<span class = "font-city-name">프랑크프루트  </span>
-							</div>
-						</div>
-						<div class ="btns-city">
-							<i class="info circle icon"  id= "icon-city1" onclick ="cityInfo();"></i>
-							<i class="window close icon"  id= "icon-city2" onclick = ""> </i>
-						</div>
-					</div>
-					<div class ="bar2"></div>
-				</div>
 			</div>
 			
 			<!-- <div id = "map-canvas"></div> -->
@@ -723,7 +355,6 @@
 		});
 		
 		function selTrans(num){
-			console.log(num);
 			switch(num){
 				case 1: $("#trans option:eq(0)").prop("selected", true); break;
 				case 2: $("#trans option:eq(1)").prop("selected", true); break;
@@ -753,7 +384,8 @@
 			$(".div-title").css("visibility", "visible");
 		}
 		
-		function cityInfo() {
+		function cityDetail() {
+			alert("why");
 			/* $("#detailPop").css("visibility", "visible"); */
 			$("#detailPop").css("display", "block");
 		   /*  	window.open("detail_city.jsp", "도시 정보창 ", "width=1000, height=700, toolbar=no, menubar=no, location = no, resizable=no, left=400, top=0" ); */  
@@ -827,31 +459,8 @@
         
         // 마커 정보 설정
         var marker, i;
-        /* var image = {
-            url :'marker.png',
-            size: new google.maps.Size(40, 60),
-          // The origin for this image is (0, 0).
-          origin: new google.maps.Point(0, 0),
-          // The anchor for this image is the base of the flagpole at (0, 32).
-          anchor: new google.maps.Point(0, 320)
-        }; */
-
-        // for (var i = 0; i < neighborhoods.length; i++) {
-        //   addMarkerWithTimeout(neighborhoods[i], i * 200);
-        // }
-        // console.log(locations.length);
-        // function addMarkerWithTimeout(position, timeout) {
-        //   window.setTimeout(function() {
-        //     markers.push(new google.maps.Marker({
-        //       position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-        //       map: map,
-        //       animation: google.maps.Animation.DROP
-        //     }));
-        //   }, timeout);
-        // }
-
+       
         for (i = 0; i < locations.length; i++) { // 마커 찍기 
-            console.log(i); 
             marker = new google.maps.Marker({
             position: new google.maps.LatLng(locations[i][1], locations[i][2]),
             map: map,
@@ -865,7 +474,7 @@
             return function() {
               var cityName = "<h2 id ='win-title'>" + locations[i][3] + " </h2>";
               var cityInfo = "<font id = 'win-info'>" + "여행정보 얍얍얍 "+ "<font>";
-              var plusBtn = "<span><i class='plus square outline icon' id = 'win-plus-icon' onclick = 'hello();'></i><span>";
+              var plusBtn = "<span><i class='plus square outline icon' id = 'win-plus-icon' onclick = 'addCity("+i +");'></i><span>";
 
               infowindow.setContent(cityName+cityInfo+plusBtn);
               infowindow.open(map, marker);
@@ -874,16 +483,63 @@
 
         }
         
-        function hello(){
-			var cityblock = "<div id ='cityblock01' class= 'cityblock'>";
-			var s1 = "<div class ='bar2'></div> <div width = '100%; overflow-x:hidden'> <div class = 'div-trans'> <select class='ui dropdown' id ='trans' name = 'transform'>  <option value='plane'>비행기 </option>  <option value='train'>기차 </option>  <option value='ship'>항구 </option>  <option value='bus'>버스 </option>  <option value='etc'>기타  </option> </select> </div> </div> <div class ='bar2'></div>"
-			var s2 = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights'> <option value='one'>1박 </option>  <option value='two'>2박  </option>  <option value='three'>3박  </option>  <option value='four'>4박 </option> <option value='five'>5박  </option> </select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>파리  </span> </div>	</div> 	<div class ='btns-city'> 	<i class='info circle icon'  id= 'icon-city1' onclick ='cityInfo();'></i> <i class='window close icon'  id= 'icon-city2' onclick = ''> </i> </div> </div>	<div class ='bar2'></div> </div>";
-			/* $(cityblock).append(s1); */
-			$("#cityroute").append(cityblock+s1+s2);
-			/* $("cityblock").appendTo("#cityroute"); */
-			   
-			alert("hello");
+        
+        var countCity = 0;
+        var order = 0;
+        var flightPlanCoordinates = [];
+        var path = {};
+        // 선 정보 설정 
+        var poly = new google.maps.Polyline({
+            path: flightPlanCoordinates,
+            strokeColor: '#2A5A85',
+            strokeOpacity: 1.0,
+            strokeWeight: 5
+        });
+        
+        function addCity(i){
+        		var cityblockhead = "<div id ='cityblock0" +(countCity+1)+ "' class= 'cityblock'> <input type = 'hidden' name = '"+order+"'><div class ='bar2'></div>";
+        		var citytrans = "<div width = '100%; overflow-x:hidden'> <div class = 'div-trans'> <select class='ui dropdown' id ='trans' name = 'transform'>  <option value='plane'>비행기 </option>  <option value='train'>기차 </option>  <option value='ship'>항구 </option>  <option value='bus'>버스 </option>  <option value='etc'>기타  </option> </select> </div> </div> <div class ='bar2'></div>";
+        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights'> <option value='one'>1박 </option>  <option value='two'>2박  </option>  <option value='three'>3박  </option>  <option value='four'>4박 </option> <option value='five'>5박  </option> </select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>파리  </span> </div>	</div> 	<div class ='btns-city'> 	<i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail();'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity("+countCity + ");'> </i> </div> </div>";
+        		var cityblockfoot = "";
+        		var content = "";
+        		if(countCity == 0){
+        			cityblockfoot = "<div class ='bar2'></div> </div>";  // countCity == 0
+        			content = cityblockhead + citydays + cityblockfoot;
+        		}
+        		else {
+        			cityblockfoot = "<div class ='bar1'></div> </div>";  // countCity != 0
+        			content =  cityblockhead + citytrans + citydays + cityblockfoot;
+        		}
+			$("#cityroute").append(content);
+			countCity++;
+			order++;
+			console.log("order" + order);
+			
+			path = {lat : locations[i][1], lng : locations[i][2]};
+            flightPlanCoordinates.push(path);
+            
+            poly.setPath(flightPlanCoordinates);
+            console.log("패스 :"  + poly.getPath());
+            // 선 그리기 
+            poly.setMap(map);
 		}
+        
+        function deleteCity(num){ // 삭제 
+        		var str = "#cityblock0" + num+1;
+        		$("#cityblock0" + (num+1)).remove();
+        		var orderCoordi = $("#cityblock0" + (num+1)).children().attr("name");
+        		console.log("orderCoordi" + orderCoordi);
+        		
+        		flightPlanCoordinates.splice(orderCoordi,1);
+        		
+        		poly.setMap(null);
+        		
+            poly.setPath(flightPlanCoordinates);
+        		poly.setMap(map);
+        		
+        		order--;
+        }
+        
       </script>
 	
 	      
