@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "com.kh.et.plan.model.vo.*, java.util.*"%>
+<%
+	ArrayList<City> cityList = (ArrayList<City>)request.getAttribute("cityList");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,8 +33,7 @@
 	
 	/* 좌측 일정 - 나라추가  */
 	#cityroute{
-		height : 500px;
-		overflow-y : auto;
+		
 		width : 100%;
 		display : flex;
 		flex-wrap: wrap;
@@ -121,7 +123,7 @@
 	/* 지도  */
 	
 	#map-canvas{
-		width : 100%;
+		width : 90%;
 		height : 850px;
 	}
 	
@@ -134,20 +136,27 @@
 		font-weight : 800;
 		font-family: 'Nanum Gothic', sans-serif;
 	}
+	#win-photo{
+		width : 80px;
+		height : 70px;
+		float:left;
+		margin-right : 10px;
+	}
 	#win-info{
-		font-weight : 500;
-		font-size : 16px;
+		font-weight : 700;
+		font-size : 15px;
 		font-family: 'Nanum Gothic', sans-serif;
 		margin-top : -20px;
+		color : #808080;
 	}
 	
-	#win-plus-icon{
-		margin-left : 20px;
-		color : gray;
-		font-size : 50px;
-		cursor : pointer;
+	#win-info-div{
+		width : 330px;
 	}
 	
+	#win-btn{
+		float : right ;
+	}
 	
 	.search{
 		position: absolute;
@@ -157,7 +166,11 @@
 	.input-city{
 		width : 250px;
 	}
-	
+	#cityroute-overflow{
+		height : 500px;
+		overflow-y : auto;
+		border-bottom : 1px solid #f2f2f2;
+	}
 	
 </style>
 </head>
@@ -177,124 +190,6 @@
 		
 		<button class = "btn-save" onclick = "save();"> 저장하기</button>
 		<button class = "btn-return" onclick = "returnMain();"> 돌아가기</button>
-	</div>
-	
-	<div class = "plan-table-calendar">
-		<form>
-			<font class ="txt-date-first">여행 시작날짜를 입력해주세요 :)</font>
-			<input type ="date" class = "input-date-first" name = "dateFirst"/>
-			<!-- <div id="cityroute" style="position:relative;text-align:center;width:100%;margin-left:0px;padding-left:0px;padding-top:0px;overflow-x:hidden;overflow-y:auto;height:480px;background:#ffffff">
-				<br/><br/><br/><font style="font-size:9pt" color="#c0c0c0"><b>입력된 도시가 없습니다.</b></font>
-			</div> -->
-			<hr>
-			<div id = "cityroute">
-				
-			</div>
-			
-			<!-- <div id = "map-canvas"></div> -->
-			
-		</form>
-		
-	</div>
-	
-	<div class = "plan-table-map">
-			<div id ="detailPop">
-				 <i class="window close outline icon" id = "closePop" onclick = "closePop();"></i>
-				<div id = "borderPop">
-				 
-				 <div class = "p-city-name">파리 여행을 가기 전 알아둬야 할 점 ! </div> <br>
-				 <div class = "p-info-div"> 
-			     	<img class = "p-info-img" src = "/et/image/city/paris.jpg" alt = "paris">
-			     	<label class ="p-info-txt"> 간단 소개내용  </label>
-			     	
-				 </div>
-				 <br>
-				 <div class ="p-weather-div"> 
-				 	<div class ="p-title"> 월 평균 기온 </div>
-				 	<div class ="p-flex" id ="weather-div"> 
-				 		<div class ="p-w">1월 </div>
-				 		<div class ="p-w">2월 </div>
-				 		<div class ="p-w">3월 </div>
-				 		<div class ="p-w">4월 </div>
-				 		<div class ="p-w">5월 </div>
-				 		<div class ="p-w">6월 </div>
-				 		<div class ="p-w">7월 </div>
-				 		<div class ="p-w">8월 </div>
-				 		<div class ="p-w">9월 </div>
-				 		<div class ="p-w">10월 </div>
-				 		<div class ="p-w">11월 </div>
-				 		<div class ="p-w">12월 </div>
-				 	</div>
-				 </div>
-				 <div class = "p-place-div">
-				 <div class ="p-title"> 인기명소  </div>
-				 	<div class ="p-flex"> 
-				 		<div class ="p-p">
-				 			<div><img class ="p-p-img" src ="/et/image/city/bar.jpg"></div>
-				 			<div><label class ="p-p-name">관광지명 </label></div>
-				 		</div>
-				 		<div class ="p-p">
-				 			<div><img class ="p-p-img"></div>
-				 			<div><label class ="p-p-name">관광지명 </label></div>
-				 		</div>
-				 		<div class ="p-p">
-				 			<div><img class ="p-p-img"></div>
-				 			<div><label class ="p-p-name">관광지명 </label></div>
-				 		</div>
-				 		<div class ="p-p">
-				 			<div><img class ="p-p-img"></div>
-				 			<div><label class ="p-p-name">관광지명 </label></div>
-				 		</div>
-				 		<div class ="p-p">
-				 			<div><img class ="p-p-img"></div>
-				 			<div><label class ="p-p-name">관광지명 </label></div>
-				 		</div>
-				 		<div class ="p-p">
-				 			<div><img class ="p-p-img"></div>
-				 			<div><label class ="p-p-name">관광지명 </label></div>
-				 		</div>
-				 	</div>
-				 </div>
-				 <div class ="p-tour-div">
-				 	<div class ="p-title"> 관련 투어  </div>
-					<div class ="p-flex"> 
-				 		<div class ="p-t">
-				 			<div><img class ="p-t-img"></div>
-				 			<label class ="p-t-name">투어명 </label>
-				 			<label class ="p-t-price">가격 </label>
-				 		</div>
-				 		<div class ="p-t">
-				 			<div><img class ="p-t-img"></div>
-				 			<label class ="p-t-name">투어명 </label>
-				 			<label class ="p-t-price">가격 </label>
-				 		</div>
-				 		<div class ="p-t">
-				 			<div><img class ="p-t-img"></div>
-				 			<label class ="p-t-name">투어명 </label>
-				 			<label class ="p-t-price">가격 </label>
-				 		</div>
-				 		<div class ="p-t">
-				 			<div><img src ="/et/image/city/bar.jpg" class ="p-t-img"></div>
-				 			<label class ="p-t-name">투어명 </label>
-				 			<label class ="p-t-price">가격 </label>
-				 		</div>
-				 		
-				 	</div>
-				 </div>
-				 
-				</div>
-			</div>
-	    <!-- 지도 위치  -->
- 	 	<!-- <iframe class = "plan-map"  id = "gg-map" src=".." width="100%" height="850px" style="border:none;"></iframe>  -->
- 		<div id="map-canvas" class = "plan-map"></div>
- 		<!-- style="width: 1000px; height: 700px" -->
-		<div class="ui search">
-		  <div class="ui icon input input-city">
-		    <input class="prompt input-city" type="text" placeholder="Search countries...">
-		    <i class="search icon"></i>
-		  </div>
-		  <div class="results"></div>
-		</div>
 	</div>
 	
 	<div class ="trans-pop">
@@ -340,6 +235,127 @@
 			
 		</div>
 	</div>
+	
+	<div class = "plan-table-calendar">
+		<form>
+			<font class ="txt-date-first">여행 시작날짜를 입력해주세요 :)</font>
+			<input type ="date" class = "input-date-first" name = "dateFirst"/>
+			<!-- <div id="cityroute" style="position:relative;text-align:center;width:100%;margin-left:0px;padding-left:0px;padding-top:0px;overflow-x:hidden;overflow-y:auto;height:480px;background:#ffffff">
+				<br/><br/><br/><font style="font-size:9pt" color="#c0c0c0"><b>입력된 도시가 없습니다.</b></font>
+			</div> -->
+			<hr>
+			<div id = "cityroute-overflow">
+			<div id = "cityroute">
+				
+			</div>
+			</div>
+			<!-- <div id = "map-canvas"></div> -->
+			
+		</form>
+		
+	</div>
+	
+	<div class = "plan-table-map">
+			<div id ="detailPop">
+				 <i class="window close outline icon" id = "closePop" onclick = "closePop();"></i>
+				<div id = "borderPop">
+				 
+				 <div class = "p-city-name">파리 여행을 가기 전 알아둬야 할 점 ! </div> <br>
+				 <div class = "p-info-div"> 
+			     	<img class = "p-info-img" src = "/et/image/city/paris.jpg" alt = "paris">
+			     	<label class ="p-info-txt"> 간단 소개내용  </label>
+			     	
+				 </div>
+				 <br>
+				 <div class ="p-weather-div"> 
+				 	<div class ="p-title"> 월 평균 기온 </div>
+				 	<div class ="p-flex" id ="weather-div"> 
+				 		<div class ="p-w">1월 </div>
+				 		<div class ="p-w">2월 </div>
+				 		<div class ="p-w">3월 </div>
+				 		<div class ="p-w">4월 </div>
+				 		<div class ="p-w">5월 </div>
+				 		<div class ="p-w">6월 </div>
+				 		<div class ="p-w">7월 </div>
+				 		<div class ="p-w">8월 </div>
+				 		<div class ="p-w">9월 </div>
+				 		<div class ="p-w">10월 </div>
+				 		<div class ="p-w">11월 </div>
+				 		<div class ="p-w">12월 </div>
+				 	</div>
+				 </div>
+				 <div class = "p-place-div">
+				 <div class ="p-title"> 인기명소  </div>
+				 	<div class ="p-flex"> 
+				 		<div class ="p-p">
+				 			<div><img class ="p-p-img" src ="/et/image/city/paris.jpg"></div>
+				 			<div><label class ="p-p-name">관광지명 </label></div>
+				 		</div>
+				 		<div class ="p-p">
+				 			<div><img class ="p-p-img"></div>
+				 			<div><label class ="p-p-name">관광지명 </label></div>
+				 		</div>
+				 		<div class ="p-p">
+				 			<div><img class ="p-p-img"></div>
+				 			<div><label class ="p-p-name">관광지명 </label></div>
+				 		</div>
+				 		<div class ="p-p">
+				 			<div><img class ="p-p-img"></div>
+				 			<div><label class ="p-p-name">관광지명 </label></div>
+				 		</div>
+				 		<div class ="p-p">
+				 			<div><img class ="p-p-img"></div>
+				 			<div><label class ="p-p-name">관광지명 </label></div>
+				 		</div>
+				 		<div class ="p-p">
+				 			<div><img class ="p-p-img"></div>
+				 			<div><label class ="p-p-name">관광지명 </label></div>
+				 		</div>
+				 	</div>
+				 </div>
+				 <div class ="p-tour-div">
+				 	<div class ="p-title"> 관련 투어  </div>
+					<div class ="p-flex"> 
+				 		<div class ="p-t">
+				 			<div><img class ="p-t-img"></div>
+				 			<label class ="p-t-name">투어명 </label>
+				 			<label class ="p-t-price">가격 </label>
+				 		</div>
+				 		<div class ="p-t">
+				 			<div><img class ="p-t-img"></div>
+				 			<label class ="p-t-name">투어명 </label>
+				 			<label class ="p-t-price">가격 </label>
+				 		</div>
+				 		<div class ="p-t">
+				 			<div><img class ="p-t-img"></div>
+				 			<label class ="p-t-name">투어명 </label>
+				 			<label class ="p-t-price">가격 </label>
+				 		</div>
+				 		<div class ="p-t">
+				 			<div><img src ="/et/image/city/paris.jpg" class ="p-t-img"></div>
+				 			<label class ="p-t-name">투어명 </label>
+				 			<label class ="p-t-price">가격 </label>
+				 		</div>
+				 		
+				 	</div>
+				 </div>
+				 
+				</div>
+			</div>
+	    <!-- 지도 위치  -->
+ 	 	<!-- <iframe class = "plan-map"  id = "gg-map" src=".." width="100%" height="850px" style="border:none;"></iframe>  -->
+ 		<div id="map-canvas" class = "plan-map"></div>
+ 		<!-- style="width: 1000px; height: 700px" -->
+		<div class="ui search">
+		  <div class="ui icon input input-city">
+		    <input class="prompt input-city" type="text" placeholder="Search countries...">
+		    <i class="search icon"></i>
+		  </div>
+		  <div class="results"></div>
+		</div>
+	</div>
+	
+
 
 
 
@@ -412,38 +428,16 @@
 	</script>
 	
 	<!--  지도 스크립트 -->
-	<script type="text/javascript">
-        var locations = [
-          ['paris', 48.888828, 2.343899, '파리'],
-          ['lyon', 45.731777, 4.841401, '리옹'],
-          ['nice', 43.7102723, 7.265773, '니스'],
-          ['munchen', 48.124575, 11.583401, '뮌헨'],
-          ['nurmberg', 49.427678, 11.051079, '뉘른베르크'],
-          ['frankfurt', 50.080674, 8.700005, '프랑크푸르트'],
-          ['rondon', 51.51101, -0.133002, '런던'],
-          ['oxford', 51.742931, -1.24, '옥스포드'],
-          ['amsterdam', 52.351028, 4.910753, '암스테르담'],
-          ['mardrid', 40.416319, -3.712486, '마드리드'],
-          ['barcelona', 41.363101, 2.154214, '바르셀로나'],
-          ['praha', 50.02446, 14.491175, '프라하'],
-          ['budapest', 47.505094, 19.0942, '부다페스트'],
-          ['milano', 45.416718, 9.173792, '밀라노'],
-          ['roma', 41.905289,12.502649, '로마' ],
-          ['firenze', 43.760812, 11.2646, '피렌체'],
-          ['venezia', 45.450143, 12.308302, '베네치아' ],
-          ['athens', 37.980072, 23.74111, '아테네'],
-          ['wien', 48.193741, 16.390641, ''],
-          ['salzburg', 47.796737, 13.07277, '잘츠부르크'],
-          ['zagreb', 45.811764,15.995133, '자브레그'],
-          ['istanbul', 40.99462, 29.002945, '이스탄불'],
-          ['lisboa', 38.722252, -9.139337, '리스본'],
-          ['zurich', 47.363644, 8.546196, '취리히'],
-          ['bern', 46.945272, 7.458549, '베른'],
-          ['odense', 55.412284, 10.400628, '오덴세'],
-          ['kobenhavn', 55.679548, 12.570429, '코펜하겐 '],
-          ['ankara', 39.933363, 32.859742, '앙카라'],
-          ['berlin', 52.520007, 13.404954, '베를린'],
-        ];
+	<script>
+	var locations = []; 
+	var cityName = "";
+	var cityInfo = "";
+	var cities = [];
+	 <%for(int i = 0; i < cityList.size(); i++) { %> // 이름, 설명, 위도, 경도
+		cities = ['<%=cityList.get(i).getCtName()%>', '<%=cityList.get(i).getCtInfo()%>',<%=cityList.get(i).getCtLat()%>,<%=cityList.get(i).getCtLng()%>];
+		locations.push(cities); 
+	<% }%> 
+       
     
         // 맵 정보 설정
         var map = new google.maps.Map(document.getElementById('map-canvas'), { 
@@ -462,24 +456,28 @@
        
         for (i = 0; i < locations.length; i++) { // 마커 찍기 
             marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            position: new google.maps.LatLng(locations[i][2], locations[i][3]),
             map: map,
             animation: google.maps.Animation.DROP
-            // ,
-            // icon : image
           });
             
     
-          google.maps.event.addListener(marker, 'click', (function(marker, i) { // 마커 선택 시 
+       google.maps.event.addListener(marker, 'click', (function(marker, i) {// 마커 선택 시 
             return function() {
-              var cityName = "<h2 id ='win-title'>" + locations[i][3] + " </h2>";
-              var cityInfo = "<font id = 'win-info'>" + "여행정보 얍얍얍 "+ "<font>";
-              var plusBtn = "<span><i class='plus square outline icon' id = 'win-plus-icon' onclick = 'addCity("+i +");'></i><span>";
-
-              infowindow.setContent(cityName+cityInfo+plusBtn);
-              infowindow.open(map, marker);
-            }
-          })(marker, i));
+        	  		<%-- <% if(cityList.g.getCtName().equals(%> locations[i][3]) <%)){%>
+        	  		
+        	  		<% } %> --%>
+        	  		
+	            var cityName = "<h2 id ='win-title'>" + locations[i][0] + "</h2>";
+	       	    var cityPhoto = "<img src = '/et/image/city/"+i+".jpg' alt = 'city' id = 'win-photo'>"
+	            var cityInfo = "<div id = 'win-info-div'><font id = 'win-info'>" + locations[i][1] + "<font></div> <br>";
+	            var plusBtn = "<div id = 'win-btn'><button class='ui basic button' onclick = 'addCity("+i +");'>추가하기 </button></div><br>";
+	            //<span><i class='plus square outline icon' id = 'win-plus-icon' onclick = 'addCity("+i +");'></i><span>
+	
+	            infowindow.setContent(cityName + cityPhoto + cityInfo + plusBtn);
+	            infowindow.open(map, marker);
+            		}
+          	})(marker, i));
 
         }
         
@@ -497,9 +495,9 @@
         });
         
         function addCity(i){
-        		var cityblockhead = "<div id ='cityblock0" +(countCity+1)+ "' class= 'cityblock'> <input type = 'hidden' name = '"+order+"'><div class ='bar2'></div>";
+        		var cityblockhead = "<div id ='cityblock0" +(countCity+1)+ "' class= 'cityblock'> <input type = 'hidden' name = '"+order+"' value = '"+locations[i][0] + "'><div class ='bar2'></div>";
         		var citytrans = "<div width = '100%; overflow-x:hidden'> <div class = 'div-trans'> <select class='ui dropdown' id ='trans' name = 'transform'>  <option value='plane'>비행기 </option>  <option value='train'>기차 </option>  <option value='ship'>항구 </option>  <option value='bus'>버스 </option>  <option value='etc'>기타  </option> </select> </div> </div> <div class ='bar2'></div>";
-        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights'> <option value='one'>1박 </option>  <option value='two'>2박  </option>  <option value='three'>3박  </option>  <option value='four'>4박 </option> <option value='five'>5박  </option> </select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>파리  </span> </div>	</div> 	<div class ='btns-city'> 	<i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail();'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity("+countCity + ");'> </i> </div> </div>";
+        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights'> <option value='one'>1박 </option>  <option value='two'>2박  </option>  <option value='three'>3박  </option>  <option value='four'>4박 </option> <option value='five'>5박  </option> </select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city'> 	<i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail();'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity("+countCity + ");'> </i> </div> </div>";
         		var cityblockfoot = "";
         		var content = "";
         		if(countCity == 0){
@@ -513,13 +511,12 @@
 			$("#cityroute").append(content);
 			countCity++;
 			order++;
-			console.log("order" + order);
 			
-			path = {lat : locations[i][1], lng : locations[i][2]};
+			path = {lat : locations[i][2], lng : locations[i][3]};
             flightPlanCoordinates.push(path);
-            
+            poly.setMap(null);
             poly.setPath(flightPlanCoordinates);
-            console.log("패스 :"  + poly.getPath());
+            console.log("패스 :"  + flightPlanCoordinates);
             // 선 그리기 
             poly.setMap(map);
 		}
@@ -528,7 +525,6 @@
         		var str = "#cityblock0" + num+1;
         		$("#cityblock0" + (num+1)).remove();
         		var orderCoordi = $("#cityblock0" + (num+1)).children().attr("name");
-        		console.log("orderCoordi" + orderCoordi);
         		
         		flightPlanCoordinates.splice(orderCoordi,1);
         		
@@ -538,6 +534,10 @@
         		poly.setMap(map);
         		
         		order--;
+        		
+        		if(flightPlanCoordinates.length == 0){
+        			countCity = 0;
+        		}
         }
         
       </script>

@@ -169,39 +169,12 @@ gapi.client.load('calendar', 'v3', function () { // load the calendar api (versi
 								</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 							</div>
 						</div>
 					</div>
 				</div>
 
 			</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
