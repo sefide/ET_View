@@ -18,7 +18,7 @@ public class PlanService {
 		else rollback(con);
 		
 		close(con);
-		
+		int i = 0;
 		return cityList;
 	}
 

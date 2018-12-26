@@ -7,6 +7,7 @@ public class City implements java.io.Serializable{
 	private String ctInfo;
 	private float ctLat;
 	private float ctLng;
+	int i = 0;
 	
 	public City() {}
 

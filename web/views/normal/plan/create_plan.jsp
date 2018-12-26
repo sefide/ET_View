@@ -143,7 +143,7 @@
 		margin-right : 10px;
 	}
 	#win-info{
-		font-weight : 500;
+		font-weight : 700;
 		font-size : 15px;
 		font-family: 'Nanum Gothic', sans-serif;
 		margin-top : -20px;
@@ -157,7 +157,6 @@
 	#win-btn{
 		float : right ;
 	}
-	
 	
 	.search{
 		position: absolute;
