@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.et.member.model.service.MemberService;
-import com.kh.et.member.model.vo.MemberManagerCompany;
+import com.kh.et.member.model.vo.Company;
 
 /**
  * Servlet implementation class Company_login_Servlet
@@ -35,14 +35,14 @@ public class Company_Login_Servlet extends HttpServlet {
 		String companyId = request.getParameter("companyId");
 		String companyPwd = request.getParameter("companyPwd");
 		
-		/*System.out.println("제휴사 아이디 : " + companyId);
-		System.out.println("제휴사 비번 : " + companyPwd);*/
+		System.out.println("제휴사 아이디 : " + companyId);
+		System.out.println("제휴사 비번 : " + companyPwd);
 		
-		MemberManagerCompany reqMember = new MemberManagerCompany();
-		reqMember.setM_id(companyId);
-		reqMember.setM_pwd(companyPwd);
+		Company reqMember = new Company();
+		reqMember.setC_id(companyId);
+		reqMember.setC_pwd(companyPwd);
 		
-		MemberManagerCompany loginCompany = new MemberService().companyLogin(reqMember);
+		Company loginCompany = new MemberService().companyLogin(reqMember);
 		
 		if(loginCompany != null) {
 			request.getSession().setAttribute("loginCompany", loginCompany);	//세션불러와서 정보넣어주고

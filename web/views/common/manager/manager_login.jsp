@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.et.member.model.vo.MemberManagerCompany"%>
+	pageEncoding="UTF-8" import="com.kh.et.member.model.vo.Company"%>
 <%
-	String msg1 = (String)request.getAttribute("msg1");
+	String msg1 = (String)request.getAttribute("msg1"); 
 	String msg2 = (String)request.getAttribute("msg2");
 
 %>	
@@ -94,7 +94,7 @@
 			<a class="item" data-tab="tour" style="font-family:'Nanum Gothic', sans-serif;">제휴사</a>
 		</div>
 		<!-- 관리자 -->
-	<form id="managerLoginForm" action="<%=request.getContextPath() %>/login.manager" method="post">
+	<form  id="managerLoginForm" action="<%=request.getContextPath() %>/login.manager" method="post">
 		<div align="center" class="ui bottom attached tab segment active" data-tab="manager" id="form" style="background-color: whitesmoke;">
 			<div align="left" class="font">
 				<label style="font-weight: 600;">ID</label>
@@ -173,7 +173,7 @@
 				if(msg1 != null){%>
 				alert("<%= msg1%>");
 			<%} %>
-		});
+		}); 
 		
 		function company_login(){
 			$("#companyLoginForm").submit;
