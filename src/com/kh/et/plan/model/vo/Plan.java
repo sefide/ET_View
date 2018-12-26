@@ -12,7 +12,6 @@ public class Plan implements java.io.Serializable{
 	private String pCites;
 	private String pPrivate;
 	private String pStatus;
-	int i = 0;
 	
 	public Plan() {}
 

@@ -14,7 +14,6 @@ import com.kh.et.plan.model.dao.PlanDao;
 
 public class PlanDao {
 	private Properties prop = new Properties();
-	int i = 0;
 	public PlanDao() {
 		String fileName = PlanDao.class.getResource("/sql/plan/plan-query.properties").getPath();
 		try {

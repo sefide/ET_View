@@ -32,7 +32,6 @@ public class SelectCityListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int i = 0;
 		ArrayList<City> cityList = new PlanService().selectCityList();
 		
 		String page = "";
