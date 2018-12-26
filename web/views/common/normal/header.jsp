@@ -227,7 +227,8 @@
             		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-div-50"> 
                 		
                 		<li class="nav-item  nav-item-first">               		
-                   		 	<a class="nav-link" href="/et/views/normal/plan/create_plan.jsp">플랜짜기</a>
+                   		 	<a class="nav-link" onclick = "location.href = '/et/selectCityList.pl'">플랜짜기</a> 
+                   		 	<!-- "href="/et/views/normal/plan/create_plan.jsp" -->
                 		</li>
                 		<li class="nav-item">
                     		<a class="nav-link" href="/et/views/normal/plan/seePlan_main.jsp">플랫엿보기</a>

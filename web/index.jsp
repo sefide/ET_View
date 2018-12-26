@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String msg = (String)request.getAttribute("msg");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -591,14 +594,19 @@
     	   	 }
          
          function goPlan(){
-      	  	 location.href = "/et/views/normal/plan/create_plan.jsp";
+      	  	 location.href = "/et/selectCityList.pl";
          }
          
          function goSeePlan(){
         		 location.href = "/et/views/normal/plan/Seeplan_main.jsp";
          }
            
-        
+         $(function(){
+ 			<% System.out.println("msg : " + msg);
+ 			if(msg != null){ %>
+ 			alert("<%=msg%>");
+ 			<%} %>
+ 		});
     </script>
     
 	<script>
