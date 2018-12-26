@@ -1,5 +1,9 @@
+<%@page import="com.kh.et.board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	Board b = (Board) request.getAttribute("b");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +64,7 @@
 </head>
 <body>
 	<!-- navigation - header.jsp -->
-	<%@ include file = "/views/common/normal/header.jsp" %>
+	<%@ include file="/views/common/normal/header.jsp"%>
 	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다	면 include path를 수정해야합니 -->
 
 	<div class="ui grid">
@@ -86,97 +90,153 @@
 				</div>
 			</div>
 			<br>
-			<!-- 중간 회원이 글쓰는 부분 -->
+			<!-- 내가 (본인이 ) 글쓰는 부분 -->
 
-			<div class="ui segment" >
+			<div class="ui segment">
 				<div id="container">
 					<div id='box-left'>
-						<img class="ui small circular image" src="/et/image/common/logo.png">
+						<img class="ui small circular image"
+							src="/et/image/common/logo.png">
 					</div>
 					<div id='box-center'>
-						<div class="ui form">
-							<div class="field">
-								<textarea rows="2" cols="10">QnA내용</textarea>
+						<form action="<%=request.getContextPath()%>/insert.bo"
+							method="post">
+							<div>
+								<span>제목 </span><input type="text" id="title" size="110">
 							</div>
-								<div class="ui list" style="text-align: left;">
-									
-									<div class="content">
-									<img class="ui avatar image" src="/et/image/common/logo.png">
-										<a class="header"> <span style="color: yellow; ">내아이디</span> </a>
-										<div class="ui form">
-											<div class="field">
-												<div>
-												<input type="text" size="100px;" placeholder="댓글을 입력해주세요">
-												 <div class="ui right yellow button">입력 </div>
-												</div>
-											</div>
-										</div>
-									</div>
-								
-									</div>
-								
+							<br>
+							<div class="ui form">
+								<div class="field">
+									<textarea rows="2" cols="10" style="height: 100px;"
+										id="content" onclick="this.value=''">내용을 입력하세요</textarea>
+								</div>
+								<div class="ui list" style="text-align: right;">
+									<button class="ui right yellow button" type="submit"
+										id="addBoard">등록하기</button>
 								</div>
 							</div>
-						</div>
+						</form>
 					</div>
+				</div>
+			</div>
+			<div id="BoardList">
+				<table id="BoardTable" border="1" align="center"></table>
+			</div>
+<%-- 			<script>
+				$(function() {
+					$("#addBoard").click(function() {
+						var writer =
+			<%=loginUser.getM_id()%>
+				;
+						var title = $("#title").val();
+						var content = $("#content").val();
+
+						$.ajax({
+							url : "/et/insert.bo",
+							data : {
+								writer : writer,
+								title : title,
+								content : content
+							},
+							type : "post",
+							success : function(data) {
+								console.log(data);
+								
+								var $BoardTable = $("#BoardTable");
+								$BoardTable.html('');
+								for(var key in data){
+									var $tr = $("<tr>");	
+									var writerTd = $("<tr>").text(data[key].bWriter).css("width","100px") ;
+									var contentTd =  $("<tr>").text(data[key].bContent).css("width","400px") ;
+									
+									$tr.append($writerTd);
+									$tr.append($contentTd);
+									$replySelectTable.append($tr);
+								}
+								
+								
+							
+							},
+							error: function(data){
+								console.log(실패);
+							}
+						
+
+						});
+
+					});
+					
+				});
+			</script> --%>
+			
+			
+			
+			
 
 
 			<!-- 글 목록 -->
-			<div class="ui secondary pointing menu">
-				<div class="right menu">
-					<button class="ui yellow basic button" style="margin-bottom: 5px;">수정하기</button>
-				</div>
-			</div>
-			<div class="ui segment">
-				<div id="container">
-					<div id='box-left'>
-						<label><h2>회원아이디</h2></label><br>
-						<div class="ui labeled button" tabindex="0" style="margin-top : 10px;">
-							<div class="ui basic red button">
-								<i class="heart icon"></i> 좋아요 수
-							</div>
-							<a class="ui basic red left pointing label"> 56 </a>
-						</div><br>
-						<div class="ui labeled button" tabindex="0" style="margin-top : 10px;">
-							<div class="ui basic blue button">
-								<i class="fork icon"></i> 스크랩 수 
-							</div>
-							<a class="ui basic left pointing blue label"> 87 </a>
-						</div><br>
-						<div class="ui labeled button" tabindex="0" style="margin-top : 10px;">
-							<div class="ui basic black button">
-								<i class="fork icon"></i> 신고 수 
-							</div>
-							<a class="ui basic left pointing black label"> 7 </a>
-						</div>
+			 <div class="BoardList2">
+				<div class="ui secondary pointing menu">
+					<div class="right menu">
+						<button class="ui yellow basic button" style="margin-bottom: 5px;">수정하기</button>
 					</div>
-					<div id='box-center'>
-						<div class="ui form">
-							<div class="field">
-								<textarea rows="2" cols="10">QnA내용</textarea>
+				</div>
+				<div class="ui segment">
+					<div id="container">
+						<div id='box-left'>
+							<label><h2>회원아이디</h2></label><br>
+							<div class="ui labeled button" tabindex="0"
+								style="margin-top: 10px;">
+								<div class="ui basic red button">
+									<i class="heart icon"></i> 좋아요 수
+								</div>
+								<a class="ui basic red left pointing label"> 56 </a>
 							</div>
-							<div class="ui list" style="text-align: left;">
-								<div class="item">
-									<img class="ui avatar image" src="/et/image/common/logo.png">
-									<div class="content">
-										<a class="header"><span style="color: yellow; ">아진</span> </a> 그건 정말 좋은생각이야!
-									</div>
+							<br>
+							<div class="ui labeled button" tabindex="0"
+								style="margin-top: 10px;">
+								<div class="ui basic blue button">
+									<i class="fork icon"></i> 스크랩 수
 								</div>
-								<div class="item">
-									<img class="ui avatar image" src="/et/image/common/logo.png">
-									<div class="content">
-										<a class="header"><span style="color: yellow; ">애린</span> </a> 맞아맞아!
-									</div>
+								<a class="ui basic left pointing blue label"> 87 </a>
+							</div>
+							<br>
+							<div class="ui labeled button" tabindex="0"
+								style="margin-top: 10px;">
+								<div class="ui basic black button">
+									<i class="fork icon"></i> 신고 수
 								</div>
-								<div class="item" style="">
-									<img class="ui avatar image" src="/et/image/common/logo.png">
-									<div class="content">
-										<a class="header"> <span style="color: yellow; ">내아이디</span> </a>
-										<div class="ui form">
-											<div class="field">
-												<div  >
-												<input type="text" size="100px;" placeholder="댓글을 입력해주세요">
-												 <div class="ui right yellow button">입력 </div>
+								<a class="ui basic left pointing black label"> 7 </a>
+							</div>
+						</div>
+						<div id='box-center'>
+							<div class="ui form">
+								<div style="text-align: left;">
+									<span> 제목 </span><label style="background-color: red;">dsfadfad</label>
+								</div>
+								<div class="field">
+									<textarea rows="2" cols="10">QnA내용</textarea>
+								</div>
+								<div class="ui list" style="text-align: left;">
+									<div class="item">
+										<img class="ui avatar image" src="/et/image/common/logo.png">
+										<div class="content">
+											<a class="header"><span style="background-color: yellow;">아진</span>
+											</a> 그건 정말 좋은생각이야!
+										</div>
+									</div>
+									
+									<div class="item" style="">
+										<img class="ui avatar image" src="/et/image/common/logo.png">
+										<div class="content">
+											<a class="header"> <span style="color: yellow;">내아이디</span>
+											</a>
+											<div class="ui form">
+												<div class="field">
+													<div>
+														<input type="text" size="100px;" placeholder="댓글을 입력해주세요">
+														<div class="ui right yellow button">입력</div>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -184,77 +244,15 @@
 								</div>
 							</div>
 						</div>
-					</div>					
-				</div>
-			</div>
-			<div class="ui secondary pointing menu">
-				<div class="right menu">
-					<button class="ui yellow basic button" style="margin-bottom: 5px;">수정하기</button>
-				</div>
-			</div>
-			<div class="ui segment">
-				<div id="container">
-					<div id='box-left'>
-						<label><h2>회원아이디</h2></label><br>
-						<div class="ui labeled button" tabindex="0" style="margin-top : 10px;">
-							<div class="ui basic red button">
-								<i class="heart icon"></i> 좋아요 수
-							</div>
-							<a class="ui basic red left pointing label"> 56 </a>
-						</div><br>
-						<div class="ui labeled button" tabindex="0" style="margin-top : 10px;">
-							<div class="ui basic blue button">
-								<i class="fork icon"></i> 스크랩 수 
-							</div>
-							<a class="ui basic left pointing blue label"> 87 </a>
-						</div><br>
-						<div class="ui labeled button" tabindex="0" style="margin-top : 10px;">
-							<div class="ui basic black button">
-								<i class="fork icon"></i> 신고 수 
-							</div>
-							<a class="ui basic left pointing black label"> 7 </a>
-						</div>
 					</div>
-					<div id='box-center'>
-						<div class="ui form">
-							<div class="field">
-								<textarea rows="2" cols="10">QnA내용</textarea>
-							</div>
-							<div class="ui list" style="text-align: left;">
-								<div class="item">
-									<img class="ui avatar image" src="/et/image/common/logo.png">
-									<div class="content">
-										<a class="header"><span style="color: yellow; ">아진</span> </a> 그건 정말 좋은생각이야!
-									</div>
-								</div>
-								<div class="item">
-									<img class="ui avatar image" src="/et/image/common/logo.png">
-									<div class="content">
-										<a class="header"><span style="color: yellow; ">애린</span> </a> 맞아맞아!
-									</div>
-								</div>
-								<div class="item" style="">
-									<img class="ui avatar image" src="/et/image/common/logo.png">
-									<div class="content">
-										<a class="header"> <span style="color: yellow; ">내아이디</span> </a>
-										<div class="ui form">
-											<div class="field">
-												<div  >
-												<input type="text" size="100px;" placeholder="댓글을 입력해주세요">
-												 <div class="ui right yellow button">입력 </div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>					
 				</div>
+				<div class="ui secondary pointing menu">
+					<div class="right menu">
+						<button class="ui yellow basic button" style="margin-bottom: 5px;">수정하기</button>
+					</div>
+				</div>
+
 			</div>
-
-
-
 
 
 
