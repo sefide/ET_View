@@ -55,7 +55,7 @@ table{
 </head>
 <body>
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
-<%@ include file = "/views/common/manager/manager_eval_nav.jsp" %>
+<%@ include file = "/views/common/manager/manager_plan_nav.jsp" %>
 	
     <div class="main_01">
     	<div class="ui header title">▶여행지 관리</div>
@@ -82,11 +82,17 @@ table{
     	</table>
     	<br>
     	<button style=float:right>삭제하기</button>
-    	<button style=float:right;margin-right:30px>수정하기</button>
+    	<button style=float:right;margin-right:30px onclick="location.href='cityUpdateForm.jsp'">수정하기</button>
+    
     </div>
 	
  <div class = "two wide column"></div> 
 		
 	<%@ include file = "/views/common/company/footer_com.jsp" %>
+	<script>
+		
+	
+	
+	</script>
 </body>
 </html>

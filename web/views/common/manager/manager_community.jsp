@@ -46,7 +46,7 @@
 	<script>
     
     	function test() {
-    		location.href = "/et/views/manager/board/manager_total_community";
+    		location.href = "/et/views/manager/board/manager_total_community.jsp";
     		/* $("#tb1").css({"visibility":"visible"}); */
     	}
     	
