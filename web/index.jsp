@@ -610,6 +610,10 @@
     </script>
     
 	<script>
+		$(document).ready(function(){
+			console.log("얍");
+			<% System.out.println("얍_index.jsp");%>
+		});
 		var myIndex = 0;
 		carousel();
 		

@@ -82,7 +82,7 @@ table{
 		<tr>
 			<td>
 				<div class="mainlogo">
-					<a href="/et/" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> <image src="/et/image/common/logo.png"
+					<a href="/et/index.jsp" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> <image src="/et/image/common/logo.png"
 							style=" height: 60px;" alt="메인로고">&nbsp;ET Planner</image>
 					</a>
 				</div>
@@ -99,7 +99,8 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="text" name="userId" placeholder="아이디를 입력해주세요"><button class="ui button" style="width: 85px; height: 30px; font-size: 12px;">중복확인</button>
+									<input type="text" name="userId" placeholder="아이디를 입력해주세요">
+									<button class="ui button" id="idCheck" style="width: 85px; height: 30px; font-size: 12px;">중복확인</button>
 								</div>
 							</div>
 							<div align="left" class="font">
@@ -185,6 +186,30 @@ table{
 		alert("<%=msg%>");
 		<%} %>
 	});
+	
+	$(function(){
+		$("#idCheck").click(function(){
+			var userId = $("#userId").val();
+			
+			$.ajax({
+				url:"/et/idCheck.me",
+				type:"post",
+				data:{userId:userId},
+				success:function(data){
+					if(data == "fail"){
+						alert("이미 사용중인 아이디 입니다.");
+					}else{
+						alert("사용 가능한 아이디입니다.");
+					}
+				},
+				error:function(){
+					console.log("실패!");
+				}
+			})
+		})
+	})
+	
 	</script>
+	]
 </body>
 </html>

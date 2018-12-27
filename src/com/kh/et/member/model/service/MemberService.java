@@ -12,7 +12,7 @@ import com.kh.et.member.model.vo.Member;
 
 public class MemberService {
 
-	//일반 회원 로그인 체크용 메소드
+	//회원 로그인 체크용 메소드
 	public Member loginCheck(Member reqMember) {
 		Connection con = getConnection();
 		
@@ -24,7 +24,7 @@ public class MemberService {
 		
 	}
 
-	//일반회원 회원가입용 메소드
+	//회원가입용 메소드
 	public int insertMember(Member reqMember) {
 		Connection con = getConnection();
 		
@@ -41,7 +41,7 @@ public class MemberService {
 	}
 
 	
-
+	//회원 정보 수정용 메소드
 	public int updateMember(Member reqMember) {
 		Connection con = getConnection();
 		
@@ -53,6 +53,18 @@ public class MemberService {
 			rollback(con);
 		}
 		close(con);
+		
+		return result;
+	}
+
+	//회원가입 아이디 중복체크용 메소드
+	public int idCheck(String userId) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().idCheck(con, userId);
+		
+		close(con);
+		
 		
 		return result;
 	}

@@ -131,6 +131,36 @@ public class MemberDao {
 		return result;
 	}
 
+	//회원 가입 시 아이디 중복확인 메소드
+	public int idCheck(Connection con, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("idCheck");
+		try {
+			pstmt = con.prepareStatement(query);//내가 입력한 아이디가 DB에 몇개 있는지 수를 세는 쿼리문
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();	//쿼리문의 결과를 rset에 넣어주고
+			
+			if(rset.next()) {
+				result = rset.getInt(1);	//???
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);		
+			close(rset);
+		}
+		
+		
+		return result;
+	}
+
 
 
 	
