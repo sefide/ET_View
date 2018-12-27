@@ -14,7 +14,7 @@ public class BoardDao {
 	private Properties prop = new Properties();
 	
 	public BoardDao(){
-		String fileName = BoardDao.class.getResource("/sql/board/board-query.properties").getPath();
+		String fileName = BoardDao.class.getResource("/sql/board/board.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (IOException e) {
@@ -23,20 +23,19 @@ public class BoardDao {
 		}
 		
 	}
-	
+
 	//글 작성
 	public int insertBoard(Connection con, Board b) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("insertBoard");
-		//insertBoard=INSERT INTO Board(SEQ_b_no.NEXTVAL, ?, ?, ?, SYSDATE, ‘Y’, ‘N’, 0 ,-1)
+		//insertBoard=INSERT INTO BOARD VALUES (SEQ_B_NO.NEXTVAL,1,'제목','내용', DEFAULT,'N', 0, 'Y',NULL);
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, b.getbWriter());
-			pstmt.setString(2, b.getBtitle());
-			pstmt.setString(3, b.getbContent());
+			pstmt.setString(1, b.getBtitle());
+			pstmt.setString(2, b.getbContent());
 					
 			result = pstmt.executeUpdate();
 			

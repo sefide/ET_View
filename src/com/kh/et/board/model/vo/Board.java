@@ -2,19 +2,20 @@ package com.kh.et.board.model.vo;
 
 import java.sql.Date;
 
-public class Board {
-	private int bNo;			//글번호
-	private String btitle;		//글제목
-	private String bWriter;		//글작성자
-	private String bContent;	//글 내용
-	private Date bDate;			//글 작성일
-	private String bCheckBest;	//베스트 댓글 여부
-	private String bStatus;		//글 상태
-	private String bType;		//글 종류(레벨-글 or 댓글)
-	private String bRefNo;		//참조 글 번호(댓글일 경유)
-	
-	public Board() {}
-	
+public class Board implements java.io.Serializable {
+	private int bNo; // 글번호
+	private String btitle; // 글제목
+	private String bWriter; // 글작성자
+	private String bContent; // 글 내용
+	private Date bDate; // 글 작성일
+	private String bCheckBest; // 베스트 댓글 여부
+	private String bStatus; // 글 상태
+	private String bType; // 글 종류(레벨-글 or 댓글)
+	private String bRefNo; // 참조 글 번호(댓글일 경유)
+
+	public Board() {
+	}
+
 	public Board(int bNo, String btitle, String bWriter, String bContent, Date bDate, String bCheckBest, String bStatus,
 			String bType, String bRefNo) {
 		super();
@@ -107,6 +108,5 @@ public class Board {
 	public void setbRefNo(String bRefNo) {
 		this.bRefNo = bRefNo;
 	}
-	
-	
+
 }
