@@ -7,16 +7,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel='stylesheet' type='text/css'
-		href='http://www.blueb.co.kr/data/201010/IJ12872423858253/fullcalendar.css' />
-	<script type='text/javascript'
-		src='http://www.blueb.co.kr/data/201010/IJ12872423858253/jquery.js'></script>
-	<script type='text/javascript'
-		src='http://www.blueb.co.kr/data/201010/IJ12872423858253/jquery-ui-custom.js'></script>
-	<script type='text/javascript'
-		src='http://www.blueb.co.kr/data/201010/IJ12872423858253/fullcalendar.min.js'></script>
-
-	
 	<!-- JQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Semantic UI -->
@@ -29,109 +19,20 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
-	<script src="" type="text/javascript"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
 	
  	<!-- css 불러오기  -->
  	<link href = "/et/views/css/create_plan.css" type = "text/css" rel= "stylesheet">
 	
-  	<!-- 달력 -->
-	<script type='text/javascript'>
-		var jb = jQuery.noConflict();
 
-		jb(document).ready(
-				function() {
-
-					var date = new Date();
-					var d = date.getDate();
-					var m = date.getMonth();
-					var y = date.getFullYear();
-
-					var calendar = jb('#calendar').fullCalendar(
-							{
-								header : {
-									/* left : 'title', */
-									/* center : 'agendaDay,agendaWeek,month', */
-									left : 'prev',
-									center : 'title',
-									right : 'next'
-								},
-								editable : false,
-								firstDay : 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
-								selectable : false,
-								defaultView : 'month',
-
-								axisFormat : 'h:mm',
-								columnFormat : {
-									month : 'ddd', // Mon
-									week : 'ddd d', // Mon 7
-									day : 'dddd M/d', // Monday 9/7
-									agendaDay : 'dddd d'
-								},
-								titleFormat : {
-									month : 'MMMM yyyy', // September 2009
-									week : "MMMM yyyy", // September 2009
-									day : 'MMMM yyyy' // Tuesday, Sep 8, 2009
-								},
-								allDaySlot : false,
-								selectHelper : true,
-								select : function(start, end, allDay) {
-									var title = prompt('Event Title:');
-									if (title) {
-										calendar.fullCalendar('renderEvent', {
-											title : title,
-											start : start,
-											end : end,
-											allDay : allDay
-										}, true // make the event "stick"
-										);
-									}
-									calendar.fullCalendar('unselect');
-								},
-								droppable : true, // this allows things to be dropped onto the calendar !!!
-								drop : function(date, allDay) { // this function is called when something is dropped
-
-									// retrieve the dropped element's stored Event Object
-									var originalEventObject = jb(this).data(
-											'eventObject');
-
-									// we need to copy it, so that multiple events don't have a reference to the same object
-									var copiedEventObject = jb.extend({},
-											originalEventObject);
-
-									// assign it the date that was reported
-									copiedEventObject.start = date;
-									copiedEventObject.allDay = allDay;
-
-									// render the event on the calendar
-									// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-									jb('#calendar').fullCalendar('renderEvent',
-											copiedEventObject, true);
-
-									// is the "remove after drop" checkbox checked?
-									if (jb('#drop-remove').is(':checked')) {
-										// if so, remove the element from the "Draggable Events" list
-										jb(this).remove();
-									}
-
-								},
-
-							});
-
-				});
-	</script>
+	
 <style>
 	body{
-	margin:0px;
+		margin:0px;
 	}
-	#calendar {
-	margin-right: 80px;
-	float: right;
-	width: 400px;
-}
 	
 	/* 좌측 일정 - 나라추가  */
 	#cityroute{
-		
 		width : 100%;
 		display : flex;
 		flex-wrap: wrap;
@@ -265,9 +166,10 @@
 		width : 250px;
 	}
 	#cityroute-overflow{
-		height : 500px;
+		height : 700px;
 		overflow-y : auto;
-		border-bottom : 1px solid #f2f2f2;
+		border-bottom : 1px solid #808080;
+		/* #f2f2f2 */
 	}
 	
 </style>
@@ -336,17 +238,19 @@
 	
 	<div class = "plan-table-calendar">
 		<form>
-			<font class ="txt-date-first">여행 시작날짜를 입력해주세요 :)</font>
-			<input type ="date" class = "input-date-first" name = "dateFirst"/>
-			
+			<font class ="txt-date-start">여행 시작날짜를 입력해주세요 :)</font><br>
+			<input type ="date" class = "input-date" id = "input-date-start" name = "startDate"/> -
+			<input type ="date" class = "input-date" id = "input-date-end" name = "endDate" disabled/>
 			<hr>
 			<div id = "cityroute-overflow">
 			<div id = "cityroute">
 				<!-- 입력된 도시가 없습니다.  -->
 			</div>
 			</div>
-			<!-- <div id = "map-canvas"></div> -->
-			<div id='calendar'></div>
+			
+			<%-- <div id='calendar-div'>
+			<%@include file = "calendar_plan.jsp" %>
+			</div> --%>
 		</form>
 		
 	</div>
@@ -438,6 +342,7 @@
 				 
 				</div>
 			</div>
+			
 	    <!-- 지도 위치  -->
  	 	<!-- <iframe class = "plan-map"  id = "gg-map" src=".." width="100%" height="850px" style="border:none;"></iframe>  -->
  		<div id="map-canvas" class = "plan-map"></div>
@@ -451,9 +356,6 @@
 		</div>
 	</div>
 	
-
-
-
 
 	<!-- Semantic UI -->
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -520,6 +422,9 @@
 			$("#detailPop").css("display", "none");
 		}
 		
+		$("#input-date-start").change(function(){
+			alert("시작날짜 예이예");
+		});
 		
 	</script>
 	
@@ -529,6 +434,7 @@
 	var cityName = "";
 	var cityInfo = "";
 	var cities = [];
+	var days;
 	 <%for(int i = 0; i < cityList.size(); i++) { %> // 이름, 설명, 위도, 경도
 		cities = ['<%=cityList.get(i).getCtName()%>', '<%=cityList.get(i).getCtInfo()%>',<%=cityList.get(i).getCtLat()%>,<%=cityList.get(i).getCtLng()%>];
 		locations.push(cities); 
@@ -596,7 +502,7 @@
         		} */
         		var cityblockhead = "<div id ='cityblock0" +(countCity+1)+ "' class= 'cityblock'> <div class ='bar2'></div>";
         		var citytrans = "<div width = '100%; overflow-x:hidden'> <div class = 'div-trans'> <select class='ui dropdown' id ='trans' name = 'transform'>  <option value='plane'>비행기 </option>  <option value='train'>기차 </option>  <option value='ship'>항구 </option>  <option value='bus'>버스 </option>  <option value='etc'>기타  </option> </select> </div> </div> <div class ='bar2'></div>";
-        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights'> <option value='one'>1박 </option>  <option value='two'>2박  </option>  <option value='three'>3박  </option>  <option value='four'>4박 </option> <option value='five'>5박  </option> </select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city'> 	<i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail();'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity("+countCity + ");'> </i> </div> </div>";
+        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights' > <option value='one'>1박 </option>  <option value='two'>2박  </option>  <option value='three'>3박  </option>  <option value='four'>4박 </option> <option value='five'>5박  </option> </select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city'> 	<i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail();'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity("+countCity + ");'> </i> </div> </div>";
         		var cityblockfoot = "";
         		var content = "";
         		if(countCity == 0){

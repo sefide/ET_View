@@ -88,7 +88,7 @@
 	
 	
 	/* 좌측 일정 상세히  */
-	.input-date-first{
+	.input-date{
 		width : 150px;
 		border-radius : 5px;
 		height : 35px;
@@ -96,10 +96,11 @@
 		margin : 5px 10px 5px 10px;
 		text-align : center;
 	}
-	.txt-date-first{
+	.txt-date-start{
 		margin-left : 10px;
 		font-size : 15px;
 	}
+	
 	
 	
 	/* 도시 상세정보보기  */
