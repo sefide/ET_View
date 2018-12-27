@@ -36,13 +36,13 @@ public class ManagerDao {
 		Manager loginManager = null;
 
 		String query = prop.getProperty("managerLogin");
+		System.out.println(query);
 		try {
+			System.out.println("진입");
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, reqMember.getMag_id());
 			pstmt.setString(2, reqMember.getMag_pwd());
-
 			rset = pstmt.executeQuery();
-
 			if (rset.next()) {
 				loginManager = new Manager();
 
@@ -58,7 +58,6 @@ public class ManagerDao {
 			close(rset);
 		}
 
-		System.out.println("매니저 로그인 gg: " + loginManager);
 		
 		return loginManager;
 	}

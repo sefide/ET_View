@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.et.member.model.vo.MemberNormal"%>
+    pageEncoding="UTF-8" import="com.kh.et.member.model.vo.Member"%>
 <%
 	String msg = (String)request.getAttribute("msg");
+	Member loginUser = (Member)session.getAttribute("loginUser");
 %>    
 <!DOCTYPE html>
 <html>
@@ -66,8 +67,8 @@
 .content{
 	margin-left: 30px;
 }
-input{
-	width: 20%;
+#pwdInput{
+	width: 40%;
 }
 </style>
 </head>
@@ -96,16 +97,7 @@ input{
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="text" placeholder="아이디를 입력하세요" name="userId">
-									</div>
-								</div>
-								<br>
-								<div align="left" class="font">
-									<label style="font-weight: 600;">비밀번호</label>
-								</div>
-								<div align="left">
-									<div class="ui transparent input">
-										<input type="password" placeholder="비밀번호를 입력하세요" name="userPwd">
+										<input type="text" placeholder="<%=loginUser.getM_id()%>" name="userId" disabled>
 									</div>
 								</div>
 								<br>
@@ -114,7 +106,7 @@ input{
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="password" placeholder="수정할 비밀번호를 입력하세요" name="newPwd1">
+										<input type="password" placeholder="수정할 비밀번호를 입력하세요" id="pwdInput" name="newPwd">
 									</div>
 								</div>
 								<br>
@@ -123,7 +115,7 @@ input{
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="password" placeholder="수정할 비밀번호를 입력하세요" name="newPwd2">
+										<input type="password" placeholder="수정할 비밀번호를 입력하세요" id="pwdInput">
 									</div>
 								</div>
 								<br>
@@ -132,7 +124,7 @@ input{
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="email" placeholder="이메일을 입력해주세요" name="userEmail">
+										<input type="email" placeholder="이메일을 입력해주세요" id="pwdInput" name="userEmail">
 									</div>
 								</div>
 								<br>
@@ -141,7 +133,7 @@ input{
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="text" placeholder="이름을 입력해주세요" name="userName">
+										<input type="text" placeholder="이름을 입력해주세요" id="pwdInput" name="userName">
 									</div>&nbsp;&nbsp;
 									<button class="ui secondary button" style="width: 85px; height: 35px; font-size: 12px;" onclick="update();">수정하기</button>
 									&nbsp;&nbsp;&nbsp;
@@ -161,12 +153,12 @@ input{
 			$("#updateForm").submit;
 		}
 		
-		<%-- $(function(){
-			<% System.out.println("msg : " + msg)
+		$(function(){
+			<% System.out.println("msg : " + msg);
 				if(msg != null){%>
 				alert("<%= msg%>");
 			<%}%>	
-		}); --%>
+		});
 	</script>
 </body>
 </html>

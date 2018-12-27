@@ -13,12 +13,10 @@ public class ManagerService {
 	// 관리자 로그인 메소드
 	public Manager managerLogin(Manager reqMember) {
 		Connection con = getConnection();
-
 		Manager loginManager = new ManagerDao().managerLogin(con, reqMember);
 
 		close(con);
-		
-		//System.out.println("매니저 로그인 : "+loginManager);
+
 
 		return loginManager;
 

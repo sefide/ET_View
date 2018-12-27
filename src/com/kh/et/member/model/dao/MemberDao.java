@@ -107,11 +107,30 @@ public class MemberDao {
 
 	
 
-	/*public int updateMember(Connection con, MemberNormal reqMember) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateMember(Connection con, Member reqMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateMember");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqMember.getM_pwd());
+			pstmt.setString(2, reqMember.getM_email());
+			pstmt.setString(3, reqMember.getM_name());
+			pstmt.setString(4, reqMember.getM_id());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}
-*/
+
 
 
 	

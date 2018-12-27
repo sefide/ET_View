@@ -42,17 +42,20 @@ public class MemberService {
 
 	
 
-	/*public int updateMember(MemberNormal reqMember) {
+	public int updateMember(Member reqMember) {
 		Connection con = getConnection();
 		
 		int result = new MemberDao().updateMember(con, reqMember);
 		
-		if() {
-			
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
 		}
-				
+		close(con);
+		
 		return result;
-	}*/
+	}
 
 
 
