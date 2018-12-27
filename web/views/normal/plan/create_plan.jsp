@@ -19,8 +19,7 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
-	<script type="text/javascript"></script>
-	
+	<script src="" type="text/javascript"></script>	
  	<!-- css 불러오기  -->
  	<link href = "/et/views/css/create_plan.css" type = "text/css" rel= "stylesheet">
 	
@@ -142,7 +141,7 @@
 		margin-right : 10px;
 	}
 	#win-info{
-		font-weight : 700;
+		font-weight : 500;
 		font-size : 15px;
 		font-family: 'Nanum Gothic', sans-serif;
 		margin-top : -20px;
@@ -239,7 +238,7 @@
 	<div class = "plan-table-calendar">
 		<form>
 			<font class ="txt-date-start">여행 시작날짜를 입력해주세요 :)</font><br>
-			<input type ="date" class = "input-date" id = "input-date-start" name = "startDate"/> -
+			<input type ="date" class = "input-date" id = "input-date-start" name = "startDate" /> -
 			<input type ="date" class = "input-date" id = "input-date-end" name = "endDate" disabled/>
 			<hr>
 			<div id = "cityroute-overflow">
@@ -360,6 +359,39 @@
 	<!-- Semantic UI -->
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 	<script> 
+		var days = 0;
+		
+		$(document).ready(function() {
+		    var startDate = new Date();
+		    
+			// 시작 날짜 설정 (오늘)
+		    var sday = startDate.getDate();
+		    var smonth = startDate.getMonth() + 1;
+		    var syear = startDate.getFullYear();
+	
+		    if (smonth < 10) smonth = "0" + smonth;
+		    if (sday < 10) sday = "0" + sday;
+	
+		    var today = syear + "-" + smonth + "-" + sday;    
+		    
+			// 끝 날짜 설정 
+		    	var endDate = new Date(); 
+			
+		    	endDate.setDate(startDate.getDate() + days);
+		    	
+		    	var eday = endDate.getDate();
+		    var emonth = endDate.getMonth() + 1;
+		    var eyear = endDate.getFullYear();
+	
+		    if (emonth < 10) emonth = "0" + emonth;
+		    if (eday < 10) eday = "0" + eday;
+	
+		    var end = eyear + "-" + emonth + "-" + eday; 
+		    	
+		    $("#input-date-start").attr("value", today);
+		    $("#input-date-end").attr("value", today);
+		});
+	
 		$("#trans").click(function() {
 	        $(".trans-pop").css("visibility", "visible");
 	    });
@@ -422,19 +454,24 @@
 			$("#detailPop").css("display", "none");
 		}
 		
+		var travelStartDate;
 		$("#input-date-start").change(function(){
-			alert("시작날짜 예이예");
-		});
+			travelStartDate = $("#input-date-start").attr("value");
+			console.log(travelStartDate);
+			
+			console.log($("#input-date-end").attr("value"));
+		}); 
 		
-	</script>
+		
+	
 	
 	<!--  지도 스크립트 -->
-	<script>
+
 	var locations = []; 
 	var cityName = "";
 	var cityInfo = "";
 	var cities = [];
-	var days;
+	
 	 <%for(int i = 0; i < cityList.size(); i++) { %> // 이름, 설명, 위도, 경도
 		cities = ['<%=cityList.get(i).getCtName()%>', '<%=cityList.get(i).getCtInfo()%>',<%=cityList.get(i).getCtLat()%>,<%=cityList.get(i).getCtLng()%>];
 		locations.push(cities); 
@@ -481,7 +518,6 @@
         
         
         var countCity = 0;
-        var order = 0;
         var flightPlanCoordinates = [];
         var path = {};
         // 선 정보 설정 
@@ -493,17 +529,12 @@
         });
         
         function addCity(i){
-        	    /* var isEmptyRoute = $("#cityroute").text();
-        		if(isEmptyRoute.indexOf("없습니다.")){
-        			$("#cityroute").text("");
-        			console.log("지우기 ");
-        		}else if(isEmptyRoute.equals("")){
-        			$("#cityroute").text("입력된 도시가 없습니다.")
-        		} */
-        		var cityblockhead = "<div id ='cityblock0" +(countCity+1)+ "' class= 'cityblock'> <div class ='bar2'></div>";
+        		var cityblockhead = "<div id ='cityblock" +countCity+ "' class= 'cityblock'> <input type = 'hidden' name = 'city' value = '"+i+"'> <div class ='bar2'></div>";
         		var citytrans = "<div width = '100%; overflow-x:hidden'> <div class = 'div-trans'> <select class='ui dropdown' id ='trans' name = 'transform'>  <option value='plane'>비행기 </option>  <option value='train'>기차 </option>  <option value='ship'>항구 </option>  <option value='bus'>버스 </option>  <option value='etc'>기타  </option> </select> </div> </div> <div class ='bar2'></div>";
-        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights' > <option value='one'>1박 </option>  <option value='two'>2박  </option>  <option value='three'>3박  </option>  <option value='four'>4박 </option> <option value='five'>5박  </option> </select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city'> 	<i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail();'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity("+countCity + ");'> </i> </div> </div>";
+        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights' > <option value='one'>1박 </option>  <option value='two'>2박  </option>  <option value='three'>3박  </option>  <option value='four'>4박 </option> <option value='five'>5박  </option> </select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city' id = 'why'> <i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail();'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity("+countCity + ");'> </i> </div> </div>";
         		var cityblockfoot = "";
+        		
+        		// 새로운 도시 div 추가 
         		var content = "";
         		if(countCity == 0){
         			cityblockfoot = "<div class ='bar2'></div> </div>";  // countCity == 0
@@ -514,48 +545,98 @@
         			content =  cityblockhead + citytrans + citydays + cityblockfoot;
         		}
 			$("#cityroute").append(content);
+			
+			// city 마지막 인덱스 +1
 			countCity++;
-			order++;
+			days++;
+			
+			// 날짜 설정 
+			setTravelDate();
+			
 			poly.setMap(null);
 			path = {lat : locations[i][2], lng : locations[i][3]};
             flightPlanCoordinates.push(path);
             
             poly.setPath(flightPlanCoordinates); 
-            for(var i = 0; i < flightPlanCoordinates.length; i++){
-    			console.log(flightPlanCoordinates[i].lat + ", " +flightPlanCoordinates[i].lng + "/ ");
-    			}
-            console.log("----");
+            
             // 선 그리기 
             poly.setMap(map);
 		}
         
-        
-        function deleteCity(num){ // 삭제 
-        		var str = "#cityblock0" + num+1;
-        		$("#cityblock0" + (num+1)).remove();
-        		
-        		console.log("orderCoordi:" + num); // 삭제할 아이번호 ..
-        		flightPlanCoordinates.splice(num,1);
-        		
-        		poly.setMap(null);
-        		/* poly.each(function(key,index) {
-        			poly[key].setMap(null);
-        		}); */
-        		
-        		for(var i = 0; i < flightPlanCoordinates.length; i++){
-        			console.log(flightPlanCoordinates[i].lat + ", " +flightPlanCoordinates[i].lng + "/ ");
-        		}
-        		console.log("----");
-            poly.setPath(flightPlanCoordinates);
-        		poly.setMap(map);
-        		
-        		order--;
-        		
-        		if(flightPlanCoordinates.length == 0){
-        			countCity = 0;
-        		}
+        function setTravelDate(){
+        	 	console.log(travelStartDate);
+ 		    var startDate = new Date();
+ 		    startDate.setDate(travelStartDate);
+ 		    
+ 			// 끝 날짜 설정 
+ 		    	var endDate = new Date(); 
+ 		    	endDate.setDate(startDate.getDate() + days);
+ 		    	
+ 		    // 시작 날짜 설정 (사용자가 지정한 날짜 )
+ 		    var sday = startDate.getDate();
+ 		    var smonth = startDate.getMonth() + 1;
+ 		    var syear = startDate.getFullYear();
+ 	
+ 		    if (smonth < 10) smonth = "0" + smonth;
+ 		    if (sday < 10) sday = "0" + sday;
+ 		    var start = syear + "-" + smonth + "-" + sday;    
+ 	 		    
+ 		    // 종료 날짜 지정 (자동 지정 )
+ 		    	var eday = endDate.getDate();
+ 		    var emonth = endDate.getMonth() + 1;
+ 		    var eyear = endDate.getFullYear();
+ 	
+ 		    if (emonth < 10) emonth = "0" + emonth;
+ 		    if (eday < 10) eday = "0" + eday;
+ 	
+ 		    var end = eyear + "-" + emonth + "-" + eday; 
+ 		    	
+ 		    $("#input-date-start").attr("value", start);
+ 		    $("#input-date-end").attr("value", end); 
         }
         
+        // 추가한 도시 삭
+        function deleteCity(deleteCountCity){ 
+        	
+	        	// 1. 해당 도시의 인덱스를 가져와서 : deleteCountCity
+	        	// 2. 해당 인덱스의 도시 div를 삭제한다. 
+	        	// 3. 마지막 인덱스의 값을 줄인 후 다른 도시들을 번호 배열을 수정하고 (id 변경)
+        		// 4. 해당 도시의 위도, 경도 정보를 지우고
+        		// 5. 이를 다시 그려준다. 
+        		$(this).parent().parent().css("background", "red");
+        		var divid = $(this).attr("id");
+	        var delIndex = deleteCountCity; // 1.
+	        console.log("삭제할 아이디  - " + divid);
+    			console.log("삭제할 번호 - " + delIndex);
+    			
+    			$("#cityblock" + delIndex).remove(); // 2.
+        		
+    	        // 3.
+    	        countCity--; 
+    			days--;
+    	       	for(var i = 0; i <= countCity; i++){
+    	       	 	$("#cityroute").children().eq(i).attr("id", "cityblock"+i);
+    	       	}
+    	       
+    	       	// 4.
+            		flightPlanCoordinates.splice(delIndex, 1); // 해당 도시의 위도, 경도를 삭제하고 알아서 정렬해주는 splice 메소드 
+            		
+            		poly.setMap(null);
+            		/* 
+            		for(var i = 0; i < flightPlanCoordinates.length; i++){
+            			console.log(flightPlanCoordinates[i].lat + ", " +flightPlanCoordinates[i].lng + "/ ");
+            		}*/
+                poly.setPath(flightPlanCoordinates);
+            		poly.setMap(map);
+            		
+            		// 도시 마지막 인덱스는 존재할 수 없다. 
+            		if(countCity < 0) {
+            			alert("에러 발생 _countCity_OutOfIndex");
+            		}
+        		
+        }
+        
+     
       </script>
       
     
