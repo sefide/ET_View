@@ -26,11 +26,11 @@ public class CompanyService {
 
 	/*// 관리자가 제휴사 추가하는 메소드
 	public int insertCompany(Company reqCompany) {
-		Connection con = getConnection();
-
-		int result = new CompanyDao().insertCompany(con, reqCompany);
-
-		if (result > 0) {
+		Connection con=getConnection();
+		
+		int result= new CompanyDao().insertCompany(con,reqCompany);
+		
+		if(result>0) {
 			commit(con);
 
 		} else {
@@ -50,7 +50,7 @@ public class CompanyService {
 	}
 
 	public int getListCount() {
-Connection con = getConnection();
+		Connection con = getConnection();
 		
 		int listCount  = new CompanyDao().getListCount(con);
 		

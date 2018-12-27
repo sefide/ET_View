@@ -121,12 +121,12 @@ public class CompanyDao {
 			
 			while(rset.next()) {
 				Company c = new Company();
-				c.setC_no(rset.getInt("C_NO"));
-				c.setC_name(rset.getString("C_NAME"));
-				c.setC_biss_num(rset.getString("C_BISS_NUM"));
-				c.setC_phone(rset.getString("C_PHONE"));
-				c.setC_date(rset.getDate("C_DATE"));
-				c.setC_end_date(rset.getDate("C_END_DATE"));
+				c.setC_no(rset.getInt("c_no"));
+				c.setC_name(rset.getString("c_name"));
+				c.setC_biss_num(rset.getString("c_biss_num"));
+				c.setC_phone(rset.getString("c_phone"));
+				c.setC_date(rset.getDate("c_date"));
+				c.setC_end_date(rset.getDate("c_end_date"));
 				
 				
 				/*n.setStatus(rset.getString("STATUS"));*/
@@ -150,8 +150,9 @@ public class CompanyDao {
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("listCount");
-		
+		System.out.println("DAO 얍");
 		try {
+			
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
 			
@@ -165,7 +166,6 @@ public class CompanyDao {
 			close(stmt);
 			close(rset);
 		}
-		
 		
 		
 		return listCount;

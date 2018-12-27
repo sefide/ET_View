@@ -38,8 +38,7 @@ public class InsertCompanyServlet extends HttpServlet {
 		String phone=request.getParameter("phone");
 		String term=request.getParameter("term");
 		String term2=request.getParameter("term2");
-		String ceonum=request.getParameter("ceonum");
-		
+	
 		
 		java.sql.Date day=null;
 		java.sql.Date day2=null;
@@ -88,9 +87,10 @@ public class InsertCompanyServlet extends HttpServlet {
 		Company reqCompany=new Company();
 		reqCompany.setC_name(name);
 		reqCompany.setC_biss_num(num);
+		reqCompany.setC_phone(phone);
 		reqCompany.setC_date(day);
 		reqCompany.setC_end_date(day2);
-		reqCompany.setC_phone(ceonum);
+		
 		
 		
 		int result=new CompanyService().insertCompany(reqCompany);
