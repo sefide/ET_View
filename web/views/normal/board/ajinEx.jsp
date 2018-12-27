@@ -120,105 +120,12 @@
 			</div>
 
 
-			<!-- 글 목록 -->
-			<div class="BoardList2">
-
-				<div class="ui secondary pointing menu">
-					<div class="right menu">
-						<button class="ui yellow basic button" style="margin-bottom: 5px;">수정하기</button>
-					</div>
-				</div>
-				//var editButton
-
-				<div class="ui segment">
-					<div id="container">
-						<div id='box-left'>
-							<label><h2>회원아이디</h2></label><br>
-							 //var idArea
-
-							<div class="ui labeled button" tabindex="0"
-								style="margin-top: 10px;">
-								<div class="ui basic red button">
-									<i class="heart icon"></i> 좋아요 수
-								</div>
-								<a class="ui basic red left pointing label"> 56 </a>
-							</div>
-							<br>
-							<div class="ui labeled button" tabindex="0"
-								style="margin-top: 10px;">
-								<div class="ui basic blue button">
-									<i class="bookmark  icon"></i> 스크랩 수
-								</div>
-								<a class="ui basic left pointing blue label"> 87 </a>
-							</div>
-							<br>
-							<div class="ui labeled button" tabindex="0"
-								style="margin-top: 10px;">
-								<div class="ui basic black button">
-									<i class="exclamation triangle icon"></i> 신고 수
-								</div>
-								<a class="ui basic left pointing black label"> 7 </a>
-							</div>
-							//var countArea
-							
-							<div style="margin-top: 10px;">
-								<!-- 좋아요 스크랩 신고 -->
-								<div class="ui small red button">
-									<span><i class="heart icon"></i> </span>
-								</div>
-
-								<div class="ui small blue button">
-									<span><i class="bookmark  icon"></i> </span>
-								</div>
-								<div class="ui small black button">
-									<span><i class="exclamation triangle icon"></i> </span>
-								</div>
-								<!-- 좋아요 스크랩 신고 취소 -->
-								<div class="ui small red button" style="visibility: hidden;">
-									<span><i class="empty heart icon"></i> </span>
-								</div>
-								<div class="ui small blue button" style="visibility: hidden;">
-									<span><i class="empty bookmark  icon"></i> </span>
-								</div>
-								<div class="ui small black button" style="visibility: hidden;">
-									<span><i class="empty exclamation triangle icon"></i> </span>
-								</div>
-							</div>
-						</div>
-						//var likeArea
-						
-						<div id='box-center'>
-							<div class="ui form">
-								<div style="text-align: left;">
-									<span> 제목 </span><label style="background-color: red;">dsfadfad</label>
-								</div>
-								<div class="field">
-									<textarea rows="2" cols="10">QnA내용</textarea>
-								</div>
-								<div class="ui list" style="text-align: left;">
-									<div class="item" style="">
-
-										<div class="content">
-											<a class="header"> <span style="color: blue;">내아이디</span>
-											</a>
-											<div class="ui form">
-												<div class="field">
-													<div>
-														<input type="text" size="100px;" placeholder="댓글을 입력해주세요">
-														<div class="ui right yellow button">입력</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-					</div>
-				</div>
+			<!-- 내용이 나올 div -->
+			<div id = allArea>
+			
 			</div>
+
+			
 
 
 			<script>
@@ -229,31 +136,8 @@
 						$.ajax({
 							success : function() {
 							
-								//태그를 한줄로 만들어서 append 하기.
-								var editButton =" <div class='BoardList2'><div class='right menu'><button class='ui yellow basic button' style='margin-bottom: 5px;'>수정하기</button></div></div>"
-								var idArea = "<div class='ui segment'><div id='container'><div id='box-left'><label><h2>"+회원아이디+"</h2></label><br>"	
-								var countArea="<div class='ui labeled button' tabindex='0' style='margin-top: 10px;'><div class='ui basic red button'><i class='heart icon'></i> 좋아요 수</div>"
-										+"<a class='ui basic red left pointing label'>"+ 56 + "</a></div><br>"+
-									"<div class='ui labeled button' tabindex='0' style='margin-top: 10px;'><div class='ui basic blue button'><i class='bookmark  icon'></i> 스크랩 수</div>"+
-									"<a class='ui basic left pointing blue label'>"+ 87 +"</a></div><br><div class='ui labeled button' tabindex='0' style='margin-top: 10px;'>"+
-									"<div class='ui basic black button'><i class='exclamation triangle icon'></i> 신고 수</div>"+
-									"<a class='ui basic left pointing black label'>"+ 7 +"</a></div>";	
-									<div style="margin-top: 10px;">
-									
-						
-							var likeArea = "<div class='ui small red button'><span><i class='heart icon'></i> </span></div>"+
-										"<div class='ui small blue button'><span><i class='bookmark  icon'></i> </span></div>"+
-										"<div class='ui small black button'><span><i class='exclamation triangle icon'></i> </span></div>";
-										
-							var cancelArea = "<div class='ui small red button' style='visibility: hidden;'><span><i class='empty heart icon'></i></span></div>"
-											+"<div class='ui small blue button' style='visibility: hidden;''><span><i class='empty bookmark  icon'></i> </span></div>"
-											+"<div class='ui small black button' style='visibility: hidden;'><span><i class='empty exclamation triangle icon'></i> </span></div></div></div>";			
-										
+								
 							
-							
-									
-									
-										
 							},
 							error : function() {
 								

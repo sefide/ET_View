@@ -1,8 +1,19 @@
+<%@page import="com.kh.et.company.model.vo.PageInfo"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.et.board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 	Board b = (Board) request.getAttribute("b");
+	//페이징
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+
 %>
 <!DOCTYPE html>
 <html>
@@ -12,6 +23,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 
 <!-- Semantic UI -->
 <link rel="stylesheet"
@@ -58,6 +70,12 @@
 #box-right {
 	flex: 1;
 	text-align: right;
+}
+.allcontentDiv{
+		height : 800px;
+		overflow-y : auto;
+		border-bottom : 1px solid #808080;
+		/* #f2f2f2 */
 }
 </style>
 
@@ -107,11 +125,10 @@
 							<div class="ui form">
 								<div class="field">
 									<textarea rows="2" cols="10" style="height: 100px;"
-										id="content" onclick="this.value=''">내용을 입력하세요</textarea>
+										id="content" ></textarea>
 								</div>
 								<div class="ui list" style="text-align: right;">
-									<button class="ui right yellow button" type="submit"
-										id="addBoard">등록하기</button>
+									<button class="ui right yellow button" id="addBoard">등록하기</button>
 								</div>
 							</div>
 						
@@ -121,102 +138,17 @@
 
 
 			<!-- 글 목록 -->
-			<div class="BoardList2">
 			
-				<div class="ui secondary pointing menu">
-					<div class="right menu">
-						<button class="ui yellow basic button" style="margin-bottom: 5px;">수정하기</button>
-					</div>
-				</div>
-				<div class="ui segment">
-					<div id="container">
-						<div id='box-left'>
-							<label><h2>회원아이디</h2></label><br>
-							<div class="ui labeled button" tabindex="0"
-								style="margin-top: 10px;">
-								<div class="ui basic red button">
-									<i class="heart icon"></i> 좋아요 수
-								</div>
-								<a class="ui basic red left pointing label"> 56 </a>
-							</div>
-							<br>
-							<div class="ui labeled button" tabindex="0"
-								style="margin-top: 10px;">
-								<div class="ui basic blue button">
-									<i class="bookmark  icon"></i> 스크랩 수
-								</div>
-								<a class="ui basic left pointing blue label"> 87 </a>
-							</div>
-							<br>
-							<div class="ui labeled button" tabindex="0"
-								style="margin-top: 10px;">
-								<div class="ui basic black button">
-									<i class="exclamation triangle icon"></i> 신고 수
-								</div>
-								<a class="ui basic left pointing black label"> 7 </a>
-							</div>
-
-							<div style="margin-top: 10px;">
-								<!-- 좋아요 스크랩 신고 -->
-								<div class="ui small red button">
-									<span><i class="heart icon"></i> </span>
-								</div>
-
-								<div class="ui small blue button">
-									<span><i class="bookmark  icon"></i> </span>
-								</div>
-								<div class="ui small black button">
-									<span><i class="exclamation triangle icon"></i> </span>
-								</div>
-								<!-- 좋아요 스크랩 신고 취소 -->
-								<div class="ui small red button" style="visibility: hidden;">
-									<span><i class="empty heart icon"></i> </span>
-								</div>
-								<div class="ui small blue button" style="visibility: hidden;">
-									<span><i class="empty bookmark  icon"></i> </span>
-								</div>
-								<div class="ui small black button" style="visibility: hidden;">
-									<span><i class="empty exclamation triangle icon"></i> </span>
-								</div>
-							</div>
-						</div>
-
-						<div id='box-center'>
-							<div class="ui form">
-								<div style="text-align: left;">
-									<span> 제목 </span><label style="background-color: red;">dsfadfad</label>
-								</div>
-								<div class="field">
-									<textarea rows="2" cols="10">QnA내용</textarea>
-								</div>
-								<div class="ui list" style="text-align: left;">
-									<div class="item" style="">
-
-										<div class="content">
-											<a class="header"> <span style="color: blue;">내아이디</span>
-											</a>
-											<div class="ui form">
-												<div class="field">
-													<div>
-														<input type="text" size="100px;" placeholder="댓글을 입력해주세요">
-														<div class="ui right yellow button">입력</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-					</div>
-				</div>
-			</div>
-
-
+			<!-- 내용이 나올 div -->
+			<div class="allcontentDiv">
+			
 			<script>
-				$(function() {
+				
+						
+			
+			
+			
+					//등록 버튼 눌렀을때 생기는 일
 					$("#addBoard").click(function() {
 
 						var title = $("#title").val();
@@ -228,24 +160,68 @@
 								title : title,
 								content : content
 							},
-							type : "post",
+							
 							success : function(data) {
 								console.log(data);
 								
-								//태그를 한줄로 만들어서 append 하기.
+								//태그를 한줄로 만들어서 append 하기.								
+								var editButton ="<div class='BoardList2'><div class='right menu'><button class='ui yellow basic button' style='margin-bottom: 5px;'>수정하기</button></div></div>";
+								
+								var idArea = "<div class='ui segment'><div id='container'><div id='box-left'><label><h2>"+"회원아이디"+"</h2></label><br>";	
+								var countArea="<div class='ui labeled button' tabindex='0' style='margin-top: 10px;'><div class='ui basic red button'><i class='heart icon'></i> 좋아요 수</div>"
+										+"<a class='ui basic red left pointing label'>"+ "56" + "</a></div><br>"+
+									"<div class='ui labeled button' tabindex='0' style='margin-top: 10px;'><div class='ui basic blue button'><i class='bookmark  icon'></i> 스크랩 수</div>"+
+									"<a class='ui basic left pointing blue label'>"+ "87" +"</a></div><br><div class='ui labeled button' tabindex='0' style='margin-top: 10px;'>"+
+									"<div class='ui basic black button'><i class='exclamation triangle icon'></i> 신고 수</div>"+
+									"<a class='ui basic left pointing black label'>"+ "7" +"</a></div><div style='margin-top: 10px;'>";	
+									
+									
+									
+						
+								var likeArea = "<div class='ui small red button'><span><i class='heart icon'></i> </span></div>"+
+										"<div class='ui small blue button'><span><i class='bookmark  icon'></i> </span></div>"+
+										"<div class='ui small black button'><span><i class='exclamation triangle icon'></i> </span></div>";
+										
+								var cancelArea = "<div class='ui small red button' style='visibility: hidden;'><span><i class='empty heart icon'></i></span></div>"
+											+"<div class='ui small blue button' style='visibility: hidden;''><span><i class='empty bookmark  icon'></i> </span></div>"
+											+"<div class='ui small black button' style='visibility: hidden;'><span><i class='empty exclamation triangle icon'></i> </span></div></div></div>";			
+										
+											
+								var titleArea = "<div id='box-center'><div class='ui form'><div style='text-align: left;'><span> 제목 </span><label style='background-color: red;'>"+
+												title+"</label></div>";
+							
+												
+								var contentArea = "<div class='field'><textarea rows='2' cols='10'>"+content+"</textarea></div>";
+							
+							
+								var repidArear = "<div class='ui list' style='text-align: left;'><div class='item' style=''><div class='content'><a class='header'><span style='color: blue;'>"+
+													"내아이디"+"</span></a>";
+							
+													
+								var repcontentArea = "<div class='ui form'><div class='field'><div><input type='text' size='100px;' placeholder='댓글을 입력해주세요'>";
+							
+							
+
+								var submitButton = "<div class='ui right yellow button'>입력</div></div></div></div></div></div></div></div></div></div></div></div>";
+						
+								var allcontentArea = editButton + idArea + countArea + likeArea + cancelArea + titleArea + contentArea + repidArear + repcontentArea + submitButton ; 
+							
+								//이전에 페이징 처리하는걸 넣어야함 
+								$(".allcontentDiv").append(allcontentArea);
+								//$(allcontentArea).prependdTo(".allcontentDiv") // a를 b의 앞부분에 추가함
+							
 								
 
 							},
-							error : function(data) {
-								console.log(실패);
-							}
-						
-
+							 error:function(request,status,error){
+							        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+							 }
+							 });
 						});
 
-					});
+					
 
-				});
+				
 			</script>
 
 

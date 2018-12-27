@@ -31,12 +31,13 @@ public class InsertBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
 		/*String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getM_no());*/
-		System.out.println(title);
-		System.out.println(content);
+		System.out.println("servlet 제목: "+ title);
+		System.out.println("servlet :나용 " + content);
 		
 		Board b = new Board();
 		b.setBtitle(title);
@@ -50,10 +51,10 @@ public class InsertBoardServlet extends HttpServlet {
 		
 		String page= "";
 		if(result>0) {
-			response.sendRedirect(request.getContextPath() + "/insert.bo");
+			response.sendRedirect("/et/index.jsp");
 		}else {
 			request.setAttribute("msg", "게시판 작성 실패");
-			/*request.getRequestDispatcher("").forward(request, response);*/
+			request.getRequestDispatcher("/et/view/normal/errorPage.jsp").forward(request, response);
 		}
 	}
 
