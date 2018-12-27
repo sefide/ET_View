@@ -21,7 +21,7 @@ public class TourBoardDao {
 private Properties prop = new Properties();
 	
 	public TourBoardDao() {
-		String fileName= TourBoardDao.class.getResource("/sql/board/board-query.properties").getPath();
+		String fileName= TourBoardDao.class.getResource("/sql/tourBoard/tourBoard-query.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -34,13 +34,18 @@ private Properties prop = new Properties();
 	public int insertTourBoard(Connection con, TourBoard tb) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = prop.getProperty("insertThumb");
+		String query = prop.getProperty("insertTourBoard");
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			/*pstmt.setString(1, b.getbTitle());
-			pstmt.setString(2, b.getbContent());
-			pstmt.setInt(3, Integer.parseInt(b.getbWriter()));*/
+			pstmt.setString(1, tb.gettTitle());
+			pstmt.setString(2, tb.gettConcept());
+			pstmt.setString(3, tb.gettInfo());
+			pstmt.setInt(4, tb.gettPrice());
+			pstmt.setString(5, tb.gettLink());
+			pstmt.setString(6, tb.gettGrade());
+			
+			
 			
 			result = pstmt.executeUpdate();
 			
@@ -93,16 +98,21 @@ private Properties prop = new Properties();
 		String query = prop.getProperty("insertAttachment");
 		
 		try {
-			for(int i=0; i<fileList.size();i++) {
+				
 				
 				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, fileList.get(0).getOriginName());
+				pstmt.setString(2, fileList.get(0).getChangeName());
+				pstmt.setString(3, fileList.get(0).getFilePath());
+				pstmt.setString(4, "투어");
+				pstmt.setInt(5, fileList.get(0).getAtno());
 				/*pstmt.setInt(1, fileList.get(i).getBid());
 				pstmt.setString(2, fileList.get(i).getOriginName());
 				pstmt.setString(3, fileList.get(i).getChangeName());
 				pstmt.setString(4, fileList.get(i).getFilePath());*/
 				
-				result += pstmt.executeUpdate();
-				}
+				result = pstmt.executeUpdate();
+
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -129,18 +139,18 @@ private Properties prop = new Properties();
 			while(rset.next()) {
 				hmap = new HashMap<String,Object>();  //멤버 객체대신 hash맵사용
 				
-				/*hmap.put("bid", rset.getInt("bid"));  //DB 대소문자 상관없음. 단, 값은 구분함
-				hmap.put("bno", rset.getInt("bno"));
-				hmap.put("btitle", rset.getString("bTitle"));
-				hmap.put("bcontent", rset.getString("bcontent"));
-				hmap.put("bwriter", rset.getString("nick_name"));
-				hmap.put("bcount", rset.getInt("bcount"));
-				hmap.put("bdate", rset.getDate("bdate"));
-				hmap.put("fid", rset.getInt("fid"));
-				hmap.put("originName", rset.getString("origin_name"));
+				hmap.put("tno", rset.getInt("t_no"));  //DB 대소문자 상관없음. 단, 값은 구분함
+				hmap.put("tcno", rset.getInt("t_c_no"));
+				hmap.put("title", rset.getString("t_Title"));
+				hmap.put("concept", rset.getString("t_concept"));
+				hmap.put("price", rset.getInt("t_price"));
+				hmap.put("info", rset.getString("t_info"));
+				hmap.put("link", rset.getString("t_link"));
+				hmap.put("grade", rset.getString("t_grade"));
+				hmap.put("tdate", rset.getDate("t_date"));
 				hmap.put("changeName", rset.getString("change_name"));
 				hmap.put("filePath", rset.getString("file_path"));
-				hmap.put("uploadDate", rset.getDate("upload_date"));*/
+				hmap.put("uploadDate", rset.getDate("upload_date"));
 				
 				list.add(hmap);
 				
