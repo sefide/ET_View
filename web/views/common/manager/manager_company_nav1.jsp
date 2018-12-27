@@ -50,7 +50,7 @@
 	<script>
     
     	function test() {
-    		location.href = "/et/views/manager/tourCompany/manager_company.jsp";
+    		location.href = "/et/selectList.co";
     		/* $("#tb1").css({"visibility":"visible"}); */
     	}
     	

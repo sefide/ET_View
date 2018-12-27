@@ -25,7 +25,7 @@ public class CompanyService {
 		}
 
 	public int insertCompany(Company reqCompany) {
-Connection con=getConnection();
+		Connection con=getConnection();
 		
 		int result= new CompanyDao().insertCompany(con,reqCompany);
 		
@@ -48,7 +48,7 @@ Connection con=getConnection();
 	}
 
 	public int getListCount() {
-Connection con = getConnection();
+		Connection con = getConnection();
 		
 		int listCount  = new CompanyDao().getListCount(con);
 		

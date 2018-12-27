@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,com.kh.et.company.model.vo.*"%>
+   
     <%
     ArrayList<Company> list=(ArrayList<Company>)request.getAttribute("list");
     PageInfo pi = (PageInfo)request.getAttribute("pi");
-	int listCont = pi.getListCount();
+	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-    %>
-    
+    %> 
+     
     
     
     
@@ -98,7 +99,7 @@ table{
 
     			
     		</tr>
-    		<%for(Company c:list) {%>
+    	 	<%for(Company c:list) {%>
     		<tr>
     			<td class="num"><input type="checkbox" name="checkbox"></td>
     			<td><%=c.getC_no() %></td>
@@ -140,17 +141,15 @@ table{
 			<% }else{ %>
 			<button onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage + 1%>'"> > </button>
 			<% } %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=maxPage%>'"> >> </button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=maxPage%>'"> >> </button> 
 			
 		</div>
     	
     	
     	
-    	
-    	
     	<button style=float:right;>삭제하기</button>
     	<button style=float:right;margin-right:30px; onclick="location.href='companyUpdate.jsp'">수정하기</button>
-    	<button style=float:right;margin-right:30px; onclick="location.href='companyInsert.jsp'">추가하기</button>
+    	<button style=float:right;margin-right:30px; onclick="location.href='/et/views/manager/tourCompany/companyInsert.jsp'">추가하기</button>
     </div>
     
     

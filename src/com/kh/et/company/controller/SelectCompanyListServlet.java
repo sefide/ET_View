@@ -86,7 +86,7 @@ public class SelectCompanyListServlet extends HttpServlet {
 			request.setAttribute("list", list);	//보여주려는 목록을 넣어준다
 			request.setAttribute("pi", pi);		//페이징에 필요한 것들도 넣어주기
 		}else {
-			page = "views/common/errorPage.jsp";
+			page = "views/common/normal/errorPage.jsp";
 			request.setAttribute("msg", "게시판 조회 실패!");
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
