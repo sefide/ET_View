@@ -2,12 +2,15 @@ package com.kh.et.company.model.service;
 
 import static com.kh.et.common.JDBCTemplate.*;
 
+
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.et.company.model.dao.CompanyDao;
 import com.kh.et.company.model.vo.Company;
 
 import com.kh.et.member.model.dao.MemberDao;
+
 public class CompanyService {
 	
 	//제휴사 로그인 메소드
@@ -33,6 +36,24 @@ Connection con=getConnection();
 			rollback(con);
 		}
 		return result;
+	}
+
+	public ArrayList<Company> selectList(int currentPage, int limit) {
+		Connection con = getConnection();
+		
+		ArrayList<Company> list = new CompanyDao().selectList(con, currentPage, limit);
+		
+		close(con);
+		return list;
+	}
+
+	public int getListCount() {
+Connection con = getConnection();
+		
+		int listCount  = new CompanyDao().getListCount(con);
+		
+		close(con);
+		return listCount;
 	}
 
 }

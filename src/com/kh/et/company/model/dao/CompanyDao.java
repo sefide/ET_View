@@ -9,9 +9,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.et.company.model.vo.Company;
+
 
 public class CompanyDao {
 	private Properties prop = new Properties();
@@ -76,12 +79,12 @@ public class CompanyDao {
 		
 		try {
 			pstmt=con.prepareStatement(query);
-			pstmt.setString(1, reqCompany.getC_name());
-			pstmt.setString(2, reqCompany.getC_biss_num());
-			pstmt.setString(3, reqCompany.getC_represent());
-			pstmt.setDate(4, reqCompany.getC_date());
-			pstmt.setDate(5, reqCompany.getC_end_date());
-			pstmt.setString(6, reqCompany.getC_phone());
+			pstmt.setInt(1, reqCompany.getC_no());
+			pstmt.setString(2, reqCompany.getC_name());
+			pstmt.setString(3, reqCompany.getC_biss_num());
+			pstmt.setString(4, reqCompany.getC_phone());
+			pstmt.setDate(5, reqCompany.getC_date());
+			pstmt.setDate(6, reqCompany.getC_end_date());
 			
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -92,6 +95,78 @@ public class CompanyDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<Company> selectList(Connection con, int currentPage, int limit) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Company> list = null;
+		
+		String query = prop.getProperty("selectList");
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			int startRow = (currentPage - 1) * limit + 1;	//한 페이지에서의 글 목록 시작 번호
+			int endRow = startRow + limit - 1;	//한 페이지에서의 글 목록 끝 번호
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+	
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Company>();
+			
+			while(rset.next()) {
+				Company c = new Company();
+				c.setC_no(rset.getInt("C_NO"));
+				c.setC_name(rset.getString("C_NAME"));
+				c.setC_biss_num(rset.getString("C_BISS_NUM"));
+				c.setC_phone(rset.getString("C_PHONE"));
+				c.setC_date(rset.getDate("C_DATE"));
+				c.setC_end_date(rset.getDate("C_END_DATE"));
+				
+				
+				/*n.setStatus(rset.getString("STATUS"));*/
+				
+				list.add(c);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return list;
+	}
+
+	public int getListCount(Connection con) {
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		
+		return listCount;
 	}
 
 }

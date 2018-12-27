@@ -32,13 +32,14 @@ public class InsertCompanyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String name=request.getParameter("name");
 		String num=request.getParameter("num");
-		String ceo=request.getParameter("ceo");
+		String phone=request.getParameter("phone");
 		String term=request.getParameter("term");
 		String term2=request.getParameter("term2");
 		String ceonum=request.getParameter("ceonum");
-		String grade=request.getParameter("grade");
+		
 		
 		java.sql.Date day=null;
 		java.sql.Date day2=null;
@@ -90,7 +91,7 @@ public class InsertCompanyServlet extends HttpServlet {
 		reqCompany.setC_date(day);
 		reqCompany.setC_end_date(day2);
 		reqCompany.setC_phone(ceonum);
-		reqCompany.setC_represent(ceo);
+		
 		
 		int result=new CompanyService().insertCompany(reqCompany);
 		String page="";

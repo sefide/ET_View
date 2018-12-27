@@ -123,9 +123,10 @@
 		<input type="text" name="name" id="name" /><br>
 		<label for="num">사업자번호</label>&nbsp;<br>
 		<input type="text" name="num" id="num" />-<input type="text" name="num" id="num2" />-<input type="text" name="num" id="num3" /><br>
+		<label for="phone">연락처</label>&nbsp;<br>
+		<input type="text" name="phone" id="phone" />
 	
-	<label for="ceo">대표자</label>&nbsp;<br>
-		<input type="text" name="ceo" id="ceo" /><br><br>
+		<br><br>
 		
 	<label for="contact">계약기간</label><br>
 		<p style=font-size:7px;>시작날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -136,16 +137,11 @@
 		
 		<input type="date" name="term" id="term" />-<input type="date" name="term2" id="term2" /><br>
 		
-			<label for="ceonum">대표번호</label><br>
-		<input type="ceonum" name="ceonum" id="ceonum" />-<input type="ceonum" name="ceonum" id="ceonum2" />-<input type="ceonum" name="ceonum" id="ceonum3" /><br>
-			<label for="contact">등급</label><br>
-		<select id="grade">
-			<option value="standard">Standard</option>
-			<option value="premium">Premium</option>
-		</select>
+		
+		
 		<br>
 		<br>
-		<button id="insertBtn" onclick="insertCompany();">완료</button>
+		<button type="submit" id="insertBtn" onclick="insertCompany();">완료</button>
 		
 	</p>
 
