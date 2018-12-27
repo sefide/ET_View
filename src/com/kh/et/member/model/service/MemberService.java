@@ -40,19 +40,6 @@ public class MemberService {
 		return result;
 	}
 
-
-	/*//관리자 로그인 메소드
-	public MemberManagerCompany managerLogin(MemberManagerCompany reqMember) {
-		Connection con = getConnection();
-		
-		MemberManagerCompany loginManager = new MemberDao().managerLogin(con, reqMember);
-		
-		close(con);
-		
-		
-		return loginManager;
-	}*/
-
 	
 
 	/*public int updateMember(MemberNormal reqMember) {

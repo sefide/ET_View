@@ -120,9 +120,8 @@
 			<br>
 			<br>
 		</div>
-	</form>
+	
 	<!-- 제휴사 -->
-	<form id="companyLoginForm" action="<%= request.getContextPath()%>/login.company" method="post">
 		<div align="center" class="ui bottom attached tab segment" data-tab="tour" id="form" style="background-color: whitesmoke;">
 			<div align="left" class="font">
 				<label style="font-weight: 600;">ID</label>
@@ -169,18 +168,18 @@
 		}
 		
 		$(function(){
-			<% System.out.println("msg : " + msg1);
+			<% System.out.println("msg1 : " + msg1);
 				if(msg1 != null){%>
 				alert("<%= msg1%>");
 			<%} %>
 		}); 
 		
 		function company_login(){
-			$("#companyLoginForm").submit;
+			$("#managerLoginForm").attr("action", "<%=request.getContextPath() %>/login.company")
+			$("#managerLoginForm").submit;
 		}
-		
 		$(function(){
-			<% System.out.println("msg : " + msg2);
+			<% System.out.println("msg2 : " + msg2);
 				if(msg2 != null){%>
 				alert("<%= msg2%>");
 			<%} %>	
