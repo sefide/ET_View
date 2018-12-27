@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.et.board.model.service.BoardService;
 import com.kh.et.board.model.vo.Board;
 import com.kh.et.member.model.vo.Member;
@@ -33,21 +34,26 @@ public class InsertBoardServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
-		String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getM_no());
+		/*String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getM_no());*/
+		System.out.println(title);
+		System.out.println(content);
 		
 		Board b = new Board();
 		b.setBtitle(title);
 		b.setbContent(content);
-		b.setbWriter(writer);
-		
+		/*b.setbWriter(writer);
+		*/
 		int result = new BoardService().insertBoard(b);
+		
+		response.setContentType("application/json");
+		new Gson().toJson(result);
 		
 		String page= "";
 		if(result>0) {
 			response.sendRedirect(request.getContextPath() + "/insert.bo");
 		}else {
 			request.setAttribute("msg", "게시판 작성 실패");
-			request.getRequestDispatcher("").forward(request, response);
+			/*request.getRequestDispatcher("").forward(request, response);*/
 		}
 	}
 

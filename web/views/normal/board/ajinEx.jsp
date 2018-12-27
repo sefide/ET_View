@@ -71,7 +71,7 @@
 		<div class="two wide column"></div>
 		<div class="twelve wide column" style="margin-top: 50px;">
 
-			
+
 
 			<!-- 상단 공지사항  -->
 			<div class="ui segment" style="margin-top: 40px;">
@@ -90,7 +90,7 @@
 				</div>
 			</div>
 			<br>
-			
+
 			<!-- 내가 (본인이 ) 글쓰는 부분 -->
 			<div class="ui segment">
 				<div id="container">
@@ -99,22 +99,22 @@
 							src="/et/image/common/logo.png">
 					</div>
 					<div id='box-center'>
-						
-							<div align="left" >
-								제목 &nbsp;&nbsp;<input type="text" id="title" size="110">
+
+						<div align="left">
+							제목 &nbsp;&nbsp;<input type="text" id="title" size="110">
+						</div>
+						<br>
+						<div class="ui form">
+							<div class="field">
+								<textarea rows="2" cols="10" style="height: 100px;" id="content"
+									onclick="this.value=''">내용을 입력하세요</textarea>
 							</div>
-							<br>
-							<div class="ui form">
-								<div class="field">
-									<textarea rows="2" cols="10" style="height: 100px;"
-										id="content" onclick="this.value=''">내용을 입력하세요</textarea>
-								</div>
-								<div class="ui list" style="text-align: right;">
-									<button class="ui right yellow button" type="submit"
-										id="addBoard">등록하기</button>
-								</div>
+							<div class="ui list" style="text-align: right;">
+								<button class="ui right yellow button" type="submit"
+									id="addBoard">등록하기</button>
 							</div>
-						
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -122,16 +122,20 @@
 
 			<!-- 글 목록 -->
 			<div class="BoardList2">
-			
+
 				<div class="ui secondary pointing menu">
 					<div class="right menu">
 						<button class="ui yellow basic button" style="margin-bottom: 5px;">수정하기</button>
 					</div>
 				</div>
+				//var editButton
+
 				<div class="ui segment">
 					<div id="container">
 						<div id='box-left'>
 							<label><h2>회원아이디</h2></label><br>
+							 //var idArea
+
 							<div class="ui labeled button" tabindex="0"
 								style="margin-top: 10px;">
 								<div class="ui basic red button">
@@ -155,7 +159,8 @@
 								</div>
 								<a class="ui basic left pointing black label"> 7 </a>
 							</div>
-
+							//var countArea
+							
 							<div style="margin-top: 10px;">
 								<!-- 좋아요 스크랩 신고 -->
 								<div class="ui small red button">
@@ -180,7 +185,8 @@
 								</div>
 							</div>
 						</div>
-
+						//var likeArea
+						
 						<div id='box-center'>
 							<div class="ui form">
 								<div style="text-align: left;">
@@ -219,25 +225,38 @@
 				$(function() {
 					$("#addBoard").click(function() {
 
-						var title = $("#title").val();
-						var content = $("#content").val();
 
 						$.ajax({
-							url : "/et/insert.bo",
-							data : {
-								title : title,
-								content : content
-							},
-							type : "post",
-							success : function(data) {
-								console.log(data);
-								
+							success : function() {
+							
 								//태그를 한줄로 만들어서 append 하기.
-								
-
+								var editButton =" <div class='BoardList2'><div class='right menu'><button class='ui yellow basic button' style='margin-bottom: 5px;'>수정하기</button></div></div>"
+								var idArea = "<div class='ui segment'><div id='container'><div id='box-left'><label><h2>"+회원아이디+"</h2></label><br>"	
+								var countArea="<div class='ui labeled button' tabindex='0' style='margin-top: 10px;'><div class='ui basic red button'><i class='heart icon'></i> 좋아요 수</div>"
+										+"<a class='ui basic red left pointing label'>"+ 56 + "</a></div><br>"+
+									"<div class='ui labeled button' tabindex='0' style='margin-top: 10px;'><div class='ui basic blue button'><i class='bookmark  icon'></i> 스크랩 수</div>"+
+									"<a class='ui basic left pointing blue label'>"+ 87 +"</a></div><br><div class='ui labeled button' tabindex='0' style='margin-top: 10px;'>"+
+									"<div class='ui basic black button'><i class='exclamation triangle icon'></i> 신고 수</div>"+
+									"<a class='ui basic left pointing black label'>"+ 7 +"</a></div>";	
+									<div style="margin-top: 10px;">
+									
+						
+							var likeArea = "<div class='ui small red button'><span><i class='heart icon'></i> </span></div>"+
+										"<div class='ui small blue button'><span><i class='bookmark  icon'></i> </span></div>"+
+										"<div class='ui small black button'><span><i class='exclamation triangle icon'></i> </span></div>";
+										
+							var cancelArea = "<div class='ui small red button' style='visibility: hidden;'><span><i class='empty heart icon'></i></span></div>"
+											+"<div class='ui small blue button' style='visibility: hidden;''><span><i class='empty bookmark  icon'></i> </span></div>"
+											+"<div class='ui small black button' style='visibility: hidden;'><span><i class='empty exclamation triangle icon'></i> </span></div></div></div>";			
+										
+							
+							
+									
+									
+										
 							},
-							error : function(data) {
-								console.log(실패);
+							error : function() {
+								
 							}
 						
 
