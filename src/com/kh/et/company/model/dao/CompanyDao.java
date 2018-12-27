@@ -69,5 +69,29 @@ public class CompanyDao {
 			
 			return loginCompany;
 		}
+	public int insertCompany(Connection con, Company reqCompany) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String query=prop.getProperty("insertCompany");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setString(1, reqCompany.getC_name());
+			pstmt.setString(2, reqCompany.getC_biss_num());
+			pstmt.setString(3, reqCompany.getC_represent());
+			pstmt.setDate(4, reqCompany.getC_date());
+			pstmt.setDate(5, reqCompany.getC_end_date());
+			pstmt.setString(6, reqCompany.getC_phone());
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 }

@@ -87,6 +87,11 @@
 			-moz-border-radius: 5px;
 			-webkit-border-radius: 5px;
 			}
+			#ceonum2 {
+			width:100px;
+			}
+			#num2 {
+			width:100px;}
 
     
 </style>
@@ -111,25 +116,36 @@
         	
     	
         	<div class="inner-2">
-        <form class="form">
-<fieldset><legend>제휴사 추가</legend>
+        <form  id="joinForm" action ="<%=request.getContextPath()%>/insertCompany.co" method="post" class="form">
+	<fieldset><legend>제휴사 추가</legend>
 	<p class="name">
+		<label for="name">제휴사 명</label><br>
+		<input type="text" name="name" id="name" /><br>
 		<label for="num">사업자번호</label>&nbsp;<br>
-		<input type="text" name="num" id="num" /><br>
+		<input type="text" name="num" id="num" />-<input type="text" name="num" id="num2" />-<input type="text" name="num" id="num3" /><br>
 	
 	<label for="ceo">대표자</label>&nbsp;<br>
-		<input type="text" name="ceo" id="ceo" /><br>
+		<input type="text" name="ceo" id="ceo" /><br><br>
 		
 	<label for="contact">계약기간</label><br>
-		<input type="text" name="term" id="term" /><br>
+		<p style=font-size:7px;>시작날짜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;종료날짜<br></p>
+		
+		<input type="date" name="term" id="term" />-<input type="date" name="term2" id="term2" /><br>
 		
 			<label for="ceonum">대표번호</label><br>
-		<input type="ceonum" name="ceonum" id="ceonum" /><br>
+		<input type="ceonum" name="ceonum" id="ceonum" />-<input type="ceonum" name="ceonum" id="ceonum2" />-<input type="ceonum" name="ceonum" id="ceonum3" /><br>
 			<label for="contact">등급</label><br>
-		<select>
-			<option>Standard</option>
-			<option>Premium</option>
+		<select id="grade">
+			<option value="standard">Standard</option>
+			<option value="premium">Premium</option>
 		</select>
+		<br>
+		<br>
+		<button id="insertBtn" onclick="insertCompany();">완료</button>
 		
 	</p>
 
@@ -146,5 +162,11 @@
    	
    	<!-- footer -->
 	<%@ include file= "/views/common/normal/footer.jsp" %>
+	<script>
+	function insertCompany() {
+		$("#joinForm").submit();
+	}
+	
+	</script>
 </body>
 </html>

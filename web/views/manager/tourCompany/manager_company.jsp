@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.et.company.model.vo.*"%>
+ <%--     <%
+    ArrayList<Company> list=(ArrayList<Company>)request.getAttribute("list");
+    PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCont = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+    %>
+     --%>
+    
+    
+    
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -99,10 +113,16 @@ table{
   
     	</table>
     	<br>
+    	
+    	
     	<button style=float:right;>삭제하기</button>
     	<button style=float:right;margin-right:30px; onclick="location.href='companyUpdate.jsp'">수정하기</button>
     	<button style=float:right;margin-right:30px; onclick="location.href='companyInsert.jsp'">추가하기</button>
     </div>
+    
+    
+    
+    
 	
  <div class = "two wide column"></div> 
 		
