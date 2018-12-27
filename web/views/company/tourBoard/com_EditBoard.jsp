@@ -163,7 +163,7 @@
 		padding : 15px 0;
 	}
 	
-	.div-img-ex{
+	#div-img-ex{
 		border : 1px solid lightgray;
 		border-radius : 5px;
 		color : lightgray;
@@ -171,7 +171,7 @@
 	
 	#tourImgSelect{
 		width : 100%;
-		height : 340px;
+		height : 300px;
 		
 		border :none;
 	}
@@ -243,6 +243,61 @@
 							</td>
 						</tr>
 						<tr>
+							<td class="attr1"><label>나라 선택</label></td>
+							<td colspan="2"><select class="ui fluid dropdown" name="nation">
+								<option value="">프랑스</option>
+								<option value="">독일</option>
+								<option value="">영국</option>
+								<option value="">네덜란드</option>
+								<option value="">이탈리아</option>
+								<option value="">체코</option>
+								<option value="">그리스</option>
+								<option value="">헝가리</option>
+								<option value="">오스트리아</option>
+								<option value="">크로아티아</option>
+								<option value="">덴마크</option>
+								<option value="">스위스</option>
+								<option value="">터키</option>
+								<option value="">포르투갈</option>
+								<option value="">스페인</option>
+							</select>
+							</td>
+							<td class="attr1" align="center"><label>도시 선택</label></td>
+							<td colspan="2">
+							 <select class="ui fluid dropdown" name="city">
+								<option value="">파리</option>
+								<option value="">리옹</option>
+								<option value="">니스</option>
+								<option value="">뮌헨</option>
+								<option value="">베를린</option>
+								<option value="">뉘른베르크</option>
+								<option value="">프랑크푸르트</option>
+								<option value="">런던</option>
+								<option value="">옥스포드</option>
+								<option value="">암스테르담</option>
+								<option value="">밀라노</option>
+								<option value="">베네치아</option>
+								<option value="">피렌체</option>
+								<option value="">로마</option>
+								<option value="">프라하</option>
+								<option value="">아테네</option>
+								<option value="">부다페스트</option>
+								<option value="">빈</option>
+								<option value="">잘츠부르크</option>
+								<option value="">자그레브</option>
+								<option value="">코펜하겐</option>
+								<option value="">오덴세</option>
+								<option value="">인터라켄</option>
+								<option value="">취리히</option>
+								<option value="">이스탄불</option>
+								<option value="">앙카라</option>
+								<option value="">리스본</option>
+								<option value="">바르셀로나</option>
+								<option value="">마드리드</option>
+							</select>
+							</td>	
+						</tr>
+						<tr>
 							<td class="attr1">대표사진 </td>
 							<td class="attr2" colspan = "3">
 								<input type ="file" name = "tourPhoto"  onchange = "loadImg(this)">
@@ -263,11 +318,11 @@
 								</div>
 								<% } %> --%>
 								<div class ="ui radio checkbox">
-								<input type="radio" name = "powerLink" id = "powerYes" value ="Y" checked disabled><label for = "powerYes" >Yes</label>
+								<input type="radio" name = "powerLink" id = "powerYes" value ="premium" checked disabled><label for = "powerYes" >Yes</label>
 								</div>
 							
 								<div class ="ui radio checkbox">
-								<input type="radio" name = "powerLink" id = "powerNo" value ="N" disabled><label for = "powerNo">No</label>
+								<input type="radio" name = "powerLink" id = "powerNo" value ="standard" disabled><label for = "powerNo">No</label>
 								</div>
 							</td>
 		
@@ -275,7 +330,7 @@
 						<tr>
 							<td></td>
 							<td colspan = "5">
-								<div class ="div-img-ex">
+								<div id ="div-img-ex">
 									<img id = "tourImgSelect">대표사진 미리보기
 								</div>
 							</td>
@@ -286,10 +341,10 @@
 								<div class ="field">
 									<select class="ui dropdown" name="concept">
 										<option value =""> -----  선택  ----- </option> 
-										<option value =""> 식도락 </option> 
-										<option value =""> 인문학/교양 </option>
-										<option value =""> 레저/취미 </option>
-										<option value =""> 감성 </option>
+										<option value ="food"> 식도락 </option> 
+										<option value ="human"> 인문학/교양 </option>
+										<option value ="leisure"> 레저/취미 </option>
+										<option value ="sense"> 감성 </option>
 									</select>
 								</div>
 							</td>

@@ -163,7 +163,7 @@
 		padding : 15px 0;
 	}
 	
-	.div-img-ex{
+	#div-img-ex{
 		border : 1px solid lightgray;
 		border-radius : 5px;
 		color : lightgray;
@@ -307,11 +307,11 @@
 							<td class="attr1"  id = "attr3" align="center">파워링크 여부</td>
 							<td>
 								<div class ="ui radio checkbox">
-								<input type="radio" name = "powerLink" id = "powerYes"><label for = "powerYes">Yes</label>
+								<input type="radio" name = "powerLink" id = "powerYes" value="premium"><label for = "powerYes">premium</label>
 								</div>
 							
 								<div class ="ui radio checkbox">
-								<input type="radio" name = "powerLink" id = "powerNo"><label for = "powerNo">No</label>
+								<input type="radio" name = "powerLink" id = "powerNo" value="standard"><label for = "powerNo">standard</label>
 								</div>
 							</td>
 		
@@ -319,7 +319,7 @@
 						<tr>
 							<td></td>
 							<td colspan = "5">
-								<div class ="div-img-ex">
+								<div id ="div-img-ex">
 									<img id = "tourImgSelect">대표사진 미리보기
 								</div>
 							</td>
@@ -330,10 +330,10 @@
 								<div class ="field">
 									<select class="ui dropdown" name="concept">
 										<option value =""> -----  선택  ----- </option> 
-										<option value =""> 식도락 </option> 
-										<option value =""> 인문학/교양 </option>
-										<option value =""> 레저/취미 </option>
-										<option value =""> 감성 </option>
+										<option value ="food"> 식도락 </option> 
+										<option value ="human"> 인문학/교양 </option>
+										<option value ="leisure"> 레저/취미 </option>
+										<option value ="sense"> 감성 </option>
 									</select>
 								</div>
 							</td>

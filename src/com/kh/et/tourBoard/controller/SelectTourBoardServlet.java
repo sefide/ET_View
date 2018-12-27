@@ -37,7 +37,7 @@ public class SelectTourBoardServlet extends HttpServlet {
 		
 		String page = "";
 		if(list != null) {
-			page = "views/thumbnail/thumbnailList.jsp";
+			page = "views/company/tourBoard/com_main.jsp";
 			request.setAttribute("list", list);
 		}else {
 			page = "views/common/errorPage.jsp";

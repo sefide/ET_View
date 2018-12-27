@@ -38,9 +38,6 @@ public class InsertTourBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("title");
-		System.out.println(title);
-		
 		//폼전송을  multipart/form-data로 전송하는 경우에는
 		//기존처럼 request.getParameter로 값을 받을 수 없다.
 		
@@ -95,7 +92,7 @@ public class InsertTourBoardServlet extends HttpServlet {
 			String multiTitle = multiRequest.getParameter("title");
 			String multiPowerLink = multiRequest.getParameter("powerLink");
 			String multiConcept = multiRequest.getParameter("concept");
-			String multiPrice = multiRequest.getParameter("tPrice");
+			int multiPrice = Integer.parseInt(multiRequest.getParameter("price"));
 			String multiTourContent = multiRequest.getParameter("tourContent");
 			String multiContectLint = multiRequest.getParameter("link");
 			String multiTcno = multiRequest.getParameter("tcno");
@@ -106,12 +103,12 @@ public class InsertTourBoardServlet extends HttpServlet {
 			
 			//Board객체 생성
 			TourBoard tb = new TourBoard();
-			tb.setTcno(Integer.parseInt(multiTcno));
-			tb.setTctno(Integer.parseInt(multiTctno));
+			/*tb.setTcno(Integer.parseInt(multiTcno));*/
+			/*tb.setTctno(Integer.parseInt(multiTctno));*/
 			tb.settTitle(multiTitle);
 			tb.settConcept(multiConcept);
 			tb.settInfo(multiTourContent);
-			tb.settPrice(Integer.parseInt(multiPrice));
+			tb.settPrice(multiPrice);
 			tb.settLink(multiContectLint);
 			tb.settGrade(multiPowerLink);
 			
@@ -124,9 +121,10 @@ public class InsertTourBoardServlet extends HttpServlet {
 			
 			for(int i = originFiles.size() -1; i >= 0; i--) {
 				Attachment at = new Attachment();
-			/*	at.setFilePath(filePath);
+				at.setFilePath(filePath);
 				at.setOriginName(originFiles.get(i));
-				at.setChangeName(saveFiles.get(i));*/
+				at.setChangeName(saveFiles.get(i));
+				at.setaType("투어");
 				
 				fileList.add(at);
 			}
