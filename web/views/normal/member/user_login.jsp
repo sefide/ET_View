@@ -240,7 +240,8 @@
 		}
 		
 		$(function(){
-			<% System.out.println("msg : " + msg);
+			<% System.out.println("로그인 얍");
+			System.out.println("msg : " + msg);
 			if(msg != null){ %>
 			alert("<%=msg%>");
 			<%} %>
