@@ -1,4 +1,4 @@
-package com.kh.et.member.controller;
+package com.kh.et.manager.controller;
 
 import java.io.IOException;
 
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.et.member.model.service.MemberService;
-import com.kh.et.member.model.vo.MemberManagerCompany;
+import com.kh.et.manager.model.service.ManagerService;
+import com.kh.et.manager.model.vo.Manager;
 
 /**
  * Servlet implementation class Manager_login_Servlet
@@ -38,11 +38,11 @@ public class Manager_Login_Servlet extends HttpServlet {
 		/*System.out.println("매니저 아이디 : " + managerId);
 		System.out.println("매니저 비번 : " + managerPwd);*/
 		
-		MemberManagerCompany reqMember = new MemberManagerCompany();		//관리자&제휴사 멤버 객체에 넣어주고
-		reqMember.setM_id(managerId);	
-		reqMember.setM_pwd(managerPwd);
+		Manager reqMember = new Manager();		//관리자&제휴사 멤버 객체에 넣어주고
+		reqMember.setMag_id(managerId);	
+		reqMember.setMag_pwd(managerPwd);
 		
-		MemberManagerCompany loginManager = new MemberService().managerLogin(reqMember);
+		Manager loginManager = new ManagerService().managerLogin(reqMember);
 		
 		if(loginManager != null) {//정보가 있으면
 			request.getSession().setAttribute("loginManager", loginManager);
