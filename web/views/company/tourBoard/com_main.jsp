@@ -278,7 +278,7 @@
      	</div> <!-- twelve column 끝  -->
 		<div class = "two wide column"></div>
 	</div> <!-- ui grid 끝  -->
-	<div class = "two wide column"></div>
+
 	<script>
 		function goEditTour() {
 			location.href = "/et/views/company/tourBoard/com_EditBoard.jsp";
