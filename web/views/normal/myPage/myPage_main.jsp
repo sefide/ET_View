@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.et.member.model.vo.Member"%>
+<%
+	String msgTrue = (String)request.getAttribute("msgTrue");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -288,6 +291,15 @@
 
 	    }
    		
+	    $(function(){
+	    	<%System.out.println("제발 되어주소서..");
+	    	System.out.println("msgTrue : " + msgTrue);
+	    	if(msgTrue != null){%>
+	    		alert("<%=msgTrue%>");
+	    	<%}%>
+	    });
+	    
+	    
 	  
    	</script>
 	

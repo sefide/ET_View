@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.et.member.model.vo.Member"%>
 <%
-	String msg = (String)request.getAttribute("msg");
+	String msgFalse = (String)request.getAttribute("msgFalse");
 	Member loginUser = (Member)session.getAttribute("loginUser");
 %>    
 <!DOCTYPE html>
@@ -97,7 +97,7 @@
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="text" placeholder="<%=loginUser.getM_id()%>" name="userId" disabled>
+										<input type="text" placeholder="<%=loginUser.getM_id()%>" name="userId">
 									</div>
 								</div>
 								<br>
@@ -106,7 +106,7 @@
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="password" placeholder="수정할 비밀번호를 입력하세요" id="pwdInput" name="newPwd">
+										<input type="password" placeholder="수정할 비밀번호를 입력하세요" id="pwdInput" name="userPwdNew">
 									</div>
 								</div>
 								<br>
@@ -154,10 +154,11 @@
 		}
 		
 		$(function(){
-			<% System.out.println("msg : " + msg);
-				if(msg != null){%>
-				alert("<%= msg%>");
-			<%}%>	
+			<% System.out.println("정보수정 알러트 제발 떠라!!");
+			System.out.println("msgFalse : " + msgFalse);
+			if(msgFalse != null){ %>
+			alert("<%=msgFalse%>");
+			<%} %>
 		});
 	</script>
 </body>
