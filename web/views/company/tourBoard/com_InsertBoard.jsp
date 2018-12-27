@@ -171,7 +171,7 @@
 	
 	#tourImgSelect{
 		width : 100%;
-		height : 340px;
+		height : 300px;
 		
 		border :none;
 	}
@@ -232,7 +232,7 @@
 	        <span class ="txt-insertTour">투어글 올리기</span>
 			<div class = "bar-insertTour"></div>
 			<div class="tableArea  ui form">
-				<form action="" method="post">
+				<form action="<%=request.getContextPath()%>/insert.tbo" method="post" encType="multipart/form-data">
 					<table>
 						<tr>
 							<td class="attr1">제목</td>
@@ -241,6 +241,61 @@
 									<input type="text" class="ui input" size="80" name="title">
 								</div>
 							</td>
+						</tr>
+						<tr>
+							<td class="attr1"><label>나라 선택</label></td>
+							<td colspan="2"><select class="ui fluid dropdown" name="nation">
+								<option value="">프랑스</option>
+								<option value="">독일</option>
+								<option value="">영국</option>
+								<option value="">네덜란드</option>
+								<option value="">이탈리아</option>
+								<option value="">체코</option>
+								<option value="">그리스</option>
+								<option value="">헝가리</option>
+								<option value="">오스트리아</option>
+								<option value="">크로아티아</option>
+								<option value="">덴마크</option>
+								<option value="">스위스</option>
+								<option value="">터키</option>
+								<option value="">포르투갈</option>
+								<option value="">스페인</option>
+							</select>
+							</td>
+							<td class="attr1" align="center"><label>도시 선택</label></td>
+							<td colspan="2">
+							 <select class="ui fluid dropdown" name="city">
+								<option value="">파리</option>
+								<option value="">리옹</option>
+								<option value="">니스</option>
+								<option value="">뮌헨</option>
+								<option value="">베를린</option>
+								<option value="">뉘른베르크</option>
+								<option value="">프랑크푸르트</option>
+								<option value="">런던</option>
+								<option value="">옥스포드</option>
+								<option value="">암스테르담</option>
+								<option value="">밀라노</option>
+								<option value="">베네치아</option>
+								<option value="">피렌체</option>
+								<option value="">로마</option>
+								<option value="">프라하</option>
+								<option value="">아테네</option>
+								<option value="">부다페스트</option>
+								<option value="">빈</option>
+								<option value="">잘츠부르크</option>
+								<option value="">자그레브</option>
+								<option value="">코펜하겐</option>
+								<option value="">오덴세</option>
+								<option value="">인터라켄</option>
+								<option value="">취리히</option>
+								<option value="">이스탄불</option>
+								<option value="">앙카라</option>
+								<option value="">리스본</option>
+								<option value="">바르셀로나</option>
+								<option value="">마드리드</option>
+							</select>
+							</td>	
 						</tr>
 						<tr>
 							<td class="attr1">대표사진 </td>
