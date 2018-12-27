@@ -7,6 +7,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel='stylesheet' type='text/css'
+		href='http://www.blueb.co.kr/data/201010/IJ12872423858253/fullcalendar.css' />
+	<script type='text/javascript'
+		src='http://www.blueb.co.kr/data/201010/IJ12872423858253/jquery.js'></script>
+	<script type='text/javascript'
+		src='http://www.blueb.co.kr/data/201010/IJ12872423858253/jquery-ui-custom.js'></script>
+	<script type='text/javascript'
+		src='http://www.blueb.co.kr/data/201010/IJ12872423858253/fullcalendar.min.js'></script>
+
 	
 	<!-- JQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -21,15 +30,104 @@
 	
 	<!-- googleMap -->
 	<script src="" type="text/javascript"></script>
- 
+	
  	<!-- css 불러오기  -->
  	<link href = "/et/views/css/create_plan.css" type = "text/css" rel= "stylesheet">
 	
+  	<!-- 달력 -->
+	<script type='text/javascript'>
+		var jb = jQuery.noConflict();
+
+		jb(document).ready(
+				function() {
+
+					var date = new Date();
+					var d = date.getDate();
+					var m = date.getMonth();
+					var y = date.getFullYear();
+
+					var calendar = jb('#calendar').fullCalendar(
+							{
+								header : {
+									/* left : 'title', */
+									/* center : 'agendaDay,agendaWeek,month', */
+									left : 'prev',
+									center : 'title',
+									right : 'next'
+								},
+								editable : false,
+								firstDay : 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
+								selectable : false,
+								defaultView : 'month',
+
+								axisFormat : 'h:mm',
+								columnFormat : {
+									month : 'ddd', // Mon
+									week : 'ddd d', // Mon 7
+									day : 'dddd M/d', // Monday 9/7
+									agendaDay : 'dddd d'
+								},
+								titleFormat : {
+									month : 'MMMM yyyy', // September 2009
+									week : "MMMM yyyy", // September 2009
+									day : 'MMMM yyyy' // Tuesday, Sep 8, 2009
+								},
+								allDaySlot : false,
+								selectHelper : true,
+								select : function(start, end, allDay) {
+									var title = prompt('Event Title:');
+									if (title) {
+										calendar.fullCalendar('renderEvent', {
+											title : title,
+											start : start,
+											end : end,
+											allDay : allDay
+										}, true // make the event "stick"
+										);
+									}
+									calendar.fullCalendar('unselect');
+								},
+								droppable : true, // this allows things to be dropped onto the calendar !!!
+								drop : function(date, allDay) { // this function is called when something is dropped
+
+									// retrieve the dropped element's stored Event Object
+									var originalEventObject = jb(this).data(
+											'eventObject');
+
+									// we need to copy it, so that multiple events don't have a reference to the same object
+									var copiedEventObject = jb.extend({},
+											originalEventObject);
+
+									// assign it the date that was reported
+									copiedEventObject.start = date;
+									copiedEventObject.allDay = allDay;
+
+									// render the event on the calendar
+									// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+									jb('#calendar').fullCalendar('renderEvent',
+											copiedEventObject, true);
+
+									// is the "remove after drop" checkbox checked?
+									if (jb('#drop-remove').is(':checked')) {
+										// if so, remove the element from the "Draggable Events" list
+										jb(this).remove();
+									}
+
+								},
+
+							});
+
+				});
+	</script>
 <style>
 	body{
 	margin:0px;
 	}
-	
+	#calendar {
+	margin-right: 80px;
+	float: right;
+	width: 400px;
+}
 	
 	/* 좌측 일정 - 나라추가  */
 	#cityroute{
@@ -240,17 +338,15 @@
 		<form>
 			<font class ="txt-date-first">여행 시작날짜를 입력해주세요 :)</font>
 			<input type ="date" class = "input-date-first" name = "dateFirst"/>
-			<!-- <div id="cityroute" style="position:relative;text-align:center;width:100%;margin-left:0px;padding-left:0px;padding-top:0px;overflow-x:hidden;overflow-y:auto;height:480px;background:#ffffff">
-				<br/><br/><br/><font style="font-size:9pt" color="#c0c0c0"><b>입력된 도시가 없습니다.</b></font>
-			</div> -->
+			
 			<hr>
 			<div id = "cityroute-overflow">
 			<div id = "cityroute">
-				
+				<!-- 입력된 도시가 없습니다.  -->
 			</div>
 			</div>
 			<!-- <div id = "map-canvas"></div> -->
-			
+			<div id='calendar'></div>
 		</form>
 		
 	</div>
@@ -464,10 +560,6 @@
     
        google.maps.event.addListener(marker, 'click', (function(marker, i) {// 마커 선택 시 
             return function() {
-        	  		<%-- <% if(cityList.g.getCtName().equals(%> locations[i][3]) <%)){%>
-        	  		
-        	  		<% } %> --%>
-        	  		
 	            var cityName = "<h2 id ='win-title'>" + locations[i][0] + "</h2>";
 	       	    var cityPhoto = "<img src = '/et/image/city/"+i+".jpg' alt = 'city' id = 'win-photo'>"
 	            var cityInfo = "<div id = 'win-info-div'><font id = 'win-info'>" + locations[i][1] + "<font></div> <br>";
@@ -495,7 +587,14 @@
         });
         
         function addCity(i){
-        		var cityblockhead = "<div id ='cityblock0" +(countCity+1)+ "' class= 'cityblock'> <input type = 'hidden' name = '"+order+"' value = '"+locations[i][0] + "'><div class ='bar2'></div>";
+        	    /* var isEmptyRoute = $("#cityroute").text();
+        		if(isEmptyRoute.indexOf("없습니다.")){
+        			$("#cityroute").text("");
+        			console.log("지우기 ");
+        		}else if(isEmptyRoute.equals("")){
+        			$("#cityroute").text("입력된 도시가 없습니다.")
+        		} */
+        		var cityblockhead = "<div id ='cityblock0" +(countCity+1)+ "' class= 'cityblock'> <div class ='bar2'></div>";
         		var citytrans = "<div width = '100%; overflow-x:hidden'> <div class = 'div-trans'> <select class='ui dropdown' id ='trans' name = 'transform'>  <option value='plane'>비행기 </option>  <option value='train'>기차 </option>  <option value='ship'>항구 </option>  <option value='bus'>버스 </option>  <option value='etc'>기타  </option> </select> </div> </div> <div class ='bar2'></div>";
         		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights'> <option value='one'>1박 </option>  <option value='two'>2박  </option>  <option value='three'>3박  </option>  <option value='four'>4박 </option> <option value='five'>5박  </option> </select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city'> 	<i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail();'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity("+countCity + ");'> </i> </div> </div>";
         		var cityblockfoot = "";
@@ -511,25 +610,36 @@
 			$("#cityroute").append(content);
 			countCity++;
 			order++;
-			
+			poly.setMap(null);
 			path = {lat : locations[i][2], lng : locations[i][3]};
             flightPlanCoordinates.push(path);
-            poly.setMap(null);
-            poly.setPath(flightPlanCoordinates);
-            console.log("패스 :"  + flightPlanCoordinates);
+            
+            poly.setPath(flightPlanCoordinates); 
+            for(var i = 0; i < flightPlanCoordinates.length; i++){
+    			console.log(flightPlanCoordinates[i].lat + ", " +flightPlanCoordinates[i].lng + "/ ");
+    			}
+            console.log("----");
             // 선 그리기 
             poly.setMap(map);
 		}
         
+        
         function deleteCity(num){ // 삭제 
         		var str = "#cityblock0" + num+1;
         		$("#cityblock0" + (num+1)).remove();
-        		var orderCoordi = $("#cityblock0" + (num+1)).children().attr("name");
         		
-        		flightPlanCoordinates.splice(orderCoordi,1);
+        		console.log("orderCoordi:" + num); // 삭제할 아이번호 ..
+        		flightPlanCoordinates.splice(num,1);
         		
         		poly.setMap(null);
+        		/* poly.each(function(key,index) {
+        			poly[key].setMap(null);
+        		}); */
         		
+        		for(var i = 0; i < flightPlanCoordinates.length; i++){
+        			console.log(flightPlanCoordinates[i].lat + ", " +flightPlanCoordinates[i].lng + "/ ");
+        		}
+        		console.log("----");
             poly.setPath(flightPlanCoordinates);
         		poly.setMap(map);
         		
@@ -541,14 +651,14 @@
         }
         
       </script>
+      
+    
 	
 	      
-	<!-- <script>
-	$('.ui.search')
-	  .search({
+	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js">
+	$('.ui.search').search({
 	    source: content
-	  })
-	 ;
+	 });
 	var content = [
 		  { title: '파리' },
 		  { title: 'United Arab Emirates' },
@@ -576,6 +686,6 @@
 		  { title: 'Burundi' }
 		  // etc
 		];
-	</script> -->
+	</script>
 </body>
 </html>

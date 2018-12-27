@@ -15,7 +15,7 @@ import com.kh.et.wrapper.LoginWrapper;
 /**
  * Servlet Filter implementation class IncryptFilter
  */
-@WebFilter("/IncryptFilter") // @WebFilter("*.me") 추후에 수정 
+@WebFilter("*.me")
 public class IncryptFilter implements Filter {
 
     /**
@@ -40,6 +40,10 @@ public class IncryptFilter implements Filter {
 		LoginWrapper lw = new LoginWrapper(hRequest);
 		
 		chain.doFilter(lw, response);
+
+
+		// pass the request along the filter chain
+		chain.doFilter(request, response);
 	}
 
 	/**
