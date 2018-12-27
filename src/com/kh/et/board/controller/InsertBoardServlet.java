@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.et.board.model.service.BoardService;
 import com.kh.et.board.model.vo.Board;
-import com.kh.et.member.model.vo.MemberNormal;
+import com.kh.et.member.model.vo.Member;
 
 /**
  * Servlet implementation class InsertBoardServlet
@@ -33,7 +33,7 @@ public class InsertBoardServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
-		String writer = String.valueOf(((MemberNormal)(request.getSession().getAttribute("loginUser"))).getM_no());
+		String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getM_no());
 		
 		Board b = new Board();
 		b.setBtitle(title);

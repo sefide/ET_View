@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.et.member.model.vo.Company"%>
+	pageEncoding="UTF-8" import="com.kh.et.company.model.vo.Company"%>
 <%
 	String msg1 = (String)request.getAttribute("msg1"); 
 	String msg2 = (String)request.getAttribute("msg2");
