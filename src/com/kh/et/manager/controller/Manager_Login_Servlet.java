@@ -44,6 +44,8 @@ public class Manager_Login_Servlet extends HttpServlet {
 		
 		Manager loginManager = new ManagerService().managerLogin(reqMember);
 		
+		System.out.println("매니저 로그인 Servlet : " + loginManager);
+		
 		if(loginManager != null) {//정보가 있으면
 			request.getSession().setAttribute("loginManager", loginManager);
 			
