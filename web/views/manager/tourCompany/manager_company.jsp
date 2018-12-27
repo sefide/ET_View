@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,com.kh.et.company.model.vo.*"%>
- <%--     <%
+    <%
     ArrayList<Company> list=(ArrayList<Company>)request.getAttribute("list");
     PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCont = pi.getListCount();
@@ -9,7 +9,7 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
     %>
-     --%>
+    
     
     
     
@@ -93,26 +93,59 @@ table{
     			<th>제휴사명</th>
     			<th>사업자번호</th>
     			<th>연락처</th>
-    			<th>등급</th>
-    			<th>계약기간</th>
-    			<th>대표자</th>
+    			<th>계약 시작 날짜</th>
+    			<th>계약 종료 날짜</th>
+
     			
     		</tr>
+    		<%for(Company c:list) {%>
     		<tr>
     			<td class="num"><input type="checkbox" name="checkbox"></td>
-    			<td>1</td>
-    			<td>하나투어</td>
-    			<td>114-86-977987</td>
-    			<td>02-1234-5678</td>
-    			<td>premium</td>
-    			<td>2018-02-02</td>
-    			<td>박현우</td>
+    			<td><%=c.getC_no() %></td>
+    			<td><%=c.getC_biss_num() %></td>
+    			<td><%=c.getC_name() %></td>
+    			<td><%=c.getC_phone() %></td>
+    			<td><%=c.getC_date() %></td>
+    			<td><%=c.getC_end_date() %></td>
+    			    		
     		</tr>
+    		<%} %>
     		
     		
   
     	</table>
     	<br>
+    	<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage = 1'"> << </button>
+			
+			<% if(currentPage <= 1){ %>
+			<button disabled> < </button>
+			<% }else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage - 1%>'"> < </button>
+			<% } %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+					if(p == currentPage){
+			%>
+					<button disabled><%= p %></button>
+			<%      }else{ %>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%= p %>'"><%= p %></button>
+			<%      } %>
+	
+			<% } %>
+			
+			
+			<% if(currentPage >= maxPage){ %> <!-- 마지막 페이지일 경우 -->
+			<button disabled> > </button>
+			<% }else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage + 1%>'"> > </button>
+			<% } %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=maxPage%>'"> >> </button>
+			
+		</div>
+    	
+    	
+    	
     	
     	
     	<button style=float:right;>삭제하기</button>
