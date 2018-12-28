@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import ="com.kh.et.manager.model.vo.*"%>
+<%
+	int[] select = (int[])request.getAttribute("select");
+%>    
+    
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,7 +24,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	
 	<!-- 글꼴  -->
-	<link rel="stylesheet" href="/css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
 	
 <style>
 
@@ -59,7 +64,6 @@ table{
 
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
 
-	
     <div class="main_01">
     	
     	<div class="nav">
@@ -72,15 +76,15 @@ table{
 	    	<table id="tb1">
 	    		<tr>
 	    			<th>전체회원</th>
-	    			<td>0명</td>
+	    			<td><%= select[0] %>명</td>
 	    		</tr>
 	    		<tr>
 	    			<th>오늘의 신규회원</th>
-	    			<td>0명</td>
+	    			<td><%= select[1] %>명</td>
 	    		</tr>
 	    		<tr>
 	    			<th>탈퇴한 회원</th>
-	    			<td>0명</td>
+	    			<td><%= select[2] %>명</td>
 	    		</tr>
 	    	</table>
 	    </div>
