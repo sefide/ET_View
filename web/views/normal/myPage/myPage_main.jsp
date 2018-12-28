@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.et.member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="com.kh.et.member.model.vo.Member, java.util.*, com.kh.et.plan.model.vo.*"%>
 <%
 	String msgTrue = (String)request.getAttribute("msgTrue");
+	ArrayList<Plan> planList = (ArrayList<Plan>)request.getAttribute("planList");
+	ArrayList<City> cityList = (ArrayList<City>)request.getAttribute("cityList");
+	System.out.println(planList.get(0).getpNo());
 %>
 <!DOCTYPE html>
 <html>
@@ -19,6 +22,9 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	
+	<!-- googleMap -->
+	<script src="" type="text/javascript"></script>	
 	
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">
@@ -146,9 +152,9 @@
 		height : 480px;
 	}
 	
-	.plan-map{
+	.planMap{
 		width : 100%;
-		height : 420px;
+		height : 380px;
 		display :inline-block;
 		
 	}
@@ -200,12 +206,10 @@
 	}
 	
 	
-	
-	
 	</style>
 </head>
 <body>
-	<%@ include file = "/views/common/normal/header.jsp" %>
+	<%@ include file= "/views/common/normal/header.jsp" %>
 	
 	<div class="ui grid">
         <div class = "two wide column"></div>
@@ -217,14 +221,14 @@
     					<img src = "/et/image/common/logo_c.png" class = "img-profile">
     				</div>
     				<div class = "div-txt-profile">
-    					<div class = "div-name">heedi kim</div>
-    					<div class = "div-point">20 유로 </div>
-    					<div class = "div-profileTxt">안녕하세요. 행복한 유럽여행을 꿈꾸고 있습니다. </div>
+    					<div class = "div-name"><%=loginUser.getM_id() %></div>
+    					<div class = "div-point"><%=loginUser.getM_point() %> <i class="euro sign icon"></i></div>
+    					<div class = "div-profileTxt"><%=loginUser.getM_profile() %> </div>
     					<button class = "btn-profile" onclick = "editProfile();"> 프로필 수정 </button>
     				</div>
     				<div class = "div-menu">
     					<ul>
-    						<li><a href = "#" class = "this-page"> > 내 플랜보기 </a> </li>
+    						<li><a onclick = "goMyPlan();" class = "this-page"> > 내 플랜보기 </a> </li>
     						<li><a href = "/et/views/normal/myPage/myPage_activity_history.jsp"> > 나의 활동내역 </a></li>
     						<li><a href = "/et/views/normal/myPage/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
     						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
@@ -241,26 +245,19 @@
 	        		<div class = "div-myPage-title"> 내 플랜보기 </div>
 	        		<br><br>
 	        		
-        			<div class = "plan-list-inner">
-        				<div class ="planBox map01">
-							<iframe class = "plan-map" src="" width="380px" height="380px" style="border:none;"></iframe>
+        			<div class = "plan-list-inner" id = "plan-list-inner">
+        				<!-- <div class ="planBox map01">
+        					<div id = "planMap0" class ="planMap" readonly></div>
     						<div class = "div-plan-title"> 플랜 제목 </div>
     						<div class = "div-plan-private" onclick = "setPrivate();"> 공개 </div>
-   						</div>
-        				<div class ="planBox map02">
-						<iframe class = "plan-map" src="" width="380px" height="380px" style="border:none;"></iframe>
-    						<div class = "div-plan-title"> 플랜 제목 </div>
-    						<div class = "div-plan-private" onclick = "setPrivate();"> 공개 </div>
-					</div>
-        				<div class ="planBox map03 plan-add-outer">
+   					</div> -->
+        				
+        				<div class ="planBox plan-add-outer">
         					<div class ="plan-add-inner" onclick = "addPlanMemory();"> 
      						 <i class="plus big icon" id = "icon-plan-add"></i>
      						<div class ="txt-add">플랜 저장공간을 더 늘리고 싶다면 <br>클릭해주세욥 !! </div>
 						</div>
         				</div>
-        				<div class ="planBox map04"></div>
-        				<div class ="planBox map05"></div>
-        				<div class ="planBox map04"></div>
         			</div>
 	        		
 	    			
@@ -278,26 +275,73 @@
 		});
 	   */
 	    function editProfile() {
-	    	window.open("myPage_profile_edit.jsp", "프로필 수정", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+	  	  	window.open("views/normal/myPage/myPage_profile_edit.jsp", "프로필 수정", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
 	    }
 	    
 	    function addPlanMemory(){
 	    		alert("저장공간 늘리기");
-	    	
 	    }
 	    
 	    function setPrivate() {
-	    	alert("비공개/ 공개 설정");
-
+	   	 	alert("비공개/ 공개 설정");
+	    }
+	    
+	    function goMyPlan(){
+		    	var mno = <%=loginUser.getM_no()%>;
+		    	location.href = "<%=request.getContextPath()%>/selectPlanList.pl?mno="+mno;
 	    }
    		
+	    var planNum = <%= planList.size()%>;
+	    var map = [];
+	    var flightPlanCoordinatesArr = [];
+	    var flightPlanCoordinates = [];
+	    var path = {};
+	    
 	    $(function(){
-	    	<%System.out.println("제발 되어주소서..");
-	    	System.out.println("msgTrue : " + msgTrue);
-	    	if(msgTrue != null){%>
-	    		alert("<%=msgTrue%>");
-	    	<%}%>
+		    	<%System.out.println("제발 되어주소서..");
+		    	System.out.println("msgTrue : " + msgTrue);
+		    	if(msgTrue != null){%>
+		    		alert("<%=msgTrue%>");
+		    	<%}%>
+	    	
+		    planNum = <%= planList.size()%>;
+		    
+	    		for(var i = 0; i < planNum; i++){
+	        		// 새로운 도시 div 추가 
+	        		var content = "<div class ='planBox map"+i+"'><div id = 'planMap"+i+"' class ='planMap' readonly></div></div>";
+	        		
+				 $("#plan-list-inner").append(content);
+				
+	    		}
+	    		
+	    		for(var i = 0; i < planNum; i++){
+	    			<%-- var 
+		    		var planCityArr = (<% planList.get(%>i<%).getpCites(); %>).split(", ");
+		    		console.log(typeof(cityArr)); --%>
+	    			
+	    		// 해당하는 플랜의 도시 배열을 뽑아서 배열값을 나눈 다음에
+	    		// 여행하는 도시의 번호를 가져와서 도시리스트에서 위도, 경도를 구한다.
+	    		// 위도 경도 값을 해당하는 플랜의 도시 순서대로 PATH를 넣는다. 
+	    		    map[i] = new google.maps.Map(document.getElementById('planMap'+i), { 
+	    		          zoom: 4,
+	    		          center: new google.maps.LatLng(47.778744, 7.397438),
+	    		          mapTypeId: google.maps.MapTypeId.ROADMAP,
+	    		          disableDefaultUI: true,
+	    		          styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.province","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.neighborhood","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"administrative.neighborhood","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"all","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.highway.controlled_access","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"transit","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"transit","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]}]
+	    		    });
+	    		    
+	    		    poly = new google.maps.Polyline({
+	    		    		path : flightPlanCoordinatesArr,
+	    		          strokeColor: '#000000',
+	    		          strokeOpacity: 1.0,
+	    		          strokeWeight: 3
+	    		        });
+    		        poly.setMap(map);
+	    	    }
+	    		
 	    });
+	    
+	   
 	    
 	    
 	  

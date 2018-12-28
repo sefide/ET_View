@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "com.kh.et.plan.model.vo.*, java.util.*"%>
+    pageEncoding="UTF-8" import = "com.kh.et.plan.model.vo.*, java.util.*, com.kh.et.member.model.vo.*"%>
 <%
 	ArrayList<City> cityList = (ArrayList<City>)request.getAttribute("cityList");
+	Member loginUser = (Member)request.getSession().getAttribute("loginUser"); 
+	String msg = (String)request.getAttribute("msg");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -19,11 +21,10 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
-	<script src = "" type="text/javascript"></script>
-	
+	<script src="" type="text/javascript"></script>	
+ 	
  	<!-- css 불러오기  -->
  	<link href = "/et/views/css/create_plan.css" type = "text/css" rel= "stylesheet">
-	
 
 	
 <style>
@@ -159,8 +160,9 @@
 	
 	.search{
 		position: absolute;
+		float : right;
 		margin-top: 20px;
-		margin-left : 20px;
+		right : 2%;
 	}
 	.input-city{
 		width : 250px;
@@ -172,29 +174,41 @@
 		/* #f2f2f2 */
 	}
 	
+	
+	/* 팝  */
+	#detailPop{
+		position : absolute;
+		top : 2%;
+		width : 1100px;
+		height : 840px;
+		overflow-y : auto;
+		/* height : 100%; */
+		background : rgba(250, 250, 250, 0.9);
+		z-index : 1000 !important;
+		visibility : hidden; 
+		/* display : none; */
+	} 
+	
+	
+	.trans-pop{
+		position : absolute;
+		visibility : hidden;
+		width : 800px;
+		height : 270px;
+		background : rgb(171, 199, 244);
+		border-radius : 7px;
+		/* border : 3px solid white; */
+		top : 100px;
+		left : 80px;
+		z-index : 2000 !important;	
+		}
+	
 </style>
 </head>
 <body>
-	<div class="header">
-		<img src="/et/image/common/logo.png" class = "header-top-img" onclick = "returnMain();">
-		<div class ="div-title">
-		<font class = "txt-title" name = "title">Plan 1</font>
-		<i class="pencil alternate icon" id = "editTitle" onclick = "editTitle();"></i></div>
-		<div class="ui input" id = "input-title">
-		  <input class = "input-title" type="text" placeholder="나만의 여행제목을 정해주세요.." >
-		  <button id = "btn-save-title" onclick = "saveTitle();"> > </button>
-		</div> 
-		<!-- <span style=position:absolute;top:15px;left:12px;width:300px;height:48px;font-size:16px;>
-			<span style="color: rgb(211, 84, 0); font-size: large;">플랜짜기</span>
-		</span> -->
-		
-		<button class = "btn-save" onclick = "save();"> 저장하기</button>
-		<button class = "btn-return" onclick = "returnMain();"> 돌아가기</button>
-	</div>
-	
 	<div class ="trans-pop">
-	<div style = "float : right "> <i class="close icon" id = "icon-close"></i></div>
-	<br clear = "both">
+		<div style = "float : right "> <i class="close icon" id = "icon-close"></i></div>
+		<br clear = "both">
 		<font id = "trans-pop-txt"> 파리에서 프랑크푸르트 가는 방법 </font>
 		<div class = "trans-flex">
 			<div class ="trans-in">
@@ -236,24 +250,41 @@
 		</div>
 	</div>
 	
+	<form id = "insertPlanForm" action = "<%=request.getContextPath()%>/insertPlan.pl" method = "post">
+	<div class="header">
+		<img src="/et/image/common/logo.png" class = "header-top-img" onclick = "returnMain();">
+		<div class ="div-title">
+		<font class = "txt-title">Plan 1</font>
+		<i class="pencil alternate icon" id = "editTitle" onclick = "editTitle();"></i></div>
+		<div class="ui input" id = "input-title">
+		  <input class = "input-title" type="text" placeholder="나만의 여행제목을 정해주세요.." name = "title" value = "Plan1">
+		  <div id = "btn-save-title" onclick = "saveTitle();"> > </div>
+		</div> 
+		<!-- <span style=position:absolute;top:15px;left:12px;width:300px;height:48px;font-size:16px;>
+			<span style="color: rgb(211, 84, 0); font-size: large;">플랜짜기</span>
+		</span> -->
+		
+		<button class = "btn-save" onclick = "save();"> 저장하기</button>
+		<button class = "btn-return" onclick = "returnMain();"> 돌아가기</button>
+	</div>
 	<div class = "plan-table-calendar">
-		<form>
+			<input type = "hidden" name = "writerNo" 
+			<%if(loginUser != null) { %>
+			value = "<%= loginUser.getM_no()%>"/>
+			<% } else {%>
+			value = "NoneUser"/>
+			 <% } %>
 			<font class ="txt-date-start">여행 시작날짜를 입력해주세요 :)</font><br>
 			<input type ="date" class = "input-date" id = "input-date-start" name = "startDate" /> -
-			<input type ="date" class = "input-date" id = "input-date-end" name = "endDate" disabled/>
+			<input type ="date" class = "input-date" id = "input-date-end" name = "endDate" readonly/>
 			<hr>
 			<div id = "cityroute-overflow">
 			<div id = "cityroute">
 				<!-- 입력된 도시가 없습니다.  -->
 			</div>
 			</div>
-			
-			<%-- <div id='calendar-div'>
-			<%@include file = "calendar_plan.jsp" %>
-			</div> --%>
-		</form>
-		
 	</div>
+	</form>
 	
 	<div class = "plan-table-map">
 			<div id ="detailPop">
@@ -348,21 +379,59 @@
  		<div id="map-canvas" class = "plan-map"></div>
  		<!-- style="width: 1000px; height: 700px" -->
 		<div class="ui search">
-		  <div class="ui icon input input-city">
-		    <input class="prompt input-city" type="text" placeholder="Search countries...">
+		  <div class="ui icon input">
+		    <input class="prompt" type="text" placeholder="Search countries..." id = "input-city">
 		    <i class="search icon"></i>
 		  </div>
 		  <div class="results"></div>
 		</div>
 	</div>
 	
+	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js">
+	
+	var content = [
+		  { title: '파리' },
+		  { title: 'United Arab Emirates' },
+		  { title: 'Afghanistan' },
+		  { title: 'Antigua' },
+		  { title: 'Anguilla' },
+		  { title: 'Albania' },
+		  { title: 'Armenia' },
+		  { title: 'Netherlands Antilles' },
+		  { title: 'Angola' },
+		  { title: 'Argentina' },
+		  { title: 'American Samoa' },
+		  { title: 'Austria' },
+		  { title: 'Australia' },
+		  { title: 'Aruba' },
+		  { title: 'Aland Islands' },
+		  { title: 'Azerbaijan' },
+		  { title: 'Bosnia' },
+		  { title: 'Barbados' },
+		  { title: 'Bangladesh' },
+		  { title: 'Belgium' },
+		  { title: 'Burkina Faso' },
+		  { title: 'Bulgaria' },
+		  { title: 'Bahrain' },
+		  { title: 'Burundi' }
+		  // etc
+		];
+	
+	 $('.ui.search').search({ source: content });
+	</script>
+	
 
 	<!-- Semantic UI -->
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 	<script> 
 		var days = 0;
-		
+		var travelStartDate; 
 		$(document).ready(function() {
+			<% 
+ 			if(msg != null){ %>
+ 			alert("<%=msg%>");
+ 			<%} %>
+ 			
 		    var startDate = new Date();
 		    
 			// 시작 날짜 설정 (오늘)
@@ -391,6 +460,7 @@
 		    	
 		    $("#input-date-start").attr("value", today);
 		    $("#input-date-end").attr("value", today);
+		    travelStartDate = $("#input-date-start").val();
 		});
 	
 		$("#trans").click(function() {
@@ -412,7 +482,10 @@
 		}
 
 			
-		function save(){}
+		function save(){
+			$("#insertPlanForm").submit();
+		}
+		
 		function returnMain(){
 			location.href = "/et/index.jsp";
 		}
@@ -432,9 +505,8 @@
 		}
 		
 		function cityDetail() {
-			alert("why");
-			/* $("#detailPop").css("visibility", "visible"); */
-			$("#detailPop").css("display", "block");
+			$("#detailPop").css("visibility", "visible"); 
+			/* $("#detailPop").css("display", "block"); */
 		   /*  	window.open("detail_city.jsp", "도시 정보창 ", "width=1000, height=700, toolbar=no, menubar=no, location = no, resizable=no, left=400, top=0" ); */  
 		}
 		
@@ -452,31 +524,33 @@
 			
 		});
 		function closePop() {
-			$("#detailPop").css("display", "none");
+			/* $("#detailPop").css("display", "none"); */
+			$("#detailPop").css("visibility", "hidden");
 		}
 		
-		var travelStartDate;
+		
 		$("#input-date-start").change(function(){
-			travelStartDate = $("#input-date-start").attr("value");
-			console.log(travelStartDate);
-			
-			console.log($("#input-date-end").attr("value"));
+			travelStartDate = $("#input-date-start").val();
+			setTravelDate();
 		}); 
 		
-		
-	
-	
-	<!--  지도 스크립트 -->
+		function selNight(obj){
+			/* console.log("선택된 박 수 " + $(obj).find(":selected").val()); */
+		    days = days + Number($(obj).find(":selected").val()); 
+		    days--;
+			setTravelDate();
+		}
 
-	var locations = []; 
-	var cityName = "";
-	var cityInfo = "";
-	var cities = [];
+		/* 지도 스크립트 */
+		var locations = []; 
+		var cityName = "";
+		var cityInfo = "";
+		var cities = [];
 	
-	 <%for(int i = 0; i < cityList.size(); i++) { %> // 이름, 설명, 위도, 경도
-		cities = ['<%=cityList.get(i).getCtName()%>', '<%=cityList.get(i).getCtInfo()%>',<%=cityList.get(i).getCtLat()%>,<%=cityList.get(i).getCtLng()%>];
-		locations.push(cities); 
-	<% }%> 
+		<%for(int i = 0; i < cityList.size(); i++) { %> // 이름, 설명, 위도, 경도, 번호 
+			cities = ['<%=cityList.get(i).getCtName()%>', '<%=cityList.get(i).getCtInfo()%>',<%=cityList.get(i).getCtLat()%>,<%=cityList.get(i).getCtLng()%>, <%=cityList.get(i).getCtNo()%>];
+			locations.push(cities); 
+		<% }%> 
        
     
         // 맵 정보 설정
@@ -494,6 +568,7 @@
         // 마커 정보 설정
         var marker, i;
        
+        // 29개의 도시 마커 생성 
         for (i = 0; i < locations.length; i++) { // 마커 찍기 
             marker = new google.maps.Marker({
             position: new google.maps.LatLng(locations[i][2], locations[i][3]),
@@ -501,21 +576,22 @@
             animation: google.maps.Animation.DROP
           });
             
-    
-       google.maps.event.addListener(marker, 'click', (function(marker, i) {// 마커 선택 시 
-            return function() {
-	            var cityName = "<h2 id ='win-title'>" + locations[i][0] + "</h2>";
-	       	    var cityPhoto = "<img src = '/et/image/city/"+i+".jpg' alt = 'city' id = 'win-photo'>"
-	            var cityInfo = "<div id = 'win-info-div'><font id = 'win-info'>" + locations[i][1] + "<font></div> <br>";
-	            var plusBtn = "<div id = 'win-btn'><button class='ui basic button' onclick = 'addCity("+i +");'>추가하기 </button></div><br>";
-	            //<span><i class='plus square outline icon' id = 'win-plus-icon' onclick = 'addCity("+i +");'></i><span>
-	
-	            infowindow.setContent(cityName + cityPhoto + cityInfo + plusBtn);
-	            infowindow.open(map, marker);
-            		}
-          	})(marker, i));
-
-        }
+        
+         // 마커 클릭 시 
+		google.maps.event.addListener(marker, 'click', (function(marker, i) {
+		     return function() {
+		      var cityName = "<h2 id ='win-title'>" + locations[i][0] + "</h2>";
+		 	  var cityPhoto = "<img src = '/et/image/city/"+i+".jpg' alt = 'city' id = 'win-photo'>"
+		      var cityInfo = "<div id = 'win-info-div'><font id = 'win-info'>" + locations[i][1] + "<font></div> <br>";
+		      var plusBtn = "<div id = 'win-btn'><button class='ui basic button' onclick = 'addCity("+i +");'>추가하기 </button></div><br>";
+		      //<span><i class='plus square outline icon' id = 'win-plus-icon' onclick = 'addCity("+i +");'></i><span>
+		
+		      infowindow.setContent(cityName + cityPhoto + cityInfo + plusBtn);
+		      infowindow.open(map, marker);
+		     		}
+		   	})(marker, i));
+		
+		 }
         
         
         var countCity = 0;
@@ -530,9 +606,9 @@
         });
         
         function addCity(i){
-        		var cityblockhead = "<div id ='cityblock" +countCity+ "' class= 'cityblock'> <input type = 'hidden' name = 'city' value = '"+i+"'> <div class ='bar2'></div>";
-        		var citytrans = "<div width = '100%; overflow-x:hidden'> <div class = 'div-trans'> <select class='ui dropdown' id ='trans' name = 'transform'>  <option value='plane'>비행기 </option>  <option value='train'>기차 </option>  <option value='ship'>항구 </option>  <option value='bus'>버스 </option>  <option value='etc'>기타  </option> </select> </div> </div> <div class ='bar2'></div>";
-        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights' > <option value='one'>1박 </option>  <option value='two'>2박  </option>  <option value='three'>3박  </option>  <option value='four'>4박 </option> <option value='five'>5박  </option> </select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city' id = 'why'> <i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail();'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity("+countCity + ");'> </i> </div> </div>";
+        		var cityblockhead = "<div id ='cityblock" +countCity+ "' class= 'cityblock'> <input type = 'hidden' name = 'cityNo' value = '"+locations[i][4] +"'> <input type = 'hidden' name = 'cityName' value = '"+locations[i][0] +"'> <div class ='bar2'></div>";
+        		var citytrans = "<div width = '100%; overflow-x:hidden'> <div class = 'div-trans'> <select class='ui dropdown' id ='trans' name = 'transform'>  <option value='비행기'>비행기 </option>  <option value='기차'>기차 </option>  <option value='선박'>선박 </option>  <option value='버스'>버스 </option>  <option value='기타'>기타  </option> </select> </div> </div> <div class ='bar2'></div>";
+        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights' id = 'selectNight' name = 'selectNight' onchange = 'selNight(this)'> <option value='1'>1박 </option>  <option value='2'>2박  </option>  <option value='3'>3박  </option>  <option value='4'>4박 </option> <option value='5'>5박  </option> <option value='6'>6박 </option></select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city' id = 'why'> <i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail();'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity(this);'> </i> </div> </div>";
         		var cityblockfoot = "";
         		
         		// 새로운 도시 div 추가 
@@ -564,116 +640,82 @@
             poly.setMap(map);
 		}
         
-        function setTravelDate(){
-        	 	console.log(travelStartDate);
- 		    var startDate = new Date();
- 		    startDate.setDate(travelStartDate);
- 		    
- 			// 끝 날짜 설정 
- 		    	var endDate = new Date(); 
- 		    	endDate.setDate(startDate.getDate() + days);
- 		    	
- 		    // 시작 날짜 설정 (사용자가 지정한 날짜 )
- 		    var sday = startDate.getDate();
- 		    var smonth = startDate.getMonth() + 1;
- 		    var syear = startDate.getFullYear();
- 	
- 		    if (smonth < 10) smonth = "0" + smonth;
- 		    if (sday < 10) sday = "0" + sday;
- 		    var start = syear + "-" + smonth + "-" + sday;    
- 	 		    
- 		    // 종료 날짜 지정 (자동 지정 )
- 		    	var eday = endDate.getDate();
- 		    var emonth = endDate.getMonth() + 1;
- 		    var eyear = endDate.getFullYear();
- 	
- 		    if (emonth < 10) emonth = "0" + emonth;
- 		    if (eday < 10) eday = "0" + eday;
- 	
- 		    var end = eyear + "-" + emonth + "-" + eday; 
- 		    	
- 		    $("#input-date-start").attr("value", start);
- 		    $("#input-date-end").attr("value", end); 
-        }
         
-        // 추가한 도시 삭
-        function deleteCity(deleteCountCity){ 
-        	
-	        	// 1. 해당 도시의 인덱스를 가져와서 : deleteCountCity
+        // 추가한 도시 삭제 
+        function deleteCity(obj){ 
+	        	// 1. 해당 도시의 인덱스를 가져와서 : deleteCountCity 바뀐 div의 아이디 값의 숫자를 뽑아와야 한다. 
 	        	// 2. 해당 인덱스의 도시 div를 삭제한다. 
 	        	// 3. 마지막 인덱스의 값을 줄인 후 다른 도시들을 번호 배열을 수정하고 (id 변경)
         		// 4. 해당 도시의 위도, 경도 정보를 지우고
         		// 5. 이를 다시 그려준다. 
-        		$(this).parent().parent().css("background", "red");
-        		var divid = $(this).attr("id");
-	        var delIndex = deleteCountCity; // 1.
-	        console.log("삭제할 아이디  - " + divid);
-    			console.log("삭제할 번호 - " + delIndex);
+        		var parentId = $(obj).parent().parent().parent().attr('id');
+        		console.log("마지막 인덱스 " + parentId.length);
+	        var delIndex = parentId.substring(9,parentId.length); // 1.
+	        
+	        var night_sel = $(obj).parent().parent().find("#selectNight").find(":selected").val(); // 박수 가져오기 
     			
-    			$("#cityblock" + delIndex).remove(); // 2.
+	        $("#cityblock" + delIndex).remove(); // 2.
         		
     	        // 3.
     	        countCity--; 
-    			days--;
+    			days = days - night_sel;  // 수정 바람 !!!!!!!!!!
+    			
+    			setTravelDate();
+    			
     	       	for(var i = 0; i <= countCity; i++){
     	       	 	$("#cityroute").children().eq(i).attr("id", "cityblock"+i);
-    	       	}
+    	       	}	
     	       
     	       	// 4.
-            		flightPlanCoordinates.splice(delIndex, 1); // 해당 도시의 위도, 경도를 삭제하고 알아서 정렬해주는 splice 메소드 
-            		
-            		poly.setMap(null);
-            		/* 
-            		for(var i = 0; i < flightPlanCoordinates.length; i++){
-            			console.log(flightPlanCoordinates[i].lat + ", " +flightPlanCoordinates[i].lng + "/ ");
-            		}*/
-                poly.setPath(flightPlanCoordinates);
-            		poly.setMap(map);
-            		
-            		// 도시 마지막 인덱스는 존재할 수 없다. 
-            		if(countCity < 0) {
-            			alert("에러 발생 _countCity_OutOfIndex");
-            		}
+        		flightPlanCoordinates.splice(delIndex, 1); // 해당 도시의 위도, 경도를 삭제하고 알아서 정렬해주는 splice 메소드 
         		
+        		poly.setMap(null);
+        		/* 
+        		for(var i = 0; i < flightPlanCoordinates.length; i++){
+        			console.log(flightPlanCoordinates[i].lat + ", " +flightPlanCoordinates[i].lng + "/ ");
+        		}*/
+            poly.setPath(flightPlanCoordinates);
+        		poly.setMap(map);
+        		
+        		// 도시 마지막 인덱스는 존재할 수 없다. 
+        		if(countCity < 0) {
+        			alert("에러 발생 _countCity_OutOfIndex");
+        		}
         }
         
-     
+     	// 여행 기간 지정 
+        function setTravelDate(){ 
+	   	 	// 입력한 날짜를 받아서 넣고 ! 
+		    var startDate = new Date(travelStartDate);
+		    
+			// 끝 날짜 설정 
+		    	var endDate = new Date(); 
+		    	endDate.setDate(startDate.getDate() + days);
+		    console.log("끝날짜 " + endDate.getDate());
+		    // 시작 날짜 설정 (사용자가 지정한 날짜 )
+		    var sday = startDate.getDate();
+		    var smonth = startDate.getMonth() + 1;
+		    var syear = startDate.getFullYear();
+		
+		    if (smonth < 10) smonth = "0" + smonth;
+		    if (sday < 10) sday = "0" + sday;
+		    var start = syear + "-" + smonth + "-" + sday;    
+				    
+		    // 종료 날짜 지정 (자동 지정 )
+		    	var eday = endDate.getDate();
+		    var emonth = endDate.getMonth() + 1;
+		    var eyear = endDate.getFullYear();
+		
+		    if (emonth < 10) emonth = "0" + emonth;
+		    if (eday < 10) eday = "0" + eday;
+		
+		    var end = eyear + "-" + emonth + "-" + eday; 
+	    	
+	    		$("#input-date-end").val(end); 
+    	  }
+    
       </script>
       
-    
 	
-	      
-	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js">
-	$('.ui.search').search({
-	    source: content
-	 });
-	var content = [
-		  { title: '파리' },
-		  { title: 'United Arab Emirates' },
-		  { title: 'Afghanistan' },
-		  { title: 'Antigua' },
-		  { title: 'Anguilla' },
-		  { title: 'Albania' },
-		  { title: 'Armenia' },
-		  { title: 'Netherlands Antilles' },
-		  { title: 'Angola' },
-		  { title: 'Argentina' },
-		  { title: 'American Samoa' },
-		  { title: 'Austria' },
-		  { title: 'Australia' },
-		  { title: 'Aruba' },
-		  { title: 'Aland Islands' },
-		  { title: 'Azerbaijan' },
-		  { title: 'Bosnia' },
-		  { title: 'Barbados' },
-		  { title: 'Bangladesh' },
-		  { title: 'Belgium' },
-		  { title: 'Burkina Faso' },
-		  { title: 'Bulgaria' },
-		  { title: 'Bahrain' },
-		  { title: 'Burundi' }
-		  // etc
-		];
-	</script>
 </body>
 </html>

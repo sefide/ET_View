@@ -4,12 +4,15 @@ import static com.kh.et.common.JDBCTemplate.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 import com.kh.et.plan.model.vo.City;
+import com.kh.et.plan.model.vo.Plan;
+import com.kh.et.plan.model.vo.PlanDetail;
 import com.kh.et.plan.model.dao.PlanDao;
 
 public class PlanDao {
@@ -60,6 +63,128 @@ public class PlanDao {
 		}
 		
 		return cityList;
+	}
+
+
+	public int insertPlan(Connection con, Plan reqPlan) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertPlan");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reqPlan.getpWriter());
+			pstmt.setString(2, reqPlan.getpTitle());
+			pstmt.setDate(3, reqPlan.getpStartDate());
+			pstmt.setDate(4, reqPlan.getpEndDate());
+			pstmt.setString(5, reqPlan.getpCites());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int selectPlanCurrval(Connection con) {
+		int planNo = -1;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectPlanCurrval");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				planNo = rset.getInt("CURRVAL");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return planNo;
+	}
+
+
+	public int insertPlanDetail(Connection con, ArrayList<PlanDetail> planDetailList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertPlanDetail");
+		
+		try {
+			for(int i = 0; i < planDetailList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, planDetailList.get(i).getPdpNo());
+				pstmt.setInt(2, Integer.parseInt(planDetailList.get(i).getPdStartcity()));
+				pstmt.setDate(3, planDetailList.get(i).getPdStartDate());
+				pstmt.setInt(4, Integer.parseInt(planDetailList.get(i).getPdEndCity()));
+				pstmt.setDate(5, planDetailList.get(i).getPdEndDate());
+				pstmt.setString(6, planDetailList.get(i).getPdTrasnfer());
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public ArrayList<Plan> selectPlanList(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Plan> list = null;
+		
+		String query = prop.getProperty("selectPlanList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Plan>();
+			while(rset.next()) {
+				Plan plan = new Plan();
+				plan.setpNo(rset.getInt("P_NO"));
+				plan.setpWriter(rset.getInt("P_N_NO"));
+				plan.setpTitle(rset.getString("P_TITLE"));
+				plan.setpDate(rset.getDate("P_DATE"));
+				plan.setpStartDate(rset.getDate("P_START_DATE"));
+				plan.setpEndDate(rset.getDate("P_END_DATE"));
+				plan.setpCites(rset.getString("P_CITYS"));
+				plan.setpPrivate(rset.getString("P_PRIVATE"));
+				
+				list.add(plan);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
 	}
 
 }

@@ -180,14 +180,14 @@
     					<img src = "/et/image/common/logo_c.png" class = "img-profile">
     				</div>
     				<div class = "div-txt-profile">
-    					<div class = "div-name">heedi kim</div>
-    					<div class = "div-point">20 유로 </div>
-    					<div class = "div-profileTxt">안녕하세요. 행복한 유럽여행을 꿈꾸고 있습니다. </div>
+    					<div class = "div-name"><%=loginUser.getM_id() %></div>
+    					<div class = "div-point"><%=loginUser.getM_point() %> <i class="euro sign icon"></i></div>
+    					<div class = "div-profileTxt"><%=loginUser.getM_profile() %> </div>
     					<button class = "btn-profile"> 프로필 수정 </button>
     				</div>
     				<div class = "div-menu">
     					<ul>
-    						<li><a href = "/et/views/normal/myPage/myPage_main.jsp"> > 내 플랜보기 </a> </li>
+    						<li><a onclick = "goMyPlan();"> > 내 플랜보기 </a> </li>
     						<li><a href = "/et/views/normal/myPage/myPage_activity_history.jsp"> > 나의 활동내역 </a></li>
     						<li><a href = "#" class = "this-page"> > 포인트 히스토리 </a></li>
     						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
@@ -246,7 +246,12 @@
         <div class = "two wide column"></div>
    	</div>
    	
- 
+ 	<script>
+ 	function goMyPlan(){
+	    	var mno = <%=loginUser.getM_no()%>;
+	    	location.href = "<%=request.getContextPath()%>/selectPlanList.pl?mno="+mno;
+	}
+ 	</script>
 	
 	
 	<%@ include file = "/views/common/normal/footer.jsp" %>
