@@ -300,7 +300,7 @@
 						<tr>
 							<td class="attr1">대표사진 </td>
 							<td class="attr2" colspan = "3">
-								<input type ="file" name = "tourPhoto"  onchange = "loadImg(this)">
+								<input type ="file" name = "tourPhoto"  onchange = "loadImg(this, 1)">
 							</td>
 							
 							<!-- <td class="attr3" ></td> -->
@@ -398,11 +398,13 @@
    	</script>
    	
    	<script>
-   	function loadImg(value) {
+   	function loadImg(value,num) {
 		if(value.files && value.files[0]) { // value는 요소 파일이 있는 상태에 동작한다. 
 			var reader = new FileReader(); // reader는 스트림 
 			reader.onload = function(e) {
-				$("#tourImgSelect").attr("src", e.target.result);
+				switch(num){
+				case 1:$("#tourImgSelect").attr("src", e.target.result);break;
+				}
 			}
 			reader.readAsDataURL(value.files[0]); //value의 files에 0번째 있는 애를 읽어온다. 
 		}

@@ -41,7 +41,7 @@ public class TourBoardService {
 		return result;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectThumbnailList() {
+	/*public ArrayList<HashMap<String, Object>> selectThumbnailList() {
 		Connection con = getConnection();
 		
 		ArrayList<HashMap<String, Object>> list = new TourBoardDao().selectThumbnailList(con);
@@ -51,6 +51,25 @@ public class TourBoardService {
 		
 		
 		return list;
+	}*/
+
+	public ArrayList<HashMap<String, Object>> selectList(int currentPage, int limit) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new TourBoardDao().selectList(con, currentPage, limit);
+		
+		close(con);
+		
+		return list;
 	}
+	public int getListCount() {
+		Connection con = getConnection();
+		
+		int listCount = new TourBoardDao().getListCount(con);
+		close(con);
+		
+		return listCount;
+	}
+	
 
 }
