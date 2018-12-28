@@ -26,9 +26,20 @@ public class BoardService {
 			
 		return result;
 	}
-	/*//글 조회
-	public ArrayList<Board> selectList(int currentPage, int limit) {
+
+	//전체 게시글 조회 
+	public int getListCount() {
 		Connection con = getConnection();
+		int listCount = new BoardDao().getListCount(con);
+		close(con);
+		return listCount;
+	}
+	
+	//페이징처리 적용한 게시물 조회용 메소드
+	public ArrayList<Board> selectList(int currentPage, int limit) {
+Connection con = getConnection();
+		
+		System.out.println(limit);
 		
 		ArrayList<Board> list 
 			= new BoardDao().selectList(con, currentPage, limit);
@@ -37,11 +48,5 @@ public class BoardService {
 		
 		return list;
 	}
-	public int getListCount() {
-		Connection con = getConnection();
-		int listCount = new BoardDao().getListCount(con);
-		close(con);
-		return listCount;
-	}*/
 
 }

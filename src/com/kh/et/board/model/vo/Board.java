@@ -10,14 +10,14 @@ public class Board implements java.io.Serializable {
 	private Date bDate; // 글 작성일
 	private String bCheckBest; // 베스트 댓글 여부
 	private String bStatus; // 글 상태
-	private String bType; // 글 종류(레벨-글 or 댓글)
-	private String bRefNo; // 참조 글 번호(댓글일 경유)
+	private int bType; // 글 종류(레벨-글 or 댓글)
+	private int bRefNo; // 참조 글 번호(댓글일 경유)
 
 	public Board() {
 	}
 
 	public Board(int bNo, String btitle, String bWriter, String bContent, Date bDate, String bCheckBest, String bStatus,
-			String bType, String bRefNo) {
+			int bType, int bRefNo) {
 		super();
 		this.bNo = bNo;
 		this.btitle = btitle;
@@ -93,19 +93,19 @@ public class Board implements java.io.Serializable {
 		this.bStatus = bStatus;
 	}
 
-	public String getbType() {
+	public int getbType() {
 		return bType;
 	}
 
-	public void setbType(String bType) {
-		this.bType = bType;
+	public void setbType(int i) {
+		this.bType = i;
 	}
 
-	public String getbRefNo() {
+	public int getbRefNo() {
 		return bRefNo;
 	}
 
-	public void setbRefNo(String bRefNo) {
+	public void setbRefNo(int bRefNo) {
 		this.bRefNo = bRefNo;
 	}
 
