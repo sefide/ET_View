@@ -91,8 +91,7 @@ public class SelectTourBoardServlet extends HttpServlet {
 		/*response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(list,response.getWriter());*/
-		
-		
+	
 		String page="";
 		if(list != null) {
 			page= "views/company/tourBoard/com_main.jsp";
