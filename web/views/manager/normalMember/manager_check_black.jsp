@@ -124,6 +124,7 @@
     </div>
     
     </div>
+    </div>
     
 	<div class = "two wide column"></div>
 	

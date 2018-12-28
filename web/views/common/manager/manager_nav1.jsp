@@ -66,12 +66,12 @@
 	<script>
     
     	function test() {
-    		location.href = "/et/views/manager/normalMember/manager_main.jsp";
-    		$("#tag1").css({"font-weight":600});
+    		location.href = "<%=request.getContextPath()%>/select01.mng";
+    		/* $("#tag1").css({"font-weight":600}); */
     	}
     	
     	function check_manager(){
-    		location.href="/et/views/manager/normalMember/manager_check_manager.jsp";
+    		location.href="<%=request.getContextPath()%>/select02.mng";
     	}
     	
     	function check_black(){

@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "java.util.*, com.kh.et.member.model.vo.*" %>
+<%
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+	PageInfo pi=(PageInfo)request.getAttribute("pi");
+	int listCount=pi.getListCount();
+	int currentPage=pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -76,7 +87,7 @@
 	    	- 회원정보 <br><br>
 	   
 	    	<table id="tb1">
-	    		<tr>
+	    		<tr height="27px">
 	    			<th>번호</th>
 	    			<th>아이디</th>
 	    			<th>이메일</th>
@@ -84,34 +95,56 @@
 	    			<th>이름</th>
 	    			<th>블랙회원여부</th>
 	    			<th>포인트</th>
-	    			<th>질문</th>
+	    			<th width="100px">질문</th>
 	    			<th>답변</th>
 	    		</tr>
-	    		<tr>
-	    			<td>0001</td>
-	    			<td>wzoo</td>
-	    			<td>wzoo@daum.net</td>
-	    			<td>2018-12-17</td>
-	    			<td>공주</td>
-	    			<td>Y</td>
-	    			<td>200</td>
-	    			<td>내가 존경하는 인물은?</td>
-	    			<td>이순신</td>
+	    		<% for(Member m : list){ %>
+	    		<tr height="27px">
+	    			<td><%= m.getM_no() %></td>
+	    			<td><%= m.getM_id() %></td>
+	    			<td><%= m.getM_email() %></td>
+	    			<td><%= m.getM_date() %></td>
+	    			<td><%= m.getM_name() %></td>
+	    			<td><%= m.getM_black_status() %></td>
+	    			<td><%= m.getM_point() %></td>
+	    			<td><%= m.getM_question() %></td>
+	    			<td><%= m.getM_answer() %></td>
 	    		</tr>
-	    		<tr>
-	    			<td>0002</td>
-	    			<td>dog</td>
-	    			<td>dog@daum.net</td>
-	    			<td>2018-12-17</td>
-	    			<td>개</td>
-	    			<td>N</td>
-	    			<td>1234</td>
-	    			<td>내가 존경하는 인물은?</td>
-	    			<td>불독</td>
-	    		</tr>
-	    		
-	    		<!-- 정보뽑아오는거는 나중에 for문 이용하기!  -->
+	    		<%} %>
+	    	
 	    	</table>
+	    	<br>
+	    <div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath() %>/select02.mng?currnetPage=1'"><<</button>
+			<% if(currentPage <=1) {%>
+			<button disabled><<<</button>
+			<%}else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/select02.mng?currentPage=<%= currentPage -1%>'"><</button>		
+			<%} %>
+			
+			<% for(int p=startPage; p<=endPage;p++){ 
+				if(p==currentPage){
+			%>		<button disabled><%= p %></button>
+			<%	}else{ %>
+					<button onclick="location.href='<%= request.getContextPath()%>/select02.mng?currentPage=<%= p%>'"><%= p %></button>
+			
+			<% }%>
+			
+			<%} %>
+			
+			<% if(currentPage >= maxPage){ %>
+			<button disabled>></button>
+			<%}else{ %>
+			<button onclick="location.href='<%= request.getContextPath()%>/select02.mng?currentPage=<%= currentPage +1%>'">></button>
+			<%} %>
+			
+			<button onclick="location.href='<%= request.getContextPath()%>/select02.mng?currentPage=<%=maxPage%>'">>></button>
+			
+			
+			
+		</div>
+	    
+	    
 	    
 	    <div>
 	    <br><br><br>

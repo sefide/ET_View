@@ -49,7 +49,7 @@ public class Manager_Login_Servlet extends HttpServlet {
 		if(loginManager != null) {//정보가 있으면
 			request.getSession().setAttribute("loginManager", loginManager);
 			
-			response.sendRedirect("views/manager/normalMember/manager_main.jsp");	
+			response.sendRedirect(request.getContextPath()+"/select01.mng");	
 		}else {
 			request.setAttribute("msg1", "관리자님이 로그인에 실패하시면 어떡합니까..!!!!");
 			request.getRequestDispatcher("views/common/manager/manager_login.jsp").forward(request, response);
