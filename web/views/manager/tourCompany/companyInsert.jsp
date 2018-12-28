@@ -90,8 +90,10 @@
 			#ceonum2 {
 			width:100px;
 			}
-			#num2 {
-			width:100px;}
+			#num {
+				width:400px;
+			
+			}
 
     
 </style>
@@ -122,9 +124,21 @@
 		<label for="name">제휴사 명</label><br>
 		<input type="text" name="name" id="name" /><br>
 		<label for="num">사업자번호</label>&nbsp;<br>
-		<input type="text" name="num" id="num" />-<input type="text" name="num" id="num2" />-<input type="text" name="num" id="num3" /><br>
+		<input type="text" name="num" id="num" /><br>
+		<label for="name">아이디</label><br>
+		<input type="text" name="userId" id="userId" /><br>
+		<label for="name">비밀번호</label><br>
+		<input type="password" name="userPwd" id="userPwd" /><br>
 		<label for="phone">연락처</label>&nbsp;<br>
-		<input type="text" name="phone" id="phone" />
+		<input type="text" name="phone" id="phone" /><br>
+		<label for="name">이메일</label><br>
+		<input type="email" name="email" id="email" /><br>
+		<label for="name">카테고리</label><br>
+		<input type="text" name="category" id="category" /><br>
+		<label for="name">주소</label><br>
+		<input type="text" name="address" id="address" /><br>
+		
+		
 	
 		<br><br>
 		

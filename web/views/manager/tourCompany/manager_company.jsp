@@ -101,10 +101,10 @@ table{
     		</tr>
     	 	<%for(Company c:list) {%>
     		<tr>
-    			<td class="num"><input type="checkbox" name="checkbox"></td>
+    			<td class="num"><input type="checkbox" name="checkbox" class="chkCheckBox" value=<%=c.getC_no() %>></td>
     			<td><%=c.getC_no() %></td>
-    			<td><%=c.getC_biss_num() %></td>
     			<td><%=c.getC_name() %></td>
+    			<td><%=c.getC_biss_num() %></td>
     			<td><%=c.getC_phone() %></td>
     			<td><%=c.getC_date() %></td>
     			<td><%=c.getC_end_date() %></td>
@@ -148,11 +148,30 @@ table{
     	
     	
     	<button style=float:right;>삭제하기</button>
-    	<button style=float:right;margin-right:30px; onclick="location.href='companyUpdate.jsp'">수정하기</button>
+    	<!-- onclick="location.href='/et/views/manager/tourCompany/companyUpdate.jsp'"  -->
+    	<button style=float:right;margin-right:30px; id="updateBtn">수정하기</button>
     	<button style=float:right;margin-right:30px; onclick="location.href='/et/views/manager/tourCompany/companyInsert.jsp'">추가하기</button>
     </div>
     
-    
+ <script type="text/javascript">
+ 
+ 	$(function(){
+ 		$("#updateBtn").click(function(){
+ 			var items = [];
+ 			$(".chkCheckBox:checked").each(function(){
+ 				items.push($(this).val());
+ 				console.log(items);
+ 			});
+ 			location.href = '<%=request.getContextPath()%>/updateOne.co?chkValue='+items;
+ 			
+ 		});
+ 	
+ 	
+ 	});
+ 	
+ 
+ 
+ </script>   
     
     
 	

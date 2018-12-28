@@ -14,16 +14,16 @@ import com.kh.et.company.model.service.CompanyService;
 import com.kh.et.company.model.vo.Company;
 
 /**
- * Servlet implementation class InsertCompanyServlet
+ * Servlet implementation class UpdateCompanyServlet
  */
-@WebServlet("/insertCompany.co")
-public class InsertCompanyServlet extends HttpServlet {
+@WebServlet("/updateCompany.co")
+public class UpdateCompanyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertCompanyServlet() {
+    public UpdateCompanyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,18 +32,18 @@ public class InsertCompanyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String name=request.getParameter("name");
 		String num=request.getParameter("num");
-		String userId=request.getParameter("userId");
-		String userPwd=request.getParameter("userPwd");
 		String phone=request.getParameter("phone");
 		String email=request.getParameter("email");
 		String category=request.getParameter("category");
 		String address=request.getParameter("address");
 		String term=request.getParameter("term");
 		String term2=request.getParameter("term2");
-	
+		
+		
+		System.out.println(name);
+		System.out.println(category);
 		
 		java.sql.Date day=null;
 		java.sql.Date day2=null;
@@ -92,8 +92,6 @@ public class InsertCompanyServlet extends HttpServlet {
 		Company reqCompany=new Company();
 		reqCompany.setC_name(name);
 		reqCompany.setC_biss_num(num);
-		reqCompany.setC_id(userId);
-		reqCompany.setC_pwd(userPwd);
 		reqCompany.setC_phone(phone);
 		reqCompany.setC_email(email);
 		reqCompany.setC_category(category);
@@ -101,9 +99,7 @@ public class InsertCompanyServlet extends HttpServlet {
 		reqCompany.setC_date(day);
 		reqCompany.setC_end_date(day2);
 		
-		
-		
-		int result=new CompanyService().insertCompany(reqCompany);
+		int result=new CompanyService().updateCompany(reqCompany);
 		String page="";
 		if(result>0) {
 			page="/et/selectList.co";
@@ -113,6 +109,7 @@ public class InsertCompanyServlet extends HttpServlet {
 			RequestDispatcher view=request.getRequestDispatcher(page);
 			view.forward(request, response);
 		}
+		
 		
 	}
 
