@@ -11,6 +11,7 @@ import com.kh.et.company.model.vo.Company;
 
 import com.kh.et.member.model.dao.MemberDao;
 
+
 public class CompanyService {
 
 	// 제휴사 로그인 메소드
@@ -24,21 +25,7 @@ public class CompanyService {
 		return loginCompany;
 	}
 
-	/*// 관리자가 제휴사 추가하는 메소드
-	public int insertCompany(Company reqCompany) {
-		Connection con=getConnection();
-		
-		int result= new CompanyDao().insertCompany(con,reqCompany);
-		
-		if(result>0) {
-			commit(con);
 
-		} else {
-			rollback(con);
-		}
-		return result;
-	}
-*/
 
 	public ArrayList<Company> selectList(int currentPage, int limit) {
 		Connection con = getConnection();
@@ -58,4 +45,47 @@ public class CompanyService {
 		return listCount;
 	}
 
+	public int insertCompany(Company reqCompany) {
+		Connection con=getConnection();
+		
+		int result= new CompanyDao().insertCompany(con,reqCompany);
+		
+		if(result>0) {
+			commit(con);
+
+		} else {
+			rollback(con);
+		}
+		return result;
+	}
+
+
+
+	public int updateCompany(Company reqCompany) {
+	Connection con=getConnection();
+	int result=new CompanyDao().updateCompany(con,reqCompany);
+	
+		
+		if(result>0) {
+			commit(con);
+
+		} else {
+			rollback(con);
+		}
+		return result;
+	}
+
+
+
+	public Company selectOne(String[] testChk) {
+		Connection con=getConnection();
+		Company c = null;
+		for(String item : testChk) {
+			c=new CompanyDao().selectOne(con,item);
+			
+		}		
+		close(con);
+		return c;
+
+}
 }

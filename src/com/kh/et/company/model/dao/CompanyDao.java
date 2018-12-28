@@ -72,7 +72,7 @@ public class CompanyDao {
 		return loginCompany;
 	}
 
-	/*// 관리자가 제휴사 추가하는 메소드
+	// 관리자가 제휴사 추가하는 메소드
 	public int insertCompany(Connection con, Company reqCompany) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -82,10 +82,14 @@ public class CompanyDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, reqCompany.getC_name());
 			pstmt.setString(2, reqCompany.getC_biss_num());
-			pstmt.setString(3, reqCompany.getC_represent());
-			pstmt.setDate(4, reqCompany.getC_date());
-			pstmt.setDate(5, reqCompany.getC_end_date());
-			pstmt.setString(6, reqCompany.getC_phone());
+			pstmt.setString(3, reqCompany.getC_id());
+			pstmt.setString(4, reqCompany.getC_pwd());
+			pstmt.setString(5, reqCompany.getC_phone());
+			pstmt.setString(6, reqCompany.getC_email());
+			pstmt.setString(7,reqCompany.getC_category());
+			pstmt.setString(8, reqCompany.getC_biss_address());
+			pstmt.setDate(9, reqCompany.getC_date());
+			pstmt.setDate(10, reqCompany.getC_end_date());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -97,7 +101,7 @@ public class CompanyDao {
 
 		return result;
 	}
-*/
+
 
 	public ArrayList<Company> selectList(Connection con, int currentPage, int limit) {
 		
@@ -169,6 +173,72 @@ public class CompanyDao {
 		
 		
 		return listCount;
+	}
+
+	public int updateCompany(Connection con, Company reqCompany) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateCompany");
+		System.out.println("dao");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqCompany.getC_name());
+			pstmt.setString(2, reqCompany.getC_biss_num());
+			pstmt.setString(3, reqCompany.getC_phone());
+			pstmt.setString(4, reqCompany.getC_email());
+			pstmt.setString(5,reqCompany.getC_category());
+			pstmt.setString(6, reqCompany.getC_biss_address());
+			pstmt.setDate(7, reqCompany.getC_date());
+			pstmt.setDate(8, reqCompany.getC_end_date());
+			pstmt.setInt(9, reqCompany.getC_no());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public Company selectOne(Connection con, String item) {
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		Company c=null;
+		
+		String query=prop.getProperty("selectOne");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1,Integer.parseInt(item));
+			rset=pstmt.executeQuery();
+			if(rset.next()) {
+				c=new Company();
+				c.setC_no(rset.getInt("C_NO"));
+				c.setC_name(rset.getString("C_NAME"));
+				c.setC_biss_num(rset.getString("C_BISS_NUM"));
+				c.setC_biss_address("C_BISS_ADDRESS");
+				c.setC_phone(rset.getString("C_PHONE"));
+				c.setC_category("CATEGORY");
+				c.setC_email("C_EMAIL");
+				c.setC_date(rset.getDate("C_DATE"));
+				c.setC_end_date(rset.getDate("C_END_DATE"));
+				
+				
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return c;
 	}
 
 }
