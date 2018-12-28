@@ -258,8 +258,10 @@
     		}
     		
     		function goMyPage() {
-    			location.href = "/et/views/normal/myPage/myPage_main.jsp";
-    			
+    			<% if(loginUser != null) { %>
+    			var mno = <%=loginUser.getM_no()%>;
+    			location.href = "<%=request.getContextPath()%>/selectPlanList.pl?mno="+mno;
+    			<% } %>
     		}
     		
     		function goLogout(){

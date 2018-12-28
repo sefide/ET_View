@@ -3,8 +3,8 @@ package com.kh.et.plan.model.vo;
 import java.sql.Date;
 
 public class Plan implements java.io.Serializable{
-	private int pNo;
-	private int pWriter;
+	private int pNo; 
+	private int pWriter;    //p_n_no
 	private String pTitle;
 	private Date pDate;
 	private Date pStartDate;
@@ -12,7 +12,6 @@ public class Plan implements java.io.Serializable{
 	private String pCites;
 	private String pPrivate;
 	private String pStatus;
-	int i = 0;
 	
 	public Plan() {}
 
