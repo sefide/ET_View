@@ -112,7 +112,7 @@
 	<!--로그인페이지 시작-->
 	<div class="main" id = "main">
 		<form id="loginForm" action="<%= request.getContextPath() %>/login.me" method="post">
-			<table>
+			<table align="center">
 				<tr>
 					<td>
 						<div class="mainlogo">

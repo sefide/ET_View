@@ -29,9 +29,9 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous"></script> -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
 	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -43,18 +43,14 @@
 
 <style>
 .main {
-	width:30%;
+	width:100%;
 	margin : 0 auto;
 	font-family: 'Nanum Gothic', sans-serif;
 }
 .mainlogo {
-	width:70%;
-	margin : 0 auto;
-	text-align:center;
+	margin-top:20px;
+	text-align: center;
 	font-family: 'Ubuntu', sans-serif;
-}
-table{
-	width: 50%;
 }
 #logo {
 	color: black;
@@ -63,8 +59,8 @@ table{
 }
 
 #joinForm {
-	width: 430px;
-	height: 550px;
+	width: 100%;;
+	margin : 0 auto;
 }
 .pwdQuestion{
 	width: 200px;
@@ -77,11 +73,11 @@ table{
 </head>
 
 <body>
-<form id="joinForm" action="<%=request.getContextPath()%>/insert.me" method="post">
-	<table>
+<%-- <form id="joinForm" action="<%=request.getContextPath()%>/insert.me" method="post"> --%>
+	<table align="center">
 		<tr>
 			<td>
-				<div class="mainlogo">
+				<div class="mainlogo" align="center">
 					<a href="/et/index.jsp" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> <image src="/et/image/common/logo.png"
 							style=" height: 60px;" alt="메인로고">&nbsp;ET Planner</image>
 					</a>
@@ -99,8 +95,8 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="text" name="userId" placeholder="아이디를 입력해주세요">
-									<button class="ui button" id="idCheck" style="width: 85px; height: 30px; font-size: 12px;">중복확인</button>
+									<input type="text" name="userId" id="userId" placeholder="아이디를 입력해주세요">
+									<button class="ui button" onclick="return idCheck();" style="width: 85px; height: 30px; font-size: 12px;">중복확인</button>
 								</div>
 							</div>
 							<div align="left" class="font">
@@ -108,7 +104,7 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="password" name="userPwd" placeholder="비밀번호를 입력하세요">
+									<input type="password" name="userPwd" id="pass" placeholder="비밀번호를 입력하세요">
 								</div>
 							</div>
 							<div align="left" class="font">
@@ -116,7 +112,7 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="password"  placeholder="비밀번호를 입력하세요">
+									<input type="password"  id="newpass"placeholder="비밀번호를 입력하세요">
 								</div>
 							</div>
 							<div align="left" class="font">
@@ -152,7 +148,7 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="email" name="userEmail" placeholder="이메일을 입력해주세요"><button class="ui button" style="width: 97px; height: 30px; font-size: 12px;">이메일인증</button>
+									<input type="email" name="userEmail" id="email"placeholder="이메일을 입력해주세요"><button class="ui button" style="width: 97px; height: 30px; font-size: 12px;">이메일인증</button>
 								</div>
 							</div>
 							<div align="left" class="font">
@@ -160,8 +156,8 @@ table{
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="text" name="userName" placeholder="이름을 입력해주세요">
-									<button class="ui blue right labeled icon button" onclick="join();"
+									<input type="text" name="userName" id="name" placeholder="이름을 입력해주세요">
+									<button type="submit" onclick="return join();" class="ui blue right labeled icon button"  
 											style="width: 130px; height: 35px; font-size: 13px; color:white;">
 									  <i class="right arrow icon"></i>가입하기
 									</button>
@@ -174,7 +170,7 @@ table{
 			</td>
 		</tr>
 	</table>
-	</form>
+	<!-- </form> -->
 	
 	<script>
 	function join(){
@@ -187,29 +183,98 @@ table{
 		<%} %>
 	});
 	
-	$(function(){
-		$("#idCheck").click(function(){
-			var userId = $("#userId").val();
-			
-			$.ajax({
-				url:"/et/idCheck.me",
-				type:"post",
-				data:{userId:userId},
-				success:function(data){
-					if(data == "fail"){
-						alert("이미 사용중인 아이디 입니다.");
-					}else{
-						alert("사용 가능한 아이디입니다.");
-					}
-				},
-				error:function(){
-					console.log("실패!");
+	//아이디 중복체크
+	function idCheck(){
+		var userId = $("#userId").val();
+		//console.log("확인");
+		
+		$.ajax({
+			url:"/et/idCheck.me",
+			type:"post",
+			data:{userId:userId},
+			success:function(data){
+				if(data == "fail"){
+					alert("이미 사용중인 아이디 입니다.");
+				}else{
+					alert("사용 가능한 아이디입니다.");
 				}
-			})
-		})
-	})
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+		return false;
+			
+	}	
 	
+	//회원가입 유효성 검사
+	function join(){
+		console.log("test")
+		//아이디 검사
+		var idEx1 = /[a-z]{3,}/;	//영어로만 3글자 이상
+		var idEx11 = /\D/;
+		var userId = document.getElementById("userId").value;
+		//변수1.test(변수2)) => 해당하는 변수값이 문자열에 존재하는지 boolean으로 리턴
+		//변수2의 값이 변수1에 해당하는지(존해하는지 => 아이디값이 [a-z]{3,}의 조건에 부합하니?)
+		console.log(idEx1.test(userId));
+		if(idEx1.test(userId)&& userId.length <= 15){
+			alert("사용 가능한 아이디 입니다.");
+		}else{
+			alert("아이디를 형식에 맞게 다시 작성하세요");
+			return false;
+		}
+		alert("아이디 확인");
+		
+		//비밀번호 검사
+		var passEx1 = /[a-z0-9]{4,}/ig;	//영어,숫자로 4글자 이상 이루어져야함, 대소문자 관계없이
+		var passEx11 = /\d+\S/;	//숫자가 1개 이상 포함되어야 한다.
+		var pass = document.getElementById("pass").value;
+		
+		if(passEx1.test(pass) && passEx11.test(pass)
+				&& pass.length >= 6){	//비밀번호는 6자 이상
+			alert("사용 가능한 비밀번호 입니다");
+		}else{
+			alert("비밀번호를 형식에 맞게 다시 작성해주세요!!");
+			return false;
+		}
+		
+		
+		//비밀번호 확인 검사
+		//비밀번호, 비밀번호 확인의 값이 일치하는지
+		var input = document.getElementsByName("input");
+		var inputPwd1 = input[1].value;	//input태그중 배열 인덱스 1번째 input
+		var inputPwd11 = input[2].value;	//input태그중 배열 인덱스 2번째 input
+		var pass = document.getElementById("pass");
+		var newpass = document.getElementById("newpass");
+		
+		if(pass.value == newpass.value){
+			alert("비밀번호가 설정됩니다");
+		}else{
+			alert("비밀번호가 일치하지 않는다구욧!! 다시!!");
+			pass.style.background="red";	//비밀번호 입력칸 빨갛게
+			newpass.style.background="red";	//비밀번호 확인 입력칸 빨갛게
+			newpass.select();	//비밀번호 입력칸으로 커서가 돌아간다
+			return false;
+		}
+		
+		//이메일 검사
+		//4글자 이상이 나오고
+		//@가 나오고
+		//주소가 1글자 이상
+		var emailEx1 = /\w{4,}@\w{1,}.\w{1,3}/;	//4글자이상@1글자이상.1~3글자
+		var email = document.getElementById("email").value;
+		
+		if(emailEx1.test(email)){
+			alert("사용 가능한 이메일 입니다.");
+		}else{
+			alert("이메일을 형식에 맞게 다시 입력하세욧!!!!!");
+			return false;
+		} 
+		return false;
+	}
+	
+	
+	 
 	</script>
-	]
 </body>
 </html>

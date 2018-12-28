@@ -35,8 +35,9 @@
 	crossorigin="anonymous"></script>
 <style>
 .main {
-	width: 70%;
-	margin : 100px auto 0 auto;
+	width: 90%;
+	margin-top:30px;
+	margin-left:140px;:
 	font-family: 'Nanum Gothic', sans-serif;
 }
 #main-children{
@@ -51,8 +52,8 @@
 	width: 70%;	
 }
 .userSearch {
-	width: 350px;
-	height: 350px;
+	width: 100%;
+
 	font-family:'Nanum Gothic', sans-serif;"
 }
 
@@ -69,16 +70,15 @@
 	margin-top: 25px;
 }
 
-.allContent{
-	margin-top: 40px;
-}
 
 .mainlogo {
 	width:90%;
 	margin-left:55%;
 	font-family: 'Ubuntu', sans-serif;
 }
-
+.content{
+	margin-top: 30px;
+}
 #logo {
 	color: black;
 	font-size: 25px;
@@ -86,8 +86,7 @@
 }
 #joinGo{
 	width:60%;
-	height: 35px; 
-	margin-top: 120px;
+	margin-top:30px;
 	margin-left: 65%;
 	
 }
@@ -113,7 +112,7 @@
 <div class="main" align="center">
 	<div id="main-children">
 		<form>
-			<table>
+			<table align="center">
 				<tr>
 					<td>
 					<div class="mainlogo" align="center">
@@ -126,7 +125,7 @@
 				<tr>
 					<td>
 						<!-- 아이디 찾기 -->
-						<div class="allContent">
+						<div class="content">
 							<div class="userSearch">
 								<div class="ui top attached tabular menu" id="one">
 									<div class="active item" style="background-color: whitesmoke;">아이디 찾기</div>

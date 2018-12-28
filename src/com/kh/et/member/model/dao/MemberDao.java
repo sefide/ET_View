@@ -106,7 +106,7 @@ public class MemberDao {
 
 
 	
-
+	//회원정보 수정용 메소드
 	public int updateMember(Connection con, Member reqMember) {
 		PreparedStatement pstmt = null;
 		int result = 0;
