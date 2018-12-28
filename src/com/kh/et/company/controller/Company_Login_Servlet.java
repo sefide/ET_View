@@ -47,7 +47,7 @@ public class Company_Login_Servlet extends HttpServlet {
 		if(loginCompany != null) {
 			request.getSession().setAttribute("loginCompany", loginCompany);	//세션불러와서 정보넣어주고
 			
-			response.sendRedirect("views/company/tourBoard/com_main.jsp");	//여기로 이동하라
+			response.sendRedirect(request.getContextPath()+"/selectList.tbo");	//여기로 이동하라
 		}else {
 			request.setAttribute("msg2", "로그인을 다시 해주시길 바랍니다!");	//로그인 실패 메세지를 보내고
 			request.getRequestDispatcher("views/common/manager/manager_login.jsp").forward(request, response);	//실패 메세지를 띄워줄 페이지로 경로 설정을 해준다.

@@ -1,5 +1,19 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.et.tourBoard.model.vo.*"%>
+<% 
+	ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
+	PageInfo pi=(PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+
+	
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -148,7 +162,7 @@
 		      		<h2 class = "h2-travel-agency"> Travel Agency </h2>
 		      	</div>
 	      		<div class = "div-ta-coupon">
-		      		<p class = "p-txt-coupon"> 보유한 쿠폰  </p>
+		      		<p class = "p-txt-coupon"> 보유한 쿠폰  </p> 	
 		      		<table class="ui celled black table">
 		      			<tr> 
 		      				<th> <i class="star outline icon"></i> Standard </th>
@@ -167,11 +181,15 @@
                 <div class="ui header title" id ="title">내가 작성한 투어 </div>
                 
                 <div id = "div-my-tour">
+               <%for(int i=0; i <list.size(); i++){ 
+                	HashMap<String,Object> hmap = list.get(i);
+                %>
 	                <div class = "div_tour_left">
+	                	<input type="hidden" value="<%=hmap.get("tno")%>">
 		                <div class = "span-tour-title"> 투어명 </div> 
-						<span class = "span-tour-ex"> 투어명 예시</span> <br>
+						<span class = "span-tour-ex"> <%= hmap.get("title") %></span> <br>
 		                	<div class = "span-tour-title"> 투어컨셉 </div> 
-						<span class = "span-tour-ex"> 투어컨셉 예시</span> <br>
+						<span class = "span-tour-ex"> <%= hmap.get("concept") %></span> <br>
 						<div class = "span-tour-title"> 설명 </div> 
 						<span class = "span-tour-ex"> 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 예시</span> <br>
 						<div class = "span-tour-title"> 가격 </div> 
@@ -187,8 +205,8 @@
 						<span class = "span-tour-ex"> 사진명 tour.jpg </span>
 	                </div>
                 </div>
-                
-                <div class = "div-tour-paging">
+              <%} %> 
+                <!-- <div class = "div-tour-paging">
                 		<nav aria-label="Page navigation">
 					  <ul class="pagination pagination-sm">
 					    <li class="page-item">
@@ -208,12 +226,38 @@
 					    </li>
 					  </ul>
 					</nav>
-                </div>
+                </div> -->
+            <div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.tbo?currentPage=1'"><<</button>
+			<%if(currentPage <= 1){%>
+			<button disabled><</button>
+			<% }else{%>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.tbo?currentPage=<%=currentPage -1%>'"><</button>
+			<%} %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+					if(p == currentPage){
+			%>
+					<button disabled><%= p %></button>
+			<%		}else{ %>
+					<button onclick="location.href='<%= request.getContextPath()%>/selectList.tbo?currentPage=<%= p %>'"><%= p %></button>
+			<%		}%>
+				
+			<% } %>
+			
+			
+			<%if(currentPage >= maxPage){ %>
+			<button disable>></button>
+			<%}else{ %>
+			<button onclick="location.href='<%= request.getContextPath()%>/selectList.tbo?currentPage=<%=currentPage + 1%>'">></button>
+			<%} %>
+			
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.tbo?currentPage=<%=maxPage%>'">>></button>
                 <div class = "div-tour-btn">
              	  	<button class="ui yellow button" onclick = "goEditTour();">수정하기 </button>
 					<!-- <button class="ui yellow button">삭제하기 </button> -->
 				</div>
-            </div> <!-- 내가 작성한 투어  mt-20  -->
+            </div>
             
             
       		<div class="ui mt-20"> 
@@ -221,17 +265,23 @@
                 <div class="ui header title" id ="title">다른 투어보기 </div>
                 
 	            <div class = "div-card-tour">
-	            
 	            <div class="card-deck">
+	             <%for(int i=0; i <list.size(); i++){ 
+                	HashMap<String,Object> hmap = list.get(i);
+                %> 
+	             <input type="hidden" value="<%=hmap.get("tno")%>">
 				  <div class="card">
-				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
+				 	<div>
+				    <img src="/et/tourUpload/<%=hmap.get("changeName")%>"  width="200px" height="200px">
+				    </div>
 				    <div class="card-body">
-				      <h5 class="card-title"> [도시이름]투어명 </h5>
-				      <p class="card-text"> 69,900원 </p>
-				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
+				      <h5 class="card-title"> <%= hmap.get("title") %> </h5>
+				      <p class="card-text"> <%= hmap.get("price") %> </p>
+				      <p class="card-text"><small class="text-muted"><%= hmap.get("concept") %> </small></p>
 				    </div>
 				  </div>
-				  <div class="card">
+			
+				  <!-- <div class="card">
 				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
 				    <div class="card-body">
 				       <h5 class="card-title"> [도시이름]투어명 </h5>
@@ -248,6 +298,7 @@
 				    </div>
 				  </div>
 				</div>
+				<%} %>
 				</div>
 				<div class = "div-tour-paging" style = "margin-top : 25px;">
                 		<nav aria-label="Page navigation">
