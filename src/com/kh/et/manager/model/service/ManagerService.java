@@ -84,4 +84,25 @@ public class ManagerService {
 		return list;
 	}
 
+	public int[] total() {
+		Connection con = getConnection();
+		
+		int[] total = new int[3];
+		
+		int totalBoard = new ManagerDao().totalBoard(con); 
+		int todayBoard = new ManagerDao().todayBoard(con);
+		int avgBoard = new ManagerDao().avgBoard(con);
+		
+	
+		
+		total[0] = totalBoard;
+		total[1] = todayBoard;
+		total[2] = avgBoard;
+	
+		
+		close(con);
+		
+		return total;
+	}
+
 }

@@ -41,10 +41,14 @@ public class UpdateCompanyServlet extends HttpServlet {
 		String term=request.getParameter("term");
 		String term2=request.getParameter("term2");
 		
-		
+		System.out.println("가져오나 보자");
 		System.out.println(name);
+		System.out.println(phone);
+		System.out.println(email);
 		System.out.println(category);
-		
+	    System.out.println(address);
+	    System.out.println(term);
+	    System.out.println(term2);
 		java.sql.Date day=null;
 		java.sql.Date day2=null;
 		
@@ -105,10 +109,11 @@ public class UpdateCompanyServlet extends HttpServlet {
 			page="/et/selectList.co";
 			response.sendRedirect(page);
 		}else {
-			request.setAttribute("msg", "실패");
-			RequestDispatcher view=request.getRequestDispatcher(page);
-			view.forward(request, response);
+			page="views/common/errorPage.jsp";
+			request.setAttribute("msg", "수정하기실패!");
 		}
+		RequestDispatcher view=request.getRequestDispatcher(page);
+		view.forward(request, response);
 		
 		
 	}

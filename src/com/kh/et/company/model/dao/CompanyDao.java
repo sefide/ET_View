@@ -194,7 +194,7 @@ public class CompanyDao {
 			pstmt.setInt(9, reqCompany.getC_no());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -239,6 +239,29 @@ public class CompanyDao {
 		
 		
 		return c;
+	}
+
+	public int deleteCompany(Connection con, Company reqCompany) {
+		
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		String query=prop.getProperty("deleteNotice");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1,reqCompany.getC_no());
+		
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}
 
 }

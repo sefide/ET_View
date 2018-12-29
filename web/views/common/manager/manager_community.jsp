@@ -46,14 +46,14 @@
 	<script>
     
     	function test() {
-    		location.href = "/et/views/manager/board/manager_total_community.jsp";
+    		location.href = "<%=request.getContextPath()%>/total.mng";
     		/* $("#tb1").css({"visibility":"visible"}); */
     	}
     	
     	function check_manager(){
     		/*	회원정보조회 누르면 회원현황테이블 숨기기
     		$("#tb1").css({"visibility":"hidden"}); */
-    		location.href="/et/views/manager/board/manager_board.jsp";
+    		location.href="<%=request.getContextPath()%>/boardList.mng";
     	}
     	
     
