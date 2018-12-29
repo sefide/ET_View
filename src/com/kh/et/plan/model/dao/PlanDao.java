@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 import com.kh.et.plan.model.vo.City;
 import com.kh.et.plan.model.vo.Plan;
@@ -185,6 +186,97 @@ public class PlanDao {
 		
 		
 		return list;
+	}
+
+
+	public HashMap<String, City> selectCityMap(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		HashMap<String, City> resultMap = null;
+		
+		String query = prop.getProperty("selectCityList");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			resultMap = new HashMap<String, City>();
+			while(rset.next()) {
+				City ct = new City();
+				
+				ct.setCtNo(rset.getInt("CT_NO"));
+				ct.setCtName(rset.getString("CT_NAME"));
+				ct.setCtCountry(rset.getString("CT_COUNTRY"));
+				ct.setCtInfo(rset.getString("CT_INFO"));
+				ct.setCtLat(rset.getFloat("CT_LAT"));
+				ct.setCtLng(rset.getFloat("CT_LNG"));
+				
+				resultMap.put(String.valueOf(ct.getCtName()), ct);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return resultMap;
+	}
+
+
+	public HashMap<String, Object> selectPlanDetail(Connection con, int planNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> resultMap = null;
+		Plan p = null;
+		PlanDetail pd = null;
+		ArrayList<PlanDetail> pdList = null;
+		
+		String query = prop.getProperty("selectPlanDetail");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, planNo);
+			
+			rset = pstmt.executeQuery();
+			
+			pdList = new ArrayList<PlanDetail>();
+			
+			while(rset.next()) {
+				p = new Plan();
+				p.setpNo(rset.getInt("P_NO"));
+				p.setpWriter(rset.getInt("P_N_NO"));
+				p.setpTitle(rset.getString("P_TITLE"));
+				p.setpDate(rset.getDate("P_DATE"));
+				p.setpStartDate(rset.getDate("P_START_DATE"));
+				p.setpEndDate(rset.getDate("P_END_DATE"));
+				p.setpCites(rset.getString("P_CITYS"));
+				p.setpPrivate(rset.getString("P_PRIVATE"));
+				
+				pd = new PlanDetail();
+				pd.setPdNo(rset.getInt("PD_NO"));
+				pd.setPdStartcity(rset.getString("PD_START_CITY"));
+				pd.setPdStartDate(rset.getDate("PD_START_DATE"));
+				pd.setPdEndCity(rset.getString("PD_END_CITY"));
+				pd.setPdEndDate(rset.getDate("PD_END_DATE"));
+				pd.setPdTrasnfer(rset.getString("PD_TRANSFER"));
+				
+				pdList.add(pd);
+			}
+			resultMap = new HashMap<String, Object>();
+			resultMap.put("plan", p);
+			resultMap.put("planDetailList", pdList);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return resultMap;
 	}
 
 }

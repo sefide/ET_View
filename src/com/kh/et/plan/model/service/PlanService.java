@@ -3,6 +3,7 @@ package com.kh.et.plan.model.service;
 import static com.kh.et.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.et.plan.model.dao.PlanDao;
 import com.kh.et.plan.model.vo.City;
@@ -70,6 +71,32 @@ public class PlanService {
 		close(con);
 		
 		return list;
+	}
+
+	public HashMap<String, City> selectCityMap() {
+		Connection con = getConnection();
+		
+		HashMap<String, City> resultMap = new PlanDao().selectCityMap(con);
+		
+		if(resultMap != null) commit(con);
+		else rollback(con);
+		
+		commit(con);
+		
+		return resultMap;
+	}
+
+	public HashMap<String, Object> selectPlanDetail(int planNo) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> resultMap = new PlanDao().selectPlanDetail(con, planNo);
+		
+		if(resultMap != null) commit(con);
+		else rollback(con);
+		
+		commit(con);
+		
+		return resultMap;
 	}
 
 }

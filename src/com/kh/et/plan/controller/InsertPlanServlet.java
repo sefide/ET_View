@@ -44,7 +44,7 @@ public class InsertPlanServlet extends HttpServlet {
 		String[] cityNameArr = request.getParameterValues("cityName");
 		String[] nights = request.getParameterValues("selectNight");
 		String[] transform = request.getParameterValues("transform");
-		String citiesName = String.join(",", cityNameArr);
+		String citiesName = String.join(", ", cityNameArr);
 		
 		java.sql.Date startDate = java.sql.Date.valueOf(sDate); // sql 여행 시작 날짜 
 		java.sql.Date endDate = java.sql.Date.valueOf(eDate); // sql 여행 종료 날짜 

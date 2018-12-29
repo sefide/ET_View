@@ -1,7 +1,6 @@
 package com.kh.et.plan.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -13,19 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.et.plan.model.service.PlanService;
 import com.kh.et.plan.model.vo.City;
-import com.kh.et.plan.model.vo.Plan;
 
 /**
- * Servlet implementation class SelectPlanListServlet
+ * Servlet implementation class SelectPlanDetailServlet
  */
-@WebServlet("/selectPlanList.pl")
-public class SelectPlanListServlet extends HttpServlet {
+@WebServlet("/selectPlanDetail.pl")
+public class SelectPlanDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectPlanListServlet() {
+    public SelectPlanDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,22 +32,23 @@ public class SelectPlanListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mno = Integer.parseInt(request.getParameter("mno"));
+		String planNo = request.getParameter("pno");
 		
+		HashMap<String, Object> planMap = new PlanService().selectPlanDetail(Integer.parseInt(planNo));
 		HashMap<String,City> cityMap = new PlanService().selectCityMap();
-		ArrayList<Plan> planList = new PlanService().selectPlanList(mno);
 		
-		String page ="";
-		if(planList != null && cityMap != null) {
-			page = "views/normal/myPage/myPage_main.jsp";
-			request.setAttribute("planList", planList);
+		String page = "";
+		if(planMap != null && cityMap != null) {
+			page = "/views/normal/myPage/myPage_planDetail.jsp";
+			request.setAttribute("planMap", planMap);
 			request.setAttribute("cityMap", cityMap);
 		}else {
-			page = "index.jsp";
-			request.setAttribute("msg", "일시적인 오류로 마이페이지 접근이 불가능합니다");
+			page = "selectPlanList.pl";
+			request.setAttribute("msg", "일시적인 오류입니다. 조금 뒤에 다시 시도해주세요. ");
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
+		
 	}
 
 	/**

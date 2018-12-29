@@ -38,7 +38,6 @@ public class SelectCityListServlet extends HttpServlet {
 		String page = "";
 		if(cityList != null) {
 			request.setAttribute("cityList", cityList);
-			System.out.println("잘가져왔다_plan");
 			page = "/views/normal/plan/create_plan.jsp";
 		}else {
 			request.setAttribute("msg", "플랜짜기를 나중에 시도해주세요. 죄송합니다. ");
