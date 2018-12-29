@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import ="com.kh.et.manager.model.vo.*"%>
+<%
+	int[] total = (int[])request.getAttribute("total");
+%>    
+    
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<!-- jquery -->
+	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	
@@ -19,7 +24,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	
 	<!-- 글꼴  -->
-	<link rel="stylesheet" href="/css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
 	
 <style>
 
@@ -31,7 +36,7 @@
  }  
  .main_01{
  	margin:2%;
- 	float:left;
+ 	display:flex;
 }
 table{
  	width:600px;
@@ -47,37 +52,48 @@ table{
  th{
  	background-color:lightgray;
  }
+ .nav{
+ 	width:20%;
+ }
+ .sub{
+ 	width:75%;
+ }
 </style>
 </head>
 <body>
+
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
-<%@ include file = "/views/common/manager/manager_community.jsp" %>
-	
+
     <div class="main_01">
-    	<div class="ui header title">▶커뮤니티 현황</div>
-    	- 커뮤니티 정보 <br><br>
-    	<table id="tb1">
-    		<tr>
-    			<th>총 게시물 수</th>
-    			<td>0명</td>
-    		</tr>
-    		<tr>
-    			<th>오늘의 게시물 수 </th>
-    			<td>0명</td>
-    		</tr>
-    		<tr>
-    			<th>일일 평균 게시물 수</th>
-    			<td>0명</td>
-    		</tr>
-    		<tr>
-    			<th>오늘 글 올린 회원 수</th>
-    			<td>0명</td>
-    		</tr>
-    	</table>
-    </div>
+    	
+    	<div class="nav">
+			<%@ include file = "/views/common/manager/manager_community.jsp" %>
+    	</div>
+    
+    	<div class="sub">
+	    	<div class="ui header title">▶커뮤니티 현황</div>
+	    	- 커뮤니티 정보 <br><br>
+	    	<table id="tb1">
+	    		<tr>
+	    			<th>총 게시물 수</th>
+	    			<td><%= total[0] %>개</td>
+	    		</tr>
+	    		<tr>
+	    			<th>오늘의 게시물 수</th>
+	    			<td><%= total[1] %>개</td>
+	    		</tr>
+	    		<tr>
+	    			<th>일일 평균 게시물 수</th>
+	    			<td><%= total[2] %>개</td>
+	    		</tr>
+	    	</table>
+	    </div>
+	</div>
 	
 	<div class = "two wide column"></div>
 	
+
 	<%@ include file = "/views/common/company/footer_com.jsp" %>
+
 </body>
 </html>

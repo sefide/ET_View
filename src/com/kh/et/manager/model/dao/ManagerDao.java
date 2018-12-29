@@ -226,4 +226,84 @@ public class ManagerDao {
 		return list;
 	}
 
+	public int totalBoard(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int totalBoard = 0;
+		
+		String query = prop.getProperty("boardListCount");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				totalBoard = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return totalBoard;
+	}
+
+	public int todayBoard(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int todayBoard = 0;
+		
+		String query = prop.getProperty("todayBoard");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				todayBoard = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return todayBoard;
+	}
+
+	public int avgBoard(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int avgBoard = 0;
+		
+		String query = prop.getProperty("avgBoard");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				avgBoard = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return avgBoard;
+	}
 }

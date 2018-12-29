@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import com.kh.et.company.model.dao.CompanyDao;
 import com.kh.et.company.model.vo.Company;
 
-import com.kh.et.member.model.dao.MemberDao;
 
 
 public class CompanyService {
@@ -62,10 +61,8 @@ public class CompanyService {
 
 
 	public int updateCompany(Company reqCompany) {
-	Connection con=getConnection();
-	int result=new CompanyDao().updateCompany(con,reqCompany);
-	
-		
+		Connection con=getConnection();
+		int result=new CompanyDao().updateCompany(con,reqCompany);
 		if(result>0) {
 			commit(con);
 
@@ -88,4 +85,7 @@ public class CompanyService {
 		return c;
 
 }
+
+
+
 }

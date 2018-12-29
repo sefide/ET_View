@@ -119,7 +119,7 @@
         	
     	
         	<div class="inner-2">
-        <form  id="joinForm" method="post" class="form">
+        <form  id="joinForm"  action ="<%=request.getContextPath()%>/updateCompany.co" method="post" class="form">
 	<fieldset><legend>제휴사 수정</legend>
 	<p class="name">
 
@@ -169,7 +169,7 @@
 	<%@ include file= "/views/common/normal/footer.jsp" %>
 	<script>
 	function updateCompany() {
-		$("#joinForm").attr(action,"<%=request.getContextPath()%>/selectList.co");
+		$("#joinForm").submit();
 	}
 	
 	</script>

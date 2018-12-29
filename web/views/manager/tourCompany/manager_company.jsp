@@ -147,7 +147,7 @@ table{
     	
     	
     	
-    	<button style=float:right;>삭제하기</button>
+    	<button style=float:right; id="deleteBtn">삭제하기</button>
     	<!-- onclick="location.href='/et/views/manager/tourCompany/companyUpdate.jsp'"  -->
     	<button style=float:right;margin-right:30px; id="updateBtn">수정하기</button>
     	<button style=float:right;margin-right:30px; onclick="location.href='/et/views/manager/tourCompany/companyInsert.jsp'">추가하기</button>
@@ -168,6 +168,21 @@ table{
  	
  	
  	});
+ 	
+ 	$(function(){
+ 		$("#deleteBtn").click(function(){
+ 			var items = [];
+ 			$(".chkCheckBox:checked").each(function(){
+ 				items.push($(this).val());
+ 				console.log(items);
+ 			});
+ 			location.href = '<%=request.getContextPath()%>/deleteOne.co?chkValue='+items;
+ 			
+ 		});
+ 	
+ 	
+ 	});
+ 	
  	
  
  
