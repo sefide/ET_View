@@ -25,7 +25,14 @@
 		var y = date.getFullYear();
 		
 		jb('#calendar').fullCalendar({
-			editable: true,
+			header : {
+				/* left : 'title', */
+				/* center : 'agendaDay,agendaWeek,month', */
+				left : '',
+				center : 'title',
+				right : 'prev, next'
+			},
+			editable: false,
 			events: [
 				{
 					title: 'All Day Event',

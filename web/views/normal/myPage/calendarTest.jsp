@@ -15,12 +15,12 @@
 	src='http://www.blueb.co.kr/data/201010/IJ12872423858253/fullcalendar.min.js'></script>
 
 <style type='text/css'>
-body {
+/* body {
 	margin-top: 40px;
 	text-align: center;
 	font-size: 14px;
 	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-}
+} */
 
 #calendar {
 	margin-right: 80px;

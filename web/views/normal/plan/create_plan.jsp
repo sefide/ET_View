@@ -21,7 +21,7 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
-	<script src="" type="text/javascript"></script>	
+
  	
  	<!-- css 불러오기  -->
  	<link href = "/et/views/css/create_plan.css" type = "text/css" rel= "stylesheet">
@@ -567,7 +567,7 @@
         
         // 마커 정보 설정
         var marker, i;
-       
+       	
         // 29개의 도시 마커 생성 
         for (i = 0; i < locations.length; i++) { // 마커 찍기 
             marker = new google.maps.Marker({
