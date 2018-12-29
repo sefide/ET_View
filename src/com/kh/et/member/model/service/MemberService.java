@@ -69,6 +69,18 @@ public class MemberService {
 		return result;
 	}
 
+	//회원 아이디 찾기용 메소드
+	public Member memberIdSearch(Member reqMember) {
+		Connection con  = getConnection();
+		
+		Member loginUser = new MemberDao().memberIdSearch(con, reqMember);
+		
+		close(con);
+		
+		
+		return loginUser;
+	}
+
 
 
 }

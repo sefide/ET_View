@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" import="com.kh.et.member.model.vo.Member"%>
 <%
 	String msg = (String)request.getAttribute("msg");
+	String joinmsg = (String)request.getAttribute("joinmsg");
 %>
 
 <!DOCTYPE html>
@@ -240,10 +241,16 @@
 		}
 		
 		$(function(){
-			<% System.out.println("로그인 얍");
-			System.out.println("msg : " + msg);
+			<% System.out.println("msg : " + msg);
 			if(msg != null){ %>
 			alert("<%=msg%>");
+			<%} %>
+		});
+		
+		$(function(){
+			<% System.out.println("msg : " + joinmsg);
+			if(joinmsg != null){ %>
+			alert("<%=joinmsg%>");
 			<%} %>
 		});
 	</script>
