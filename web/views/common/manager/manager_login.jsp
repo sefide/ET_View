@@ -143,7 +143,7 @@
 				<a href="http://127.0.0.1:8003/et/views/tour_pwd_search.jsp" style="color: black; text-decoration:none">비밀번호를 잊으셨나요?</a>
 			</div>
 			<br>
-			<a href="#"><button type="submit" class="ui yellow button" id="loginBtn" onclick="company_login();">제휴사 로그인</button></a>
+			<button type="submit" class="ui yellow button" id="loginBtn" onclick="company_login();">제휴사 로그인</button>
 			<br>
 			<br>
 		</div>	
@@ -174,7 +174,7 @@
 			<%} %>
 		}); 
 		
-		function company_login(){
+		function company_login(){	//액션 따로 주기!!
 			$("#managerLoginForm").attr("action", "<%=request.getContextPath() %>/login.company")
 			$("#managerLoginForm").submit;
 		}

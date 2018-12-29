@@ -73,7 +73,7 @@
 </head>
 
 <body>
-<%-- <form id="joinForm" action="<%=request.getContextPath()%>/insert.me" method="post"> --%>
+<form id="joinForm" action="<%=request.getContextPath()%>/insert.me" method="post">
 	<table align="center">
 		<tr>
 			<td>
@@ -126,7 +126,7 @@
 												<option value="">질문을 선택해주세요</option>
 												<option value="어렸을 적 꿈은?">어렸을 적 꿈은?</option>
 												<option value="가장 좋아하는 꽃은?">가장 좋아하는 꽃은?</option>
-												<option value="어머니 성함은?">어머니 성함은?</option>
+												<option value="내가 태어난 곳은?">내가 태어난 곳은?</option>
 												<option value="내가 좋아하는 연예인은?">내가 좋아하는 연예인은?</option>
 												<option value="가장 좋아하는 동물은?">가장 좋아하는 동물은?</option>
 											</select>
@@ -140,7 +140,7 @@
 							</div>
 							<div align="left">
 								<div class="ui transparent input">
-									<input type="text" name="userAwser" placeholder="답을 입력해주세요">
+									<input type="text" name="userAnwser" placeholder="답을 입력해주세요">
 								</div>
 							</div>
 							<div align="left" class="font">
@@ -170,8 +170,7 @@
 			</td>
 		</tr>
 	</table>
-	<!-- </form> -->
-	
+	</form>
 	<script>
 	function join(){
 		$("#joinForm").submit;
@@ -218,12 +217,12 @@
 		//변수2의 값이 변수1에 해당하는지(존해하는지 => 아이디값이 [a-z]{3,}의 조건에 부합하니?)
 		console.log(idEx1.test(userId));
 		if(idEx1.test(userId)&& userId.length <= 15){
-			alert("사용 가능한 아이디 입니다.");
+			setTimeout(function(){alert("사용 가능한 아이디 입니다.")},1000);
 		}else{
-			alert("아이디를 형식에 맞게 다시 작성하세요");
+			setTimeout(function(){alert("아이디를 형식에 맞게 다시 입력해주세요!")},1000);
 			return false;
 		}
-		alert("아이디 확인");
+
 		
 		//비밀번호 검사
 		var passEx1 = /[a-z0-9]{4,}/ig;	//영어,숫자로 4글자 이상 이루어져야함, 대소문자 관계없이
@@ -232,28 +231,32 @@
 		
 		if(passEx1.test(pass) && passEx11.test(pass)
 				&& pass.length >= 6){	//비밀번호는 6자 이상
-			alert("사용 가능한 비밀번호 입니다");
+			setTimeout(function(){alert("사용 가능한 비밀번호 입니다.")},2000);
+			//alert("사용 가능한 비밀번호입니다"); 
 		}else{
-			alert("비밀번호를 형식에 맞게 다시 작성해주세요!!");
+			setTimeout(function(){alert("비밀번호를 형식에 맞게 다시 입력해주세요!")},2000);
+			//alert("비밀번호를 형식에 맞게 다시 입력해주세요!");
 			return false;
 		}
 		
 		
 		//비밀번호 확인 검사
 		//비밀번호, 비밀번호 확인의 값이 일치하는지
-		var input = document.getElementsByName("input");
+		/* var input = document.getElementsByName("input");
 		var inputPwd1 = input[1].value;	//input태그중 배열 인덱스 1번째 input
-		var inputPwd11 = input[2].value;	//input태그중 배열 인덱스 2번째 input
+		var inputPwd11 = input[2].value;	//input태그중 배열 인덱스 2번째 input */
 		var pass = document.getElementById("pass");
 		var newpass = document.getElementById("newpass");
 		
 		if(pass.value == newpass.value){
-			alert("비밀번호가 설정됩니다");
+			setTimeout(function(){alert("입력한 비밀번호가 설정됩니다")},2000);
+			//alert("입력한 비밀번호가 설정됩니다");
 		}else{
-			alert("비밀번호가 일치하지 않는다구욧!! 다시!!");
-			pass.style.background="red";	//비밀번호 입력칸 빨갛게
-			newpass.style.background="red";	//비밀번호 확인 입력칸 빨갛게
-			newpass.select();	//비밀번호 입력칸으로 커서가 돌아간다
+			setTimeout(function(){alert("비밀번호가 일치하지 않습니다. 확인해주세요!")},2000);
+			//alert("비밀번호가 일치하지 않습니다. 확인해주세요!");
+			/* pass.style.background="red";	//비밀번호 입력칸 빨갛게
+			newpass.style.background="red";	//비밀번호 확인 입력칸 빨갛게 */
+			pass.focus();	//비밀번호 입력칸으로 커서가 돌아간다
 			return false;
 		}
 		
@@ -265,12 +268,16 @@
 		var email = document.getElementById("email").value;
 		
 		if(emailEx1.test(email)){
-			alert("사용 가능한 이메일 입니다.");
+			setTimeout(function(){alert("사용 가능한 이메일 입니다.")},2000);
+			//alert("사용 가능한 이메일 입니다.");
 		}else{
-			alert("이메일을 형식에 맞게 다시 입력하세욧!!!!!");
+			setTimeout(function(){alert("이메일을 형식에 맞게 다시 입력해주세요!")},2000);
+			//alert("이메일을 형식에 맞게 다시 입력해주세요!");
 			return false;
 		} 
-		return false;
+		
+		//setTimeout(function(){alert("ET Planner에 오신걸 환영합니다~^O^")},3000);
+		return true;
 	}
 	
 	
