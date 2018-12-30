@@ -50,7 +50,7 @@
 	<script>
     
     	function test() {
-    		location.href = "/et/views/manager/plan/manager_plan.jsp";
+    		location.href = "/et/selectPlan.mng";
     		/* $("#tb1").css({"visibility":"visible"}); */
     	}
     	
