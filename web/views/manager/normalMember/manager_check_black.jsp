@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "java.util.*, com.kh.et.member.model.vo.*"%>
+<%
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+	PageInfo pi=(PageInfo)request.getAttribute("pi");
+	int listCount=pi.getListCount();
+	int currentPage=pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -87,22 +96,15 @@
     			<th>이메일</th>
     			<th>신고수</th>
     		</tr>
-    		<tr>
-    			<td><input type="checkbox"></td>
-    			<td>001</td>
-    			<td>dog</td>
-    			<td>dog@daum.net</td>
-    			<td>1</td>
-    		</tr>
-    		<tr>
-    			<td><input type="checkbox"></td>
-    			<td>002</td>
-    			<td>cat</td>
-    			<td>cat@daum.net</td>
-    			<td>12</td>
-    		</tr>	
-    		
-    		<!-- 정보뽑아오는거는 나중에 for문 이용하기!  -->
+    		<% for(Member m : list){ %>
+	    		<tr height="27px">
+	    			<td><input type="checkbox"></td>
+	    			<td><%= m.getM_no() %></td>
+	    			<td><%= m.getM_id() %></td>
+	    			<td><%= m.getM_email() %></td>
+	    			<td>신고수</td>
+	    		</tr>
+	    		<%} %>
     	</table>
     	
     	<div class="btn">

@@ -306,4 +306,110 @@ public class ManagerDao {
 		
 		return avgBoard;
 	}
+
+	//최대포인트
+	public int selectMaxPoint(Connection con) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		int max_point=0;
+		
+		String query = prop.getProperty("maxPoint");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				max_point = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return max_point;
+	}
+
+	//200포인트 이상 보유한 회원수
+	public int selectCountMember(Connection con) {
+		Statement stmt= null;
+		ResultSet rset = null;
+		int max_count_member = 0;
+		
+		String query = prop.getProperty("maxCountMember");
+		
+		try {
+			stmt= con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				max_count_member = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		
+		
+		return max_count_member;
+	}
+
+	//블랙회원조회
+	public ArrayList<Member> selectBlackList(Connection con, int currentPage, int limit) {
+		
+		Statement stmt= null;
+		ResultSet rset = null;
+		Member m = null;
+		ArrayList<Member> list = null;
+		
+		//group by절때문에 페이징처리 안됨 ㅠ => 해결하기
+		String query = prop.getProperty("selectBlackList");
+		
+		list = new ArrayList<Member>();
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				m = new Member();
+				
+				m.setM_no(rset.getInt("M_NO"));
+				m.setM_id(rset.getString("M_ID"));
+				m.setM_email(rset.getString("M_EMAIL"));
+				//신고수는 어떻게 세팅?
+				
+				list.add(m);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	//정지회원조회
+	public ArrayList<Member> selectStopList(Connection con, int currentPage, int limit) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

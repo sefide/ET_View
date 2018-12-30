@@ -10,17 +10,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.et.member.model.vo.PageInfo;
 import com.kh.et.manager.model.service.ManagerService;
 import com.kh.et.member.model.vo.Member;
+import com.kh.et.member.model.vo.PageInfo;
 
 
-@WebServlet("/select02.mng")
-public class Manager_Select02_Servlet extends HttpServlet {
+@WebServlet("/select03.mng")
+public class Manager_Select03_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
-    public Manager_Select02_Servlet() {
+   
+    public Manager_Select03_Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -68,28 +68,21 @@ public class Manager_Select02_Servlet extends HttpServlet {
 		//페이징처리에 쓸 변수들 가지고있는 객체생성
 		PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
 				
-		ArrayList<Member> list = new ManagerService().selectAllList(currentPage,limit);
-
-		//회원최대포인트, 200포인트이상 회원수
-		int[] arr = new int[2];
-		arr=new ManagerService().selectPoint();
-		
+		ArrayList<Member> list = new ManagerService().selectBlackList(currentPage,limit);
 
 		String page="";
 		if(list!=null) {
-			page="views/manager/normalMember/manager_check_manager.jsp";
+			page="views/manager/normalMember/manager_check_black.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi); //PageInfo도 같이전달
-			request.setAttribute("arr", arr);
 			
 		}else {
 			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "회원정보 조회 실패!");
+			request.setAttribute("msg", "블랙회원 조회 실패!");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-
 
 		
 	}

@@ -8,6 +8,8 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	
+	int[] arr= (int[])request.getAttribute("arr");
 %>
 
 
@@ -152,11 +154,11 @@
 	    	<table id="tb2">
 	    		<tr>
 	    			<th bgcolor="lightgray" width="1px">회원 최대 포인트</th>
-	    			<td>244</td>
+	    			<td><%= arr[0] %></td>
 	    		</tr>
 	    		<tr>
 	    			<th bgcolor="lightgray">200포인트 이상 회원 수 </th>
-	    			<td>3</td>
+	    			<td><%= arr[1] %></td>
 	    	</table>
 	    </div>
     

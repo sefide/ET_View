@@ -10,17 +10,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.et.member.model.vo.PageInfo;
 import com.kh.et.manager.model.service.ManagerService;
 import com.kh.et.member.model.vo.Member;
+import com.kh.et.member.model.vo.PageInfo;
 
 
-@WebServlet("/select02.mng")
-public class Manager_Select02_Servlet extends HttpServlet {
+@WebServlet("/select04.mng")
+public class Manager_Select04_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
-    public Manager_Select02_Servlet() {
+    
+    public Manager_Select04_Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,6 +29,7 @@ public class Manager_Select02_Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		
+
 		int currentPage;	//현재페이지 표시
 		int limit;			//한페이지에 게시글이 몇개보여질 것인지 표시
 		int maxPage;		//전체페이지에서 가장마지막페이지
@@ -68,28 +69,21 @@ public class Manager_Select02_Servlet extends HttpServlet {
 		//페이징처리에 쓸 변수들 가지고있는 객체생성
 		PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
 				
-		ArrayList<Member> list = new ManagerService().selectAllList(currentPage,limit);
-
-		//회원최대포인트, 200포인트이상 회원수
-		int[] arr = new int[2];
-		arr=new ManagerService().selectPoint();
-		
+		ArrayList<Member> stopList = new ManagerService().selectStopList(currentPage,limit);
 
 		String page="";
-		if(list!=null) {
-			page="views/manager/normalMember/manager_check_manager.jsp";
-			request.setAttribute("list", list);
+		if(stopList!=null) {
+			page="views/manager/normalMember/manager_black.jsp";
+			request.setAttribute("stopList", stopList);
 			request.setAttribute("pi", pi); //PageInfo도 같이전달
-			request.setAttribute("arr", arr);
 			
 		}else {
 			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "회원정보 조회 실패!");
+			request.setAttribute("msg", "정지&탈퇴회원 조회 실패!");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-
 
 		
 	}
