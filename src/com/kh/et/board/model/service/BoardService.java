@@ -2,11 +2,13 @@ package com.kh.et.board.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.et.board.model.dao.BoardDao;
 import com.kh.et.board.model.vo.Board;
 
 import static com.kh.et.common.JDBCTemplate.*;
+
 
 public class BoardService {
 
@@ -37,7 +39,7 @@ public class BoardService {
 	
 	//페이징처리 적용한 게시물 조회용 메소드
 	public ArrayList<Board> selectList(int currentPage, int limit) {
-Connection con = getConnection();
+		Connection con = getConnection();
 		
 		System.out.println(limit);
 		
@@ -48,5 +50,6 @@ Connection con = getConnection();
 		
 		return list;
 	}
+
 
 }
