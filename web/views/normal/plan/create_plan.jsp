@@ -686,21 +686,17 @@
      	// 여행 기간 지정 
         function setTravelDate(){ 
 	   	 	// 입력한 날짜를 받아서 넣고 ! 
-		    var startDate = new Date(travelStartDate);
+	   	 	var y = $("#input-date-start").val().substring(0,4);
+	   	 	var m = $("#input-date-start").val().substring(5,7);
+	   	 	var d = $("#input-date-start").val().substring(8,10);
+		    var startDate = new Date(y,m-1,d);
+	   	 	console.log(y+", " + m + ", " + d);
 		    
-			// 끝 날짜 설정 
-		    	var endDate = new Date(); 
-		    	endDate.setDate(startDate.getDate() + days);
+			// 종료 날짜 정보 설정 
+		    	var endDate = new Date(startDate); 
+		    endDate.setDate(startDate.getDate() + days);
 		    console.log("끝날짜 " + endDate.getDate());
-		    // 시작 날짜 설정 (사용자가 지정한 날짜 )
-		    var sday = startDate.getDate();
-		    var smonth = startDate.getMonth() + 1;
-		    var syear = startDate.getFullYear();
-		
-		    if (smonth < 10) smonth = "0" + smonth;
-		    if (sday < 10) sday = "0" + sday;
-		    var start = syear + "-" + smonth + "-" + sday;    
-				    
+		    
 		    // 종료 날짜 지정 (자동 지정 )
 		    	var eday = endDate.getDate();
 		    var emonth = endDate.getMonth() + 1;

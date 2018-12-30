@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.et.member.model.vo.Member;
 import com.kh.et.plan.model.service.PlanService;
 import com.kh.et.plan.model.vo.City;
 
@@ -33,6 +34,7 @@ public class SelectPlanDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String planNo = request.getParameter("pno");
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
 		HashMap<String, Object> planMap = new PlanService().selectPlanDetail(Integer.parseInt(planNo));
 		HashMap<String,City> cityMap = new PlanService().selectCityMap();
@@ -43,7 +45,7 @@ public class SelectPlanDetailServlet extends HttpServlet {
 			request.setAttribute("planMap", planMap);
 			request.setAttribute("cityMap", cityMap);
 		}else {
-			page = "selectPlanList.pl";
+			page = "selectPlanList.pl?mno="+loginUser.getM_no();
 			request.setAttribute("msg", "일시적인 오류입니다. 조금 뒤에 다시 시도해주세요. ");
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);

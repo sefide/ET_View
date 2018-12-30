@@ -193,6 +193,7 @@
 		border : 1px solid rgba(42,90,133,0.5);
 		background : white;
 		transition : 0.7s;
+		cursor : pointer;
 	}
 	
 	#icon-plan-add{
@@ -279,7 +280,7 @@
 		});
 	   */
 	    function editProfile() {
-	  	  	window.open("views/normal/myPage/myPage_profile_edit.jsp", "프로필 수정", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+	  	  	window.open("/profileSetting.me?", "프로필 수정", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
 	    }
 	    
 	    function addPlanMemory(){

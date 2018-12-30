@@ -279,4 +279,75 @@ public class PlanDao {
 		return resultMap;
 	}
 
+
+	public int updatePlan(Connection con, Plan reqPlan) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePlan");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqPlan.getpTitle());
+			pstmt.setDate(2, reqPlan.getpStartDate());
+			pstmt.setDate(3, reqPlan.getpEndDate());
+			pstmt.setString(4, reqPlan.getpCites());
+			pstmt.setInt(5, reqPlan.getpNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int updatePlanDetailStatusN(Connection con, Plan reqPlan) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePlanDetailStatusN");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reqPlan.getpNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int deletePlan(Connection con, int planNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("deletePlan");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, planNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+
 }

@@ -3,9 +3,11 @@
 <%
 	ArrayList<City> cityList = (ArrayList<City>)request.getAttribute("cityList");
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser"); 
+	
 	HashMap<String, Object> planMap = (HashMap<String, Object>)request.getAttribute("planMap"); 
 	Plan plan = (Plan)planMap.get("plan");
 	ArrayList<PlanDetail> DetailList = (ArrayList<PlanDetail>)planMap.get("planDetailList");
+	
 	String msg = (String)request.getAttribute("msg");
 %>
 
@@ -25,6 +27,7 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
+
  	
  	<!-- css 불러오기  -->
  	<link href = "/et/views/css/create_plan.css" type = "text/css" rel= "stylesheet">
@@ -248,7 +251,7 @@
 		</div>
 	</div>
 	
-	<form id = "insertPlanForm" action = "<%=request.getContextPath()%>/insertPlan.pl" method = "post">
+	<form id = "updatePlanForm" action = "<%=request.getContextPath()%>/updatePlan.pl?pno=<%=plan.getpNo()%>" method = "post">
 	<div class="header">
 		<img src="/et/image/common/logo.png" class = "header-top-img" onclick = "returnMain();">
 		<div class ="div-title">
@@ -262,7 +265,7 @@
 			<span style="color: rgb(211, 84, 0); font-size: large;">플랜짜기</span>
 		</span> -->
 		
-		<button class = "btn-save" onclick = "save();"> 저장하기</button>
+		<button class = "btn-save" onclick = "save();"> 수정완료 </button>
 		<button class = "btn-return" onclick = "returnMain();"> 돌아가기</button>
 	</div>
 	<div class = "plan-table-calendar">
@@ -422,6 +425,7 @@
 	<!-- Semantic UI -->
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 	<script> 
+		
 		var days = 0;
 		var travelStartDate; 
 		$(document).ready(function() {
@@ -429,25 +433,32 @@
  			if(msg != null){ %>
  			alert("<%=msg%>");
  			<%} %>
- 			
-		    var startDate = new Date(<%=plan.getpDate()%>);
+ 			var dayYear ='<%=(plan.getpStartDate().toString()).substring(0,4)%>';
+ 			var dayMonth = '<%=(plan.getpStartDate().toString()).substring(5,7)%>';
+ 			var dayDay = '<%=(plan.getpStartDate().toString()).substring(8,10)%>';
+
+ 			var startDate = new Date(dayYear, dayMonth-1, dayDay);
 		    
 			// 시작 날짜 설정 (오늘)
 		    var sday = startDate.getDate();
 		    var smonth = startDate.getMonth() + 1;
 		    var syear = startDate.getFullYear();
-	
+			
 		    if (smonth < 10) smonth = "0" + smonth;
 		    if (sday < 10) sday = "0" + sday;
 	
 		    var today = syear + "-" + smonth + "-" + sday;    
 		    
+		    $("#input-date-start").attr("value", today);
+		    
+		    dayYear ='<%=(plan.getpEndDate().toString()).substring(0,4)%>';
+ 			dayMonth = '<%=(plan.getpEndDate().toString()).substring(5,7)%>';
+ 			dayDay = '<%=(plan.getpEndDate().toString()).substring(8,10)%>';
+ 			
 			// 끝 날짜 설정 
-		    	var endDate = new Date(); 
+		    	var endDate = new Date(dayYear, dayMonth-1, dayDay); 
 			
-		    	endDate.setDate(startDate.getDate() + days);
-		    	
-		    	var eday = endDate.getDate();
+			var eday = endDate.getDate();
 		    var emonth = endDate.getMonth() + 1;
 		    var eyear = endDate.getFullYear();
 	
@@ -456,8 +467,8 @@
 	
 		    var end = eyear + "-" + emonth + "-" + eday; 
 		    	
-		    $("#input-date-start").attr("value", today);
-		    $("#input-date-end").attr("value", today);
+		  
+		    $("#input-date-end").val(end);
 		    travelStartDate = $("#input-date-start").val();
 		});
 	
@@ -481,11 +492,14 @@
 
 			
 		function save(){
-			$("#insertPlanForm").submit();
+			$("#updatePlanForm").submit();
 		}
 		
 		function returnMain(){
-			location.href = "/et/index.jsp";
+			<% if(loginUser != null) { %>
+			var mno = <%=loginUser.getM_no()%>;
+			location.href = "<%=request.getContextPath()%>/selectPlanList.pl?mno="+mno;
+			<% } %>
 		}
 		
 		function editTitle() {
@@ -522,7 +536,6 @@
 			
 		});
 		function closePop() {
-			/* $("#detailPop").css("display", "none"); */
 			$("#detailPop").css("visibility", "hidden");
 		}
 		
@@ -539,17 +552,32 @@
 			setTravelDate();
 		}
 
+		<%String[] cityArr = plan.getpCites().split(", ");%>  /* 도시이름 */
+
 		/* 지도 스크립트 */
 		var locations = []; 
 		var cityName = "";
 		var cityInfo = "";
 		var cities = [];
-	
+		var exCities = {};
+		var exCitiesorder;
 		<%for(int i = 0; i < cityList.size(); i++) { %> // 이름, 설명, 위도, 경도, 번호 
 			cities = ['<%=cityList.get(i).getCtName()%>', '<%=cityList.get(i).getCtInfo()%>',<%=cityList.get(i).getCtLat()%>,<%=cityList.get(i).getCtLng()%>, <%=cityList.get(i).getCtNo()%>];
 			locations.push(cities); 
+			
+			<%for(int j = 0; j < DetailList.size()+1; j++){ %>
+			var isExist = (cities.indexOf('<%=cityArr[j]%>') !== -1);
+			exCitiesorder = {};
+			if(isExist == true){
+				exCitiesorder = <%=i%>;
+				exCities['<%=j%>'] = exCitiesorder;
+			}
+
+			
+			<%}%>
 		<% }%> 
-       
+		
+		console.log(exCities);
     
         // 맵 정보 설정
         var map = new google.maps.Map(document.getElementById('map-canvas'), { 
@@ -602,6 +630,43 @@
             strokeOpacity: 1.0,
             strokeWeight: 5
         });
+  		
+        // 플랜에서 이미 정해져 있던 도시 초기화 
+        <%for(int i = 0; i < DetailList.size()+2; i++){%> // 0 ~
+	        <%if(i > 1){%> // 2~
+				// 이동 수단 수정 0 ~
+				<%-- console.log("<%=DetailList.get(i-2).getPdTrasnfer()%>");  --%>
+				$("#cityblock"+(countCity-1)).find("#trans").val("<%=DetailList.get(i-2).getPdTrasnfer()%>");
+			<%}
+			long diffDays = 0;
+			java.util.Date cityStart;
+			java.util.Date cityEnd;%>
+			// 체류기간 수정 
+			<%if (i < DetailList.size()+1){%> // 0 ~ 도시 다 추가하고 
+				addCity(exCities[<%=i%>]);  
+				<% if (i < DetailList.size()) {%> // 0 ~ 디테일 만큼 추가하고 
+				<% // 체류기간 계산 
+				cityStart = ((PlanDetail)DetailList.get(i)).getPdStartDate();
+				cityEnd = ((PlanDetail)DetailList.get(i)).getPdEndDate();
+	       		
+	        		} else {
+				//  마지막 도시는 직접 추가하자. 
+				cityStart = ((PlanDetail)DetailList.get(i-1)).getPdEndDate();
+				cityEnd = plan.getpEndDate();
+				
+				} 
+				long diff = cityEnd.getTime() - cityStart.getTime();
+				diffDays = diff / (24 * 60 * 60 * 1000) ;
+				%>
+
+				$("#cityblock"+(countCity-1)).find("#selectNight").val(<%=diffDays%>);
+				days = days + <%=diffDays%>; 
+			    days--;
+				setTravelDate();
+			<%}%>
+			
+        		
+        <%} %>
         
         function addCity(i){
         		var cityblockhead = "<div id ='cityblock" +countCity+ "' class= 'cityblock'> <input type = 'hidden' name = 'cityNo' value = '"+locations[i][4] +"'> <input type = 'hidden' name = 'cityName' value = '"+locations[i][0] +"'> <div class ='bar2'></div>";
@@ -656,7 +721,7 @@
         		
     	        // 3.
     	        countCity--; 
-    			days = days - night_sel;  // 수정 바람 !!!!!!!!!!
+    			days = days - night_sel;  
     			
     			setTravelDate();
     			
@@ -683,7 +748,7 @@
         
      	// 여행 기간 지정 
         function setTravelDate(){ 
-	   	 	// 입력한 날짜를 받아서 넣고 ! 
+	   	 	/* // 입력한 날짜를 받아서 넣고 ! 
 		    var startDate = new Date(travelStartDate);
 		    
 			// 끝 날짜 설정 
@@ -699,6 +764,28 @@
 		    if (sday < 10) sday = "0" + sday;
 		    var start = syear + "-" + smonth + "-" + sday;    
 				    
+		    // 종료 날짜 지정 (자동 지정 )
+		    	var eday = endDate.getDate();
+		    var emonth = endDate.getMonth() + 1;
+		    var eyear = endDate.getFullYear();
+		
+		    if (emonth < 10) emonth = "0" + emonth;
+		    if (eday < 10) eday = "0" + eday;
+		
+		    var end = eyear + "-" + emonth + "-" + eday; 
+	    	
+	    		$("#input-date-end").val(end);  */
+        		var y = $("#input-date-start").val().substring(0,4);
+	   	 	var m = $("#input-date-start").val().substring(5,7);
+	   	 	var d = $("#input-date-start").val().substring(8,10);
+		    var startDate = new Date(y,m-1,d);
+	   	 	console.log(y+", " + m + ", " + d);
+		    
+		   	// 종료 날짜 정보 설정 
+		    	var endDate = new Date(startDate); 
+		    endDate.setDate(startDate.getDate() + days);
+		    console.log("끝날짜 " + endDate.getDate());
+		    
 		    // 종료 날짜 지정 (자동 지정 )
 		    	var eday = endDate.getDate();
 		    var emonth = endDate.getMonth() + 1;
