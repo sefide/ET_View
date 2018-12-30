@@ -75,7 +75,7 @@
     	}
     	
     	function check_black(){
-    		location.href="/et/views/manager/normalMember/manager_check_black.jsp";
+    		location.href="<%=request.getContextPath()%>/select03.mng";
     	}
     	
     	function manager_black(){

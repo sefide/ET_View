@@ -105,4 +105,54 @@ public class ManagerService {
 		return total;
 	}
 
+	//최대포인트회원, 200포인트이상회원
+	public int[] selectPoint() {
+		Connection con = getConnection();
+		
+		int[] arr = new int[2];
+		int max_point = new ManagerDao().selectMaxPoint(con);
+		int max_count_member = new ManagerDao().selectCountMember(con);
+		
+		arr[0] = max_point;
+		arr[1] = max_count_member;
+		
+		close(con);
+		
+		return arr;
+	}
+
+	//블랙회원 조회
+	public ArrayList<Member> selectBlackList(int currentPage, int limit) {
+		Connection con = getConnection();
+		
+		ArrayList<Member> list= new ManagerDao().selectBlackList(con,currentPage,limit);
+		
+		if(list!=null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+		
+		return list;
+	}
+
+	//정지회원조회
+	public ArrayList<Member> selectStopList(int currentPage, int limit) {
+		Connection con = getConnection();
+		
+		ArrayList<Member> list= new ManagerDao().selectStopList(con,currentPage,limit);
+		
+		if(list!=null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+		
+		return list;
+	}
+
 }
