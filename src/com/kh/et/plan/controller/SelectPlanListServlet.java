@@ -39,6 +39,7 @@ public class SelectPlanListServlet extends HttpServlet {
 		HashMap<String,City> cityMap = new PlanService().selectCityMap();
 		ArrayList<Plan> planList = new PlanService().selectPlanList(mno);
 		
+		
 		String page ="";
 		if(planList != null && cityMap != null) {
 			page = "views/normal/myPage/myPage_main.jsp";
