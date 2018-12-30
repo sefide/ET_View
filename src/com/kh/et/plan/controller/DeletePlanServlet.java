@@ -1,8 +1,6 @@
 package com.kh.et.plan.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.et.member.model.vo.Member;
 import com.kh.et.plan.model.service.PlanService;
-import com.kh.et.plan.model.vo.City;
-import com.kh.et.plan.model.vo.PlanDetail;
 
 /**
- * Servlet implementation class SelectPlanForUpdateServlet
+ * Servlet implementation class DeletePlanServlet
  */
-@WebServlet("/selectPlanForUpdate.pl")
-public class SelectPlanForUpdateServlet extends HttpServlet {
+@WebServlet("/deletePlan.pl")
+public class DeletePlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectPlanForUpdateServlet() {
+    public DeletePlanServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,27 +31,22 @@ public class SelectPlanForUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String planNo = request.getParameter("pno");
+		int planNo = Integer.parseInt(request.getParameter("pno"));
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
-		HashMap<String, Object> planMap = new PlanService().selectPlanDetail(Integer.parseInt(planNo));
-		HashMap<String,City> cityMap = new PlanService().selectCityMap();
-		ArrayList<City> cityList = new PlanService().selectCityList();
+		int result = new PlanService().deletePlan(planNo);
 		
 		String page = "";
-		if(planMap != null && cityMap != null) {
-			page = "/views/normal/plan/update_plan.jsp";
-			request.setAttribute("planMap", planMap);
-			request.setAttribute("cityMap", cityMap);
-			request.setAttribute("cityList", cityList);
-			
+		if(result > 0) {
+			page ="selectPlanList.pl?mno="+loginUser.getM_no();
+			request.setAttribute("msg", "플랜이 삭제되었습니다.");
 		}else {
-			page = "selectPlanDetail.pl?pno="+Integer.parseInt(planNo);
-			request.setAttribute("msg", "일시적인 오류입니다. 조금 뒤에 다시 시도해주세요. ");
+			page ="selectPlanList.pl?mno="+loginUser.getM_no();
+			request.setAttribute("msg", "일시적인 오류로 삭제되지 않았습니다. 나중에 다시 시도해주세요.");
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-	
-	
+		
 	}
 
 	/**

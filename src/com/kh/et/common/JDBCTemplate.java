@@ -32,7 +32,7 @@ public class JDBCTemplate {
 
 			con.setAutoCommit(false); // 자동 커밋 방지
 
-			System.out.println(con);
+//			System.out.println(con);
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

@@ -5,6 +5,8 @@
 	Plan plan = (Plan)planMap.get("plan");
 	ArrayList<PlanDetail> DetailList = (ArrayList<PlanDetail>)planMap.get("planDetailList");
 	HashMap<String,City> cityMap = (HashMap<String,City>)request.getAttribute("cityMap");
+	
+	String msg = (String)request.getAttribute("msg");
 %>
 <!DOCTYPE html>
 <html>
@@ -31,6 +33,7 @@
 	
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">
+
 	
 <style>
 	.div-flex {
@@ -50,15 +53,15 @@
     		flex-wrap : wrap;
     }
     #plan-title{
-    		width : 88%;
+    		width : 86%;
     		font-size : 25px;
     		font-weight : 800;
     		font-family: 'Nanum Gothic', sans-serif;
     }
-    #plan-btns {
-    		width : 10%;
-    }
     
+    #plan-btns {
+    		width : 12%;
+    }
     #seeInfo, #setting{
     		font-size : 24px;
     }
@@ -94,6 +97,37 @@
     		font-family: 'Nanum Gothic', sans-serif;
     		color : gray;
     }
+    
+    #selectSetting{
+    	 	position : absolute;
+    	 	visibility : hidden;
+ 	 	top : 60px;
+ 	 	font-size : 20px;
+ 	 	z-index : 1000;
+ 	 	background : white;
+ 	 	border : 3px solid white;
+    }
+    .settingBtn{
+    		border : 1px solid lightgray;
+    		border-radius : 7px;
+    		color : gray;
+    		cursor : pointer;
+    }
+    
+    .fc-event,
+	.fc-agenda .fc-event-time,
+	.fc-event a {
+		border-style: solid; 
+		border-color: rgb(42,90,133) !important;    /* default BORDER color (probably the same as background-color) */
+		background-color: rgb(42,90,133) !important; /* default BACKGROUND color */
+		color: #fff;            /* default TEXT color */
+	}
+	
+	.fc-header .fc-state-disabled span {
+	border-color: #fff #fff #f0f0f0 !important; /* inner border */
+	background: black !important;
+	}
+    
 </style>
 
 </head>
@@ -111,8 +145,13 @@
 	        		<div class ="div-plan-top">
 	        			<div class = "" id= "plan-title"><%=plan.getpTitle() %> </div> 
 	        			<div class = "" id = "plan-btns">
-	        				<i class="info icon" id = "seeInfo" ></i>
-	        				<i class="cog icon" id = "setting"  onclick = "goSetting();"></i>
+	        				<i class="info icon" id = "seeInfo" >
+	        				<div id ="selectSetting">
+	        					<button class = "settingBtn" id = "Update"> 수정하기 </button>
+	        					<button class = "settingBtn" id = "Delete"> 삭제하기 </button>
+	        				</div>
+	        				</i>
+	        				<i class="cog icon" id = "setting" ></i>
 	        			</div>
 	        			<div class ="div-absolute" >
 			        <div class ="plan-infoBox">
@@ -127,7 +166,8 @@
 	        	 
 	        <div class = "div-right"> 
 		        <div class = "calendar" style="margin-top:50px;">
-		        		<%@ include file = "/views/normal/plan/calendar_plan.jsp" %>
+		        		<%-- <%@ include file = "/views/normal/plan/calendar_plan.jsp" %> --%>
+		        		<div id='calendar'></div>
 		        </div>
 		        <div class = "div-plan-info">
 		        		<div>좋아요, 스크랩개수 </div>
@@ -143,14 +183,36 @@
    	
    	<!-- footer -->
    	<script>
-   		function goSetting(){
+   		var toggle1 = 0;
+   		$("#setting").click(function() {
+			if(toggle1 == 0){
+				$("#selectSetting").css("visibility", "visible");
+				toggle1 = 1;
+   			}else {
+   				$("#selectSetting").css("visibility", "hidden");
+   				toggle1 = 0;
+   			}
+		});
+   		$("#Delete").click(function() {
+			location.href = "<%=request.getContextPath()%>/deletePlan.pl?pno="+<%=plan.getpNo()%>;
+			$("#selectSetting").css("visibility", "hidden");
+			toggle1 = 0;
+		});
+   		$("#Update").click(function() {
    			location.href = "<%=request.getContextPath()%>/selectPlanForUpdate.pl?pno="+<%=plan.getpNo()%>;
-   		}
+   			$("#selectSetting").css("visibility", "hidden");
+   			toggle1 = 0;
+   		});
    		
-   		$("#seeInfo").toggle(function() {
-   			$(".div-absolute").css("visibility", "visible");
-   		}, function() {
-   		  $(".div-absolute").css("visibility", "hidden");
+   		var toggle2 = 0;
+   		$("#seeInfo").click(function() {
+   			if(toggle2 == 0){
+   				$(".div-absolute").css("visibility", "visible");
+   				toggle2 = 1;
+   			}else {
+	   			$(".div-absolute").css("visibility", "hidden");
+	   			toggle2 = 0;
+   			}
    		});
    		
    		var flightPlanCoordinates = [];
@@ -199,8 +261,101 @@
             
         }
         
+        $(document).ready(function() {
+			<% 
+ 			if(msg != null){ %>
+ 			alert("<%=msg%>");
+ 			<%} %>
+ 		});
+        
    	
    	</script>
+   
+   	<!-- 달력 -->
+   	<link rel='stylesheet' type='text/css' href='http://www.blueb.co.kr/data/201010/IJ12872423858253/theme.css' />
+   	
+	<link rel='stylesheet' type='text/css'
+	href='http://www.blueb.co.kr/data/201010/IJ12872423858253/fullcalendar.css' />
+	<script type='text/javascript'
+		src='http://www.blueb.co.kr/data/201010/IJ12872423858253/jquery.js'></script>
+	<script type='text/javascript'
+		src='http://www.blueb.co.kr/data/201010/IJ12872423858253/jquery-ui-custom.js'></script>
+	<script type='text/javascript'
+		src='http://www.blueb.co.kr/data/201010/IJ12872423858253/fullcalendar.min.js'></script>
+	<script>
+	var jb = jQuery.noConflict();
+	
+	jb(document).ready(function() {
+		var y ='<%=(plan.getpStartDate().toString()).substring(0,4)%>';
+		var m = '<%=(plan.getpStartDate().toString()).substring(5,7)%>';
+		var d = '<%=(plan.getpStartDate().toString()).substring(8,10)%>';
+		var date = new Date(y, m-1, d);
+		
+		/* var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear(); */
+		var event = [];
+		var eventInfo = {};
+		var sy, sm, sd;
+		var ey, em, ed;
+		var title;
+		<%
+		java.util.Date cityStart;
+		java.util.Date cityEnd;
+		String[] cityArr = plan.getpCites().split(", ");
+		for(int i = 0; i < cityArr.length; i++){ // 0 ~ 여행 도시 개수 
+			if(i < cityArr.length-1){ // 0 ~ 플랜디테일 사이즈 개수 
+			    cityStart = ((PlanDetail)DetailList.get(i)).getPdStartDate();
+			    cityEnd = ((PlanDetail)DetailList.get(i)).getPdEndDate(); %>
+				sy = <%=cityStart.toString().substring(0,4)%>;
+				sm = <%=cityStart.toString().substring(5,7)%>;
+				sd = <%=cityStart.toString().substring(8,10)%>;
+				ey = <%=cityEnd.toString().substring(0,4)%>;
+				em = <%=cityEnd.toString().substring(5,7)%>;
+				ed = <%=cityEnd.toString().substring(8,10)%>; 
+				console.log(sy + ", " + sm + ", " + sd + "/ " + ey + ", " + em + ", " + ed);
+ 			<%} else { 
+				cityStart = ((PlanDetail)DetailList.get(i-1)).getPdEndDate();
+				cityEnd = plan.getpEndDate(); %>
+				sy = <%=cityStart.toString().substring(0,4)%>;
+				sm = <%=cityStart.toString().substring(5,7)%>;
+				sd = <%=cityStart.toString().substring(8,10)%>;
+				ey = <%=cityEnd.toString().substring(0,4)%>;
+				em = <%=cityEnd.toString().substring(5,7)%>;
+				ed = <%=cityEnd.toString().substring(8,10)%>; 
+				console.log(sy + ", " + sm + ", " + sd + "/ " + ey + ", " + em + ", " + ed);
+			 <% } %>
+			 title = '<%=cityArr[i]%>';
+			 eventInfo = {title : title, start : new Date(sy,sm-1,sd), end : new Date(ey,em-1,ed)};
+			 event.push(eventInfo);
+			 console.log(eventInfo);
+		<%}%>
+		
+		
+			/* {
+				title: 'Long Event',
+				start: new Date(y, m, d-5),
+				end: new Date(y, m, d-2)
+			}]; */
+		jb('#calendar').fullCalendar({
+			theme: true,
+			header : {
+				/* left : 'title', */
+				/* center : 'agendaDay,agendaWeek,month', */
+				left : '',
+				center : 'title',
+				right : 'prev, next'
+			},
+			editable: false,
+			events: event
+		});
+		
+/* 		events.push
+ */		
+	});
+
+</script>
+	
 </body>
 </html>
-

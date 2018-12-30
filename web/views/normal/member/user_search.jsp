@@ -111,7 +111,7 @@
 <body>
 <div class="main" align="center">
 	<div id="main-children">
-		<form id="idSearchForm" action="<%=request.getContextPath()%>/idsearch.me" method="post">
+		<%-- <form id="idSearchForm" action="<%=request.getContextPath()%>/idsearch.me" method="post"> --%>
 			<table align="center">
 				<tr>
 					<td>
@@ -140,7 +140,7 @@
 												</div>
 												<div class="ui form">
 													<div class="question">
-														<select name="userQuestion">
+														<select name="userQuestion" id="userQuestion">
 															<option value="">질문을 선택해주세요</option>
 															<option value="어렸을 적 꿈은?">어렸을 적 꿈은?</option>
 															<option value="가장 좋아하는 꽃은?">가장 좋아하는 꽃은?</option>
@@ -159,14 +159,14 @@
 													<label>답안</label>
 												</div>
 												<div class="answer">
-													<input type="text" name="userAnwser" placeholder="답안을 입력해주세요">
+													<input type="text" name="userAnwser" id="userAnwser" placeholder="답안을 입력해주세요">
 												</div>
 												<br>
 												<div align="left" class="font">
 													<label>이메일</label>
 												</div>
 												<div class="answer">
-													<input type="email" name="userEmail" placeholder="이메일을 입력해주세요">
+													<input type="email" name="userEmail" id="userEmail" placeholder="이메일을 입력해주세요">
 												</div>
 											</div>
 										</div>
@@ -196,19 +196,36 @@
 													<label>아이디</label>
 												</div>
 												<div class="answer">
-													<input type="text" name="userId" placeholder="아이디를 입력해주세요">
+													<input type="text" name="userId" id="userId" placeholder="아이디를 입력해주세요">
 												</div>
 												<br>
 												<div align="left" class="font">
 													<label>이메일</label>
 												</div>
 												<div class="answer">
-													<input type="email" name="userEmailPass" placeholder="이메일을 입력해주세요">
+													<input type="email" name="userEmailPass" id="userEmailPass" placeholder="이메일을 입력해주세요">
 												</div>
 											</div>
 										</div>
 										<div>
-											<br><button class="ui button" onclick="pwdSearch();" style="width: 70%; font-family: 'Nanum Gothic', sans-serif;">임시 비밀번호 발급받기</button>
+										<br><button class="ui button" onclick="return pwdSearch();" style="width: 70%; font-family: 'Nanum Gothic', sans-serif;">임시 비밀번호 발급받기</button>
+										
+										<%!public String getRandom(){
+										char[] charSet 
+											= new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' }; 
+											int idx = 0; 
+											StringBuffer sb = new StringBuffer(); 
+											/* System.out.println("charSet.length :::: "+charSet.length);  */
+										for(int i = 0; i < 10; i++) { 
+											idx = (int) (charSet.length * Math.random());
+											System.out.println("idx :::: "+idx); 
+											sb.append(charSet[idx]); 
+											} // 36 * 생성된 난수를 Int로 추출 (소숫점제거)
+										
+										return sb.toString();
+										}
+											%>
+											<input type="hidden" value="<%=getRandom()%>" id="randomCode">
 										</div>
 										<br>
 										<div class="pTag">회원가입시 입력한 이메일로 임시 비밀번호가</div>
@@ -229,37 +246,68 @@
 					<td></td>
 				</tr>
 			</table>
-				
-		</form>
+		<!-- </form> -->
 	</div>
 </div>
 <script>
 	function pwdSearch(){	//액션 따로 주기!!
-		$("#idSearchForm").attr("action", "<%=request.getContextPath() %>/login.company")
+		$("#idSearchForm").attr("action", "<%=request.getContextPath()%>/login.company")
 		$("#idSearchForm").submit;
 	}
 	
 	//아이디 찾기
 	function idSearch(){
-		var userId = $("#userId").val();
+		var userQuestion = $("#userQuestion").val();
+		var userAnwser = $("#userAnwser").val();
+		var userEmail = $("#userEmail").val();
 		//console.log("확인");
 		
 		$.ajax({
-			url:"/et/idCheck.me",
-			type:"post",
-			data:{userId:userId},
+			url:"/et/idsearch.me",
+			type:"get",
+			data:{userQuestion:userQuestion, userAnwser:userAnwser, userEmail:userEmail},
 			success:function(data){
-				if(data == "fail"){
-					alert("이미 사용중인 아이디 입니다.");
+				if(data == 'result'){
+					alert(result);
 				}else{
-					alert("사용 가능한 아이디입니다.");
+					alert("찾으시는 아이디가 없습니다");
 				}
 			},
 			error:function(){
 				console.log("실패!");
 			}
 		});
-		return false;
+		return false; 
+			
+	}	
+	
+	//임시비밀번호 발급
+	function pwdSearch(){
+		
+		var randomCode = $("#randomCode").val();
+		
+		var userId = document.getElementById("userId").value;
+		var userEmailPass = document.getElementById("userEmailPass").value;
+		/* var email1 = document.getElementById("email1").value;
+		var email2 = document.getElementById("email2").value;
+		var fullEmail = email1 + "@" + email2; */
+		
+		$.ajax({
+			url:"/et/temporaryPassword.me",
+			type:"post",
+			data:{userId:userId, userEmailPass:userEmailPass, randomCode:randomCode},
+			success:function(data){
+				if(data == "SUCCESS"){
+					alert("임시비밀번호 발송 성공!");
+				}else{
+					alert("인증코드 발송 실패");
+				}
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+		return true;
 			
 	}	
 </script>

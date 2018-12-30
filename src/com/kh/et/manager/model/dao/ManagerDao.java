@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.et.manager.model.vo.Manager;
@@ -411,5 +412,83 @@ public class ManagerDao {
 	public ArrayList<Member> selectStopList(Connection con, int currentPage, int limit) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectPlan(Connection con, int currentPage, int limit) {
+		
+		PreparedStatement pstmt=null;
+		ArrayList<HashMap<String,Object>> list=null;
+		HashMap<String, Object> hmap=null;
+		ResultSet rset=null;
+		
+		String query=prop.getProperty("selectPlan");
+		System.out.println("hashmap1dao");
+		try {
+			pstmt=con.prepareStatement(query);
+			
+			int startRow=(currentPage-1)*limit+1;
+			int endRow = startRow + limit - 1;	//한 페이지에서의 글 목록 끝 번호
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			list=new ArrayList<HashMap<String,Object>>();
+			
+			System.out.println("hashmap2dao");
+			while(rset.next()) {
+				hmap=new HashMap<String,Object>();
+				
+				hmap.put("pNo",rset.getInt("P_NO"));
+				hmap.put("pTitle",rset.getString("P_TITLE"));
+				hmap.put("m_name",rset.getString("M_NAME"));
+				hmap.put("pPrivate",rset.getString("P_PRIVATE"));
+				hmap.put("PI_type",rset.getString("PI_TYPE"));//뽑아오는것은 숫자
+				list.add(hmap);
+				
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+	
+		return list;
+		
+		
+		
+	}
+
+	public int getListCount1(Connection con) {
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		//전체 게시글 수 조회
+		String query = prop.getProperty("planListCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1); //? 총 글의개수
+				
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		return listCount;
+
 	}
 }

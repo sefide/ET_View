@@ -107,9 +107,10 @@
 		color : rgb(42,90,133);
 	}
 	
-	/* .card {
-		height : 360px;
-	}*/
+	.card {
+		height : 330px;
+		width:200px;
+	}
 	.card-img-top{
 		height : 270px;
 	} 
@@ -265,10 +266,11 @@
                 <div class="ui header title" id ="title">다른 투어보기 </div>
                 
 	            <div class = "div-card-tour">
-	            <div class="card-deck">
-	             <%for(int i=0; i <list.size(); i++){ 
+	            <%for(int i=0; i <list.size(); i++){ 
                 	HashMap<String,Object> hmap = list.get(i);
                 %> 
+	            <div class="card-deck" style="width:230px">
+	             
 	             <input type="hidden" value="<%=hmap.get("tno")%>">
 				  <div class="card">
 				 	<div>

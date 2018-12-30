@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.et.manager.model.vo.*"%>
+    <%ArrayList<HashMap<String,Object>> list=(ArrayList <HashMap<String,Object>>)request.getAttribute("list");
+    		 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+    			int listCount = pi.getListCount();
+    			int currentPage = pi.getCurrentPage();
+    			int maxPage = pi.getMaxPage();
+    			int startPage = pi.getStartPage();
+    			int endPage = pi.getEndPage(); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -68,30 +75,51 @@ table{
     			<th>공개여부</th>
     			<th>좋아요수</th>
     		</tr>
+    		<%for(int i=0;i<list.size();i++) {
+    		HashMap<String,Object>hmap=list.get(i);
+    		%>
     		<tr>
-    			<td>1</td>
-    			<td>나의 첫 유럽~</td>
-    			<td>박현우</td>
-    			<td>Y</td>
-    			<td>23</td>
+    			<td><%=hmap.get("pNo") %></td>
+    			<td><%=hmap.get("pTitle") %></td>
+    			<td><%=hmap.get("m_name") %></td>
+    			<td><%=hmap.get("pPrivate") %></td>
+    			<td><%=hmap.get("PI_type") %></td>
     		</tr>
+    		<%} %>
     		
-    		<tr>
-    			<td>2</td>
-    			<td>파리~</td>
-    			<td>민병현</td>
-    			<td>Y</td>
-    			<td>5</td>
-    		</tr>
-    		<tr>
-    			<td>2</td>
-    			<td>파리~</td>
-    			<td>민병현</td>
-    			<td>Y</td>
-    			<td>5</td>
-    		</tr>
     		
     	</table>
+    	
+    	<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage = 1'"> << </button>
+			
+			<% if(currentPage <= 1){ %>
+			<button disabled> < </button>
+			<% }else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%=currentPage - 1%>'"> < </button>
+			<% } %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+					if(p == currentPage){
+			%>
+					<button disabled><%= p %></button>
+			<%      }else{ %>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%= p %>'"><%= p %></button>
+			<%      } %>
+	
+			<% } %>
+			
+			
+			<% if(currentPage >= maxPage){ %> <!-- 마지막 페이지일 경우 -->
+			<button disabled> > </button>
+			<% }else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%=currentPage + 1%>'"> > </button>
+			<% } %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%=maxPage%>'"> >> </button> 
+			
+		</div>
+    	
+    	
     </div>
 	
  <div class = "two wide column"></div> 

@@ -152,7 +152,7 @@
                     		<a class="nav_link" href="<%=request.getContextPath()%>/total.mng">커뮤니티 관리</a>
                 		</li>
                 		<li class="nav_item">
-                    		<a class="nav_link" href="/et/views/manager/plan/manager_plan.jsp">여행플랜&여행지 관리</a>
+                    		<a class="nav_link" href="<%=request.getContextPath()%>/selectPlan.mng">여행플랜&여행지 관리</a>
                		 	</li><li class="nav_item">
                     		<a class="nav_link" href="/et/selectList.co">투어&제휴사 관리</a>
                		 	</li><li class="nav_item">
