@@ -6,10 +6,12 @@ import static com.kh.et.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.et.manager.model.dao.ManagerDao;
 import com.kh.et.manager.model.vo.Manager;
 import com.kh.et.member.model.vo.Member;
+
 
 public class ManagerService {
 
@@ -153,6 +155,32 @@ public class ManagerService {
 		close(con);
 		
 		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectPlan(int currentPage, int limit) {
+		
+		Connection con=getConnection();
+		ArrayList<HashMap<String,Object>> list=new ManagerDao().selectPlan(con,currentPage,limit);
+		
+		close(con);
+		
+		
+		return list;
+	}
+
+	public int getListCount1() {
+		Connection con = getConnection();
+		int listCount = new ManagerDao().getListCount1(con);
+		
+		if(listCount>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return listCount;
 	}
 
 }

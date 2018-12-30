@@ -64,7 +64,7 @@
 			<table align = "center">
 				<tr>
 					<td id ="txt">
-						<label id = "txt"> 프로필 사진 </label>
+						<label id = "txt"> - 프로필 사진 </label>
 					</td>
 				</tr>
 				<tr>
@@ -85,7 +85,7 @@
 					<td> 
 						<div class="ui form">
 						  <div class="field">
-						    <label id ="txt"> 자기 소개글 </label>
+						    <label id ="txt"> - 자기 소개글 </label>
 						    <textarea name = "profileTxt" rows="3" cols = "50" style = "resize : none" placeholder = "자기 소개 부탁바람"></textarea>
 						  </div>
 						</div>

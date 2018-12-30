@@ -99,4 +99,43 @@ public class PlanService {
 		return resultMap;
 	}
 
+	public int updatePlan(Plan reqPlan, ArrayList<PlanDetail> planDetailList) {
+		Connection con = getConnection();
+		// 1. 플랜 수정하고
+		int resultPlanUpdate = new PlanDao().updatePlan(con, reqPlan);
+		int result = 0;
+		
+		// 2. 그 전에 저장 되었던 플랜 디테일 상태 N로 바꾸고
+		int resultPlanDetailStatusN = new PlanDao().updatePlanDetailStatusN(con, reqPlan);
+		
+		for(int i = 0; i < planDetailList.size(); i++) {
+			planDetailList.get(i).setPdpNo(reqPlan.getpNo());
+		}
+		// 3. 새로운 플랜 디테일을 추가한다. 
+		int resultPlanDetailInsert = new PlanDao().insertPlanDetail(con, planDetailList);
+		
+		if(resultPlanUpdate > 0 && resultPlanDetailStatusN> 0 && resultPlanDetailInsert > 0) {
+			System.out.println("셋 다 성공했어 ");
+			commit(con);
+			result = 1;
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int deletePlan(int planNo) {
+		Connection con = getConnection();
+		
+		int result = new PlanDao().deletePlan(con, planNo);
+		
+		if(result>0) commit(con);
+		else rollback(con);
+		
+		close(con);
+		return result;
+	}
+
 }
