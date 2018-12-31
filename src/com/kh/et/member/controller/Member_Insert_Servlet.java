@@ -60,16 +60,19 @@ public class Member_Insert_Servlet extends HttpServlet {
 		
 		String page="";
 		if(result > 0) {
-			request.setAttribute("joinmsg", "ET Planner에 오신걸 환영합니다~^O^");
-			page = "views/normal/member/user_login.jsp";
+			/*request.setAttribute("joinmsg", "ET Planner에 오신걸 환영합니다~^O^");*/
+			/*page = "views/normal/member/user_login.jsp";*/
+			response.sendRedirect("views/normal/member/user_login.jsp");
+			System.out.print("회ㅝㄴ가입 성공 ");
 			//response.sendRedirect("views/normal/member/user_login.jsp");
 		}else {
 			request.setAttribute("msg", "회원가입에 실패햇어ㅠㅠ");
 			page = "views/normal/member/user_join.jsp";
 			//request.getRequestDispatcher("views/normal/member/user_join.jsp").forward(request, response);
+			RequestDispatcher view = request.getRequestDispatcher(page);
+			view.forward(request, response);
 		}
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
+		
 		
 		
 		

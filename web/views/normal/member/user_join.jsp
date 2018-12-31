@@ -91,7 +91,7 @@ table{
 <div class="main">
 	<div align="center" class="ui piled segment" id="joinForm">
 		<div class="content">
-	<form id="joinForm" method="post">
+	<form id="joinForm" method="post" action="<%=request.getContextPath()%>/insert.me">
 				<table align="center">
 					<tr>
 						<td>
@@ -225,7 +225,7 @@ table{
 							<div align="left">
 								<div class="ui transparent input">
 									<input type="text" name="userName" id="name" placeholder="이름을 입력해주세요">
-									<button type="submit" onsubmit="return join();" class="ui blue right labeled icon button"
+									<button type="submit" onclick="return join();" class="ui blue right labeled icon button"
 											style="width: 130px; height: 35px; font-size: 13px; color: white;">
 									<i class="right arrow icon"></i>가입하기
 									</button>
@@ -316,11 +316,11 @@ table{
 	 $("#pass").change(function(){
 		//비밀번호 검사
 		var passEx1 = /[a-z0-9]{4,}/ig;	//영어,숫자로 4글자 이상 이루어져야함, 대소문자 관계없이
-		var passEx11 = /\d+\S/;	//숫자가 1개 이상 포함되어야 한다.
+		var passEx11 = /\d+/;	//숫자가 1개 이상 포함되어야 한다.
 		var pass = document.getElementById("pass").value;
 		
 		if(!passEx1.test(pass) || !passEx11.test(pass) 
-			|| !pass.length >= 6){	//비밀번호는 6자 이상
+			|| !pass.length >= 4){	//비밀번호는 6자 이상
 			alert("비밀번호를 형식에 맞게 다시 입력해주세요!");
 			$("#pass").val("");	
 			$("#newpass").val("");	
@@ -426,6 +426,7 @@ table{
 		
 	//가입하기 버튼 클릭시 && 널값
 	function join(){
+		<%System.out.println("들어와");%>
 		 if($("#userId").val() == ""){	
 			alert("아이디를 입력해주세요");
 			return false;
@@ -436,7 +437,7 @@ table{
 			alert("비밀번호를 입력해주세요");
 			return false;
 		}else if($("#newpass").val() == ""){
-			alert("비밀번호가 일치하는지 확인해주세요");
+			alert("비밀번호 확인란을 입력해주세요");
 			return false;
 		}else if($("#pass").val() != $("#newpass").val()){
 			alert("비밀번호가 일치하지 않습니다.");
@@ -454,8 +455,9 @@ table{
 			return false;
 		}else{ 
 			console.log("성공..!!!???");
-			$("#joinForm").attr("action","<%=request.getContextPath()%>/insert.me")
-			$("#joinForm").submit;
+			<%System.out.println("들어와짜나 ");%>
+			 <%-- $("#joinForm").attr("action","<%=request.getContextPath()%>/insert.me");  --%>
+			$("#joinForm").submit();
 			return true;
 		 } 
 		 

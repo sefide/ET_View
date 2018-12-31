@@ -72,7 +72,7 @@ public class Email_Check_Servlet extends HttpServlet {
              
             // 이메일 내용
             request.setAttribute("randomCode", randomCode);
-            msg.setText("인증번호 : "+randomCode, "UTF-8");
+            msg.setText("ET Planner에 방문해주셔서 감사합니다!<br>인증번호를 입력해주세요^O^<br><br>인증번호 : "+randomCode, "UTF-8");
        
              
             // 이메일 헤더
@@ -81,7 +81,7 @@ public class Email_Check_Servlet extends HttpServlet {
             //메일보내기   
             Transport.send(msg);
        
-            System.out.println("보냄");
+            System.out.println("보냇씁니다");
             
             response.getWriter().print("SUCCESS");
             

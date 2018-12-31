@@ -81,6 +81,17 @@ public class MemberService {
 		return loginUser;
 	}
 
+	//임시비밀번호 발급 후 DB에서 비밀번호 변경해주기
+	public int newpass(String randomCode, String userId, String userEmailPass) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().newpass(con, randomCode, userId, userEmailPass);
+		
+		close(con);
+		
+		return result;
+	}
+
 
 
 }

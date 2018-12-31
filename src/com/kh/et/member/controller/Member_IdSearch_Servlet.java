@@ -38,9 +38,9 @@ public class Member_IdSearch_Servlet extends HttpServlet {
 		String answer = request.getParameter("userAnwser");
 		String email = request.getParameter("userEmail");
 		
-		/*System.out.println("질문 : "+question);
+		System.out.println("질문 : "+question);
 		System.out.println("답 : "+answer);
-		System.out.println("메일 : " + email);*/
+		System.out.println("메일 : " + email);
 		
 		Member reqMember = new Member();
 		reqMember.setM_question(question);
@@ -50,19 +50,13 @@ public class Member_IdSearch_Servlet extends HttpServlet {
 		Member loginUser = new MemberService().memberIdSearch(reqMember);
 		
 		
-		String userId = loginUser.getM_id();	//변수 userId에 loginUer에 있는 아이디를 가져와서 저장
-		
-		System.out.println("질문 : " + userId);
-		System.out.println("질문 : " + loginUser.getM_question());
-		System.out.println("답 : " + loginUser.getM_answer());
-		System.out.println("아이디: " + loginUser.getM_id());
-		
-		PrintWriter out = response.getWriter();
-		
-		if(userId != null) {
-			out.append("({'result':'입력하신 정보와 일치하는 아이디는 ' + userId + '입니다'})");
+		if(loginUser != null) {
+			response.getWriter().print(loginUser.getM_id());
+			
+			//request.setAttribute("loginUser", loginUser);	//->request
+			//request.getRequestDispatcher("/views/normal/member/user_search.jsp").forward(request, response);	
 		}else {
-			out.append("fail");
+			response.getWriter().println("FAIL");
 		}
 		
 		
