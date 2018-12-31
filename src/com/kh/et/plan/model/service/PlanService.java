@@ -166,13 +166,20 @@ public class PlanService {
 		return planMap;
 	}
 
-	public HashMap<String, City> selectTopCity() {
+	public ArrayList<City> selectTopCity() {
 		Connection con = getConnection();
 		
-		HashMap<String, City> cityMap = new PlanDao().selectTopCity(con);
+		ArrayList<City> cityList = new PlanDao().selectTopCity(con);
 		
+		if(cityList != null) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
 		
-		return cityMap;
+		close(con);
+		
+		return cityList;
 	}
 
 }

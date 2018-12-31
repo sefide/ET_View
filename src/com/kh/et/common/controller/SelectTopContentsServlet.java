@@ -38,7 +38,7 @@ public class SelectTopContentsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HashMap<String, Object> planMap = new PlanService().selectTopPlan(); // planMap- (인기순위, 해당 플랜) , CityMap
-		HashMap<String, City> cityList = new PlanService().selectTopCity();
+		ArrayList<City> cityList = new PlanService().selectTopCity();
 		ArrayList<HashMap<String, Object>> tourList = new TourBoardService().selectTopTour();
 		ArrayList<Board> boardMap = new BoardService().selectTopBoard();
 

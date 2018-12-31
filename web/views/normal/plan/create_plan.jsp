@@ -487,7 +487,7 @@
 		}
 		
 		function returnMain(){
-			location.href = "/et/index.jsp";
+			location.href = "/et/first.jsp";
 		}
 		
 		function editTitle() {

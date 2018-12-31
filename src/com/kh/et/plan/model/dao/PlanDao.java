@@ -354,7 +354,7 @@ public class PlanDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		HashMap<String, Object> pm = null;
-		String order = "";
+		ArrayList<Plan> list = null;
 		
 		String query = prop.getProperty("selectTopPlan");
 		
@@ -365,6 +365,7 @@ public class PlanDao {
 			
 			rset = pstmt.executeQuery();
 			
+			list = new ArrayList<Plan>();
 			pm = new HashMap<String, Object>();
 			while(rset.next()) {
 				Plan p = new Plan();
@@ -374,10 +375,9 @@ public class PlanDao {
 				p.setpCites(rset.getString("P_CITYS"));
 				p.setpLike(rset.getInt("CNT"));
 				
-				order = rset.getString("ROWNUM");
-				
-				pm.put(order, p);
+				list.add(p);
 			}
+			pm.put("planList", list);
 			// pm :  key - 인기 순위 order / value - 해당 플랜정보 
 			
 		} catch (SQLException e) {
@@ -391,8 +391,8 @@ public class PlanDao {
 	}
 
 	// 인기 도시 top 3 select 
-	public HashMap<String, City> selectTopCity(Connection con) {
-		HashMap<String, City> cityMap = null;
+	public ArrayList<City> selectTopCity(Connection con) {
+		ArrayList<City> cityList = null;
 		Statement stmt = null;
 		ResultSet rset = null;
 		
@@ -403,10 +403,15 @@ public class PlanDao {
 			
 			rset  = stmt.executeQuery(query);
 			
-			cityMap = new HashMap<String, City>();
+			cityList = new ArrayList<City>();
 			while(rset.next()) {
+				City c = new City();
+				c.setCtName(rset.getString("CITY"));
+				c.setCtInfo(rset.getString("CT_INFO"));
+				c.setCtCountry(rset.getString("CT_COUNTRY"));
+				c.setCtStar(rset.getFloat("STAR"));
 				
-				
+				cityList.add(c);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -415,7 +420,7 @@ public class PlanDao {
 			close(stmt);
 		}
 	
-		return cityMap;
+		return cityList;
 	}
 	
 
