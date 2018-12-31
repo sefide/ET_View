@@ -1,4 +1,4 @@
-package com.kh.et.member.controller;
+package com.kh.et.company.controller;
 
 import java.io.IOException;
 import java.util.Date;
@@ -16,19 +16,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.et.member.controller.SMTPAuthenticator;
 import com.kh.et.member.model.service.MemberService;
 
 /**
- * Servlet implementation class Member_Newpassword_Servlet
+ * Servlet implementation class Company_Temporary_Password_Servlet
  */
-@WebServlet("/temporaryPassword.me")
-public class Temporary_Password_Servlet extends HttpServlet {
+@WebServlet("/temporaryPassword.co")
+public class Company_Temporary_Password_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Temporary_Password_Servlet() {
+    public Company_Temporary_Password_Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,8 +41,8 @@ public class Temporary_Password_Servlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		String userId = request.getParameter("userId");
-		String userEmailPass = request.getParameter("userEmailPass");
+		String companyId = request.getParameter("companyId");
+		String companyEmailPass = request.getParameter("companyEmailPass");
 		String randomCode = request.getParameter("randomCode");
 		
 		Properties p = new Properties();// 정보를 담을 객체
@@ -67,7 +68,7 @@ public class Temporary_Password_Servlet extends HttpServlet {
             msg.setFrom(from);
             
             // 이메일 수신자
-            InternetAddress to = new InternetAddress(userEmailPass);
+            InternetAddress to = new InternetAddress(companyEmailPass);
             msg.setRecipient(Message.RecipientType.TO, to);
              
             // 이메일 제목
@@ -80,28 +81,24 @@ public class Temporary_Password_Servlet extends HttpServlet {
              
             // 이메일 헤더
             msg.setHeader("content-Type", "text/html");
-             
-            //DB에 있는 비밀번호 임시비밀번호로 변경하기
-            int result = new MemberService().newpass(randomCode, userId, userEmailPass);
-            
-            if(result > 0) {
-            	//메일보내기   
-                Transport.send(msg);
+  
+           //메일보내기   
+            Transport.send(msg);
            
-                System.out.println("보냇씁니다");
+            System.out.println("보냇씁니다");
                 
-                response.getWriter().print("SUCCESS");
-            }else {
-            	response.getWriter().print("FAIL");
-            }
+            response.getWriter().print("SUCCESS");
+         
+            	
                   
 		} catch(Exception e){
-		  e.printStackTrace();
-		}
+			response.getWriter().print("FAIL");
+			e.printStackTrace();
+        }
+		  
 			
 		
 	}
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
