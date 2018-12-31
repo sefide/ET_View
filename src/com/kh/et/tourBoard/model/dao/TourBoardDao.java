@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.et.board.model.vo.Board;
 import com.kh.et.tourBoard.model.vo.Attachment;
 import com.kh.et.tourBoard.model.vo.TourBoard;
 
@@ -241,6 +242,63 @@ private Properties prop = new Properties();
 		}
 
 		return listCount;
+	}
+
+	// premium 투어 3개 select 
+	public ArrayList<HashMap<String, Object>> selectTopTour(Connection con) {
+		// ArrayList의 인덱스는 최신순 번호 (3개만) 
+		// 값은 HashMap 
+		// HashMap에는 투어글 한개와 해당 투어글의 attachment가 들어간다. 따라서 한 투어글에 2개의 값  
+		// 총 3개의 HashMap이 list에 들어간다. 
+		ArrayList<HashMap<String, Object>> tourList = null;
+		HashMap<String, Object> tourMap = null;
+		ResultSet rset = null;
+		Statement stmt = null;
+		
+		String query = prop.getProperty("selectTopTour");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			tourList = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				tourMap = new HashMap<String, Object>();
+				TourBoard t = new TourBoard();
+				
+				t.setTno(rset.getInt("T_NO"));
+				t.settTitle(rset.getString("T_TITLE"));
+				t.setTctno(rset.getInt("T_CT_NO"));
+				t.settConcept(rset.getString("T_CONCEPT"));
+				t.settPrice(rset.getInt("T_PRICE"));
+				t.settInfo(rset.getString("T_INFO"));
+				t.settDate(rset.getDate("T_DATE"));
+				t.settEndDate(rset.getDate("T_END_DATE"));
+				
+				Attachment a = new Attachment();
+				
+				a.setAno(rset.getInt("A_NO"));
+				a.setOriginName(rset.getString("A_ORIGIN_NAME"));
+				a.setChangeName(rset.getString("A_CHANGE_NAME"));
+				a.setFilePath(rset.getString("A_FILE_PATH"));
+				a.setUploadDate(rset.getDate("A_UPLOAD_DATE"));
+				
+				tourMap.put("t", t);
+				tourMap.put("a",a);
+				
+				tourList.add(tourMap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return tourList;
 	}
 	
 }

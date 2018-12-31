@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "java.util.*, com.kh.et.board.model.vo.*, com.kh.et.plan.model.vo.*, com.kh.et.tourBoard.model.vo.*"%>
 <%
-	 String msg = (String)request.getAttribute("msg");
+	String msg = (String)request.getAttribute("msg");	
+	HashMap<String, Object> topPlan = (HashMap<String, Object>)request.getAttribute("topPlan");
+	HashMap<String, City> cityMap = (HashMap<String, City>)topPlan.get("cityMap");
+	HashMap<String, Object> topCity = (HashMap<String, Object>)request.getAttribute("topCity");
+	ArrayList<HashMap<String, Object>> topTour = (ArrayList<HashMap<String, Object>>)request.getAttribute("topTour");
+	ArrayList<Board> topBoard = (ArrayList<Board>)request.getAttribute("topBoard");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -344,10 +350,6 @@
                 		우리 모두 행복한 유럽 여행에 도전하세요 ! </div>
                 		<div class ="et-logoes">
                 		<img src = "/et/image/common/logo_ev3.png" alt = "logo" class = "et-logo1 et-logo1">
-                		<!-- <img src = "/et/image/common/logo.png" alt = "logo" class = "et-logo2 et-logo2">
-                		<img src = "/et/image/common/logo_min2.png" alt = "logo" class = "et-logo1 et-logo3">
-                		<img src = "/et/image/common/logo_min3.png" alt = "logo" class = "et-logo1 et-logo4">
-                		<img src = "/et/image/common/logo_c.png" alt = "logo" class = "et-logo2 et-logo5"> -->
                 		</div>
                 		<div class ="et-main">
 	                		<div class = "btn-makePlan">
@@ -357,8 +359,6 @@
                 		</div>
                 	</div>
                 	
-                	
-          	      	
 	       			
 	       		</div>
             </div>
@@ -373,14 +373,15 @@
                 </div>
                 <div> 
         				<div class = "div-plan-list">  
+        				<%-- <% for(int i = 0; i < 3; i++){ %> --%>
         					<div class ="div-plan-map"> 
         					    <iframe class = "plan-map" src="" width="340px" height="340px" style="border:none;"></iframe>
-        						<div class = "div-plan-title"> 플랜 제목 </div>
+        						<div class = "div-plan-title"><%=%></div>
         						<div class = "div-plan-like"> 
         							<i class = "icon heart">34</i>
         						</div>
         					</div>
-        					<div class ="div-plan-map"> 
+        				<!-- 	<div class ="div-plan-map"> 
         					    <iframe class = "plan-map" src="" width="340px" height="340px" style="border:none;"></iframe>
         						<div class = "div-plan-title"> 플랜 제목 </div>
         						<div class = "div-plan-like"> 
@@ -393,8 +394,8 @@
         						<div class = "div-plan-like"> 
         							<i class = "icon heart">34</i>
         						</div>
-        					</div>
-        					
+        					</div> -->
+        				<%-- <%} %> --%>
         				</div>
         			</div>
             </div>

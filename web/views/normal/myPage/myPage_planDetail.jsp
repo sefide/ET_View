@@ -29,7 +29,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
 	
 	<!-- googleMap -->
-
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
 	
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">

@@ -348,6 +348,75 @@ public class PlanDao {
 		
 		return result;
 	}
+
+	// 인기 플랜 top3 select 
+	public HashMap<String, Object> selectTopPlan(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> pm = null;
+		String order = "";
+		
+		String query = prop.getProperty("selectTopPlan");
+		
+		try {
+		    String pType = "좋아요";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, pType);
+			
+			rset = pstmt.executeQuery();
+			
+			pm = new HashMap<String, Object>();
+			while(rset.next()) {
+				Plan p = new Plan();
+				
+				p.setpNo(rset.getInt("PI_P_NO"));
+				p.setpTitle(rset.getString("P_TITLE"));
+				p.setpCites(rset.getString("P_CITYS"));
+				p.setpLike(rset.getInt("CNT"));
+				
+				order = rset.getString("ROWNUM");
+				
+				pm.put(order, p);
+			}
+			// pm :  key - 인기 순위 order / value - 해당 플랜정보 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return pm;
+	}
+
+	// 인기 도시 top 3 select 
+	public HashMap<String, City> selectTopCity(Connection con) {
+		HashMap<String, City> cityMap = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectTopCity");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset  = stmt.executeQuery(query);
+			
+			cityMap = new HashMap<String, City>();
+			while(rset.next()) {
+				
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+	
+		return cityMap;
+	}
 	
 
 }

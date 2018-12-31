@@ -12,6 +12,7 @@ import com.kh.et.plan.model.vo.PlanDetail;
 
 public class PlanService {
 
+	// 도시 리스트 가져오기 
 	public ArrayList<City> selectCityList() {
 		Connection con = getConnection();
 		
@@ -25,6 +26,7 @@ public class PlanService {
 		return cityList;
 	}
 
+	// 플랜 저장하기 
 	public int insertPlan(Plan reqPlan, ArrayList<PlanDetail> planDetailList) {
 		Connection con = getConnection();
 		// 1. 플랜 저장하고 
@@ -32,7 +34,6 @@ public class PlanService {
 		int result = 0;
 		
 		// 2. 성공하면 플랜 번호 가져오고
-	
 		if(resultPlanInsert > 0) {
 			int PlanNo = new PlanDao().selectPlanCurrval(con);
 			System.out.println("플랜번호 : " + PlanNo);
@@ -61,6 +62,7 @@ public class PlanService {
 		return result;
 	}
 
+	// 특정 회원 플랜 리스트 뽑아오기 
 	public ArrayList<Plan> selectPlanList(int mno) {
 		Connection con = getConnection();
 		ArrayList<Plan> list = new PlanDao().selectPlanList(con, mno);
@@ -73,6 +75,7 @@ public class PlanService {
 		return list;
 	}
 
+	// 도시 정보 뽑아오기 
 	public HashMap<String, City> selectCityMap() {
 		Connection con = getConnection();
 		
@@ -86,6 +89,7 @@ public class PlanService {
 		return resultMap;
 	}
 
+	// 플랜 상세정보 뽑아오기 
 	public HashMap<String, Object> selectPlanDetail(int planNo) {
 		Connection con = getConnection();
 		
@@ -99,6 +103,7 @@ public class PlanService {
 		return resultMap;
 	}
 
+	// 플랜 수정하기 
 	public int updatePlan(Plan reqPlan, ArrayList<PlanDetail> planDetailList) {
 		Connection con = getConnection();
 		// 1. 플랜 수정하고
@@ -126,6 +131,7 @@ public class PlanService {
 		return result;
 	}
 
+	// 플랜 삭제하기 
 	public int deletePlan(int planNo) {
 		Connection con = getConnection();
 		
@@ -136,6 +142,37 @@ public class PlanService {
 		
 		close(con);
 		return result;
+	}
+
+	// 시작페이지 인기 플랜 가져오기 
+	public HashMap<String, Object> selectTopPlan() {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> planMap = new PlanDao().selectTopPlan(con);
+		
+		HashMap<String, City> cityMap = new PlanDao().selectCityMap(con);
+		
+		
+		if(planMap != null && cityMap != null) {
+			planMap.put("cityMap", cityMap); 
+			commit(con);
+			
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return planMap;
+	}
+
+	public HashMap<String, City> selectTopCity() {
+		Connection con = getConnection();
+		
+		HashMap<String, City> cityMap = new PlanDao().selectTopCity(con);
+		
+		
+		return cityMap;
 	}
 
 }

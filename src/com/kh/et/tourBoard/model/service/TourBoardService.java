@@ -5,6 +5,7 @@ import static com.kh.et.common.JDBCTemplate.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.et.board.model.dao.BoardDao;
 import com.kh.et.tourBoard.model.dao.TourBoardDao;
 import com.kh.et.tourBoard.model.vo.Attachment;
 import com.kh.et.tourBoard.model.vo.TourBoard;
@@ -58,6 +59,11 @@ public class TourBoardService {
 		
 		ArrayList<HashMap<String, Object>> list = new TourBoardDao().selectList(con, currentPage, limit);
 		
+		if(list != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
 		close(con);
 		
 		return list;
@@ -66,9 +72,31 @@ public class TourBoardService {
 		Connection con = getConnection();
 		
 		int listCount = new TourBoardDao().getListCount(con);
+		if(listCount > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
 		close(con);
 		
 		return listCount;
+	}
+
+	// 인기 투어 select (시작페이지)
+	public ArrayList<HashMap<String, Object>> selectTopTour() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> tourList = new TourBoardDao().selectTopTour(con);
+		
+		if(tourList != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return tourList;
 	}
 	
 

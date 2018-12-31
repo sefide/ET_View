@@ -33,6 +33,12 @@ public class BoardService {
 	public int getListCount() {
 		Connection con = getConnection();
 		int listCount = new BoardDao().getListCount(con);
+		
+		if(listCount>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
 		close(con);
 		return listCount;
 	}
@@ -46,9 +52,30 @@ public class BoardService {
 		ArrayList<Board> list 
 			= new BoardDao().selectList(con, currentPage, limit);
 		
+		
+		if(list != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
 		close(con);
 		
 		return list;
+	}
+
+	public ArrayList<Board> selectTopBoard() {
+		Connection con = getConnection();
+		
+		ArrayList<Board> boardList = new BoardDao().selectTopBoard(con);
+		
+		if(boardList != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return boardList;
 	}
 
 
