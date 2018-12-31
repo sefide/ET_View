@@ -11,8 +11,6 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 
-	
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -22,7 +20,7 @@
 <link rel="icon" href="/et/image/common/logo.png">
 	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
 	
 	<!-- Semantic UI -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
@@ -266,23 +264,8 @@
                 <div class="ui header title" id ="title">다른 투어보기 </div>
                 
 	            <div class = "div-card-tour">
-	            <%for(int i=0; i <list.size(); i++){ 
-                	HashMap<String,Object> hmap = list.get(i);
-                %> 
-	            <div class="card-deck" style="width:230px">
-	             
-	             <input type="hidden" value="<%=hmap.get("tno")%>">
-				  <div class="card">
-				 	<div>
-				    <img src="/et/tourUpload/<%=hmap.get("changeName")%>"  width="200px" height="200px">
-				    </div>
-				    <div class="card-body">
-				      <h5 class="card-title"> <%= hmap.get("title") %> </h5>
-				      <p class="card-text"> <%= hmap.get("price") %> </p>
-				      <p class="card-text"><small class="text-muted"><%= hmap.get("concept") %> </small></p>
-				    </div>
-				  </div>
-			
+	    			<iframe src="<%=request.getContextPath() %>/selectList2.tbo" width="1200" height="400" style="border:0"></iframe>
+	    		</div>
 				  <!-- <div class="card">
 				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
 				    <div class="card-body">
@@ -300,7 +283,7 @@
 				    </div>
 				  </div>
 				</div>
-				<%} %>
+				
 				</div>
 				<div class = "div-tour-paging" style = "margin-top : 25px;">
                 		<nav aria-label="Page navigation">
@@ -331,11 +314,33 @@
      	</div> <!-- twelve column 끝  -->
 		<div class = "two wide column"></div>
 	</div> <!-- ui grid 끝  -->
+	
+	
+
 
 	<script>
+	var jb = jQuery.noConflict();
 		function goEditTour() {
 			location.href = "/et/views/company/tourBoard/com_EditBoard.jsp";
 		}
+		
+		<%-- function test(){
+			jb.ajax({
+				url:"<%=request.getContextPath()%>/AjaxselectList.tbo",
+				type:"get",
+				success:function(data){
+					console(data);
+				},
+				error : function(data){
+					console.log("데이터 통신 실패!");
+				}
+			});
+		
+		
+	}
+	test(); --%>
+	
+		
 	</script>
 	
 	<%@ include file = "/views/common/company/footer_com.jsp" %>

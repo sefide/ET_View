@@ -242,5 +242,81 @@ private Properties prop = new Properties();
 
 		return listCount;
 	}
+
+	public ArrayList<HashMap<String, Object>> selectList2(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		/*Statement stmt = null;*/
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectList2");
+		
+		try {
+		pstmt = con.prepareStatement(query);
+		int startRow = (currentPage -1) * limit +1;
+		int endRow = startRow + limit - 1;
+		
+		pstmt.setInt(1, startRow);
+		pstmt.setInt(2, endRow);
+		
+		rset = pstmt.executeQuery();
+		list = new ArrayList<HashMap<String, Object>>();
+
+		while(rset.next()) {
+			hmap = new HashMap<String,Object>();  //멤버 객체대신 hash맵사용
+			
+			hmap.put("tno", rset.getInt("t_no"));  //DB 대소문자 상관없음. 단, 값은 구분함
+			hmap.put("tcno", rset.getInt("t_c_no"));
+			hmap.put("title", rset.getString("t_Title"));
+			hmap.put("concept", rset.getString("t_concept"));
+			hmap.put("price", rset.getInt("t_price"));
+			hmap.put("info", rset.getString("t_info"));
+			hmap.put("link", rset.getString("t_link"));
+			hmap.put("grade", rset.getString("t_grade"));
+			hmap.put("tdate", rset.getDate("t_date"));
+			hmap.put("ano", rset.getInt("a_no"));
+			hmap.put("originName", rset.getString("a_origin_name"));
+			hmap.put("changeName", rset.getString("a_change_name"));
+			hmap.put("filePath", rset.getString("a_file_path"));
+			hmap.put("uploadDate", rset.getDate("a_upload_date"));
+			
+			list.add(hmap);
+			
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+		close(rset);
+	}
+
+	return list;
+	}
+
+	public int getListCount2(Connection con) {
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+
+		return listCount;
+	}
 	
 }

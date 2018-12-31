@@ -19,14 +19,14 @@ import com.kh.et.tourBoard.model.vo.TourBoard;
 /**
  * Servlet implementation class SelectTourBoardServlet
  */
-@WebServlet("/selectList.tbo")
-public class SelectTourBoardServlet extends HttpServlet {
+@WebServlet("/selectList2.tbo")
+public class SelectTourBoardServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectTourBoardServlet() {
+    public SelectTourBoardServlet2() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -64,7 +64,7 @@ public class SelectTourBoardServlet extends HttpServlet {
 		}
 		
 		//한 페이지에 보여질 목록 개수
-		limit = 1;
+		limit = 4;
 		TourBoardService tbs = new TourBoardService();
 		int listCount = tbs.getListCount();
 		
@@ -86,7 +86,7 @@ public class SelectTourBoardServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<HashMap<String, Object>> list = new TourBoardService().selectList(currentPage,limit);
+		ArrayList<HashMap<String, Object>> list = new TourBoardService().selectList2(currentPage,limit);
 		
 		/*response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
@@ -94,7 +94,7 @@ public class SelectTourBoardServlet extends HttpServlet {
 	
 		String page="";
 		if(list != null) {
-			page= "views/company/tourBoard/com_main.jsp";
+			page= "views/company/tourBoard/com_mainBottom.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		}else {
