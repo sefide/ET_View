@@ -59,7 +59,7 @@
 	.div-name{
 		font-size : 36px;
 		font-weight : 600;
-		font-family: 'Ubuntu', sans-serif;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
 	
 	.div-point{
@@ -226,7 +226,7 @@
     					<img src = "/et/image/common/logo_c.png" class = "img-profile">
     				</div>
     				<div class = "div-txt-profile">
-    					<div class = "div-name"><%=loginUser.getM_id() %></div>
+    					<div class = "div-name"><%=loginUser.getM_name() %></div>
     					<div class = "div-point"><%=loginUser.getM_point() %> <i class="euro sign icon"></i></div>
     					<div class = "div-profileTxt"><%=loginUser.getM_profile() %> </div>
     					<button class = "btn-profile" onclick = "editProfile();"> 프로필 수정 </button>

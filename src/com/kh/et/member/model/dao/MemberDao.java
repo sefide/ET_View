@@ -180,21 +180,8 @@ public class MemberDao {
 			if(rset.next()) {
 				loginUser = new Member();
 				
-				loginUser.setM_no(rset.getInt("M_NO"));
+			
 				loginUser.setM_id(rset.getString("M_ID"));
-				loginUser.setM_pwd(rset.getString("M_PWD"));
-				loginUser.setM_name(rset.getString("M_NAME"));
-				loginUser.setM_email(rset.getString("M_EMAIL"));
-				loginUser.setM_profile(rset.getString("M_PROFILE"));
-				loginUser.setM_point(rset.getInt("M_POINT"));
-				loginUser.setM_storage(rset.getInt("M_STORAGE"));
-				loginUser.setM_question(rset.getString("M_QUESTION"));
-				loginUser.setM_answer(rset.getString("M_ANSWER"));
-				loginUser.setM_date(rset.getDate("M_DATE"));
-				loginUser.setM_black_status(rset.getString("M_BLACK_STATUS"));
-				loginUser.setM_stop_status(rset.getString("M_STOP_STATUS"));
-				loginUser.setM_out_status(rset.getString("M_OUT_STATUS"));
-				loginUser.setM_out_date(rset.getDate("M_OUT_DATE"));
 				
 			}
 			
@@ -207,6 +194,30 @@ public class MemberDao {
 		}
 		
 		return loginUser;
+	}
+
+	public int newpass(Connection con, String randomCode, String userId, String userEmailPass) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+		String query = prop.getProperty("newPass");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, randomCode);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userEmailPass);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+	
+		return result;
 	}
 
 
