@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.et.member.model.service.MemberService;
+
 /**
- * Servlet implementation class Temporary_Password_Servlet
+ * Servlet implementation class Member_Newpassword_Servlet
  */
 @WebServlet("/temporaryPassword.me")
 public class Temporary_Password_Servlet extends HttpServlet {
@@ -38,7 +40,8 @@ public class Temporary_Password_Servlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		String userEmail = request.getParameter("userEmail");
+		String userId = request.getParameter("userId");
+		String userEmailPass = request.getParameter("userEmailPass");
 		String randomCode = request.getParameter("randomCode");
 		
 		Properties p = new Properties();// 정보를 담을 객체
@@ -64,36 +67,41 @@ public class Temporary_Password_Servlet extends HttpServlet {
             msg.setFrom(from);
             
             // 이메일 수신자
-            InternetAddress to = new InternetAddress(userEmail);
+            InternetAddress to = new InternetAddress(userEmailPass);
             msg.setRecipient(Message.RecipientType.TO, to);
              
             // 이메일 제목
-            msg.setSubject("[ET Planner] 인증번호", "UTF-8");
+            msg.setSubject("[ET Planner] 임시비밀번호 발급", "UTF-8");
              
             // 이메일 내용
             request.setAttribute("randomCode", randomCode);
-            msg.setText("인증번호 : "+randomCode, "UTF-8");
+            msg.setText("ET Planner에 방문해주셔서 감사합니다!<br>회원님의 임시비밀번호입니다. 로그인 후 비밀번호를 변경해주세요.<br><br>임시비밀번호 : " + randomCode, "UTF-8");
        
              
             // 이메일 헤더
             msg.setHeader("content-Type", "text/html");
              
-            //메일보내기   
-            Transport.send(msg);
-       
-            System.out.println("보냄");
+            //DB에 있는 비밀번호 임시비밀번호로 변경하기
+            int result = new MemberService().newpass(randomCode, userId, userEmailPass);
             
-            response.getWriter().print("SUCCESS");
-            
+            if(result > 0) {
+            	//메일보내기   
+                Transport.send(msg);
+           
+                System.out.println("보냇씁니다");
+                
+                response.getWriter().print("SUCCESS");
+            }else {
+            	response.getWriter().print("FAIL");
+            }
+                  
 		} catch(Exception e){
-		response.getWriter().print("FAIL");
 		  e.printStackTrace();
 		}
-		
-		
-		
+			
 		
 	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

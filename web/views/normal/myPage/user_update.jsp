@@ -98,6 +98,7 @@
 								<div align="left">
 									<div class="ui transparent input">
 										<input type="text" placeholder="<%=loginUser.getM_id()%>" name="userId">
+										<input type="hidden" name = "mno" value = "<%=loginUser.getM_no() %>">
 									</div>
 								</div>
 								<br>

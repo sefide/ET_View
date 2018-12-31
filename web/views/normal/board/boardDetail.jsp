@@ -1,9 +1,9 @@
-<%@page import="com.kh.et.board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.*"%>
 <%
 	Board b = (Board) request.getAttribute("b");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,27 +71,12 @@
 		<div class="two wide column"></div>
 		<div class="twelve wide column" style="margin-top: 50px;">
 
-
-
-			<!-- 상단 공지사항  -->
-			<div class="ui segment" style="margin-top: 40px;">
-				<div class="ui two column very relaxed grid">
-					<div class="column">
-						<h1 class="ui header">
-							<img src="/et/image/common/logo.png" class="ui circular image">
-							ET Planner 공지사항
-						</h1>
-
-					</div>
-					<div class="column">
-						<p>*비방과 욕설은 금물!</p>
-						<p>*좋아요와 스크랩은 환영!</p>
-					</div>
-				</div>
-			</div>
-			<br>
-
-			<!-- 내가 (본인이 ) 글쓰는 부분 -->
+			<!-- 내용 넣기 -->
+			
+			
+  			<h1 class="ui header">
+				게시글 상세보기
+			</h1>
 			<div class="ui segment">
 				<div id="container">
 					<div id='box-left'>
@@ -99,63 +84,57 @@
 							src="/et/image/common/logo.png">
 					</div>
 					<div id='box-center'>
-
+						
+						<!-- 제목 -->
 						<div align="left">
-							제목 &nbsp;&nbsp;<input type="text" id="title" size="110">
+							제목 =<%=b.getBtitle()%>
 						</div>
-						<br>
+						<div align="left">
+							작성일 =<%=b.getbDate()%>							
+						</div>
+						<div align="left">
+							작성자 =<%=b.getbWriter()%>					
+						</div>						
+						
+						<!-- 내용 -->
 						<div class="ui form">
 							<div class="field">
-								<textarea rows="2" cols="10" style="height: 100px;" id="content"
-									onclick="this.value=''">내용을 입력하세요</textarea>
-							</div>
-							<div class="ui list" style="text-align: right;">
-								<button class="ui right yellow button" type="submit"
-									id="addBoard">등록하기</button>
+								<textarea rows="2" cols="10" style="height: 100px;" id="content"><%=b.getbContent()%></textarea>
 							</div>
 						</div>
-
+						
 					</div>
 				</div>
 			</div>
-
-
-			<!-- 내용이 나올 div -->
-			<div id = allArea>
-			
+			<div class="ui form">
+			<div class="field">
+			<div class="ui list" style="text-align: right;">
+			<button class="ui right yellow button" onclick="location.href='<%=request.getContextPath()%>/selectList.bo'">목록으로 되돌아가기</button>
+			<button class="ui right yellow button" onclick="location.href='<%=request.getContextPath()%>/update.bo'"> 수정하기</button>
 			</div>
-
+			</div>
 			
+			
+			<!-- 로그인 했을때 안했을때 구분 -->
+			<%-- <div class="ui form">
+			<div class="field">
+			<% if(loginUser.getM_id().equals(b.getbWriter()) ){%>
+			<div class="ui list" style="text-align: right;">
+			<button class="ui right yellow button" onclick="location.href='<%=request.getContextPath()%>/selectList.bo'">목록으로 되돌아가기</button>
+			<button class="ui right yellow button" onclick="location.href='<%=request.getContextPath()%>/update.bo'"> 수정하기</button>
+			</div>
+			<%}else{ %>
+			<div class="ui list" style="text-align: right;">
+			<button class="ui right yellow button" onclick="location.href='<%=request.getContextPath()%>/selectList.bo'">목록으로 되돌아가기</button>
+			</div>								
+			<%} %>
+			</div>
+			</div>
+			 --%>
+			 
+			 </div>
 
-
-			<script>
-				$(function() {
-					$("#addBoard").click(function() {
-
-
-						$.ajax({
-							success : function() {
-							
-								
-							
-							},
-							error : function() {
-								
-							}
-						
-
-						});
-
-					});
-
-				});
-			</script>
-
-
-
-
-
-		</div>
+	</div>
 		<div class="two wide column"></div>
 	</div>
 

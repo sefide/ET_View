@@ -38,6 +38,7 @@ public class Member_Update_Servlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwdNew");
 		String userEmail = request.getParameter("userEmail");
 		String userName = request.getParameter("userName");
+		int userNo = Integer.parseInt(request.getParameter("mno"));
 		
 		System.out.println("아이디 : " + userId);
 		System.out.println("비번 : " + userPwd);
@@ -59,7 +60,7 @@ public class Member_Update_Servlet extends HttpServlet {
 			request.getSession().setAttribute("loginUser", reqMember);	//-> loginUser : 로그인해서 들어갔던 회원 정보 / reqMember: 업데이트하려고 내가 입력한 정보로 체인지
 			
 			request.setAttribute("msgTrue", "회원 정보가 수정되었습니다^O^");
-			page = "views/normal/myPage/myPage_main.jsp";
+			page = "/selectPlanList.pl?mno="+userNo;
 			//request.getRequestDispatcher("views/normal/myPage/myPage_main.jsp").forward(request, response);
 			
 		}else {
