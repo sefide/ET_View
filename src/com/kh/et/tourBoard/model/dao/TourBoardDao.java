@@ -276,6 +276,7 @@ private Properties prop = new Properties();
 				t.settInfo(rset.getString("T_INFO"));
 				t.settDate(rset.getDate("T_DATE"));
 				t.settEndDate(rset.getDate("T_END_DATE"));
+				t.setTctName(rset.getString("CT_NAME"));
 				
 				Attachment a = new Attachment();
 				

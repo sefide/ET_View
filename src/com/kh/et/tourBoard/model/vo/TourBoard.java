@@ -15,11 +15,12 @@ public class TourBoard implements java.io.Serializable{
 	private String tStatus;
 	private Date tDate;
 	private Date tEndDate;
+	private String tctName;
 	
 	public TourBoard() {}
 
 	public TourBoard(int tno, int tcno, int tctno, String tTitle, String tConcept, String tInfo, int tPrice,
-			String tLink, String tGrade, String tStatus, Date tDate, Date tEndDate) {
+			String tLink, String tGrade, String tStatus, Date tDate, Date tEndDate, String tctName) {
 		super();
 		this.tno = tno;
 		this.tcno = tcno;
@@ -33,7 +34,9 @@ public class TourBoard implements java.io.Serializable{
 		this.tStatus = tStatus;
 		this.tDate = tDate;
 		this.tEndDate = tEndDate;
+		this.tctName = tctName;
 	}
+
 
 	public int getTno() {
 		return tno;
@@ -131,13 +134,20 @@ public class TourBoard implements java.io.Serializable{
 		this.tEndDate = tEndDate;
 	}
 
+	public String getTctName() {
+		return tctName;
+	}
+
+	public void setTctName(String tctName) {
+		this.tctName = tctName;
+	}
+
 	@Override
 	public String toString() {
 		return "TourBoard [tno=" + tno + ", tcno=" + tcno + ", tctno=" + tctno + ", tTitle=" + tTitle + ", tConcept="
 				+ tConcept + ", tInfo=" + tInfo + ", tPrice=" + tPrice + ", tLink=" + tLink + ", tGrade=" + tGrade
-				+ ", tStatus=" + tStatus + ", tDate=" + tDate + ", tEndDate=" + tEndDate + "]";
+				+ ", tStatus=" + tStatus + ", tDate=" + tDate + ", tEndDate=" + tEndDate + ", tctName=" + tctName + "]";
 	}
-	
 	
 	
 }

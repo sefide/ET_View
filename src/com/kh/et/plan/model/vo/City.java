@@ -7,11 +7,12 @@ public class City implements java.io.Serializable{
 	private String ctInfo;
 	private float ctLat;
 	private float ctLng;
-	int i = 0;
+	private float ctStar;
 	
 	public City() {}
 
-	public City(int ctNo, String ctName, String ctCountry, String ctInfo, float ctLat, float ctLng) {
+	
+	public City(int ctNo, String ctName, String ctCountry, String ctInfo, float ctLat, float ctLng, float ctStar) {
 		super();
 		this.ctNo = ctNo;
 		this.ctName = ctName;
@@ -19,7 +20,9 @@ public class City implements java.io.Serializable{
 		this.ctInfo = ctInfo;
 		this.ctLat = ctLat;
 		this.ctLng = ctLng;
+		this.ctStar = ctStar;
 	}
+
 
 	public int getCtNo() {
 		return ctNo;
@@ -69,12 +72,20 @@ public class City implements java.io.Serializable{
 		this.ctLng = ctLng;
 	}
 
+	public float getCtStar() {
+		return ctStar;
+	}
+
+
+	public void setCtStar(float ctStar) {
+		this.ctStar = ctStar;
+	}
+
+
 	@Override
 	public String toString() {
 		return "City [ctNo=" + ctNo + ", ctName=" + ctName + ", ctCountry=" + ctCountry + ", ctInfo=" + ctInfo
-				+ ", ctlat=" + ctLat + ", ctLng=" + ctLng + "]";
+				+ ", ctLat=" + ctLat + ", ctLng=" + ctLng + ", ctStar=" + ctStar + "]";
 	}
-
-	
 	
 }

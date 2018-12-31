@@ -4,7 +4,7 @@
 	String msg = (String)request.getAttribute("msg");	
 	HashMap<String, Object> topPlan = (HashMap<String, Object>)request.getAttribute("topPlan");
 	HashMap<String, City> cityMap = (HashMap<String, City>)topPlan.get("cityMap");
-	HashMap<String, Object> topCity = (HashMap<String, Object>)request.getAttribute("topCity");
+	ArrayList<City> topCity = (ArrayList<City>)request.getAttribute("topCity");
 	ArrayList<HashMap<String, Object>> topTour = (ArrayList<HashMap<String, Object>>)request.getAttribute("topTour");
 	ArrayList<Board> topBoard = (ArrayList<Board>)request.getAttribute("topBoard");
 %>
@@ -193,6 +193,11 @@
 			
 		}
 		
+		.plan-map{
+			width : 340px;
+			height : 340px;
+		}
+		
 		.div-plan-title{
 			font-size : 25px;
 			font-weight : 500;
@@ -261,6 +266,9 @@
         .card-img-top{
 			height : 230px;
 		} 
+		#card-size{
+			cursor : pointer;
+		}
        
        	/* Q&A */
        	.div-qna {
@@ -373,29 +381,35 @@
                 </div>
                 <div> 
         				<div class = "div-plan-list">  
-        				<%-- <% for(int i = 0; i < 3; i++){ %> --%>
+        				<% 
+        				ArrayList<Plan> planList = (ArrayList<Plan>)topPlan.get("planList");
+        				for(int i = 0; i < planList.size(); i++){
+        					System.out.println("i : " + i);
+        					Plan p = planList.get(i);
+        				%>
         					<div class ="div-plan-map"> 
-        					    <iframe class = "plan-map" src="" width="340px" height="340px" style="border:none;"></iframe>
-        						<div class = "div-plan-title"><%=%></div>
+        					    <div id ="plan-map<%=i%>" class ="plan-map"></div>
+        						<div class = "div-plan-title"><%=p.getpTitle() %></div>
         						<div class = "div-plan-like"> 
-        							<i class = "icon heart">34</i>
+        							<i class = "icon heart"><%=p.getpLike() %></i>
         						</div>
         					</div>
-        				<!-- 	<div class ="div-plan-map"> 
-        					    <iframe class = "plan-map" src="" width="340px" height="340px" style="border:none;"></iframe>
-        						<div class = "div-plan-title"> 플랜 제목 </div>
+        				<%} %>
+        				 <%-- 	<div class ="div-plan-map"> 
+        					    <div id ="plan-map1"></div>
+        						<div class = "div-plan-title"><%=topPlan2.getpTitle() %></div>
         						<div class = "div-plan-like"> 
-        							<i class = "icon heart">34</i>
+        							<i class = "icon heart"><%=topPlan2.getpLike() %></i>
         						</div>
         					</div> 
         					<div class ="div-plan-map"> 
-        					    <iframe class = "plan-map" src="" width="340px" height="340px" style="border:none;"></iframe>
-        						<div class = "div-plan-title"> 플랜 제목 </div>
+        					    <div id ="plan-map2"></div>
+        						<div class = "div-plan-title"><%=topPlan3.getpTitle() %></div>
         						<div class = "div-plan-like"> 
-        							<i class = "icon heart">34</i>
+        							<i class = "icon heart"><%=topPlan3.getpLike() %></i>
         						</div>
-        					</div> -->
-        				<%-- <%} %> --%>
+        					</div>  --%>
+        					
         				</div>
         			</div>
             </div>
@@ -406,71 +420,78 @@
                 <div class="ui huge header">BEST CITY TOP 5</div>
                  
 	           	<div class = "ui div-best-city" >
+	           	<% 
+	           	City topCity1 = (City)topCity.get(0); 
+	           	City topCity2 = (City)topCity.get(1); 
+	           	City topCity3 = (City)topCity.get(2); 
+	           	City topCity4 = (City)topCity.get(3); 
+	           	City topCity5 = (City)topCity.get(4); 
+	           	%>
 	           		<div class = "div-best-inner">
-		           		<img src = "image/city/paris.jpg" alt = "paris" class = "img_best_city">
+		           		<img src = "<%=request.getContextPath()%>/image/city/<%=topCity1.getCtName() %>.jpg" alt = "<%=topCity1.getCtName() %>" class = "img_best_city">
 						<div class="ui inverted dimmer">
 						    <div class="content">
 						      <h3 class="ui icon header" id = "header-city">
-						        도시 설명 
+						        <%=topCity1.getCtInfo() %>
 						      </h3>
 						    </div>
 						</div>
 					</div>
-	           		<h3 class ="ui header">1. &nbsp; 프랑스, 파리 </h3>
+	           		<h3 class ="ui header">1. &nbsp; <%=topCity1.getCtCountry() %>,&nbsp; <%=topCity1.getCtName() %> </h3>
 	           	</div>
 	           	
 	           	<div class = "ui div-best-city">
 	           		<div class = "div-best-inner">
-		           		<img src = "image/city/rome.png" alt = "rome" class = "img_best_city">
+		           		<img src = "<%=request.getContextPath()%>/image/city/<%=topCity2.getCtName() %>.jpg" alt = "<%=topCity2.getCtName() %>" class = "img_best_city">
 		           		<div class="ui inverted dimmer">
 						    <div class="content">
 						      <h3 class="ui icon header" id = "header-city">
-						        도시 설명 
+						          <%=topCity2.getCtInfo() %>
 						      </h3>
 						    </div>
 						</div>
 					</div>
-	           		<h3 class ="ui header">2. &nbsp; 이탈리아, 로마  </h3>
+	           		<h3 class ="ui header">2. &nbsp; <%=topCity2.getCtCountry() %>,&nbsp; <%=topCity2.getCtName() %>  </h3>
 	           	</div>
 	           	
 	           	<div class = "ui div-best-city">
 	           		<div class = "div-best-inner">
-	           			<img src = "image/city/bar.jpg" alt = "barselona" class = "img_best_city">
+	           			<img src = "<%=request.getContextPath()%>/image/city/<%=topCity3.getCtName() %>.jpg" alt = "<%=topCity3.getCtName() %>" class = "img_best_city">
 						<div class="ui inverted dimmer">
 						    <div class="content">
 						      <h3 class="ui icon header" id = "header-city">
-						        도시 설명 
+						          <%=topCity3.getCtInfo() %>
 						      </h3>
 						    </div>
 						</div>
 					</div>
-	           		<h3 class ="ui header">3. &nbsp; 스페인, 바르셀로나  </h3>
+	           		<h3 class ="ui header">3. &nbsp; <%=topCity3.getCtCountry() %>,&nbsp; <%=topCity3.getCtName() %>  </h3>
 	           	</div>
 	           	<div class = "ui div-best-city 4th_city" id = "th4_city">
 	           		<div class = "div-best-inner">
-	           			<img src = "image/city/praha.jpg" alt = "praha" class = "img_best_city">
+	           			<img src = "<%=request.getContextPath()%>/image/city/<%=topCity4.getCtName() %>.jpg" alt = "<%=topCity4.getCtName() %>" class = "img_best_city">
 						<div class="ui inverted dimmer">
 						    <div class="content">
 						      <h3 class="ui icon header" id = "header-city">
-						        도시 설명 
+						          <%=topCity4.getCtInfo() %>
 						      </h3>
 						    </div>
 						</div>
 					</div>
-	           		<h3 class ="ui header">4. &nbsp; 체코, 프라하  </h3>
+	           		<h3 class ="ui header">4. &nbsp; <%=topCity4.getCtCountry() %>,&nbsp; <%=topCity4.getCtName() %> </h3>
 	           	</div>
 	           	<div class = "ui div-best-city" id = "last_city" >
 	           		<div class = "div-best-inner">
-	           			<img src = "image/city/frank.jpg" alt = "frank" class = "img_best_city">
+	           			<img src = "<%=request.getContextPath()%>/image/city/<%=topCity5.getCtName() %>.jpg" alt = "<%=topCity5.getCtName() %>" class = "img_best_city">
 						<div class="ui inverted dimmer">
 						    <div class="content">
 						      <h3 class="ui icon header" id ="header-city">
-						        도시 설명 
+						          <%=topCity5.getCtInfo() %>
 						      </h3>
 						    </div>
 						</div>
 					</div>
-	           		<h3 class ="ui header">5. &nbsp; 독일, 프랑크푸르트  </h3>
+	           		<h3 class ="ui header">5. &nbsp; <%=topCity5.getCtCountry() %>,&nbsp; <%=topCity5.getCtName() %>  </h3>
 	           	</div>
             </div>
             
@@ -483,38 +504,21 @@
                 
                 <div class = "div-card-tour">
 	            <div class="card-deck">
-				  <div class="card" id = "card-size">
-				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
+	            <%for(int i = 0; i < topTour.size(); i++){ 
+	            HashMap<String,Object> tour = topTour.get(i);
+	            TourBoard t = (TourBoard)tour.get("t");
+	            Attachment a = (Attachment)tour.get("a");
+	            %>
+				  <div class="card" id = "card-size" onclick = "location.href = '<%=request.getContextPath() %>/selectOne.tb?tbno='+<%= t.getTno()%>" >
+				    <img class="card-img-top" src="/et/tourUpload/<%=a.getChangeName() %>" alt="Card image cap">
 				    <div class="card-body">
-				      <h5 class="card-title"> [도시이름]투어명 </h5>
-				      <p class="card-text"> 69,900원 </p>
-				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
+				      <h5 class="card-title"> [<%=t.getTctName() %>]<%= t.gettTitle() %> </h5>
+				      <p class="card-text"> <%=t.gettPrice() %>원 </p>
+				      <p class="card-text"><small class="text-muted"><%=t.gettConcept() %> </small></p>
 				    </div>
 				  </div>
-				  <div class="card" id = "card-size">
-				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
-				    <div class="card-body">
-				      <h5 class="card-title"> [도시이름]투어명 </h5>
-				      <p class="card-text"> 69,900원 </p>
-				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
-				    </div>
-				  </div>
-				  <div class="card">
-				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
-				    <div class="card-body">
-				       <h5 class="card-title"> [도시이름]투어명 </h5>
-				      <p class="card-text"> 69,900원 </p>
-				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
-				    </div>
-				  </div>
-				  <div class="card">
-				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
-				    <div class="card-body">
-				      <h5 class="card-title"> [도시이름]투어명 </h5>
-				      <p class="card-text"> 69,900원 </p>
-				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
-				    </div>
-				  </div>
+				<%} %>
+				  
 				</div>
 				</div>
                 
@@ -528,14 +532,19 @@
                 
 				<div class = "div-qna">
 					<div class = "div-qna-inner">
+					<%for(int i = 0; i < topBoard.size(); i++) {
+					Board b = (Board)topBoard.get(i);
+					%>
 						<div id="img-qna-bar">
 							<span class = "span-qna-q"> Q1. </span>
-							<span>질문 예시 얍얍얍얍 </span>
+							<span>[<%= b.getBtitle() %>] <%=b.getbContent() %></span>
 							<div id ="like-qna">
-							<i class="heart icon" id ="like-qna">23</i>
+							<i class="heart icon" id ="like-qna"><%= b.getbLike() %></i>
 							</div>
 						</div>
-						<div id="img-qna-bar">
+						
+					<%} %>
+						<!-- <div id="img-qna-bar">
 							<span class = "span-qna-q"> Q2. </span>
 							<span>질문 예시 얍얍얍얍 </span>
 							<div id ="like-qna">
@@ -548,7 +557,7 @@
 							<div id ="like-qna">
 							<i class="heart icon" id ="like-qna">23</i>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<!-- <div class = "div-qna">
@@ -604,13 +613,72 @@
          function goSeePlan(){
         		 location.href = "/et/views/normal/plan/Seeplan_main.jsp";
          }
-           
+         
+         
+		var map;
+		var flightPlanCoordinatesArr = [];
+		var flightPlanCoordinates = [];
+		var path = {};
+ 	    
          $(function(){
  			<% 
  			if(msg != null){ %>
  			alert("<%=msg%>");
  			<%} %>
+ 			
+		// 플랜 별 도시 위도 경도를 찍는다. 
+		<%
+		String[] planCityArr = null;
+		System.out.println("잉" + planList.size());
+		for (int i = 0; i < planList.size(); i++){
+			planCityArr =  (planList.get(i).getpCites()).split(", "); // 이건 String
+			for(String cityNo : planCityArr){
+				%> path = {lat : <%=cityMap.get(cityNo).getCtLat()%>, lng : <%=cityMap.get(cityNo).getCtLng()%>};
+				flightPlanCoordinates.push(path); 
+			<% }%> 
+			flightPlanCoordinatesArr.push(flightPlanCoordinates); 
+			flightPlanCoordinates = [];
+		<% } %>
+		
+		<%for(int i = 0; i < planList.size();  i++){ %>
+    		// 해당하는 플랜의 도시 배열을 뽑아서 배열값을 나눈 다음에
+    		// 여행하는 도시의 번호를 가져와서 도시리스트에서 위도, 경도를 구한다.
+    		// 위도 경도 값을 해당하는 플랜의 도시 순서대로 PATH를 넣는다. 
+		    var map<%=i%> = new google.maps.Map(document.getElementById('plan-map<%=i%>'), { 
+		          zoom: 4.5,
+		          center: new google.maps.LatLng(47.778744, 7.397438),
+		          mapTypeId: google.maps.MapTypeId.ROADMAP,
+		          disableDefaultUI: true,
+		          styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.province","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.neighborhood","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"administrative.neighborhood","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"all","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.highway.controlled_access","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"transit","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"transit","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]}]
+		    });
+		    
+		    var lineSymbol = {
+		            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+		            scale: 4,
+		            strokeColor: '#EDC53A'
+	        };
+		    
+		   	poly<%=i%> = new google.maps.Polyline({
+		    		path : flightPlanCoordinatesArr[<%=i%>],
+		        strokeColor: '#2A5A85',
+		        strokeOpacity: 1.0,
+		        strokeWeight: 3
+		    });
+	        poly<%=i%>.setMap(map<%=i%>);
+	        
+	       
+	        for (var j = 0; j < flightPlanCoordinatesArr[<%=i%>].length; j++) {
+	        marker<%=i%> = new google.maps.Marker({
+	            position: flightPlanCoordinatesArr[<%=i%>][j],
+	            icon : lineSymbol,
+	            map: map<%=i%>
+	          });
+	        console.log("marker"+j);
+	        }
+	    <%}%>
  		});
+         
+         
     </script>
     
 	<script>
