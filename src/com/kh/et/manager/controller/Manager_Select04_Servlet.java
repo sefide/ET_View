@@ -2,6 +2,7 @@ package com.kh.et.manager.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,7 +30,7 @@ public class Manager_Select04_Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		
-
+		/* 정지회원조회 페이징 */
 		int currentPage;	//현재페이지 표시
 		int limit;			//한페이지에 게시글이 몇개보여질 것인지 표시
 		int maxPage;		//전체페이지에서 가장마지막페이지
@@ -49,7 +50,7 @@ public class Manager_Select04_Servlet extends HttpServlet {
 
 		ManagerService ms = new ManagerService();
 		
-		int listCount = ms.getListCount();
+		int listCount = ms.getStopListCount();
 		
 		//총 페이지수 계산
 		//ex) 목록수 123(=>(int)(12.3+0.9))개 -> 페이지 13개필요
@@ -68,18 +69,20 @@ public class Manager_Select04_Servlet extends HttpServlet {
 		
 		//페이징처리에 쓸 변수들 가지고있는 객체생성
 		PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
-				
-		ArrayList<Member> stopList = new ManagerService().selectStopList(currentPage,limit);
+	
+		ArrayList<HashMap<String,Object>> StopList = new ManagerService().selectStopList(currentPage,limit);
 
+		
 		String page="";
-		if(stopList!=null) {
+		if(StopList!=null) {
 			page="views/manager/normalMember/manager_black.jsp";
-			request.setAttribute("stopList", stopList);
+			request.setAttribute("StopList", StopList);
 			request.setAttribute("pi", pi); //PageInfo도 같이전달
+			
 			
 		}else {
 			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "정지&탈퇴회원 조회 실패!");
+			request.setAttribute("msg", "정지회원 조회 실패!");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);

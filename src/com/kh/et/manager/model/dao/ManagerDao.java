@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import javax.swing.plaf.synth.SynthSpinnerUI;
+
 import com.kh.et.manager.model.vo.Manager;
 import com.kh.et.member.model.vo.Member;
 
@@ -162,8 +164,7 @@ public class ManagerDao {
 			rset = stmt.executeQuery(query);
 			
 			if(rset.next()) {
-				listCount = rset.getInt(1); //? 총 글의개수
-				System.out.println("공지사항 list개수 : "+listCount);
+				listCount = rset.getInt(1); // 총 글의개수
 			}
 		
 		} catch (SQLException e) {
@@ -371,20 +372,29 @@ public class ManagerDao {
 	//블랙회원조회
 	public ArrayList<Member> selectBlackList(Connection con, int currentPage, int limit) {
 		
-		Statement stmt= null;
+		PreparedStatement pstmt= null;
 		ResultSet rset = null;
 		Member m = null;
 		ArrayList<Member> list = null;
 		
-		//group by절때문에 페이징처리 안됨 ㅠ => 해결하기
 		String query = prop.getProperty("selectBlackList");
 		
 		list = new ArrayList<Member>();
 		
 		try {
-			stmt = con.createStatement();
+			pstmt = con.prepareStatement(query);
 			
-			rset = stmt.executeQuery(query);
+			
+			//현재페이지(목록)에서 시작하는 글번호
+			int startRow = (currentPage - 1) * limit + 1;
+			//현재페이지에서 마지막 글번호
+			int endRow = startRow + limit - 1;
+			/*System.out.println("endRow : "+endRow);*/
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				m = new Member();
@@ -392,7 +402,7 @@ public class ManagerDao {
 				m.setM_no(rset.getInt("M_NO"));
 				m.setM_id(rset.getString("M_ID"));
 				m.setM_email(rset.getString("M_EMAIL"));
-				//신고수는 어떻게 세팅?
+				m.setM_point(rset.getInt("CNT"));
 				
 				list.add(m);
 			}
@@ -400,7 +410,7 @@ public class ManagerDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		
@@ -409,9 +419,56 @@ public class ManagerDao {
 	}
 
 	//정지회원조회
-	public ArrayList<Member> selectStopList(Connection con, int currentPage, int limit) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<HashMap<String, Object>> selectStopList(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt= null;
+		ResultSet rset = null;
+		Member m = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectStopList");
+		
+		list = new ArrayList<HashMap<String, Object>>();
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			
+			//현재페이지(목록)에서 시작하는 글번호
+			int startRow = (currentPage - 1) * limit + 1;
+			//현재페이지에서 마지막 글번호
+			int endRow = startRow + limit - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String,Object>>();
+			
+			while(rset.next()) {
+				hmap=new HashMap<String,Object>();
+				
+				hmap.put("m_no",rset.getInt("M_NO"));
+				hmap.put("m_id",rset.getString("M_ID"));
+				hmap.put("m_email",rset.getString("M_EMAIL"));
+				hmap.put("m_date",rset.getString("M_DATE"));
+				hmap.put("m_name",rset.getString("M_NAME"));//뽑아오는것은 숫자
+				hmap.put("s_start_date",rset.getString("BK_START_DATE"));
+				hmap.put("s_end_date",rset.getString("BK_END_DATE"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
 	}
 
 	public ArrayList<HashMap<String, Object>> selectPlan(Connection con, int currentPage, int limit) {
@@ -445,11 +502,7 @@ public class ManagerDao {
 				hmap.put("pPrivate",rset.getString("P_PRIVATE"));
 				hmap.put("PI_type",rset.getString("PI_TYPE"));//뽑아오는것은 숫자
 				list.add(hmap);
-				
-				
 			}
-			
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -458,11 +511,7 @@ public class ManagerDao {
 			close(rset);
 		}
 		
-	
 		return list;
-		
-		
-		
 	}
 
 	public int getListCount1(Connection con) {
@@ -490,5 +539,134 @@ public class ManagerDao {
 		}
 		return listCount;
 
+	}
+
+	//블랙리스트 회원조회 리스트 개수
+	public int getBlackListCount(Connection con) {
+		Statement stmt = null;
+		int BlackListCount = 0;
+		ResultSet rset = null;
+		
+		//전체 게시글 수 조회
+		String query = prop.getProperty("BlackMemberListCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				BlackListCount = rset.getInt(1); // 총 글의개수
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		return BlackListCount;
+	}
+
+	//정지회원 회원조회 리스트 개수
+	public int getStopListCount(Connection con) {
+		Statement stmt = null;
+		int StopListCount = 0;
+		ResultSet rset = null;
+		
+		//전체 게시글 수 조회
+		String query = prop.getProperty("StopMemberListCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				StopListCount = rset.getInt(1); // 총 글의개수
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		return StopListCount;
+	}
+
+	//탈퇴회원 회원조회 리스트 개수
+	public int getOutListCount(Connection con) {
+		Statement stmt = null;
+		int OutListCount = 0;
+		ResultSet rset = null;
+		
+		//전체 게시글 수 조회
+		String query = prop.getProperty("OutMemberListCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				OutListCount = rset.getInt(1); // 총 글의개수
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		return OutListCount;
+	}
+
+	//탈퇴회원 조회
+	public ArrayList<Member> selectOutList(Connection con, int currentPage2, int limit2) {
+		PreparedStatement pstmt= null;
+		ResultSet rset = null;
+		Member m = null;
+		ArrayList<Member> list = null;
+		
+		String query = prop.getProperty("selectOutList");
+		
+		list = new ArrayList<Member>();
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			
+			//현재페이지(목록)에서 시작하는 글번호
+			int startRow = (currentPage2 - 1) * limit2 + 1;
+			//현재페이지에서 마지막 글번호
+			int endRow = startRow + limit2 - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Member>();
+			
+			while(rset.next()) {
+				m = new Member();
+				
+				m.setM_no(rset.getInt("M_NO"));
+				m.setM_id(rset.getString("M_ID"));
+				m.setM_email(rset.getString("M_EMAIL"));
+				m.setM_date(rset.getDate("M_DATE"));
+				m.setM_name(rset.getString("M_NAME"));
+				m.setM_out_date(rset.getDate("M_OUT_DATE"));
+				
+				list.add(m);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
 	}
 }

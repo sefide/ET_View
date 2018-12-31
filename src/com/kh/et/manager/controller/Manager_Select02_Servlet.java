@@ -72,9 +72,9 @@ public class Manager_Select02_Servlet extends HttpServlet {
 
 		//회원최대포인트, 200포인트이상 회원수
 		int[] arr = new int[2];
-		arr=new ManagerService().selectPoint();
-		
+		arr=new ManagerService().selectPoint();		
 
+		
 		String page="";
 		if(list!=null) {
 			page="views/manager/normalMember/manager_check_manager.jsp";
