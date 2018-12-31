@@ -40,12 +40,13 @@ public class BoardDao {
 		System.out.println("Dao :" + b.getbContent());
 		
 		String query = prop.getProperty("insertBoard");
-		//insertBoard=INSERT INTO BOARD VALUES (SEQ_B_NO.NEXTVAL,1,'제목','내용', DEFAULT,'N', 0, 'Y',NULL);
+		//insertBoard=INSERT INTO BOARD VALUES (SEQ_B_NO.NEXTVAL,'작성자','제목','내용', DEFAULT,'N', 0, 'Y',NULL);
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, b.getBtitle());
-			pstmt.setString(2, b.getbContent());
+			pstmt.setString(1, b.getbWriter());
+			pstmt.setString(2, b.getBtitle());
+			pstmt.setString(3, b.getbContent());
 					
 			result = pstmt.executeUpdate();
 			
@@ -106,7 +107,9 @@ public class BoardDao {
 			
 			list = new ArrayList<Board>();
 			
+			
 			while(rset.next()) {
+				
 				Board b = new Board();
 				
 				b.setbNo (rset.getInt("B_NO"));
@@ -117,7 +120,7 @@ public class BoardDao {
 								
 				list.add(b);
 			}
-			System.out.println(list);
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -128,6 +131,46 @@ public class BoardDao {
 		}
 		return list;
 	}
+	
+	//상세 글 보기 메소드
+	public Board selectOne(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Board b = null;
+		
+		String query = prop.getProperty("selectOne");
+		//selectOne=SELECT B.B_NO, M.M_ID, B.B_TITLE, B.B_CONTENT, B.B_DATE FROM BOARD B JOIN MEMBER M ON(B.B_N_NO = M.M_NO) WHERE B.B_NO = ? AND B.B_STATUS = 'Y' AND B.B_TYPE=0
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new Board();
+				
+				b.setbNo(rset.getInt("B_NO"));
+				b.setbWriter(rset.getString("M_ID"));
+				b.setBtitle(rset.getString("B_TITLE"));
+				b.setbContent(rset.getString("B_CONTENT"));
+				b.setbDate(rset.getDate("B_DATE"));
+			}
+		
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+	
+		
+		return b;
+	}
+
+
 
 	public ArrayList<Board> selectTopBoard(Connection con) {
 		ArrayList<Board> boardList = null;
