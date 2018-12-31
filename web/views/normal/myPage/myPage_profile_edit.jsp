@@ -61,6 +61,7 @@
 	<form action = "" method = "post" encType = "multipart/form-data">
 	
 		<div class = "insertArea">
+		<form action = "<%=request.getContextPath()%>/profileSetting.me?" method = "post">
 			<table align = "center">
 				<tr>
 					<td id ="txt">
@@ -77,7 +78,7 @@
 				<tr>
 					<td>
 						<div id = "fileArea">
-							<input type = "file" id = "profileImgSelect" name="profileImgSelect" onchange = "loadImg(this)" class = "ui icon">
+							<input type = "file" id = "profileImgSelect" name="profileImg" onchange = "loadImg(this)" class = "ui icon">
 						</div>		
 					</td>
 				</tr>
@@ -94,7 +95,7 @@
 				</tr>
 				
 			</table>
-				
+		</form>
 		</div>
 		<br>
 		<div class ="btnArea">

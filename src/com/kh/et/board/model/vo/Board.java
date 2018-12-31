@@ -12,12 +12,13 @@ public class Board implements java.io.Serializable {
 	private String bStatus; // 글 상태
 	private int bType; // 글 종류(레벨-글 or 댓글)
 	private int bRefNo; // 참조 글 번호(댓글일 경유)
+	private int bLike; // 좋아요 개수 
 
 	public Board() {
 	}
 
 	public Board(int bNo, String btitle, String bWriter, String bContent, Date bDate, String bCheckBest, String bStatus,
-			int bType, int bRefNo) {
+			int bType, int bRefNo, int bLike) {
 		super();
 		this.bNo = bNo;
 		this.btitle = btitle;
@@ -28,13 +29,14 @@ public class Board implements java.io.Serializable {
 		this.bStatus = bStatus;
 		this.bType = bType;
 		this.bRefNo = bRefNo;
+		this.bLike = bLike;
 	}
 
 	@Override
 	public String toString() {
 		return "Board [bNo=" + bNo + ", btitle=" + btitle + ", bWriter=" + bWriter + ", bContent=" + bContent
 				+ ", bDate=" + bDate + ", bCheckBest=" + bCheckBest + ", bStatus=" + bStatus + ", bType=" + bType
-				+ ", bRefNo=" + bRefNo + "]";
+				+ ", bRefNo=" + bRefNo + ", bLike=" + bLike + "]";
 	}
 
 	public int getbNo() {
@@ -108,5 +110,15 @@ public class Board implements java.io.Serializable {
 	public void setbRefNo(int bRefNo) {
 		this.bRefNo = bRefNo;
 	}
+
+	public int getbLike() {
+		return bLike;
+	}
+
+	public void setbLike(int bLike) {
+		this.bLike = bLike;
+	}
+	
+	
 
 }

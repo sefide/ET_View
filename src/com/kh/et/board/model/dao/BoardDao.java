@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.et.board.model.vo.Board;
+import com.kh.et.tourBoard.model.vo.TourBoard;
+
 import static com.kh.et.common.JDBCTemplate.*;
 
 public class BoardDao {
@@ -126,5 +128,43 @@ public class BoardDao {
 		}
 		return list;
 	}
+
+	public ArrayList<Board> selectTopBoard(Connection con) {
+		ArrayList<Board> boardList = null;
+		String bitype = "좋아요";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectTopBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, bitype);
+			
+			rset = pstmt.executeQuery();
+			
+			boardList = new ArrayList<Board>();
+			while(rset.next()) {
+				Board b = new Board();
+				
+				b.setbNo(rset.getInt("BI_B_NO"));
+				b.setBtitle(rset.getString("B_TITLE"));
+				b.setbContent(rset.getString("B_CONTENT"));
+				b.setbLike(rset.getInt("CNT"));
+				
+				boardList.add(b);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return boardList;
+	}
+
+	
 
 }
