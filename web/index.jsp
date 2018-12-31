@@ -376,7 +376,7 @@
         				<%-- <% for(int i = 0; i < 3; i++){ %> --%>
         					<div class ="div-plan-map"> 
         					    <iframe class = "plan-map" src="" width="340px" height="340px" style="border:none;"></iframe>
-        						<div class = "div-plan-title"><%=%></div>
+        						<div class = "div-plan-title"><%-- <%=%> --%></div>
         						<div class = "div-plan-like"> 
         							<i class = "icon heart">34</i>
         						</div>

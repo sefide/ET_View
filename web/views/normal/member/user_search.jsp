@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <title>ET_Planner</title>
 <link rel="icon" href="/et/image/common/logo.png">
-
-
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -68,6 +66,7 @@
 }
 
 .idContent {
+	margin-top:30px;
 	font-family:'Nanum Gothic', sans-serif;"
 }
 
@@ -100,14 +99,9 @@
 	font-weight: 600; 
 	font-family: 'Nanum Gothic', sans-serif;
 }
-.pTag{
+.pTag1, .pTag2{
 	text-align: center;
-	font-size: 11px;
-}
-.pTag2{
-	text-align: center;
-	margin-left:140px;
-	font-size: 11px;
+	font-size: 13px;
 }
 
 </style>
@@ -175,7 +169,10 @@
 												</div>
 											</div>
 										</div>
-										<br><a href="#"><button class="ui yellow button" onclick="return idSearch();" style="width: 70%; font-family: 'Nanum Gothic', sans-serif; color:black;">아이디 찾기</button></a> <br> <br> 
+										<br><a href="#"><button class="ui yellow button" onclick="return idSearch();" style="width: 69%; margin-left:5px; 'Nanum Gothic', sans-serif; color:black;">아이디 찾기</button></a> <br> <br> 
+									</div>
+									<div class="pTag1">
+										<a href="/et/views/common/manager/manager_login.jsp" style="color: black; fontext-decoration:none;">로그인 하러가기&nbsp;<i class="large hand point right outline icon"></i></a>
 									</div>
 								</div>
 							</div>
@@ -214,31 +211,30 @@
 										</div>
 										<div>
 										<br><button class="ui button" onclick="pwdSearch();" style="width: 70%; font-family: 'Nanum Gothic', sans-serif;">임시 비밀번호 발급받기</button>
-										
-										<%!
-										public static String getRamdomPassword(){
-										char[] charSet 
-											= new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-															, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'
-															, 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R'
-															, 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' }; 
-											int idx = 0; 
-											StringBuffer sb = new StringBuffer(); 
-											//System.out.println("charSet.length :::: "+charSet.length); 
-											for(int i = 0; i < 10; i++) { 
-												idx = (int) (charSet.length * Math.random());
-												//System.out.println("idx :::: "+idx); 
-												sb.append(charSet[idx]); 
-												} // 36 * 생성된 난수를 Int로 추출 (소숫점제거)
-											
+										<%! public static String getRamdomPassword(){
+												char[] charSet 
+													= new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+																	, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'
+																	, 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R'
+																	, 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' }; 
+												int idx = 0; 
+												StringBuffer sb = new StringBuffer(); 
+												//System.out.println("charSet.length :::: "+charSet.length); 
+												for(int i = 0; i < 10; i++) { 
+													idx = (int) (charSet.length * Math.random());
+													//System.out.println("idx :::: "+idx); 
+													sb.append(charSet[idx]); 
+													} // 36 * 생성된 난수를 Int로 추출 (소숫점제거)
+												
 												return sb.toString();
 											}
-											%>
+										%>
 											<input type="hidden" value="<%=getRamdomPassword()%>" id="randomCode">
 										</div>
 										<br>
-										<div class="pTag">회원가입시 입력한 이메일로 임시 비밀번호가</div>
-										<div class="pTag2">발급되었습니다.</div>
+										<div class="pTag2">
+											<p>회원가입시 입력한 이메일로 임시 비밀번호가  <br>발급되었습니다.</p>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -259,6 +255,9 @@
 	</div>
 </div>
 <script>
+
+	$(".pTag1").hide();
+	$(".pTag2").hide();
 
 	function pwdSearch(){	//액션 따로 주기!!
 		$("#idSearchForm").attr("action", "<%=request.getContextPath()%>/login.company")
@@ -282,6 +281,7 @@
 					alert("찾으시는 아이디가 없습니다");
 				}else{
 					alert("찾으시는 아이디는 " + "[ " + data  + " ]" + " 입니다.");
+					$(".pTag1").show();
 				}
 			},
 			error:function(){
@@ -306,20 +306,21 @@
 		
 		 $.ajax({
 			url:"/et/temporaryPassword.me",
-			type:"post",
+			type:"get",
 			data:{userId:userId, userEmailPass:userEmailPass, randomCode:randomCode},
 			success:function(data){
 				if(data == "SUCCESS"){
 					alert("임시비밀번호 발송 성공!");
+					$(".pTag2").show();
 				}else{
-					alert("인증코드 발송 실패");
+					alert("임시비밀번호 발송 실패");
 				}
 			},
 			error:function(){
 				console.log("실패!");
 			}
 		});
-			
+		 
 	}	 
 </script>
 

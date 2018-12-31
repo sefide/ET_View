@@ -46,9 +46,8 @@
 <style>
 
 .main {
-	position: absolute;
-	left: 490px;
-	top: 80px;
+	margin-top: 80px;
+	margin-left: 30px;
 }
 .mainlogo {
 	text-align: center;
@@ -82,7 +81,7 @@
 <body>
 <div class="main" >
 	<div class="mainlogo">
-		<a href="http://127.0.0.1:8003/et/" id="logo" title="메인페이지로 이동" style="font-size: 39px; text-decoration:none; color:black"> 
+		<a href="/et/" id="logo" title="메인페이지로 이동" style="font-size: 39px; text-decoration:none; color:black"> 
 		<image src="/et/image/common/logo.png" style="width: 50px; height: 50px;" alt="메인로고">&nbsp;ET Planner</image>
 		</a>
 	</div>
@@ -112,11 +111,11 @@
 			</div>
 			<br>
 			<br>
-			<div class="search">
+			<!-- <div class="search">
 				<a href="#" style="color: black; text-decoration:none">혹시 아이디 혹은 비밀번호를 잊으셨나요?</a>
-			</div>
+			</div> -->
 			<br>
-			<a href="#"></a><button class="ui blue button" id="loginBtn" onclick="manager_login();">관리자 로그인</button></a>
+			<a><button class="ui blue button" id="loginBtn" onclick="manager_login();">관리자 로그인</button></a>
 			<br>
 			<br>
 		</div>
@@ -140,7 +139,7 @@
 			<br>
 			<br>
 			<div class="search">
-				<a href="http://127.0.0.1:8003/et/views/tour_pwd_search.jsp" style="color: black; text-decoration:none">비밀번호를 잊으셨나요?</a>
+				<a href="/et/views/company/member/com_pwd_search.jsp" style="color: black; text-decoration:none">비밀번호를 잊으셨나요?</a>
 			</div>
 			<br>
 			<button type="submit" class="ui yellow button" id="loginBtn" onclick="company_login();">제휴사 로그인</button>
@@ -165,6 +164,7 @@
 		
 		function manager_login(){
 			$("#managerLoginForm").submit;
+		
 		}
 		
 		$(function(){
@@ -177,6 +177,7 @@
 		function company_login(){	//액션 따로 주기!!
 			$("#managerLoginForm").attr("action", "<%=request.getContextPath() %>/login.company");
 			$("#managerLoginForm").submit;
+
 		}
 		$(function(){
 			<% System.out.println("msg2 : " + msg2);
