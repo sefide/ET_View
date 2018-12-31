@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.et.manager.model.vo.*"%>
+    
+    
+    <%ArrayList<HashMap<String,Object>> list=(ArrayList<HashMap<String,Object>>)request.getAttribute("list");
+    PageInfo pi=(PageInfo)request.getAttribute("pi");
+    int listCount=pi.getListCount();
+    int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage(); 
+    %>
+    
+    
+    
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -59,33 +73,85 @@ table{
     	- 게시글 정보 <br><br>
     	<table id="tb1">
     		<tr>
+    			<th></th>
     			<th style=width:150px;>글 번호</th>
     			<th>제목</th>
     			<th>작성자</th>
     			<th>내용</th>
     			<th>날짜</th>
-    			<th>조회수</th>
     			<th>좋아요 수 </th>
     			<th>댓글 수 </th>
     		</tr>
-    		<tr>
-    			<td>1 </td>
-    			<td>파리 내 이동수단 추천해주...</td>
-    			<td>Tajan</td>
-    			<td>안녕하세요 제가 파리...</td>
-    			<td>20181128</td>
-    			<td>56</td>
-    			<td>3</td>
-    			<td>2</td>
-    		</tr>
     		
+    		<% for(int i=0;i<list.size();i++){
+    			HashMap<String,Object>hmap=list.get(i);
+    		%>
+    		<tr>
+    			<td class="num"><input type="checkbox" name="checkbox" class="chkCheckBox" value=<%=hmap.get("bNo")%>></td>
+    			<td><%=hmap.get("bNo") %></td>
+    			<td><%=hmap.get("bTitle") %></td>
+    			<td><%=hmap.get("mName") %></td>
+    			<td><%=hmap.get("bContent") %></td>
+    			<td><%=hmap.get("bDate") %></td>
+    			<td><%=hmap.get("like") %></td>
+    			<td><%=hmap.get("reply") %></td>
+    		</tr>
+    		<%} %>
     	</table>
+    	
+    	<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage = 1'"> << </button>
+			
+			<% if(currentPage <= 1){ %>
+			<button disabled> < </button>
+			<% }else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage=<%=currentPage - 1%>'"> < </button>
+			<% } %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+					if(p == currentPage){
+			%>
+					<button disabled><%= p %></button>
+			<%      }else{ %>
+					<button onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage=<%= p %>'"><%= p %></button>
+			<%      } %>
+	
+			<% } %>
+			
+			
+			<% if(currentPage >= maxPage){ %> <!-- 마지막 페이지일 경우 -->
+			<button disabled> > </button>
+			<% }else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage=<%=currentPage + 1%>'"> > </button>
+			<% } %>
+			<button onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage=<%=maxPage%>'"> >> </button> 
+			
+		</div>
+
     	<br>
-    	<button style=float:right;>삭제하기</button>
+    	<button style=float:right onclick="deleteBtn();">삭제하기</button>
     </div>
 	
 	<div class = "two wide column"></div>
 	
 	<%@ include file = "/views/common/company/footer_com.jsp" %>
+	
+	<script>
+	
+	$(function(){
+ 		$("#deleteBtn").click(function(){
+ 			var items = [];
+ 			$(".chkCheckBox:checked").each(function(){
+ 				items.push($(this).val());
+ 				console.log(items);
+ 			});
+ 			location.href = '<%=request.getContextPath()%>/deleteBoard.mng?chkValue='+items;
+ 			
+ 		});
+ 	});
+	
+	</script>
+	
+	
 </body>
 </html>

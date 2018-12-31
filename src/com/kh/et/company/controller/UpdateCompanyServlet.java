@@ -40,6 +40,8 @@ public class UpdateCompanyServlet extends HttpServlet {
 		String address=request.getParameter("address");
 		String term=request.getParameter("term");
 		String term2=request.getParameter("term2");
+		int cno= Integer.parseInt(request.getParameter("comNo"));
+		
 		
 		System.out.println("가져오나 보자");
 		System.out.println(name);
@@ -102,6 +104,7 @@ public class UpdateCompanyServlet extends HttpServlet {
 		reqCompany.setC_biss_address(address);
 		reqCompany.setC_date(day);
 		reqCompany.setC_end_date(day2);
+		reqCompany.setC_no(cno);
 		
 		int result=new CompanyService().updateCompany(reqCompany);
 		String page="";
@@ -111,9 +114,10 @@ public class UpdateCompanyServlet extends HttpServlet {
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "수정하기실패!");
+			RequestDispatcher view=request.getRequestDispatcher(page);
+			view.forward(request, response);
 		}
-		RequestDispatcher view=request.getRequestDispatcher(page);
-		view.forward(request, response);
+		
 		
 		
 	}

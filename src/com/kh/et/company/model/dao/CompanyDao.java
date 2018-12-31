@@ -241,27 +241,43 @@ public class CompanyDao {
 		return c;
 	}
 
-	public int deleteCompany(Connection con, Company reqCompany) {
-		
+
+	public Company deleteCompany(Connection con, String item) {
 		PreparedStatement pstmt=null;
-		int result=0;
+		PreparedStatement pstmt1=null;
+		PreparedStatement pstmt2=null;
+		PreparedStatement pstmt3=null;
+		ResultSet rset=null;
+		Company c=null;
 		
-		String query=prop.getProperty("deleteNotice");
-		
+		String query1=prop.getProperty("deletePaymentCno");
+		String query2=prop.getProperty("deleteCouponCno");
+		String query3=prop.getProperty("deleteTourBoardCno");
+		String query4=prop.getProperty("deleteCompanyCno");
 		try {
-			pstmt=con.prepareStatement(query);
-			pstmt.setInt(1,reqCompany.getC_no());
+			pstmt=con.prepareStatement(query1);
+			pstmt1=con.prepareStatement(query2);
+			pstmt2=con.prepareStatement(query3);
+			pstmt3=con.prepareStatement(query4);
+			pstmt.setInt(1,Integer.parseInt(item));
+			pstmt1.setInt(1,Integer.parseInt(item));
+			pstmt2.setInt(1,Integer.parseInt(item));
+			pstmt3.setInt(1,Integer.parseInt(item));
 		
-			result=pstmt.executeUpdate();
+			rset=pstmt.executeQuery();
+			rset=pstmt1.executeQuery();
+			rset=pstmt2.executeQuery();
+			rset=pstmt3.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
+			close(rset);
 		}
 		
-		
-		return result;
+
+		return c;
 	}
 
 }
