@@ -128,6 +128,7 @@ public class ManagerService {
 		Connection con = getConnection();
 		
 		ArrayList<Member> list= new ManagerDao().selectBlackList(con,currentPage,limit);
+		/*System.out.println("list의 길이 : "+list.size());*/
 		
 		if(list!=null) {
 			commit(con);
@@ -141,18 +142,16 @@ public class ManagerService {
 	}
 
 	//정지회원조회
-	public ArrayList<Member> selectStopList(int currentPage, int limit) {
+	public ArrayList<HashMap<String,Object>> selectStopList(int currentPage, int limit) {
 		Connection con = getConnection();
 		
-		ArrayList<Member> list= new ManagerDao().selectStopList(con,currentPage,limit);
+		ArrayList<HashMap<String,Object>> list= new ManagerDao().selectStopList(con,currentPage,limit);
 		
 		if(list!=null) {
 			commit(con);
 		}else {
 			rollback(con);
 		}
-
-		close(con);
 		
 		return list;
 	}
@@ -209,6 +208,69 @@ public class ManagerService {
 		
 		System.out.println("서비스 : " + listCount);
 		return listCount;
+	}
+
+	//블랙리스트 회원조회 리스트 개수
+	public int getBlackListCount() {
+		Connection con = getConnection();
+		int BlackListCount = new ManagerDao().getBlackListCount(con);
+		
+		if(BlackListCount>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return BlackListCount;
+	}
+
+	//정지회원 회원조회 리스트 개수
+	public int getStopListCount() {
+		Connection con = getConnection();
+		int listCount = new ManagerDao().getStopListCount(con);
+		
+		if(listCount>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	//탈퇴회원 회원조회 리스트 개수
+	public int getOutListCount() {
+		Connection con = getConnection();
+		int listCount = new ManagerDao().getOutListCount(con);
+		
+		if(listCount>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	//탈퇴회원 조회
+	public ArrayList<Member> selectOutList(int currentPage2, int limit2) {
+		Connection con = getConnection();
+		
+		ArrayList<Member> list= new ManagerDao().selectOutList(con,currentPage2,limit2);
+		
+		if(list!=null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return list;
 	}
 
 }

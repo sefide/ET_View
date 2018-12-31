@@ -15,12 +15,12 @@ import com.kh.et.member.model.vo.Member;
 import com.kh.et.member.model.vo.PageInfo;
 
 
-@WebServlet("/select03.mng")
-public class Manager_Select03_Servlet extends HttpServlet {
+@WebServlet("/select05.mng")
+public class Manager_Select05_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
-    public Manager_Select03_Servlet() {
+
+    public Manager_Select05_Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,63 +29,66 @@ public class Manager_Select03_Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		
-		int currentPage;	//현재페이지 표시
-		int limit;			//한페이지에 게시글이 몇개보여질 것인지 표시
-		int maxPage;		//전체페이지에서 가장마지막페이지
-		int startPage;		//한번에 표시될페이지가 시작할 페이지
-		int endPage;		//한번에 표시될페이지가 끝나는페이지
+		/* 탈퇴회원 조회페이징 */
+		int currentPage2;	//현재페이지 표시
+		int limit2;			//한페이지에 게시글이 몇개보여질 것인지 표시
+		int maxPage2;		//전체페이지에서 가장마지막페이지
+		int startPage2;		//한번에 표시될페이지가 시작할 페이지
+		int endPage2;		//한번에 표시될페이지가 끝나는페이지
 		
 		//현재페이지 처리
-		currentPage = 1; //아무것도값이없을때는 1번부터 보여줌
+		currentPage2 = 1; //아무것도값이없을때는 1번부터 보여줌
 		
-		if(request.getParameter("currentPage")!= null) {
+		if(request.getParameter("currentPage2")!= null) {
 			//currentPage값을 현재페이지로 등록
-			currentPage=Integer.parseInt(request.getParameter("currentPage"));
+			currentPage2=Integer.parseInt(request.getParameter("currentPage2"));
 		}
 		
 		//한페이지에 보여질 목록갯수
-		limit=10;
+		limit2=10;
+
+		ManagerService ms2 = new ManagerService();
 		
-		int BlackListCount = new ManagerService().getBlackListCount();
+		int listOutCount = ms2.getOutListCount();
 		
 		//총 페이지수 계산
 		//ex) 목록수 123(=>(int)(12.3+0.9))개 -> 페이지 13개필요
-		maxPage = (int)((double)BlackListCount/limit + 0.9);
+		maxPage2 = (int)((double)listOutCount/limit2 + 0.9);
 		
 		//현재페이지에 보여줄 시작페이지 수
 		//1, 11, 21, 31, ...
-		startPage = (((int)((double)currentPage/limit + 0.9))-1)*limit+1;
+		startPage2 = (((int)((double)currentPage2/limit2 + 0.9))-1)*limit2+1;
 		
 		//목록아래쪽에 보여질 마지막 페이지수 (10,20,30, ...)
-		endPage = startPage+10-1;
+		endPage2 = startPage2+10-1;
 		
-		if(maxPage<endPage) {
-			endPage=maxPage;
+		if(maxPage2<endPage2) {
+			endPage2=maxPage2;
 		}
 		
 		//페이징처리에 쓸 변수들 가지고있는 객체생성
-		PageInfo pi = new PageInfo(currentPage,BlackListCount,limit,maxPage,startPage,endPage);
-				
-		ArrayList<Member> BlackList = new ManagerService().selectBlackList(currentPage,limit);
-
+		PageInfo pi2 = new PageInfo(currentPage2,listOutCount,limit2,maxPage2,startPage2,endPage2);
+	
+		ArrayList<Member> outList = new ManagerService().selectOutList(currentPage2,limit2);
+		
+		
 		String page="";
-		if(BlackList!=null) {
-			page="views/manager/normalMember/manager_check_black.jsp";
-			request.setAttribute("BlackList", BlackList);
-			request.setAttribute("pi", pi); //PageInfo도 같이전달
+		if(outList!=null) {
+			page="views/manager/normalMember/manager_out.jsp";
+			request.setAttribute("outList", outList);
+			request.setAttribute("pi2", pi2);
 			
 		}else {
 			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "블랙회원 조회 실패!");
+			request.setAttribute("msg", "탈퇴회원 조회 실패!");
 		}
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-
 		
 	}
 
-	
+
 	protected void doPost(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

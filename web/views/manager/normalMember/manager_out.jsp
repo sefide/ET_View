@@ -1,20 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.*, com.kh.et.member.model.vo.*" %>
+    pageEncoding="UTF-8" import = "java.util.*, com.kh.et.member.model.vo.*"%>
 <%
-	ArrayList<HashMap<String, Object>> StopList = (ArrayList<HashMap<String, Object>>)request.getAttribute("StopList");
-	PageInfo pi=(PageInfo)request.getAttribute("pi");
-	int listCount=pi.getListCount();
-	int currentPage=pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-
+	ArrayList<Member> outList = (ArrayList<Member>)request.getAttribute("outList");
+	PageInfo pi2=(PageInfo)request.getAttribute("pi2");
+	int listCount2=pi2.getListCount();
+	int currentPage2=pi2.getCurrentPage();
+	int maxPage2 = pi2.getMaxPage();
+	int startPage2 = pi2.getStartPage();
+	int endPage2 = pi2.getEndPage();
 %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset=UTF-8">
 <title>Insert title here</title>
 	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -70,7 +69,8 @@
 </style>
 </head>
 <body>
-	<%@ include file = "/views/common/manager/header_manager.jsp" %>
+
+<%@ include file = "/views/common/manager/header_manager.jsp" %>
 
 	
 	
@@ -83,77 +83,66 @@
     <div class="sub">
     
     	<div class="ui header title">▶블랙리스트</div>
-    	- 정지 회원 조회 <br><br>
-    	<div>
+    	
+    		- 탈퇴 회원 조회 <br><br>
     		<table>
     			<tr>
-    				<th>정지목록</th>
     				<th>회원번호</th>
     				<th>아이디</th>
     				<th>이메일</th>
     				<th>가입일</th>
     				<th>이름</th>
-    				<th>정지 시작일</th>
-    				<th>정지 종료일</th>
+    				<th>탈퇴일</th>
     			</tr>
-    			<%for(int i=0;i<StopList.size();i++) {
-    		HashMap<String,Object>hmap=StopList.get(i);
-    		%>
-    		<tr>
-    			<td><input type="checkbox"></td>
-    			<td><%=hmap.get("m_no") %></td>
-    			<td><%=hmap.get("m_id") %></td>
-    			<td><%=hmap.get("m_email") %></td>
-    			<td><%=hmap.get("m_date") %></td>
-    			<td><%=hmap.get("m_name") %></td>
-    			<td><%=hmap.get("s_start_date") %></td>
-    			<td><%=hmap.get("s_end_date") %></td>
-    		</tr>
-    		<%} %>
+    			<% for(Member m : outList){ %>
+	    		<tr height="27px">
+	    			<td><%= m.getM_no() %></td>
+	    			<td><%= m.getM_id() %></td>
+	    			<td><%= m.getM_email() %></td>
+	    			<td><%= m.getM_name() %></td>
+	    			<td><%= m.getM_date() %></td>
+	    			<td><%= m.getM_out_date() %></td>
+	    		</tr>
+	    		<%} %>
     		</table>
     		
     		<br>
     		<div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath() %>/select04.mng?currnetPage=1'"><<</button>
-			<% if(currentPage <=1) {%>
+			<button onclick="location.href='<%=request.getContextPath() %>/select05.mng?currnetPage2=1'"><<</button>
+			<% if(currentPage2 <=1) {%>
 			<button disabled><<<</button>
 			<%}else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/select04.mng?currentPage=<%= currentPage -1%>'"><</button>		
+			<button onclick="location.href='<%=request.getContextPath()%>/select05.mng?currentPage2=<%= currentPage2 -1%>'"><</button>		
 			<%} %>
 			
-			<% for(int p=startPage; p<=endPage;p++){ 
-				if(p==currentPage){
-			%>		<button disabled><%= p %></button>
+			<% for(int p2=startPage2; p2<=endPage2;p2++){ 
+				if(p2==currentPage2){
+			%>		<button disabled><%= p2 %></button>
 			<%	}else{ %>
-					<button onclick="location.href='<%= request.getContextPath()%>/select04.mng?currentPage=<%= p%>'"><%= p %></button>
+					<button onclick="location.href='<%= request.getContextPath()%>/select05.mng?currentPage2=<%= p2%>'"><%= p2 %></button>
 			
 			<% }%>
 			
 			<%} %>
 			
-			<% if(currentPage >= maxPage){ %>
+			<% if(currentPage2 >= maxPage2){ %>
 			<button disabled>></button>
 			<%}else{ %>
-			<button onclick="location.href='<%= request.getContextPath()%>/select04.mng?currentPage=<%= currentPage +1%>'">></button>
+			<button onclick="location.href='<%= request.getContextPath()%>/select05.mng?currentPage2=<%= currentPage2 +1%>'">></button>
 			<%} %>
 			
-			<button onclick="location.href='<%= request.getContextPath()%>/select04.mng?currentPage=<%=maxPage%>'">>></button>
+			<button onclick="location.href='<%= request.getContextPath()%>/select05.mng?currentPage2=<%=maxPage2%>'">>></button>
 			
 			
 			
 		</div>
     		
-    		<br>
-    		<div class="btn">
-    			<button>정지 취소하기</button>
-    		</div>
     	</div>
-
-    		</div>
     	</div>
 	
 	<div class = "two wide column"></div>
 	
 	<%@ include file = "/views/common/company/footer_com.jsp" %>
+
 </body>
 </html>

@@ -52,10 +52,13 @@
                		<div>블랙리스트</div>
                		<ul>
                			<li>
-               			<div class="click" onclick = "check_black();">블랙회원 조회</div>
+               			<div class="click" onclick = "check_black();">블랙회원 관리</div>
            				</li>
            				<li>
-               			<div class="click" onclick = "manager_black();">블랙회원 관리</div>
+               			<div class="click" onclick = "manager_black();">정지회원 관리</div>
+           				</li>
+           				<li>
+               			<div class="click" onclick = "manager_out();">탈퇴회원 조회</div>
            				</li>
                		</ul>
           		 	</li>
@@ -70,16 +73,24 @@
     		/* $("#tag1").css({"font-weight":600}); */
     	}
     	
+    	//회원정보 조회
     	function check_manager(){
     		location.href="<%=request.getContextPath()%>/select02.mng";
     	}
     	
+    	//정지회원 관리
     	function check_black(){
     		location.href="<%=request.getContextPath()%>/select03.mng";
     	}
     	
+    	//탈퇴회원 조회
     	function manager_black(){
-    		location.href="/et/views/manager/normalMember/manager_black.jsp";
+    		location.href="<%=request.getContextPath()%>/select04.mng";
+    	}
+    	
+    	//탈퇴회원 조회
+    	function manager_out(){
+    		location.href="<%=request.getContextPath()%>/select05.mng";
     	}
     	
     </script>

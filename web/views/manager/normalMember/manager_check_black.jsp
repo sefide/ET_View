@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.*, com.kh.et.member.model.vo.*"%>
 <%
-	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+	ArrayList<Member> BlackList = (ArrayList<Member>)request.getAttribute("BlackList");
 	PageInfo pi=(PageInfo)request.getAttribute("pi");
 	int listCount=pi.getListCount();
 	int currentPage=pi.getCurrentPage();
@@ -96,17 +96,47 @@
     			<th>이메일</th>
     			<th>신고수</th>
     		</tr>
-    		<% for(Member m : list){ %>
+    		<% for(Member m : BlackList){ %>
 	    		<tr height="27px">
 	    			<td><input type="checkbox"></td>
 	    			<td><%= m.getM_no() %></td>
 	    			<td><%= m.getM_id() %></td>
 	    			<td><%= m.getM_email() %></td>
-	    			<td>신고수</td>
+	    			<td><%= m.getM_point() %></td>
 	    		</tr>
 	    		<%} %>
     	</table>
     	
+    	<br>
+    	 <div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath() %>/select03.mng?currnetPage=1'"><<</button>
+			<% if(currentPage <=1) {%>
+			<button disabled><<<</button>
+			<%}else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/select03.mng?currentPage=<%= currentPage -1%>'"><</button>		
+			<%} %>
+			
+			<% for(int p=startPage; p<=endPage;p++){ 
+				if(p==currentPage){
+			%>		<button disabled><%= p %></button>
+			<%	}else{ %>
+					<button onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%= p%>'"><%= p %></button>
+			
+			<% }%>
+			
+			<%} %>
+			
+			<% if(currentPage >= maxPage){ %>
+			<button disabled>></button>
+			<%}else{ %>
+			<button onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%= currentPage +1%>'">></button>
+			<%} %>
+			
+			<button onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%=maxPage%>'">>></button>
+			
+		</div>
+		
+	    
     	<div class="btn">
     	<button onclick="">정지</button>
     	<button onclick="">탈퇴</button>
