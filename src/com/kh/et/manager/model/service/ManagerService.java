@@ -183,4 +183,32 @@ public class ManagerService {
 		return listCount;
 	}
 
+	public ArrayList<HashMap<String, Object>> boardList(int currentPage, int limit) {
+		Connection con=getConnection();
+		ArrayList<HashMap<String,Object>> list=null;
+		
+			list=new ManagerDao().boardList(con,currentPage,limit);
+		
+		close(con);
+		
+		
+		return list;
+	}
+
+	public int getListCount2() {
+		Connection con = getConnection();
+		int listCount = new ManagerDao().getListCount2(con);
+		
+		if(listCount>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		System.out.println("서비스 : " + listCount);
+		return listCount;
+	}
+
 }

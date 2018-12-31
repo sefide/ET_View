@@ -415,7 +415,6 @@ public class ManagerDao {
 	}
 
 	public ArrayList<HashMap<String, Object>> selectPlan(Connection con, int currentPage, int limit) {
-		
 		PreparedStatement pstmt=null;
 		ArrayList<HashMap<String,Object>> list=null;
 		HashMap<String, Object> hmap=null;
@@ -431,6 +430,7 @@ public class ManagerDao {
 			
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
+			pstmt.setString(3, "좋아요");
 			rset = pstmt.executeQuery();
 			
 			list=new ArrayList<HashMap<String,Object>>();
@@ -443,9 +443,8 @@ public class ManagerDao {
 				hmap.put("pTitle",rset.getString("P_TITLE"));
 				hmap.put("m_name",rset.getString("M_NAME"));
 				hmap.put("pPrivate",rset.getString("P_PRIVATE"));
-				hmap.put("PI_type",rset.getString("PI_TYPE"));//뽑아오는것은 숫자
+				hmap.put("PI_type",rset.getString("CNT"));//뽑아오는 것은 숫자
 				list.add(hmap);
-				
 				
 			}
 			
@@ -490,5 +489,96 @@ public class ManagerDao {
 		}
 		return listCount;
 
+	}
+
+	public ArrayList<HashMap<String, Object>> boardList(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt=null;
+		ArrayList<HashMap<String,Object>> list=null;
+		HashMap<String, Object> hmap=null;
+		ResultSet rset=null;
+		
+		String query=prop.getProperty("boardList");
+		//SELECT ROWNUM RNUM,B_NO,B_TITLE,M_NAME,B_CONTENT,B_DATE,CNTA,CNTB 
+		/*		FROM(SELECT B.B_NO,B.B_TITLE,M_NAME,B_CONTENT,B_DATE,COUNT(BI_TYPE)AS CNTA ,COUNT(B_TYPE) AS CNTB 
+				FROM BOARDINTEREST BI JOIN BOARD B ON(B.B_NO=BI.BI_B_NO)JOIN MEMBER M ON(B.B_NO=M.M_NO)
+				WHERE BI_TYPE='?' AND B.B_TYPE='0' AND B.B_STATUS='Y' 
+				GROUP BY B.B_NO,B.B_TITLE,M.M_NAME,B.B_CONTENT,B.B_DATE,BI.BI_TYPE,B.B_TYPE)
+				WHERE ROWNUM BETWEEN ? AND ?
+				GROUP BY ROWNUM,B_NO,B_TITLE,M_NAME,B_CONTENT,B_DATE,CNTA,CNTB 
+				ORDER BY B_NO*/
+		
+		
+		
+		
+		
+		
+		try {
+			pstmt=con.prepareStatement(query);
+		
+			int startRow=(currentPage-1)*limit+1;
+			int endRow = startRow + limit - 1;	//한 페이지에서의 글 목록 끝 번호
+			
+			
+			pstmt.setString(1, "좋아요");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+			list=new ArrayList<HashMap<String,Object>>();
+			
+			System.out.println("hashmap2dao");
+			while(rset.next()) {
+				hmap=new HashMap<String,Object>();
+				
+				hmap.put("bNo",rset.getInt("B_NO"));
+				hmap.put("bTitle",rset.getString("B_TITLE"));
+				hmap.put("mName",rset.getString("M_NAME"));
+				hmap.put("bContent",rset.getString("B_CONTENT"));
+				hmap.put("bDate",rset.getDate("B_DATE"));
+				hmap.put("like",rset.getString("CNTA"));
+				hmap.put("reply",rset.getString("CNTB"));
+				
+				list.add(hmap);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+	
+		return list;
+	}
+
+	public int getListCount2(Connection con) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		//전체 게시글 수 조회
+		String query = prop.getProperty("boardListCount1");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "좋아요");
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount++;
+				//listCount = rset.getInt(1); //? 총 글의개수
+				
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		return listCount;
 	}
 }

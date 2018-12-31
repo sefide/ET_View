@@ -12,18 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.et.company.model.service.CompanyService;
 import com.kh.et.company.model.vo.Company;
 
-
 /**
- * Servlet implementation class UpdateOneComanyServlet
+ * Servlet implementation class DeleteCompanyServlet
  */
-@WebServlet("/updateOne.co")
-public class UpdateOneComanyServlet extends HttpServlet {
+@WebServlet("/deleteOne.co")
+public class DeleteCompanyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateOneComanyServlet() {
+    public DeleteCompanyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +31,7 @@ public class UpdateOneComanyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		String[] testChk = request.getParameterValues("chkValue");
 		int comNo = 0;
 		for(String msg : testChk) {
@@ -43,12 +42,12 @@ public class UpdateOneComanyServlet extends HttpServlet {
 		
 		System.out.println(testChk);
 		
-		Company c=new CompanyService().selectOne(testChk);
+		Company c=new CompanyService().deleteCompany(testChk);
 		
 		String page="";
 		
 		if(c!=null) {
-			page="views/manager/tourCompany/companyUpdate.jsp";
+			page="views/manager/tourCompany/manager_company.jsp";
 			request.setAttribute("c", c);
 			request.setAttribute("comNo", comNo);
 			
@@ -60,6 +59,9 @@ public class UpdateOneComanyServlet extends HttpServlet {
 		RequestDispatcher view=request.getRequestDispatcher(page);
 		view.forward(request, response);
 	}
+
+		
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

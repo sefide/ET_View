@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,com.kh.et.company.model.vo.*"%>
-    <% Company c =(Company)request.getAttribute("c");%>
+    <% Company c =(Company)request.getAttribute("c");
+    int comNo = (int)request.getAttribute("comNo");
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,14 +121,14 @@
         	
     	
         	<div class="inner-2">
-        <form  id="joinForm"  action ="<%=request.getContextPath()%>/updateCompany.co" method="post" class="form">
+        <form  id="joinForm"  action ="<%=request.getContextPath()%>/updateCompany.co?comNo=<%=comNo %>" method="post" class="form">
 	<fieldset><legend>제휴사 수정</legend>
 	<p class="name">
 
 		<label for="name">제휴사 명</label><br>
 		<input type="text" name="name" id="name" value=<%=c.getC_name()%>><br>
 		<label for="num">사업자번호</label>&nbsp;<br>
-		<input type="text" name="num" id="num" value=<%=c.getC_biss_num()%>/><br>
+		<input type="text" name="num" id="num" value=<%=c.getC_biss_num()%>><br>
 		<label for="phone">연락처</label>&nbsp;<br>
 		<input type="text" name="phone" id="phone"<%=c.getC_phone()%> /><br>
 		<label for="name">이메일</label><br>

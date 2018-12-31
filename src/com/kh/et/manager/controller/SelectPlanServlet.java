@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.et.company.model.vo.PageInfo;
+import com.kh.et.manager.model.vo.PageInfo;
 import com.kh.et.manager.model.service.ManagerService;
 
 /**
@@ -81,6 +81,7 @@ public class SelectPlanServlet extends HttpServlet {
 		if(list !=null) {
 			page="views/manager/plan/manager_plan.jsp";
 			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "사진게시판 조회 실패");
