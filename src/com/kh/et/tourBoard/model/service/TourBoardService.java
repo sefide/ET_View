@@ -98,6 +98,25 @@ public class TourBoardService {
 		
 		return tourList;
 	}
+
+	public ArrayList<HashMap<String, Object>> selectList2(int currentPage, int limit) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new TourBoardDao().selectList2(con, currentPage, limit);
+		
+		close(con);
+		
+		return list;
+	}
+	
+	public int getListCount2() {
+		Connection con = getConnection();
+		
+		int listCount = new TourBoardDao().getListCount2(con);
+		close(con);
+		
+		return listCount;
+	}
 	
 
 }
