@@ -760,4 +760,84 @@ public class ManagerDao {
 		
 		return list;
 	}
+
+	public ArrayList<HashMap<String, Object>> tourboardList(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt=null;
+		ArrayList<HashMap<String,Object>> list=null;
+		HashMap<String, Object> hmap=null;
+		ResultSet rset=null;
+		
+		String query=prop.getProperty("tourBoardList");
+		/*SELECT RNUM,T_TITLE,C_NAME,CT_NAME,CT_COUNTRY,T_CONCEPT,T_DATE,T_LINK,T_PRICE
+		FROM(SELECT ROWNUM RNUM,T_TITLE,C_NAME,CT_NAME,CT_COUNTRY,T_CONCEPT,T_DATE,T_LINK,T_PRICE
+		FROM(SELECT T_TITLE,C_NAME,CT_NAME,CT_COUNTRY,T_CONCEPT,T_DATE,T_LINK ,T_PRICE
+		FROM TOURBOARD T JOIN TRAVELCITY TC ON(T.T_CT_NO=TC.CT_NO)
+		JOIN COMPANY C ON(T.T_C_NO=C.C_NO)
+		WHERE T_STATUS='Y'))
+		WHERE RNUM BETWEEN ? AND ?;*/
+		
+		try {
+			pstmt=con.prepareStatement(query);
+		
+			int startRow=(currentPage-1)*limit+1;
+			int endRow = startRow + limit - 1;	//한 페이지에서의 글 목록 끝 번호
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			list=new ArrayList<HashMap<String,Object>>();
+		
+			while(rset.next()) {
+				
+				
+				hmap=new HashMap<String,Object>();
+				hmap.put("tTitle",rset.getString("T_TITLE"));
+				hmap.put("cName",rset.getString("C_NAME"));
+				hmap.put("ctCountry",rset.getString("CT_COUNTRY"));
+				hmap.put("ctName",rset.getString("CT_NAME"));
+				hmap.put("tConcept",rset.getString("T_CONCEPT"));
+				hmap.put("tPrice",rset.getInt("T_PRICE"));
+				hmap.put("tDate",rset.getDate("T_DATE"));
+				hmap.put("tLink", rset.getString("T_LINK"));
+				list.add(hmap);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+	
+		return list;
+	}
+
+	public int getListCount3(Connection con) {
+		Statement stmt = null;
+		int tourCount = 0;
+		ResultSet rset = null;
+		
+		//전체 게시글 수 조회
+		String query = prop.getProperty("tourBoardCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				tourCount= rset.getInt(1); // 총 글의개수
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		return tourCount;
+	}
 }

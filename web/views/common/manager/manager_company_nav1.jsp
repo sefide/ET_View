@@ -57,7 +57,8 @@
     	function searchPost(){
     		/*	회원정보조회 누르면 회원현황테이블 숨기기
     		$("#tb1").css({"visibility":"hidden"}); */
-    		location.href="/et/views/manager/tourCompany/manager_tourBoard.jsp";
+    		location.href="/et/selectTour.mng";
+    		
     	}
    
     	
