@@ -273,4 +273,31 @@ public class ManagerService {
 		return list;
 	}
 
+	public ArrayList<HashMap<String, Object>> tourBoardList(int currentPage, int limit) {
+		Connection con=getConnection();
+		ArrayList<HashMap<String,Object>> list=null;
+		
+			list=new ManagerDao().tourboardList(con,currentPage,limit);
+		
+		close(con);
+		
+		
+		return list;
+	}
+
+	public int getListCount3() {
+		Connection con = getConnection();
+		int listCount = new ManagerDao().getListCount3(con);
+		
+		if(listCount>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return listCount;
+	}
+
 }

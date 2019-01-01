@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.et.manager.model.vo.*"%>
+    
+    <%ArrayList<HashMap<String,Object>> list=(ArrayList<HashMap<String,Object>>)request.getAttribute("list");
+    
+    PageInfo pi=(PageInfo)request.getAttribute("pi");
+    int listCount=pi.getListCount();
+    int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage(); 
+    %>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -70,25 +81,58 @@ table{
     			<th>가격</th>
     			<th>작성날짜</th>
     			<th>링크</th>
-    			<th>클릭수</th>
     			
     		</tr>
+    			<% for(int i=0;i<list.size();i++){
+    			HashMap<String,Object>hmap=list.get(i);
+    		%>
     		<tr>
     			<td class="num"><input type="checkbox" name="checkbox"></td>
-    			<td>바티칸 하이패스 반일 투어</td>
-    			<td>헬로우유럽</td>
-    			<td>이탈리아/로마</td>
-    			<td>도보/그룹투어</td>
-    			<td>25000원</td>
-    			<td>20181202</td>
-    			<td>https://www.hellowtrip.com/offers/7511</td>
-    			<td>7</td>
+    			<td><%=hmap.get("tTitle") %></td>
+    			<td><%=hmap.get("cName") %></td>
+    			<td><%=hmap.get("ctCountry") %>/<%=hmap.get("ctName")%></td>
+    			<td><%=hmap.get("tConcept")%></td>
+    			<td><%=hmap.get("tPrice") %></td>
+    			<td><%=hmap.get("tDate") %></td>
+    			<td><%=hmap.get("tLink") %></td>
     		</tr>
     		
-    		
+    		<%} %>
   
     	</table>
     	<br>
+    	
+    	<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectTour.mng?currentPage = 1'"> << </button>
+			
+			<% if(currentPage <= 1){ %>
+			<button disabled> < </button>
+			<% }else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectTour.mng?currentPage=<%=currentPage - 1%>'"> < </button>
+			<% } %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+					if(p == currentPage){
+			%>
+					<button disabled><%= p %></button>
+			<%      }else{ %>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectTour.mng?currentPage=<%= p %>'"><%= p %></button>
+			<%      } %>
+	
+			<% } %>
+			
+			
+			<% if(currentPage >= maxPage){ %> <!-- 마지막 페이지일 경우 -->
+			<button disabled> > </button>
+			<% }else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectTour.mng?currentPage=<%=currentPage + 1%>'"> > </button>
+			<% } %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectTour.mng?currentPage=<%=maxPage%>'"> >> </button> 
+			
+		</div>
+    	<br>
+    	
+    	
     	<button style=float:right;>삭제하기</button>
     </div>
 	
