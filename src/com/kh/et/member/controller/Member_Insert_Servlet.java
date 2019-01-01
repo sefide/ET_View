@@ -64,7 +64,6 @@ public class Member_Insert_Servlet extends HttpServlet {
 			/*page = "views/normal/member/user_login.jsp";*/
 			response.sendRedirect("views/normal/member/user_login.jsp");
 			System.out.print("회ㅝㄴ가입 성공 ");
-			//response.sendRedirect("views/normal/member/user_login.jsp");
 		}else {
 			request.setAttribute("msg", "회원가입에 실패햇어ㅠㅠ");
 			page = "views/normal/member/user_join.jsp";

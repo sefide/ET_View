@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ET_Planner</title>
 <link rel="icon" href="/et/image/common/logo.png">
-
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <!-- font 영어 -->
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
 <!-- font 한글 -->
@@ -21,19 +21,19 @@
 	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.js"></script>
 
 <!-- bootstrap -->
-<link rel="stylesheet"
+<!-- <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46$k0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
 	crossorigin="anonymous"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous"></script> -->
 <style>
 /* 메인로고 */
 .mainlogo {
@@ -101,7 +101,7 @@
 	<%@ include file = "/views/common/company/header_com.jsp" %>
 	<!-- 메인로고 -->
 	<div class="mainlogo">
-		<a href="/et/" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> 
+		<a href="/et/first.jsp" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> 
 			<br><image src="/et/image/common/logo.png" style="width: 60px; height: 60px;" alt="메인로고">&nbsp;ET Planner For Travel Agency</image>
 		</a>
 	</div>
@@ -133,7 +133,7 @@
 							</div>
 						</div>
 						<br>
-						<button class="ui yellow button" id="font" onclick="pwdSearch();"
+						<button class="ui yellow button" id="font" onclick="return sendEmail();"
 							style="width: 69%; color: black; font-family: 'Nanum Gothic', sans-serif;">임시 비밀번호 발급받기</button>
 						<%! public static String getRamdomPassword(){
 								char[] charSet 
@@ -168,18 +168,21 @@
 	</form>
 	
 	<script>
+	
+		//var $= jQuery.noConflict();
 		$("p").hide();
 	
 		//임시비밀번호 발급
-		function pwdSearch(){
+		function sendEmail(){
 			var randomCode = $("#randomCode").val();
 			
-			var companyId = document.getElementById("#companyId").value;
+			var companyId = document.getElementById("companyId").value;
+			var companyEmailPass = document.getElementById("companyEmailPass").value;
 			
 			$.ajax({
 				url:"/et/temporaryPassword.co",
 				type:"get",
-				data:{randomCode:randomCode, companyId:companyId},
+				data:{companyId:companyId, companyEmailPass:companyEmailPass, randomCode:randomCode},
 				success:function(data){
 					if(data == "SUCCESS"){
 						alert("임시비밀번호 발송 성공!");
@@ -192,6 +195,7 @@
 					console.log("실패!");
 				}
 			});
+			return false;
 		}
 	</script>
 	

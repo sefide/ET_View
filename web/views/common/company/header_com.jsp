@@ -85,6 +85,10 @@
 			margin-top : -1%;
 		}
 		
+		.header-top-img:hover{
+			cursor : pointer;
+		}
+		
 		.header-top-brand {
 			color : black;
      	 	font-size : 20px;
@@ -93,8 +97,8 @@
 		}
 		
 		 #txt_brand:hover {
-        		color:black;
-        		text-decoration: none;
+        	color:black;
+        	text-decoration: none;
      		cursor : pointer;
         		
         }
@@ -130,7 +134,7 @@
     </div>
 
     <div class = "header-btn">
-       <a class = "a_logout" href = "/et/index.jsp" onclick="goLogout();">로그아웃 </a>
+       <a class = "a_logout" href = "/et/first.jsp" onclick="goLogout();">로그아웃 </a>
    	</div>
 	   	
     <div class = "header-bottom">
@@ -162,7 +166,7 @@
     
     <script>
 	    function goHome() {
-	   	 location.href = "/et/index.jsp";
+	   	 location.href = "/et/first.jsp";
 	    }
 	    
 	    

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.kh.et.company.model.dao.CompanyDao;
 import com.kh.et.company.model.vo.Company;
+import com.kh.et.member.model.dao.MemberDao;
 
 
 
@@ -97,6 +98,18 @@ public class CompanyService {
 		}		
 		close(con);
 		return c;
+	}
+
+
+	//임시비밀번호 발급 후 DB에서 비밀번호 변경해주기
+	public static int newpass(String companyEmailPass, String companyId, String randomCode) {
+		Connection con = getConnection();
+		
+		int result = new CompanyDao().newpass(con, randomCode, companyId, companyEmailPass);
+		
+		close(con);
+		
+		return result;
 	}
 
 

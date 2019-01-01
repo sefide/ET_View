@@ -280,4 +280,28 @@ public class CompanyDao {
 		return c;
 	}
 
+	//임시비밀번호 발급 후 DB에서 바꿔주기
+	public int newpass(Connection con, String randomCode, String companyId, String companyEmailPass) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("newPass");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, randomCode);
+			pstmt.setString(2, companyId);
+			pstmt.setString(3, companyEmailPass);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }

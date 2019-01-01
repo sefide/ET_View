@@ -132,7 +132,7 @@
     </div>
 
     <div class = "header-btn">
-       <a class = "a_logout" href = "/et/index.jsp" onclick="goLogout();">로그아웃 </a>
+       <a class = "a_logout" href = "/et/first.jsp" onclick="goLogout();">로그아웃 </a>
    	</div>
 	   	
     <div class = "header-bottom">
@@ -165,7 +165,7 @@
     
     <script>
 	    function goHome() {
-	   	 location.href = "/et/index.jsp";
+	   	 location.href = "/et/first.jsp";
 	    }
 	    function goComHome(){
 	   	 location.href = "/et/views/manager/normalMember/manager_main.jsp";
