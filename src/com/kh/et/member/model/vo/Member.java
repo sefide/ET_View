@@ -18,13 +18,14 @@ public class Member implements java.io.Serializable{
 	private String m_stop_status;
 	private String m_out_status;
 	private Date m_out_date;
-	private String photo_change_name;
+	//attachment
+	private String a_change_Name;
 	
 	public Member() {}
 
 	public Member(int m_no, String m_id, String m_pwd, String m_name, String m_email, String m_profile, int m_point,
 			int m_storage, String m_question, String m_answer, Date m_date, String m_black_status, String m_stop_status,
-			String m_out_status, Date m_out_date, String photo_change_name) {
+			String m_out_status, Date m_out_date, String a_change_Name) {
 		super();
 		this.m_no = m_no;
 		this.m_id = m_id;
@@ -41,7 +42,7 @@ public class Member implements java.io.Serializable{
 		this.m_stop_status = m_stop_status;
 		this.m_out_status = m_out_status;
 		this.m_out_date = m_out_date;
-		this.photo_change_name = photo_change_name;
+		this.a_change_Name = a_change_Name;
 	}
 
 
@@ -165,6 +166,14 @@ public class Member implements java.io.Serializable{
 	public void setM_out_date(Date m_out_date) {
 		this.m_out_date = m_out_date;
 	}
+	
+	public String getA_change_Name() {
+		return a_change_Name;
+	}
+	
+	public void setA_change_Name(String a_change_Name) {
+		this.a_change_Name = a_change_Name;
+	}
 
 	public String getPhoto_change_name() {
 		return photo_change_name;
@@ -180,7 +189,7 @@ public class Member implements java.io.Serializable{
 				+ m_email + ", m_profile=" + m_profile + ", m_point=" + m_point + ", m_storage=" + m_storage
 				+ ", m_question=" + m_question + ", m_answer=" + m_answer + ", m_date=" + m_date + ", m_black_status="
 				+ m_black_status + ", m_stop_status=" + m_stop_status + ", m_out_status=" + m_out_status
-				+ ", m_out_date=" + m_out_date + ", photo_change_name=" + photo_change_name + "]";
+				+ ", m_out_date=" + m_out_date + a_change_Name + "]";
 	}
 
 	

@@ -84,14 +84,14 @@ table{
 
 <body>
 <div class="mainlogo" align="center">
-	<a href="/et/index.jsp" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> <image src="/et/image/common/logo.png"
+	<a href="/et/first.jsp" id="logo" title="메인페이지로 이동" style="font-size: 43px;"> <image src="/et/image/common/logo.png"
 		style=" height: 60px;" alt="메인로고">&nbsp;ET Planner</image>
 	</a>
 </div><br>
 <div class="main">
 	<div align="center" class="ui piled segment" id="joinForm">
 		<div class="content">
-	<form id="joinForm" method="post" action="<%=request.getContextPath()%>/insert.me">
+			<form id="joinForm" method="post" action="<%=request.getContextPath()%>/insert.me">
 				<table align="center">
 					<tr>
 						<td>
@@ -101,8 +101,8 @@ table{
 								</div>
 								<div align="left">
 									<div class="ui transparent input">
-										<input type="text" name="userId" id="userId"
-											placeholder="아이디를 입력해주세요"> <span>
+										<input type="text" name="userId" id="userId" placeholder="아이디를 입력해주세요"> 
+										<span>
 											<button class="ui button" onclick="return idCheck();"
 												style="width: 85px; height: 30px; font-size: 12px;">중복확인</button>
 											<span id="idCheckMsg"></span>
@@ -244,12 +244,7 @@ table{
 			$("#joinForm").submit;
 		} */
 		
-		$(function() {
-		<% System.out.println("msg : " + msg);
-		if(msg != null){ %>
-		alert("<%=msg%>");
-		<%} %>
-	});
+		
 		
 	
 	$(function(){
@@ -292,8 +287,8 @@ table{
 	}	
 	
 	//회원가입 유효성 검사
+	//아이디 검사
 	$("#userId").change(function(){
-		//아이디 검사
 		var idEx1 = /[a-z]{3,}/;	//영어로만 3글자 이상
 		var idEx11 = /\D/;
 		var userId = document.getElementById("userId").value;
@@ -305,7 +300,7 @@ table{
 			$("#idCheckMsg").css("color","blue");
 			
 		}else{
-			$("#idCheckMsg").html("아이디를 형식에 맞게 다시 입력해주세요!");
+			$("#idCheckMsg").html("아이디를 영문으로 3글자 이상 입력해주세요");
 			$("#idCheckMsg").css("color","red");
 			$("#idCheckImg").attr("src","");
 			return false;
@@ -315,13 +310,12 @@ table{
 	
 	 $("#pass").change(function(){
 		//비밀번호 검사
-		var passEx1 = /[a-z0-9]{4,}/ig;	//영어,숫자로 4글자 이상 이루어져야함, 대소문자 관계없이
+		var passEx1 = /[a-z0-9]{4,16}/ig;	//영어,숫자로 4~16글자로 이루어져야함, 대소문자 관계없이
 		var passEx11 = /\d+/;	//숫자가 1개 이상 포함되어야 한다.
 		var pass = document.getElementById("pass").value;
 		
-		if(!passEx1.test(pass) || !passEx11.test(pass) 
-			|| !pass.length >= 4){	//비밀번호는 6자 이상
-			alert("비밀번호를 형식에 맞게 다시 입력해주세요!");
+		if(!passEx1.test(pass) || !passEx11.test(pass)){	//비밀번호는 4~16자 이상
+			alert("비밀번호를 영문,숫자를 혼용하여 4글자 이상입력해주세요");
 			$("#pass").val("");	
 			$("#newpass").val("");	
 			$("#pwdCheckImg").attr("src","");
@@ -394,7 +388,7 @@ table{
 		
 		$.ajax({
 			url:"/et/sendEmail.me",
-			type:"post",
+			type:"get",
 			data:{userEmail:userEmail,randomCode:randomCode},
 			success:function(data){
 				if(data == "SUCCESS"){
@@ -462,6 +456,13 @@ table{
 		 } 
 		 
 	} 
+	
+	$(function() {
+		<% System.out.println("msg : " + msg);
+		if(msg != null){ %>
+		alert("<%=msg%>");
+		<%} %>
+	});
 	</script>
 </body>
 </html>

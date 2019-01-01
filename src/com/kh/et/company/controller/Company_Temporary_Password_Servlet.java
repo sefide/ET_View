@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.et.company.model.service.CompanyService;
 import com.kh.et.member.controller.SMTPAuthenticator;
 import com.kh.et.member.model.service.MemberService;
 
@@ -81,18 +82,22 @@ public class Company_Temporary_Password_Servlet extends HttpServlet {
              
             // 이메일 헤더
             msg.setHeader("content-Type", "text/html");
+            
+            int result = CompanyService.newpass(companyEmailPass, companyId, randomCode);
+            
+            if(result > 0) {
+            	//메일보내기   
+                Transport.send(msg);
+               
+                System.out.println("보냇씁니다");
+                    
+                response.getWriter().print("SUCCESS");
+            }else {
+            	response.getWriter().print("FAIL");
+            }
   
-           //메일보내기   
-            Transport.send(msg);
-           
-            System.out.println("보냇씁니다");
-                
-            response.getWriter().print("SUCCESS");
-         
-            	
-                  
+          
 		} catch(Exception e){
-			response.getWriter().print("FAIL");
 			e.printStackTrace();
         }
 		  

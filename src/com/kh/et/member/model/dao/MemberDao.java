@@ -33,7 +33,7 @@ public class MemberDao {
 		}
 	}
 
-	//일반회원 로그인 체크용 메소드
+	//로그인 체크용 메소드
 	public Member loginCheck(Connection con, Member reqMember) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -65,6 +65,8 @@ public class MemberDao {
 				loginUser.setM_stop_status(rset.getString("M_STOP_STATUS"));
 				loginUser.setM_out_status(rset.getString("M_OUT_STATUS"));
 				loginUser.setM_out_date(rset.getDate("M_OUT_DATE"));
+				
+				loginUser.setA_change_Name(rset.getString("A_CHANGE_NAME"));
 			}
 			
 			
@@ -77,6 +79,36 @@ public class MemberDao {
 		
 		
 		return loginUser;
+	}
+	
+	
+	//로그인 했을 시 프로필 사진 갖고다니기...
+	public Member profileChcek(Connection con, Member reqMember) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member profile = null;
+		
+		String query = prop.getProperty("profileChcek"); 
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqMember.getM_id());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				profile = new Member();
+		
+				profile.setA_change_Name(rset.getString("A_CHANGE_NAME"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return profile;
 	}
 
 	//회원 가입용 메소드
@@ -199,6 +231,7 @@ public class MemberDao {
 		return loginUser;
 	}
 
+	//임시비밀번호 발급 후 DB에서 바꿔주기
 	public int newpass(Connection con, String randomCode, String userId, String userEmailPass) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -310,6 +343,7 @@ public class MemberDao {
 	}
 	
 	
+
 
 
 

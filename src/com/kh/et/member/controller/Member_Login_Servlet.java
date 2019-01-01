@@ -44,6 +44,7 @@ public class Member_Login_Servlet extends HttpServlet {
 		
 		Member loginUser = new MemberService().loginCheck(reqMember);
 		
+		
 		if(loginUser != null) {//성공
 			request.getSession().setAttribute("loginUser", loginUser);	//세션불러와서 로그인 정보 넣고
 			
