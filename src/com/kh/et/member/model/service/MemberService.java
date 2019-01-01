@@ -25,14 +25,18 @@ public class MemberService {
 		if(loginUser != null) {
 			commit(con);
 			Member profile = new MemberDao().profileChcek(con, reqMember);
-			//loginUser.setA_change_Name(profile.getA_change_Name());
+			if(profile != null) {
+				loginUser.setA_change_Name("/et/profileUpload/"+profile.getA_change_Name());
+			} else {
+				loginUser.setA_change_Name("/et/image/common/logo_c.png");
+			}
 		}
 		
 		close(con);
 		
 		return loginUser;
-		
 	}
+	
 
 	//회원가입용 메소드
 	public int insertMember(Member reqMember) {
@@ -120,7 +124,7 @@ public class MemberService {
 //	}
 
 	
-	public int updateProfile(Member m, ArrayList<Attachment> fileList) {
+	public Member updateProfile(Member m, ArrayList<Attachment> fileList) {
 		Connection con = getConnection();
 		int result = 0;
 		
@@ -142,13 +146,22 @@ public class MemberService {
 		
 		// 수정하자 ******************************************************************************
 		// 4. 추가 후 바뀐 회원 정보 가져오기 
-		
-		if(deleteOldAttachment > 0) {
-			
+		Member loginUser = null;
+		if(deleteOldAttachment > 0 && insertNewAttachment > 0) {
+			loginUser = new MemberDao().selectLoginUser(con, m);
+			if(loginUser != null) {
+				commit(con);
+				Member profile = new MemberDao().profileChcek(con, m);
+				if(profile != null) {
+					loginUser.setA_change_Name("/et/profileUpload/"+profile.getA_change_Name());
+				} else {
+					loginUser.setA_change_Name("/et/image/common/logo_c.png");
+				}
+			}
 		}
 		
-		
-		return result;
+		close(con);
+		return loginUser;
 	}
 
 

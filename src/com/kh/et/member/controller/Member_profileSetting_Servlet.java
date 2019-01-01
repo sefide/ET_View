@@ -35,11 +35,10 @@ public class Member_profileSetting_Servlet extends HttpServlet {
 		
 		int mno = loginUser.getM_no();
 		
-		HashMap<String, Object> hamp = new MemberService().updateSetProfile(mno);
+		//HashMap<String, Object> hamp = new MemberService().updateSetProfile(mno);
 		
 		String page = ""	;
 		
-		System.out.println("ㅋㅋㅋㅋㅋㅋ 스카이 캐슬 재밌다 .");
 //		page = "views/normal/myPage/myPage_profile_edit.jsp";
 //		response.sendRedirect(page);
 	}

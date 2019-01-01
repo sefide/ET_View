@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "com.kh.et.member.model.vo.*, com.kh.et.tourBoard.model.vo.*"%>
 <% 
-	Member loginUser = (Member)request.getAttribute("loginUser");
-	Attachment attach = (Attachment)request.getAttribute("attach");
+	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -62,8 +61,7 @@
 <body>
 <div><br>
 	<h1 id ="title"> My Profile</h1>
-	<form action = "<%=request.getContextPath()%>/updateProfile.me?mno=<%=loginUser.getM_no() %>" method = "post" encType = "multipart/form-data">
-	<%-- <%=request.getContextPath()%>/updateProfile.me?mno=<%=loginUser.getM_no() %> --%>
+	<form action = "/et/updateProfile.me?mno=<%=loginUser.getM_no() %>" method = "post" encType = "multipart/form-data">
 		<div class = "insertArea">
 		
 			<table align = "center">
@@ -75,7 +73,7 @@
 				<tr>
 					<td>
 						<div class = "div-img-profile">
-	    					<img src = "" class = "img-profile" id = "img-profile">
+	    					<img src = "<%=loginUser.getA_change_Name() %>" class = "img-profile" id = "img-profile">
 	    				</div>
 					</td>
 				</tr>
@@ -91,8 +89,8 @@
 						<div class="ui form">
 						  <div class="field">
 						    <label id ="txt"> - 자기 소개글 </label>
-						    <%=loginUser.getM_profile() %>
-						    <textarea name = "profileTxt" rows="3" cols = "50" style = "resize : none" placeholder = "자기 소개 부탁바람"></textarea>
+						    
+						    <textarea name = "profileTxt" rows="3" cols = "50" style = "resize : none" ><%=loginUser.getM_profile() %></textarea>
 						  </div>
 						</div>
 						

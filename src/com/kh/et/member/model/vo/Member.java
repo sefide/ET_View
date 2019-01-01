@@ -175,14 +175,6 @@ public class Member implements java.io.Serializable{
 		this.a_change_Name = a_change_Name;
 	}
 
-	public String getPhoto_change_name() {
-		return photo_change_name;
-	}
-
-	public void setPhoto_change_name(String photo_change_name) {
-		this.photo_change_name = photo_change_name;
-	}
-
 	@Override
 	public String toString() {
 		return "Member [m_no=" + m_no + ", m_id=" + m_id + ", m_pwd=" + m_pwd + ", m_name=" + m_name + ", m_email="
