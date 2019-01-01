@@ -17,11 +17,12 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	
+	
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">
 	
 	<style>
-	.container1 {
+		.container1 {
 		margin-left : 50px;
 		width : 90%;
 		border-bottom: 1px solid rgb(200,200,200);
@@ -51,14 +52,14 @@
 	.div-name{
 		font-size : 36px;
 		font-weight : 600;
-		font-family: 'Ubuntu', sans-serif;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
 	
 	.div-point{
 		font-size : 20px;
 		font-weight : 800;
-		font-family: 'Nanum Gothic', sans-serif;
 		margin-bottom : 1px;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
 	 .div-profileTxt{
 		font-size : 15px;
@@ -88,22 +89,21 @@
 		font-weight : 300;
 		font-size : 20px;
 		font-family: 'Nanum Gothic', sans-serif;
-		
 	}
 	
 	.this-page {
 		font-weight : 800;
 	}
 	
-	.div-menu a{
+	.div-menu a, .div-menu li{
 		color : black;
 	}
-	.div-menu a:hover {
+	.div-menu li:hover, .div-menu a:hover {
 		text-decoration : none;
 		color : rgb(254, 200, 0);
 	}
 	
-	/* 하단 플랜보기  */
+	/* 하단 포인트 히스토리   */
 	.container2{
 		width : 93%;
 		margin-left : 40px;
@@ -177,19 +177,19 @@
             <!-- 내용 넣기 -->
             <div class = "container1"> <!-- 위에 자기내용  -->
     				<div class = "div-img-profile">
-    					<img src = "/et/image/common/logo_c.png" class = "img-profile">
+    					<img src = "<%=loginUser.getA_change_Name() %>" class = "img-profile">
     				</div>
     				<div class = "div-txt-profile">
-    					<div class = "div-name"><%=loginUser.getM_id() %></div>
+    					<div class = "div-name"><%=loginUser.getM_name() %></div>
     					<div class = "div-point"><%=loginUser.getM_point() %> <i class="euro sign icon"></i></div>
     					<div class = "div-profileTxt"><%=loginUser.getM_profile() %> </div>
-    					<button class = "btn-profile"> 프로필 수정 </button>
+    					<button class = "btn-profile" onclick = "editProfile();"> 프로필 수정 </button>
     				</div>
     				<div class = "div-menu">
     					<ul>
-    						<li><a onclick = "goMyPlan();"> > 내 플랜보기 </a> </li>
+    						<li><a onclick = "goMyPlan();" > > 내 플랜보기 </a> </li>
     						<li><a href = "/et/views/normal/myPage/myPage_activity_history.jsp"> > 나의 활동내역 </a></li>
-    						<li><a href = "#" class = "this-page"> > 포인트 히스토리 </a></li>
+    						<li><a href = "/et/views/normal/myPage/myPage_pointHistory.jsp"  class = "this-page"> > 포인트 히스토리 </a></li>
     						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
     					</ul>
     				</div>
@@ -250,6 +250,9 @@
  	function goMyPlan(){
 	    	var mno = <%=loginUser.getM_no()%>;
 	    	location.href = "<%=request.getContextPath()%>/selectPlanList.pl?mno="+mno;
+	}
+	function editProfile() {
+		window.open("views/normal/myPage/myPage_profile_edit.jsp", "프로필 수정", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
 	}
  	</script>
 	

@@ -66,7 +66,6 @@ public class MemberDao {
 				loginUser.setM_out_status(rset.getString("M_OUT_STATUS"));
 				loginUser.setM_out_date(rset.getDate("M_OUT_DATE"));
 				
-				loginUser.setA_change_Name(rset.getString("A_CHANGE_NAME"));
 			}
 			
 			
@@ -91,7 +90,7 @@ public class MemberDao {
 		String query = prop.getProperty("profileChcek"); 
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, reqMember.getM_id());
+			pstmt.setInt(1, reqMember.getM_no());
 			
 			rset = pstmt.executeQuery();
 			
@@ -99,6 +98,7 @@ public class MemberDao {
 				profile = new Member();
 		
 				profile.setA_change_Name(rset.getString("A_CHANGE_NAME"));
+				System.out.println("파일이름 : " + profile.getA_change_Name());
 			}
 			
 		} catch (SQLException e) {
@@ -340,6 +340,52 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+	// 회원번호로 회원 정보 가져오기 
+	public Member selectLoginUser(Connection con, Member m) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member resultM = null;
+		
+		String query = prop.getProperty("selectLoginUser");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, m.getM_no());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				resultM = new Member();
+				
+				resultM.setM_no(rset.getInt("M_NO"));
+				resultM.setM_id(rset.getString("M_ID"));
+				resultM.setM_pwd(rset.getString("M_PWD"));
+				resultM.setM_name(rset.getString("M_NAME"));
+				resultM.setM_email(rset.getString("M_EMAIL"));
+				resultM.setM_profile(rset.getString("M_PROFILE"));
+				resultM.setM_point(rset.getInt("M_POINT"));
+				resultM.setM_storage(rset.getInt("M_STORAGE"));
+				resultM.setM_question(rset.getString("M_QUESTION"));
+				resultM.setM_answer(rset.getString("M_ANSWER"));
+				resultM.setM_date(rset.getDate("M_DATE"));
+				resultM.setM_black_status(rset.getString("M_BLACK_STATUS"));
+				resultM.setM_stop_status(rset.getString("M_STOP_STATUS"));
+				resultM.setM_out_status(rset.getString("M_OUT_STATUS"));
+				resultM.setM_out_date(rset.getDate("M_OUT_DATE"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return resultM;
 	}
 	
 	

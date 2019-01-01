@@ -47,7 +47,7 @@ public class Member_Login_Servlet extends HttpServlet {
 		
 		if(loginUser != null) {//성공
 			request.getSession().setAttribute("loginUser", loginUser);	//세션불러와서 로그인 정보 넣고
-			
+			System.out.println("gn : "+ loginUser.getA_change_Name());
 			response.sendRedirect("first.jsp");
 		}else {//실패
 			request.setAttribute("msg", "로그인 실패했어!!!!");

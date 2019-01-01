@@ -115,10 +115,12 @@ public class Member_profileUpdate_Servlet extends HttpServlet {
 			}
 			
 			// 수정하자 ******************************************************************************
-			int result = new MemberService().updateProfile(m, fileList);
+			Member resultUser = new MemberService().updateProfile(m, fileList);
 			
-			if(result > 0) {
-				response.sendRedirect(request.getContextPath() + "/selectList.tn");
+			if(resultUser != null) {
+				request.getSession().setAttribute("loginUser", resultUser);
+				
+				response.sendRedirect(request.getContextPath() + "/selectPlanList.pl?mno="+resultUser.getM_no());
 			} else {
 				// 실패 시 저장된 사진 삭제시켜줘야 한다.
 				for(int i = 0; i <saveFiles.size(); i++) {
@@ -129,8 +131,8 @@ public class Member_profileUpdate_Servlet extends HttpServlet {
 					failedFile.delete();
 				}
 				
-				request.setAttribute("msg", "사진게시판 등록 실패 !");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				request.setAttribute("msg", "프로필 수정 실패!");
+				request.getRequestDispatcher(request.getContextPath() + "/selectPlanList.pl?mno="+mno).forward(request, response);
 				
 			}
 			
