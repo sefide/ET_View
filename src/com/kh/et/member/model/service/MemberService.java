@@ -5,9 +5,12 @@ import static com.kh.et.common.JDBCTemplate.*;
 
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.et.member.model.dao.MemberDao;
 import com.kh.et.member.model.vo.Member;
+import com.kh.et.tourBoard.model.vo.Attachment;
 
 
 public class MemberService {
@@ -88,6 +91,55 @@ public class MemberService {
 		int result = new MemberDao().newpass(con, randomCode, userId, userEmailPass);
 		
 		close(con);
+		
+		return result;
+	}
+
+	// 회원 기본 사진 불러오기..
+//	public HashMap<String, Object> updateSetProfile(int mno) {
+//		Connection con = getConnection();
+//		HashMap<String, Object> hmap = null;
+//		
+//		// 이전에 저장한 회원의 프로필을 지우고 
+//		int deleteOldAttachment = new MemberDao().deleteProfileAttach(con, mno);
+//		
+//		// 잘 지워졌으면 추가 및 삭제한당 .
+//		if(deleteOldAttachment > 0) {
+//			hmap = new MemberDao().updateSetProfile(con, mno);
+//		}
+//		
+//		
+//		return hmap;
+//	}
+
+	
+	public int updateProfile(Member m, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		int result = 0;
+		
+		// 1. 멤버 테이블에서 프로필 소개글을 수정하고 
+		int updateOldProfile = new MemberDao().updateOldProfile(con,m);
+		
+		if(updateOldProfile > 0) {
+			for(int i = 0; i <fileList.size(); i++) {
+				fileList.get(i).setAnno(m.getM_no()); 
+			}
+		}
+		
+		// 2. 이전에 저장한 회원의 프로필을 지우고 
+		int deleteOldAttachment = new MemberDao().deleteOldAttach(con, fileList);
+				
+		// 잘 지워졌으면 
+		// 3. Attachment에 새로운 프로필 사진 추가.
+		int insertNewAttachment = new MemberDao().insertNewAttachment(con, fileList);
+		
+		// 수정하자 ******************************************************************************
+		// 4. 추가 후 바뀐 회원 정보 가져오기 
+		
+		if(deleteOldAttachment > 0) {
+			
+		}
+		
 		
 		return result;
 	}

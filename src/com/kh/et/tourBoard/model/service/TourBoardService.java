@@ -82,22 +82,6 @@ public class TourBoardService {
 		return listCount;
 	}
 
-	// 인기 투어 select (시작페이지)
-	public ArrayList<HashMap<String, Object>> selectTopTour() {
-		Connection con = getConnection();
-		
-		ArrayList<HashMap<String, Object>> tourList = new TourBoardDao().selectTopTour(con);
-		
-		if(tourList != null) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		
-		close(con);
-		
-		return tourList;
-	}
 
 	public ArrayList<HashMap<String, Object>> selectList2(int currentPage, int limit) {
 		Connection con = getConnection();
@@ -116,6 +100,40 @@ public class TourBoardService {
 		close(con);
 		
 		return listCount;
+	}
+
+	// 인기 투어 select (시작페이지)
+	public ArrayList<HashMap<String, Object>> selectTopTour() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> tourList = new TourBoardDao().selectTopTour(con);
+		
+		if(tourList != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return tourList;
+	}
+	
+	// 도시별 관련 투어 select (플랜짜기)
+	public ArrayList<HashMap<String, Object>> selectCityTourList(int cityNum) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> tourList = new TourBoardDao().selectCityTourList(con, cityNum);
+		
+		if(tourList != null) {
+			commit(con);
+			System.out.println("헹 service 성공 ");
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		return tourList;
 	}
 	
 

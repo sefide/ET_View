@@ -244,6 +244,84 @@ private Properties prop = new Properties();
 		return listCount;
 	}
 
+
+	public ArrayList<HashMap<String, Object>> selectList2(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		/*Statement stmt = null;*/
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectList2");
+		
+		try {
+		pstmt = con.prepareStatement(query);
+		int startRow = (currentPage -1) * limit +1;
+		int endRow = startRow + limit - 1;
+		
+		pstmt.setInt(1, startRow);
+		pstmt.setInt(2, endRow);
+		
+		rset = pstmt.executeQuery();
+		list = new ArrayList<HashMap<String, Object>>();
+
+		while(rset.next()) {
+			hmap = new HashMap<String,Object>();  //멤버 객체대신 hash맵사용
+			
+			hmap.put("tno", rset.getInt("t_no"));  //DB 대소문자 상관없음. 단, 값은 구분함
+			hmap.put("tcno", rset.getInt("t_c_no"));
+			hmap.put("title", rset.getString("t_Title"));
+			hmap.put("concept", rset.getString("t_concept"));
+			hmap.put("price", rset.getInt("t_price"));
+			hmap.put("info", rset.getString("t_info"));
+			hmap.put("link", rset.getString("t_link"));
+			hmap.put("grade", rset.getString("t_grade"));
+			hmap.put("tdate", rset.getDate("t_date"));
+			hmap.put("ano", rset.getInt("a_no"));
+			hmap.put("originName", rset.getString("a_origin_name"));
+			hmap.put("changeName", rset.getString("a_change_name"));
+			hmap.put("filePath", rset.getString("a_file_path"));
+			hmap.put("uploadDate", rset.getDate("a_upload_date"));
+			
+			list.add(hmap);
+			
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+		close(rset);
+	}
+
+	return list;
+	}
+	
+	public int getListCount2(Connection con) {
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+	
+	
 	// premium 투어 3개 select 
 	public ArrayList<HashMap<String, Object>> selectTopTour(Connection con) {
 		// ArrayList의 인덱스는 최신순 번호 (3개만) 
@@ -302,80 +380,58 @@ private Properties prop = new Properties();
 		return tourList;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectList2(Connection con, int currentPage, int limit) {
+	// 도시별 관련 투어 select 
+	public ArrayList<HashMap<String, Object>> selectCityTourList(Connection con, int cityNum) {
+		ArrayList<HashMap<String, Object>> tourList = null;
+		HashMap<String, Object> tourMap = null;
+		ResultSet rset = null;
 		PreparedStatement pstmt = null;
-		/*Statement stmt = null;*/
-		ArrayList<HashMap<String, Object>> list = null;
-		HashMap<String, Object> hmap = null;
-		ResultSet rset = null;
 		
-		String query = prop.getProperty("selectList2");
-		
+		String query = prop.getProperty("selectCityTourList");
+		System.out.println("헹dao 실행  " +cityNum );
 		try {
-		pstmt = con.prepareStatement(query);
-		int startRow = (currentPage -1) * limit +1;
-		int endRow = startRow + limit - 1;
-		
-		pstmt.setInt(1, startRow);
-		pstmt.setInt(2, endRow);
-		
-		rset = pstmt.executeQuery();
-		list = new ArrayList<HashMap<String, Object>>();
-
-		while(rset.next()) {
-			hmap = new HashMap<String,Object>();  //멤버 객체대신 hash맵사용
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, cityNum);
 			
-			hmap.put("tno", rset.getInt("t_no"));  //DB 대소문자 상관없음. 단, 값은 구분함
-			hmap.put("tcno", rset.getInt("t_c_no"));
-			hmap.put("title", rset.getString("t_Title"));
-			hmap.put("concept", rset.getString("t_concept"));
-			hmap.put("price", rset.getInt("t_price"));
-			hmap.put("info", rset.getString("t_info"));
-			hmap.put("link", rset.getString("t_link"));
-			hmap.put("grade", rset.getString("t_grade"));
-			hmap.put("tdate", rset.getDate("t_date"));
-			hmap.put("ano", rset.getInt("a_no"));
-			hmap.put("originName", rset.getString("a_origin_name"));
-			hmap.put("changeName", rset.getString("a_change_name"));
-			hmap.put("filePath", rset.getString("a_file_path"));
-			hmap.put("uploadDate", rset.getDate("a_upload_date"));
+			rset = pstmt.executeQuery();
+					
+			tourList = new ArrayList<HashMap<String, Object>>();
 			
-			list.add(hmap);
-			
-		}
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close(pstmt);
-		close(rset);
-	}
-
-	return list;
-	}
-
-	public int getListCount2(Connection con) {
-		Statement stmt = null;
-		int listCount = 0;
-		ResultSet rset = null;
-		
-		String query = prop.getProperty("listCount");
-		
-		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			if(rset.next()) {
-				listCount = rset.getInt(1);
+			while(rset.next()) {
+				System.out.println("rset	 진입 " );
+				tourMap = new HashMap<String, Object>();
+				TourBoard t = new TourBoard();
+				
+				t.setTno(rset.getInt("T_NO"));
+				t.settTitle(rset.getString("T_TITLE"));
+				t.setTctno(rset.getInt("T_CT_NO"));
+				t.settConcept(rset.getString("T_CONCEPT"));
+				t.settPrice(rset.getInt("T_PRICE"));
+				t.setTctName(rset.getString("CT_NAME"));
+				t.settLink(rset.getString("T_LINK"));
+				
+				Attachment a = new Attachment();
+				
+				a.setAno(rset.getInt("A_NO"));
+				a.setOriginName(rset.getString("A_ORIGIN_NAME"));
+				a.setChangeName(rset.getString("A_CHANGE_NAME"));
+				a.setFilePath(rset.getString("A_FILE_PATH"));
+				a.setUploadDate(rset.getDate("A_UPLOAD_DATE"));
+				
+				tourMap.put("t", t);
+				tourMap.put("a",a);
+				
+				tourList.add(tourMap);
 			}
+			
 		} catch (SQLException e) {
-
 			e.printStackTrace();
-		}finally {
-			close(stmt);
+		} finally {
 			close(rset);
+			close(pstmt);
 		}
-
-		return listCount;
+		
+		return tourList;
 	}
 	
 }

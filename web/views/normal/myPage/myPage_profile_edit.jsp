@@ -62,10 +62,10 @@
 <body>
 <div><br>
 	<h1 id ="title"> My Profile</h1>
-	<form action = "" method = "post" encType = "multipart/form-data">
-	
+	<form action = "<%=request.getContextPath()%>/updateProfile.me?mno=<%=loginUser.getM_no() %>" method = "post" encType = "multipart/form-data">
+	<%-- <%=request.getContextPath()%>/updateProfile.me?mno=<%=loginUser.getM_no() %> --%>
 		<div class = "insertArea">
-		<form action = "<%=request.getContextPath()%>/profileSetting.me?mno=<%=loginUser.getM_no() %>" method = "post">
+		
 			<table align = "center">
 				<tr>
 					<td id ="txt">
@@ -75,11 +75,7 @@
 				<tr>
 					<td>
 						<div class = "div-img-profile">
-						<% if(attach != null) {%>
-	    					<img src = "/et/profileUpload/<%=attach.getChangeName()%>" class = "img-profile" id = "img-profile">
-	    					<%} else { %>
-	    					<img src = "/et/image/common/logo.png" class = "img-profile" id = "img-profile">
-	    					<%} %>
+	    					<img src = "" class = "img-profile" id = "img-profile">
 	    				</div>
 					</td>
 				</tr>
@@ -95,7 +91,8 @@
 						<div class="ui form">
 						  <div class="field">
 						    <label id ="txt"> - 자기 소개글 </label>
-						    <textarea name = "profileTxt" rows="3" cols = "50" style = "resize : none" placeholder = "자기 소개 부탁바람"><%=loginUser.getM_profile() %></textarea>
+						    <%=loginUser.getM_profile() %>
+						    <textarea name = "profileTxt" rows="3" cols = "50" style = "resize : none" placeholder = "자기 소개 부탁바람"></textarea>
 						  </div>
 						</div>
 						
@@ -103,7 +100,6 @@
 				</tr>
 				
 			</table>
-		</form>
 		</div>
 		<br>
 		<div class ="btnArea">

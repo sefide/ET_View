@@ -61,11 +61,8 @@ public class InsertTourBoardServlet extends HttpServlet {
 			//같은 파일명이 존재하는지를 검사하고 있을 경우에는 뒤에 숫자를 붙여존다.
 			//ex : aaa.zip, aaa1.zip, aaa2.zip
 			
-	/*		MultipartRequest multiRequest 
-				= new MultipartRequest(request, filePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());*/
 			MultipartRequest multiRequest 
 				= new MultipartRequest(request, filePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
 			
 			//다중 파일을 묶어서 업로드 하기 위해 컬렉션 사용
 			//저장한 파일의 이름을 저장할 arrayList 생성
@@ -79,7 +76,6 @@ public class InsertTourBoardServlet extends HttpServlet {
 			
 			while(files.hasMoreElements()) {
 				String name = files.nextElement();
-				
 				System.out.println("name: " + name);
 				
 				saveFiles.add(multiRequest.getFilesystemName(name));

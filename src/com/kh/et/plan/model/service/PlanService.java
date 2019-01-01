@@ -165,7 +165,8 @@ public class PlanService {
 		
 		return planMap;
 	}
-
+	
+	// 인기 도시 리스트 뽑아오기 (메인페이지)
 	public ArrayList<City> selectTopCity() {
 		Connection con = getConnection();
 		

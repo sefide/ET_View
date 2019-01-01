@@ -1,12 +1,15 @@
 package com.kh.et.member.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.et.member.model.service.MemberService;
 import com.kh.et.member.model.vo.Member;
 
 /**
@@ -30,11 +33,15 @@ public class Member_profileSetting_Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
-		loginUser.getM_no();
+		int mno = loginUser.getM_no();
+		
+		HashMap<String, Object> hamp = new MemberService().updateSetProfile(mno);
+		
 		String page = ""	;
 		
-		
-		page = "views/normal/myPage/myPage_profile_edit.jsp";
+		System.out.println("ㅋㅋㅋㅋㅋㅋ 스카이 캐슬 재밌다 .");
+//		page = "views/normal/myPage/myPage_profile_edit.jsp";
+//		response.sendRedirect(page);
 	}
 
 	/**

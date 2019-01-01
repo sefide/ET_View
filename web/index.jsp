@@ -298,14 +298,12 @@
             width : 97%;
             border-bottom : 1px dashed gray;
             position : relative;
-            /* height : 55px;
-            font-size : 18px;
-            top : 40%;
-            background-color : white;
-            border : 5px solid rgb(260,220,108);
-            cursor : pointer;
-            box-shadow : 3px 3px 1px 0 rgba(200,180, 48); */
        	}
+       	#txt-qna{
+       		font-family: 'Nanum Gothic', sans-serif;
+       		font-size : 20px;
+       	}
+       	
        	#like-qna{
        		display : inline-block;
        		width : 100px;
@@ -509,8 +507,8 @@
 	            TourBoard t = (TourBoard)tour.get("t");
 	            Attachment a = (Attachment)tour.get("a");
 	            %>
-				  <div class="card" id = "card-size" onclick = "location.href = '<%=request.getContextPath() %>/selectOne.tb?tbno='+<%= t.getTno()%>" >
-				    <img class="card-img-top" src="/et/tourUpload/<%=a.getChangeName() %>" alt="Card image cap">
+				  <div class="card" id = "card-size" onclick = "location.href = '<%=request.getContextPath() %>/selectOne.tb?tbno=<%= t.getTno()%>'">
+				    <img class="card-img-top" src="/et/tourUpload/<%=a.getChangeName() %>" alt="Card image cap"/>
 				    <div class="card-body">
 				      <h5 class="card-title"> [<%=t.getTctName() %>]<%= t.gettTitle() %> </h5>
 				      <p class="card-text"> <%=t.gettPrice() %>원 </p>
@@ -536,48 +534,15 @@
 					Board b = (Board)topBoard.get(i);
 					%>
 						<div id="img-qna-bar">
-							<span class = "span-qna-q"> Q1. </span>
-							<span>[<%= b.getBtitle() %>] <%=b.getbContent() %></span>
+							<span class = "span-qna-q"> Q<%=i+1 %>. </span>
+							<span id = "txt-qna">[<%= b.getBtitle() %>] <%=b.getbContent() %></span>
 							<div id ="like-qna">
 							<i class="heart icon" id ="like-qna"><%= b.getbLike() %></i>
 							</div>
 						</div>
 						
 					<%} %>
-						<!-- <div id="img-qna-bar">
-							<span class = "span-qna-q"> Q2. </span>
-							<span>질문 예시 얍얍얍얍 </span>
-							<div id ="like-qna">
-							<i class="heart icon" id ="like-qna">23</i>
-							</div>
-						</div>
-						<div id="img-qna-bar">
-							<span class = "span-qna-q"> Q3. </span>
-							<span>질문 예시 얍얍얍얍 </span>
-							<div id ="like-qna">
-							<i class="heart icon" id ="like-qna">23</i>
-							</div>
-						</div> -->
-					</div>
-				</div>
-				<!-- <div class = "div-qna">
-					<div class = "div-qna-inner">
-						<div id="img-qna-bar">
-							<span class = "span-qna-q"> Q2. </span>
-							<span>질문 예시 얍얍얍얍 </span>
-							<i class="heart icon">23</i>
-						</div>
-					</div>
-				</div>
-				<div class = "div-qna">
-					<div class = "div-qna-inner">
-						<div id="img-qna-bar">
-							<span class = "span-qna-q"> Q3. </span>
-							<span>질문 예시 얍얍얍얍 </span>
-							<i class="heart icon">23</i>
-						</div>
-					</div>
-				</div> -->
+						
             </div>
             </div>
         </div>

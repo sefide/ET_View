@@ -280,7 +280,7 @@
 		});
 	   */
 	    function editProfile() {
-	  	  	window.open("/profileSetting.me?", "프로필 수정", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+	  	  	window.open("<%=request.getContextPath()%>/profileSetting.me", "프로필 수정", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
 	    }
 	    
 	    function addPlanMemory(){
@@ -369,9 +369,8 @@
     		          });
     		        console.log("marker"+j);
     		        }
-    		        <%-- animateCircle( poly<%=i%>); --%>
-	    	    <%}%>
-	    	   
+
+    		        <%}%>
 	    		
 	    });
 	    

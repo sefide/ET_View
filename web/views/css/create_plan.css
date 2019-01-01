@@ -139,12 +139,12 @@
 	/* 간단 소개  */
 	.p-city-name{
 		font-weight : 700;
-		font-size : 22px;
+		font-size : 30px;
 		font-family: 'Nanum Gothic', sans-serif;
 	}
 	.p-info-img{
-		width : 600px;
-		height : 390px;
+		width : 800px;
+		height : 450px;
 		border-radius : 7px;
 		border : 1px solid white;
 	}

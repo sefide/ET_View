@@ -10,10 +10,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 
 import com.kh.et.member.model.vo.Member;
+import com.kh.et.tourBoard.model.vo.Attachment;
 
 public class MemberDao {
 	private Properties prop = new Properties();
@@ -219,6 +222,94 @@ public class MemberDao {
 	
 		return result;
 	}
+
+	public HashMap<String, Object> updateSetProfile(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		Attachment a = null;
+		Member m = null;
+		
+		
+		return hmap;
+	}
+		
+	
+	// 회원 소개글 수정 update 
+	public int updateOldProfile(Connection con, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateOldProfile");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, m.getM_profile());
+			pstmt.setInt(2, m.getM_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	// 회원 이전 프로필 사진 delete
+	public int deleteOldAttach(Connection con, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		Attachment at = fileList.get(0);
+		int result = 0;
+		
+		String query = prop.getProperty("deleteOldAttach");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, at.getAnno());
+			pstmt.setString(2, at.getaType());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 새로운 회원 프로필 사진 insert 
+	public int insertNewAttachment(Connection con, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		Attachment at = fileList.get(0);
+		int result = 0;
+		
+		String query = prop.getProperty("insertNewAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setString(4, at.getaType());
+			pstmt.setInt(5, at.getAnno());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
 
 
 

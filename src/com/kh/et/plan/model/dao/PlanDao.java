@@ -28,8 +28,8 @@ public class PlanDao {
 		}
 	}
 
-	
-	public ArrayList<City> selectCityList(Connection con) {
+	// 도시 정보 뽑아오기 
+	public ArrayList<City> selectCityList(Connection con) { // 순서지켜서 정보(City) 뽑기 
 		ArrayList<City> cityList = null;
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -66,7 +66,7 @@ public class PlanDao {
 		return cityList;
 	}
 
-
+	// 플랜 테이블에 저장 
 	public int insertPlan(Connection con, Plan reqPlan) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -92,7 +92,7 @@ public class PlanDao {
 		return result;
 	}
 
-
+	// 현재 플랜테이블 시퀀스값 구하기 
 	public int selectPlanCurrval(Connection con) {
 		int planNo = -1;
 		Statement stmt = null;
@@ -120,7 +120,7 @@ public class PlanDao {
 		return planNo;
 	}
 
-
+	// 플랜 디테일 저장 
 	public int insertPlanDetail(Connection con, ArrayList<PlanDetail> planDetailList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -188,8 +188,8 @@ public class PlanDao {
 		return list;
 	}
 
-
-	public HashMap<String, City> selectCityMap(Connection con) {
+	// 도시 정보 뽑아오기 
+	public HashMap<String, City> selectCityMap(Connection con) { //  도시이름, 도시정보(City)
 		Statement stmt = null;
 		ResultSet rset = null;
 		HashMap<String, City> resultMap = null;
@@ -225,7 +225,7 @@ public class PlanDao {
 		return resultMap;
 	}
 
-
+	// 도시 상세정보 뽑아오기 
 	public HashMap<String, Object> selectPlanDetail(Connection con, int planNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -279,7 +279,7 @@ public class PlanDao {
 		return resultMap;
 	}
 
-
+	// 플랜 수정 
 	public int updatePlan(Connection con, Plan reqPlan) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -305,7 +305,7 @@ public class PlanDao {
 		return result;
 	}
 
-
+	// 플랜 수정하면서 이전에 저장된 플랜 디테일 삭제 -> 상태 N으로 update
 	public int updatePlanDetailStatusN(Connection con, Plan reqPlan) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -327,7 +327,7 @@ public class PlanDao {
 		return result;
 	}
 
-
+	// 플랜 삭제 -> 상태 N으로 update
 	public int deletePlan(Connection con, int planNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
