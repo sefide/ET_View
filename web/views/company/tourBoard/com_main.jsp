@@ -287,7 +287,15 @@
 		}
 		
 		
-
+		
+	<%-- 	$(function(){
+			$("#div-my-tour").click(function(){
+				var num=$(this).attr("id");
+				
+				console.log(num);
+				location.href="<%=request.getContextPath()%>/edit.no?num="+num;
+			});
+		}); --%>
 		
 		
 		
