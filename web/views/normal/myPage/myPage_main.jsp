@@ -242,7 +242,7 @@
     				<div class = "div-menu">
     					<ul>
     						<li><a onclick = "goMyPlan();" class = "this-page" href =  ""> > 내 플랜보기 </a> </li>
-    						<li><a href = "/et/views/normal/myPage/myPage_activity_history.jsp"> > 나의 활동내역 </a></li>
+    						<li><a onclick="goMyActivity();" href =  ""> > 나의 활동내역 </a></li>
     						<li><a href = "/et/views/normal/myPage/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
     						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
     					</ul>
@@ -302,6 +302,11 @@
 	    function goMyPlan(){
 		    	var mno = <%=loginUser.getM_no()%>;
 		    	location.href = "<%=request.getContextPath()%>/selectPlanList.pl?mno="+mno;
+	    }
+	    
+	    function goMyActivity(){
+	    		var mno = <%=loginUser.getM_no()%>;
+	    		location.href = "<%=request.getContextPath()%>/selectQnAList.pl?mno="+mno;
 	    }
    		
 	    var planNum = <%= planList.size()%>;

@@ -237,7 +237,8 @@
 							      <a class="ui red ribbon label" id="redBlue-avel">제목</a>
 							      <span>안녕하세요</span>
 							      <p></p>
-							      <a class="ui blue ribbon label" id="redBlue-avel">내용</a>제 이름은 애리닝이에오
+							      <a class="ui blue ribbon label" id="redBlue-avel">내용</a>
+							      <span>제 이름은 애리닝이에오</span>
 							      <p></p>
 							    </div>
 							  </div>
@@ -246,14 +247,15 @@
         				<!-- 스크랩 Q&A -->
         				<div  class = "con2-qna">
 						<div class="scrapQnA-content" style='display:inline; float:left; width:500px; height: 100px;'>
-							<div class="QnA"><b style="font-size: 25px;">스크랩 Q&A</b></div>
+							<br><div class="QnA"><b style="font-size: 25px;">스크랩 Q&A</b></div>
 							<div class="column" >
 								<div class="ui raised segment">
 									<a class="ui red ribbon label" id="redBlue-avel">제목</a>
 								    <span>안녕하세요</span>
 								    <p></p>
 								    <a class="ui blue ribbon label" id="redBlue-avel">내용</a>
-								    <sapn><p>제 이름은 애리닝이에오</p></sapn>
+								    <span>제 이름은 애리닝이에오</span>
+								    <p></p>
 								</div>
 							</div>
 						</div>
