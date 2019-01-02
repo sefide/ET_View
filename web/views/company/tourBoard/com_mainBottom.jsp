@@ -248,8 +248,6 @@
 			<%} %>
 			
 			<button onclick="location.href='<%=request.getContextPath()%>/selectList2.tbo?currentPage=<%=maxPage%>'">>></button>
-					<!-- <button class="ui yellow button">삭제하기 </button> -->
-				</div>
             </div>
             
            </div> <!-- container -->

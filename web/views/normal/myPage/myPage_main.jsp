@@ -274,8 +274,13 @@
 	    		alert("저장공간 늘리기");
 	    }
 	    
-	    function setPrivate() {
-	   	 	alert("비공개/ 공개 설정");
+	    function setPrivate(num) {
+	   	 	if(window.confirm("비공개로 설정하시겠습니까?(비공개시 포인트 50점!!!이 차감됩니다.)")){
+	   	 	var mno = <%=loginUser.getM_no()%>;
+	   	 		location.href = "<%=request.getContextPath()%>/planSetPrivate.po?pNo="+num+"&mNo="+mno;
+	   	 	}else{
+	   	 		
+	   	 	}
 	    }
 	    
 	    function goMyPlan(){
@@ -302,7 +307,7 @@
 	    		<%for(int i = 0; i <  planList.size(); i++){%>
 	        		// 새로운 도시 div 추가 
 	        		var mapContent = "<div class ='planBox map"+<%=i%>+"'><div id = 'planMap"+<%=i%>+"' class ='planMap' readonly></div>";
-	        		var mapInfoContent = "<div class = 'div-plan-title' onclick = 'goPlanDetail("+<%=planList.get(i).getpNo()%>+");'><%= planList.get(i).getpTitle() %> </div><div class = 'div-plan-private' onclick = 'setPrivate();'> <%if(planList.get(i).getpPrivate().equals("Y")) {%>공개 <%}else {%> 비공개 <%}%></div></div>";
+	        		var mapInfoContent = "<div class = 'div-plan-title' onclick = 'goPlanDetail("+<%=planList.get(i).getpNo()%>+");'><%= planList.get(i).getpTitle() %> </div><div class = 'div-plan-private' onclick = 'setPrivate(<%=planList.get(i).getpNo()%>);'> <%if(planList.get(i).getpPrivate().equals("Y")) {%>공개 <%}else {%> 비공개 <%}%></div></div>";
 	        		var content = mapContent + mapInfoContent;
 				 $("#plan-list-inner").prepend(content);
 				
