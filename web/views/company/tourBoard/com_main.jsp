@@ -286,6 +286,11 @@
 			location.href = "/et/views/company/tourBoard/com_EditBoard.jsp";
 		}
 		
+		
+
+		
+		
+		
 		<%-- function test(){
 			jb.ajax({
 				url:"<%=request.getContextPath()%>/AjaxselectList.tbo",

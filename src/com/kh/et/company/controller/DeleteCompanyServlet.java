@@ -50,7 +50,9 @@ public class DeleteCompanyServlet extends HttpServlet {
 		
 		if(c!=null) {
 			page="/et/selectList.co";
+			request.setAttribute("comNo",comNo);
 			response.sendRedirect(page);
+			
 			
 		}else {
 			page="views/common/errorPage.jsp";
