@@ -39,7 +39,6 @@ public class Member_profileUpdate_Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mno = Integer.parseInt(request.getParameter("mno"));
-		System.out.println("프로필 수정 : " + mno);
 		
 		if(ServletFileUpload.isMultipartContent(request)) { // multipart로 전송되었는가를 체크
 			//전송 파일 용량 제한 :  10MB로 제한
@@ -82,8 +81,6 @@ public class Member_profileUpdate_Servlet extends HttpServlet {
 			while(files.hasMoreElements()) {
 				String name = files.nextElement();
 				
-				System.out.println("name : " + name);
-				
 				saveFiles.add(multiRequest.getFilesystemName(name));
 				originFiles.add(multiRequest.getOriginalFileName(name));
 				
@@ -114,13 +111,13 @@ public class Member_profileUpdate_Servlet extends HttpServlet {
 				fileList.add(at);
 			}
 			
-			// 수정하자 ******************************************************************************
 			Member resultUser = new MemberService().updateProfile(m, fileList);
 			
 			if(resultUser != null) {
 				request.getSession().setAttribute("loginUser", resultUser);
-				
-				response.sendRedirect(request.getContextPath() + "/selectPlanList.pl?mno="+resultUser.getM_no());
+				request.setAttribute("isclose", "Y");
+				request.getRequestDispatcher("/selectPlanList.pl?mno="+resultUser.getM_no()).forward(request, response);
+				//response.sendRedirect(request.getContextPath() + "/selectPlanList.pl?mno="+resultUser.getM_no());
 			} else {
 				// 실패 시 저장된 사진 삭제시켜줘야 한다.
 				for(int i = 0; i <saveFiles.size(); i++) {
@@ -136,7 +133,6 @@ public class Member_profileUpdate_Servlet extends HttpServlet {
 				
 			}
 			
-			// 수정하자 ******************************************************************************
 		}
 		
 	}

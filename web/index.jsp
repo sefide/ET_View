@@ -3,7 +3,11 @@
 <%
 	String msg = (String)request.getAttribute("msg");	
 	HashMap<String, Object> topPlan = (HashMap<String, Object>)request.getAttribute("topPlan");
-	HashMap<String, City> cityMap = (HashMap<String, City>)topPlan.get("cityMap");
+	HashMap<String, City> cityMap = null;
+	ArrayList<Plan> planList = null;
+	if(topPlan!=null){
+		cityMap = (HashMap<String, City>)topPlan.get("cityMap");
+	}
 	ArrayList<City> topCity = (ArrayList<City>)request.getAttribute("topCity");
 	ArrayList<HashMap<String, Object>> topTour = (ArrayList<HashMap<String, Object>>)request.getAttribute("topTour");
 	ArrayList<Board> topBoard = (ArrayList<Board>)request.getAttribute("topBoard");
@@ -379,8 +383,8 @@
                 </div>
                 <div> 
         				<div class = "div-plan-list">  
-        				<% 
-        				ArrayList<Plan> planList = (ArrayList<Plan>)topPlan.get("planList");
+        				<% if(topPlan!= null){
+        				planList = (ArrayList<Plan>)topPlan.get("planList");
         				for(int i = 0; i < planList.size(); i++){
         					System.out.println("i : " + i);
         					Plan p = planList.get(i);
@@ -392,26 +396,12 @@
         							<i class = "icon heart"><%=p.getpLike() %></i>
         						</div>
         					</div>
-        				<%} %>
-        				 <%-- 	<div class ="div-plan-map"> 
-        					    <div id ="plan-map1"></div>
-        						<div class = "div-plan-title"><%=topPlan2.getpTitle() %></div>
-        						<div class = "div-plan-like"> 
-        							<i class = "icon heart"><%=topPlan2.getpLike() %></i>
-        						</div>
-        					</div> 
-        					<div class ="div-plan-map"> 
-        					    <div id ="plan-map2"></div>
-        						<div class = "div-plan-title"><%=topPlan3.getpTitle() %></div>
-        						<div class = "div-plan-like"> 
-        							<i class = "icon heart"><%=topPlan3.getpLike() %></i>
-        						</div>
-        					</div>  --%>
-        					
+        				<%}
+        				}%>
+        				 
         				</div>
         			</div>
             </div>
-            
             
             
 			<div class="ui mt-20"> 
@@ -419,11 +409,19 @@
                  
 	           	<div class = "ui div-best-city" >
 	           	<% 
-	           	City topCity1 = (City)topCity.get(0); 
-	           	City topCity2 = (City)topCity.get(1); 
-	           	City topCity3 = (City)topCity.get(2); 
-	           	City topCity4 = (City)topCity.get(3); 
-	           	City topCity5 = (City)topCity.get(4); 
+	           	City topCity1 = null; 
+	           	City topCity2 = null; 
+	           	City topCity3 = null; 
+	           	City topCity4 = null; 
+	           	City topCity5 = null;
+	           	
+	           	if(topCity != null){
+	           	 topCity1 = (City)topCity.get(0); 
+	           	 topCity2 = (City)topCity.get(1); 
+	           	 topCity3 = (City)topCity.get(2); 
+	           	 topCity4 = (City)topCity.get(3); 
+	           	 topCity5 = (City)topCity.get(4); 
+	           	
 	           	%>
 	           		<div class = "div-best-inner">
 		           		<img src = "<%=request.getContextPath()%>/image/city/<%=topCity1.getCtName() %>.jpg" alt = "<%=topCity1.getCtName() %>" class = "img_best_city">
@@ -492,7 +490,9 @@
 	           		<h3 class ="ui header">5. &nbsp; <%=topCity5.getCtCountry() %>,&nbsp; <%=topCity5.getCtName() %>  </h3>
 	           	</div>
             </div>
-            
+            <%}
+	           	
+	        if(topTour != null){%>
             <div class="ui mt-20"> 
                 <div class="ui huge header">인기 투어 TOP 4 </div>
                  <div class = "more-div" onclick = "location.href ='/et/views/normal/tourBoard/seeTour_main.jsp'">
@@ -519,8 +519,11 @@
 				  
 				</div>
 				</div>
-                
+				
             </div>
+            <%}
+	        
+	        if(topBoard != null){%>
              <div class="ui mt-20"> 
                 <div class="ui huge header">인기 Q&A </div>
                  <div class = "more-div" onclick = "location.href ='/et/views/normal/board/memberBoard.jsp'">
@@ -543,12 +546,15 @@
 						
 					<%} %>
 						
-            </div>
-            </div>
-        </div>
+	            		</div>
+	            </div>
+        		</div>
+        		<%} %>
         <br><br><br><br><br><br><br><br><br>
         <div width = "100%" align = "center">
         <img src = "/et/image/common/logo_ev3.png" alt = "logo" ></div>
+        </div>
+        </div>
     </div>
         <div class = "two wide column"></div>
     </div>
@@ -593,6 +599,7 @@
  			
 		// 플랜 별 도시 위도 경도를 찍는다. 
 		<%
+		if(cityMap != null && planList != null){
 		String[] planCityArr = null;
 		System.out.println("잉" + planList.size());
 		for (int i = 0; i < planList.size(); i++){
@@ -603,7 +610,7 @@
 			<% }%> 
 			flightPlanCoordinatesArr.push(flightPlanCoordinates); 
 			flightPlanCoordinates = [];
-		<% } %>
+		<% }%>
 		
 		<%for(int i = 0; i < planList.size();  i++){ %>
     		// 해당하는 플랜의 도시 배열을 뽑아서 배열값을 나눈 다음에
@@ -642,7 +649,7 @@
 	        }
 	    <%}%>
  		});
-         
+       <%}%>
          
     </script>
     
