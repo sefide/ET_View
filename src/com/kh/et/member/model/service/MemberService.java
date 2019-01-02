@@ -169,5 +169,16 @@ public class MemberService {
 	}
 
 
+	public int userDelete(int m_no) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().userDelete(con, m_no);
+		
+		close(con);
+		
+		return result;
+	}
+
+
 
 }

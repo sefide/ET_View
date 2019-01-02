@@ -841,6 +841,83 @@ public class ManagerDao {
 		return tourCount;
 	}
 
+	public ArrayList<HashMap<String, Object>> cityList(Connection con, int currentPage, int limit) {
+		
+		PreparedStatement pstmt=null;
+		ArrayList<HashMap<String,Object>> list=null;
+		HashMap<String, Object> hmap=null;
+		ResultSet rset=null;
+		
+		String query=prop.getProperty("cityList");
+	/*	SELECT ROWNUM RNUM,CT_NAME,CT_COUNTRY,RK
+		FROM(SELECT CT_NAME,CT_COUNTRY, RANK() OVER (ORDER BY EV_STAR DESC) AS RK 
+		FROM TRAVELCITY TC JOIN PLANDETAIL P ON(TC.CT_NO=P.PD_START_CITY)
+		JOIN EVAL E ON(P.PD_NO=E.EV_PD_NO))
+		WHERE ROWNUM BETWEEN ? AND ?;*/
+		
+		try {
+			pstmt=con.prepareStatement(query);
+		
+			int startRow=(currentPage-1)*limit+1;
+			int endRow = startRow + limit - 1;	//한 페이지에서의 글 목록 끝 번호
+			
+			pstmt.setInt(1, startRow);
+			System.out.println(startRow);
+			pstmt.setInt(2, endRow);
+			System.out.println(endRow);
+			rset = pstmt.executeQuery();
+			
+			list=new ArrayList<HashMap<String,Object>>();
+		
+			while(rset.next()) {
+				
+				
+				hmap=new HashMap<String,Object>();
+				hmap.put("ctNo",rset.getInt("RNUM"));
+				hmap.put("ctName",rset.getString("CT_NAME"));
+				hmap.put("ctCountry",rset.getString("CT_COUNTRY"));
+				hmap.put("rank",rset.getInt("RK"));
+				list.add(hmap);
+			}
+			System.out.println(list);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+	
+		return list;
+	}
+
+	public int getListCount4(Connection con) {
+		Statement stmt = null;
+		int cityCount = 0;
+		ResultSet rset = null;
+		
+		//전체 게시글 수 조회
+		String query = prop.getProperty("cityCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				cityCount= rset.getInt(1); // 총 글의개수
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		return cityCount;
+	}
+
 	//회원정지시키기
 	public int stopMember(Connection con, int[] arr2) {
 		PreparedStatement pstmt = null;
