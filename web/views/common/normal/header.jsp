@@ -230,7 +230,8 @@
                    		 	<!-- "href="/et/views/normal/plan/create_plan.jsp" -->
                 		</li>
                 		<li class="nav-item">
-                    		<a class="nav-link" href="/et/views/normal/plan/seePlan_main.jsp">플랫엿보기</a>
+                    		<a class="nav-link" onclick="seePlan();">플랫엿보기</a>
+                    		<!-- /selectallPlan.pl 서블릿을 호출해야해 완성하면! by 아진-->
                 		</li>
                 		<li class="nav-item">
                     		<a class="nav-link" href="/et/views/normal/tourBoard/seeTour_main.jsp">투어엿보기</a>
@@ -283,6 +284,9 @@
       	  	 location.href = "/et/selectCityList.pl";
       	  	 <%}%>
     		}
+    		function seePlan() {
+    			location.href = "<%=request.getContextPath()%>/selectallPlan.pl";  			
+			}
     		
     </script>
 </body>

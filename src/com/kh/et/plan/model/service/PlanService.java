@@ -182,5 +182,29 @@ public class PlanService {
 		
 		return cityList;
 	}
+	
+	//플랜 엿보기 - 인기플랜 조회
+	public HashMap<String, Object> selectBestPlan() {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> bestPlanMap = new PlanDao().selectBestPlan(con);
+		
+		HashMap<String, City> bestCityMap = new PlanDao().selectBestMap(con);
+		
+		
+		if(bestPlanMap != null && bestCityMap != null) {
+			bestPlanMap.put("bestCityMap", bestCityMap); 
+			commit(con);
+			
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return bestPlanMap;
+	}
+	
+
 
 }
