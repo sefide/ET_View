@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import = "com.kh.et.member.model.vo.*, com.kh.et.tourBoard.model.vo.*"%>
 <% 
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+	String isclose = (String)request.getAttribute("isclose");
 %>
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,17 @@
 <title>ET_My_Profile</title>
 <link rel="icon" href="/views/image/common/logo.png">
 
+<script>
+$(function(){
+	<%System.out.println("얍isclose " + isclose);%>
+	if(<%=isclose != null && isclose.equals("Y")%>){
+		alert("얍");
+		window.opener.location.href="<%=request.getContextPath()%>/selectPlanList.pl?mno=<%=loginUser.getM_no()%>";
+		//window.opener.parent.location.reload();
+		window.self.close();
+	}
+});
+</script>
 <style>
 	body {
 		width:100%;
@@ -123,6 +135,8 @@
 	function wclose() {
 		close();
 	}
+	
+	
 	
 	</script>
 </html>
