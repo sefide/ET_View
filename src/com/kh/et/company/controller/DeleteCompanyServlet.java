@@ -32,24 +32,25 @@ public class DeleteCompanyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String[] testChk = request.getParameterValues("chkValue");
+		String test = request.getParameter("chkValue");
+		System.out.println(test);
+		
+		String[] testChk = test.split(",");
 		int comNo = 0;
+		
 		for(String msg : testChk) {
 			System.out.println("테스트 체크!!! :" + msg);
 			comNo = Integer.parseInt(msg);
 		}
-		
-		
-		System.out.println(testChk);
+
 		
 		Company c=new CompanyService().deleteCompany(testChk);
 		
 		String page="";
 		
 		if(c!=null) {
-			page="views/manager/tourCompany/manager_company.jsp";
-			request.setAttribute("c", c);
-			request.setAttribute("comNo", comNo);
+			page="/et/selectList.co";
+			response.sendRedirect(page);
 			
 		}else {
 			page="views/common/errorPage.jsp";

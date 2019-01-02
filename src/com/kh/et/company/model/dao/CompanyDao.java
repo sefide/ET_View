@@ -125,7 +125,7 @@ public class CompanyDao {
 			
 			while(rset.next()) {
 				Company c = new Company();
-				c.setC_no(rset.getInt("c_no"));
+				c.setC_no(rset.getInt("RNUM"));
 				c.setC_name(rset.getString("c_name"));
 				c.setC_biss_num(rset.getString("c_biss_num"));
 				c.setC_phone(rset.getString("c_phone"));
@@ -244,30 +244,15 @@ public class CompanyDao {
 
 	public Company deleteCompany(Connection con, String item) {
 		PreparedStatement pstmt=null;
-		PreparedStatement pstmt1=null;
-		PreparedStatement pstmt2=null;
-		PreparedStatement pstmt3=null;
+	
 		ResultSet rset=null;
 		Company c=null;
-		
-		String query1=prop.getProperty("deletePaymentCno");
-		String query2=prop.getProperty("deleteCouponCno");
-		String query3=prop.getProperty("deleteTourBoardCno");
-		String query4=prop.getProperty("deleteCompanyCno");
+		String query1=prop.getProperty("deleteCompany");
 		try {
 			pstmt=con.prepareStatement(query1);
-			pstmt1=con.prepareStatement(query2);
-			pstmt2=con.prepareStatement(query3);
-			pstmt3=con.prepareStatement(query4);
 			pstmt.setInt(1,Integer.parseInt(item));
-			pstmt1.setInt(1,Integer.parseInt(item));
-			pstmt2.setInt(1,Integer.parseInt(item));
-			pstmt3.setInt(1,Integer.parseInt(item));
-		
 			rset=pstmt.executeQuery();
-			rset=pstmt1.executeQuery();
-			rset=pstmt2.executeQuery();
-			rset=pstmt3.executeQuery();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -93,9 +93,9 @@ public class CompanyService {
 		Connection con=getConnection();
 		Company c = null;
 		for(String item : testChk) {
-			c=new CompanyDao().deleteCompany(con,item);
-			
+			c=new CompanyDao().deleteCompany(con,item);	
 		}		
+		
 		close(con);
 		return c;
 	}

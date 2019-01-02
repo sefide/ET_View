@@ -57,7 +57,7 @@
     	function searchPost(){
     		/*	회원정보조회 누르면 회원현황테이블 숨기기
     		$("#tb1").css({"visibility":"hidden"}); */
-    		location.href="/et/views/manager/plan/manager_travel.jsp";
+    		location.href="/et/selectCity.mng";
     	}
    
     	

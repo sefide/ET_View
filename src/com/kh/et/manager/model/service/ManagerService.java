@@ -300,4 +300,31 @@ public class ManagerService {
 		return listCount;
 	}
 
+	public ArrayList<HashMap<String, Object>> cityList(int currentPage, int limit) {
+		Connection con=getConnection();
+		ArrayList<HashMap<String,Object>> list=null;
+		
+			list=new ManagerDao().cityList(con,currentPage,limit);
+		
+		close(con);
+		
+		
+		return list;
+	}
+
+	public int getListCount4() {
+		Connection con = getConnection();
+		int listCount = new ManagerDao().getListCount4(con);
+		
+		if(listCount>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return listCount;
+	}
+
 }
