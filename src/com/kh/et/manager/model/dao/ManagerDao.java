@@ -388,9 +388,9 @@ public class ManagerDao {
 			//현재페이지(목록)에서 시작하는 글번호
 			int startRow = (currentPage - 1) * limit + 1;
 			//현재페이지에서 마지막 글번호
-			int endRow = startRow + limit - 1;
+			int endRow = startRow + limit - 1;/*
 			System.out.println("endRow : "+endRow);
-			System.out.println("startRow : "+startRow);
+			System.out.println("startRow : "+startRow);*/
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			
@@ -918,38 +918,69 @@ public class ManagerDao {
 		return cityCount;
 	}
 
-	//회원정지시키기
-	public int stopMember(Connection con, int[] arr2) {
+	//회원정지시키기(Member테이블에 상태 update)
+	public int stopMember(Connection con, int index) {
 		PreparedStatement pstmt = null;
-		int[] res = new int[arr2.length];
 		int result = 0;
 		
-		String query = prop.getProperty("stopMember");
+		//m_no가 index인 회원의 정지기간을 sysdate부터 sysdate+day까지로 update
+		String query = prop.getProperty("updateStopMember");
 		
-		
-		
-		
-		return 0;
-	}
-
-	//회원탈퇴
-	public int outMember(Connection con, int[] arr2) {
-		PreparedStatement pstmt = null;
-		int[] res = new int[arr2.length];
-		int result = 0;
-		
-		String query = prop.getProperty("outMember");
-		
-		//배열로 어떻게 처리하지?
 		try {
-			pstmt= con.prepareStatement(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, index);
 			
-			pstmt.setInt(1, arr2[0]);
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
+	
+	//회원정지시킨 후 STOPLIST테이블에 insert
+	public int insertStopMember(Connection con, int index, int day) {
+		PreparedStatement pstmt= null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertStopMember");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			
+			pstmt.setInt(1, index);
+			pstmt.setInt(2, day);
+			System.out.println("쿼리문 : "+query);
 			
 			result = pstmt.executeUpdate();
 			
 			
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return result;
+	}
+
+	//회원탈퇴
+	public int outMember(Connection con, int arr2) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("outMember");
+		
+		try {
+			pstmt= con.prepareStatement(query);
+			
+			pstmt.setInt(1, arr2);
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -960,4 +991,56 @@ public class ManagerDao {
 		
 		return result;
 	}
+
+	//정지회원 취소
+	//MEMBER테이블 상태 update
+	public int stopCancel(Connection con, int i) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("stopCancel");
+		
+		try {
+			pstmt= con.prepareStatement(query);
+			
+			pstmt.setInt(1, i);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	//정지회원 취소
+	//STOPLIST테이블에서 delete
+	public int stopCancel2(Connection con, int i) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("stopCancelDelete");
+		
+		try {
+			pstmt= con.prepareStatement(query);
+			
+			pstmt.setInt(1, i);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	
 }

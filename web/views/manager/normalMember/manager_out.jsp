@@ -56,7 +56,7 @@
  		background-color:lightgray;
  	}
  	.btn{
- 		margin-left:81%;
+ 		margin-left:-1%;
  	}
  	.nav{
  		width:20%;
@@ -87,6 +87,7 @@
     		- 탈퇴 회원 조회 <br><br>
     		<table>
     			<tr>
+    				<th>탈퇴목록</th>
     				<th>회원번호</th>
     				<th>아이디</th>
     				<th>이메일</th>
@@ -96,6 +97,7 @@
     			</tr>
     			<% for(Member m : outList){ %>
 	    		<tr height="27px">
+	    			<td><input type="checkbox"></td>
 	    			<td><%= m.getM_no() %></td>
 	    			<td><%= m.getM_id() %></td>
 	    			<td><%= m.getM_email() %></td>
@@ -132,10 +134,11 @@
 			<%} %>
 			
 			<button onclick="location.href='<%= request.getContextPath()%>/select05.mng?currentPage2=<%=maxPage2%>'">>></button>
-			
-			
-			
 		</div>
+		
+    		<div class="btn">
+    			<button>회원 복구</button>
+    		</div>
     		
     	</div>
     	</div>

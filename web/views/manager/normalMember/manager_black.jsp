@@ -57,7 +57,7 @@
  		background-color:lightgray;
  	}
  	.btn{
- 		margin-left:81%;
+ 		margin-left:-1%;
  	}
  	.nav{
  		width:20%;
@@ -100,7 +100,7 @@
     		HashMap<String,Object>hmap=StopList.get(i);
     		%>
     		<tr>
-    			<td><input type="checkbox"></td>
+    			<td><input id = "check" type="checkbox" value=<%= hmap.get("m_no") %>></td>
     			<td><%=hmap.get("m_no") %></td>
     			<td><%=hmap.get("m_id") %></td>
     			<td><%=hmap.get("m_email") %></td>
@@ -138,19 +138,53 @@
 			<%} %>
 			
 			<button onclick="location.href='<%= request.getContextPath()%>/select04.mng?currentPage=<%=maxPage%>'">>></button>
-			
-			
-			
 		</div>
     		
-    		<br>
     		<div class="btn">
-    			<button>정지 취소하기</button>
+    			<button id="stopCancel">정지 취소하기</button>
     		</div>
     	</div>
 
     		</div>
     	</div>
+    	
+    	<script>
+			$(function(){
+	    		var arr=new Array;
+				
+				//회원 정지시키기
+				$("#stopCancel").click(function(){
+					var cancelArr = new Array;
+					//체크박스중 선택된값 있으면 배열에 담기
+					$("#check:checked").each(function(){
+						cancelArr.push($(this).val());	
+					});
+					
+					var arr1=new Array;
+					arr1 = cancelArr;
+					
+					$.ajax({
+						url:"stopCancel.mng",
+						type:"GET",
+						data:{arr1:arr1},
+						success:function(data){
+							if(data=="성공"){
+								console.log("성공");
+								alert("정지취소 되었습니다.");
+							}
+						},
+						error:function(data){
+							if(data=="실패"){
+								console.log("실패");
+								alert("정지취소 실패ㅠㅜ");
+							}
+						}
+					});
+				});
+				
+			});	
+    	</script>
+    	
 	
 	<div class = "two wide column"></div>
 	

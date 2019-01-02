@@ -328,16 +328,25 @@ public class ManagerService {
 	}
 
 	//회원정지시키기
-	public int stopMember(int[] arr2) {
+	public int stopMember(int index,int day) {
 		Connection con = getConnection();
 		
-		int result = 0;
+		//Member테이블 상태 update
+		int result = 0; 		
+		result = new ManagerDao().stopMember(con,index);
 		
-		result = new ManagerDao().stopMember(con,arr2);
+		//Stoplist테이블에 insert
+		int result2=0;
+		result2 = new ManagerDao().insertStopMember(con,index,day);
 		
-		if(result>0) {
+		int sum=0;
+		sum=result+result2;
+		
+		if(sum!=0) {
+			result=1;
 			commit(con);
 		}else {
+			result=0;
 			rollback(con);
 		}
 		close(con);
@@ -349,18 +358,72 @@ public class ManagerService {
 	public int outMember(int[] arr2) {
 		Connection con = getConnection();
 		
-		int result = 0;
+		int[] result = new int[arr2.length];
+		int sum =0;
+		int res=0;
 		
-		result = new ManagerDao().outMember(con,arr2);
+		for(int i=0;i<arr2.length;i++) {
+			result[i] = new ManagerDao().outMember(con, arr2[i]);
+			
+			if(result[i]==0) {
+				System.out.println("탈퇴처리 실패");
+			}
+			else {
+				sum+=result[i];
+			}
+			System.out.println("결과처리값 : "+result[i]);
+		}
 		
-		if(result>0) {
+		if(sum/arr2.length==1) {
+			res = 1;
 			commit(con);
 		}else {
+			res=0;
 			rollback(con);
 		}
 		close(con);
 		
-		return result;
+		return res;
+	}
+
+	//정지회원 취소
+	//member에 m_stop_status 상태바꾸고, STOPLIST테이블에서 delete
+	public int stopCancel(int[] arr2) {
+		Connection con = getConnection();
+		int[] result = new int[arr2.length];
+		int[] result2 = new int[arr2.length];
+		int sum =0;
+		int sum2=0;
+		int res=0;
+		
+		for(int i=0;i<arr2.length;i++) {
+			//MEMBER테이블 상태 update
+			result[i] = new ManagerDao().stopCancel(con, arr2[i]);
+			System.out.println("result["+i+"] :"+result[i]);
+			
+			//STOPLIST테이블에서 delete
+			result2[i] = new ManagerDao().stopCancel2(con,arr2[i]);
+			System.out.println("result2["+i+"] :"+result2[i]);
+			
+			if(result[i]==0 || result2[i]==0) {
+				System.out.println("정지취소처리 실패");
+			}
+			else {
+				sum+=result[i];
+				sum2+=result2[i];
+			}
+		}
+		
+		if(sum/arr2.length==1&&sum2/arr2.length==1) {
+			res = 1;
+			commit(con);
+		}else {
+			res=0;
+			rollback(con);
+		}
+		close(con);
+		
+		return res;
 	}
 
 }

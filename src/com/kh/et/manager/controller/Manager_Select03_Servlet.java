@@ -14,7 +14,7 @@ import com.kh.et.manager.model.service.ManagerService;
 import com.kh.et.member.model.vo.Member;
 import com.kh.et.member.model.vo.PageInfo;
 
-
+/*회원 정지시키기*/
 @WebServlet("/select03.mng")
 public class Manager_Select03_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -46,6 +46,7 @@ public class Manager_Select03_Servlet extends HttpServlet {
 		//한페이지에 보여질 목록갯수
 		limit=10;
 		
+		/*블랙리스트 회원목록 보여줌 -> 선택하면 정지시킬 수 있도록*/
 		int BlackListCount = new ManagerService().getBlackListCount();
 		System.out.println("카운트 : "+BlackListCount);
 		

@@ -21,7 +21,7 @@
      	 .left-nav{
 			border:1px solid black;
 			margin: 5% 5%;
-			height:150px;
+			height:170px;
 			text-align:left;
 			display : table-cell;
 			vertical-align : middle;
@@ -52,13 +52,16 @@
                		<div>블랙리스트</div>
                		<ul>
                			<li>
-               			<div class="click" onclick = "check_black();">블랙회원 관리</div>
+               			<div class="click" onclick = "check_black();">회원 정지시키기</div>
            				</li>
            				<li>
                			<div class="click" onclick = "manager_black();">정지회원 관리</div>
            				</li>
            				<li>
-               			<div class="click" onclick = "manager_out();">탈퇴회원 조회</div>
+               			<div class="click" onclick = "manager_out_do();">회원 탈퇴시키기</div>
+           				</li>
+           				<li>
+               			<div class="click" onclick = "manager_out();">탈퇴회원 관리</div>
            				</li>
                		</ul>
           		 	</li>
@@ -78,17 +81,24 @@
     		location.href="<%=request.getContextPath()%>/select02.mng";
     	}
     	
-    	//정지회원 관리
+    	/*블랙리스트관리*/
+    	
+    	//회원 정지시키기
     	function check_black(){
     		location.href="<%=request.getContextPath()%>/select03.mng";
     	}
     	
-    	//탈퇴회원 조회
+    	//정지회원 관리
     	function manager_black(){
     		location.href="<%=request.getContextPath()%>/select04.mng";
     	}
     	
-    	//탈퇴회원 조회
+    	//회원 탈퇴시키기
+    	function manager_out_do(){
+    		location.href="<%=request.getContextPath()%>/select06.mng";
+    	}
+    	
+    	//탈퇴회원 관리
     	function manager_out(){
     		location.href="<%=request.getContextPath()%>/select05.mng";
     	}
