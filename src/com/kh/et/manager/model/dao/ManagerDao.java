@@ -389,8 +389,8 @@ public class ManagerDao {
 			int startRow = (currentPage - 1) * limit + 1;
 			//현재페이지에서 마지막 글번호
 			int endRow = startRow + limit - 1;
-			/*System.out.println("endRow : "+endRow);*/
-			
+			System.out.println("endRow : "+endRow);
+			System.out.println("startRow : "+startRow);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			
@@ -839,5 +839,48 @@ public class ManagerDao {
 			close(rset);
 		}
 		return tourCount;
+	}
+
+	//회원정지시키기
+	public int stopMember(Connection con, int[] arr2) {
+		PreparedStatement pstmt = null;
+		int[] res = new int[arr2.length];
+		int result = 0;
+		
+		String query = prop.getProperty("stopMember");
+		
+		
+		
+		
+		return 0;
+	}
+
+	//회원탈퇴
+	public int outMember(Connection con, int[] arr2) {
+		PreparedStatement pstmt = null;
+		int[] res = new int[arr2.length];
+		int result = 0;
+		
+		String query = prop.getProperty("outMember");
+		
+		//배열로 어떻게 처리하지?
+		try {
+			pstmt= con.prepareStatement(query);
+			
+			pstmt.setInt(1, arr2[0]);
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}
 }
