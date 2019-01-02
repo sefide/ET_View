@@ -162,12 +162,16 @@ table{
 							<div align="left">
 								<div class="ui transparent input">
 									<input type="text" placeholder="이름을 입력해주세요" id="userName" name="userName">&nbsp;&nbsp;&nbsp;
-									<span>
-										<button class="ui secondary button" style="width: 85px; height: 35px; font-size: 12px;" onclick="return update();">수정하기</button>
-										&nbsp;&nbsp;
-										<button class="ui secondary button" style="width: 80px; height: 35px; font-size: 12px;">취소</button>
-									</span>
-								</div>&nbsp;&nbsp;
+								</div>
+							</div><br>
+							<div align="right">
+							<span>
+								<button class="ui blue button" style="width: 85px; height: 35px; font-size: 12px;" onclick="return update();">수정하기</button>
+								&nbsp;&nbsp;
+								<button class="ui blue button" type="reset" style="width: 80px; height: 35px; font-size: 12px;">취소</button>
+								&nbsp;&nbsp;
+								<button class="ui red button" style="width: 85px; height: 35px; font-size: 12px;" onclick="return userDelete();">탈퇴하기</button>
+							</span>
 							</div>
 						</td>	
 					</tr>
@@ -293,9 +297,16 @@ table{
 					 <%-- $("#joinForm").attr("action","<%=request.getContextPath()%>/insert.me");  --%>
 					$("#updateForm").submit();
 					return true;
-				 } 
-				 
+				 }  
 			} 
+		
+		function userDelete(){
+			alert("정말 탈퇴하시겠습니까?");
+			location.href = "<%=request.getContextPath()%>/userDelete.me";
+
+			return false;
+		}
+	
 		
 	</script>
 </body>

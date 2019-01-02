@@ -387,6 +387,26 @@ public class MemberDao {
 		
 		return resultM;
 	}
+
+	//회원 스스로 탈퇴
+	public int userDelete(Connection con, int m_no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("userDelete");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, m_no);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 	
 	
 

@@ -58,13 +58,13 @@ public class Member_Update_Servlet extends HttpServlet {
 		String page = "";
 		if(result > 0) {
 			request.getSession().setAttribute("loginUser", reqMember);	//-> loginUser : 로그인해서 들어갔던 회원 정보 / reqMember: 업데이트하려고 내가 입력한 정보로 체인지
-			
+			//response.sendRedirect("views/normal/myPage/myPage_main.jsp");
 			request.setAttribute("msgTrue", "회원 정보가 수정되었습니다^O^");
 			page = "/selectPlanList.pl?mno="+userNo;
 			//request.getRequestDispatcher("views/normal/myPage/myPage_main.jsp").forward(request, response);
 			
 		}else {
-			request.setAttribute("msgFalse", "변경되지 않았습니다!");
+			request.setAttribute("msgFalse", "회원정보가 변경되지 않았습니다");
 			page = "views/normal/myPage/user_update.jsp";
 			//request.getRequestDispatcher("views/normal/myPage/user_update.jsp").forward(request, response);
 		}
