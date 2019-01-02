@@ -30,7 +30,6 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 	<!-- googleMap -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
  	
 	<title>ET_Planner</title>
 	<link rel="icon" href="image/common/logo.png">
@@ -578,7 +577,20 @@
     	   	 }
          
          function goPlan(){
+        	 	<%
+        	 	System.out.println("세션에 저장된 사람 " + loginUser);
+        	 	if(loginUser != null){
+        	 		if(loginUser.getM_plan_num() == -1){%>
+        	 			alert("에러발생, 다시 로그인해주세요.");
+        	 		<%} else if((loginUser.getM_storage()-loginUser.getM_plan_num()) <= 0){%>
+        	 			alert("저장가능한 플랜공간이 가득찼습니다. 플랜공간부터 늘려주세요 ㅎ")	
+        	 		<%} else { %>
+             	  	 location.href = "/et/selectCityList.pl";
+        	 		<% }
+        	 	} else {%>
+        	 	 alert("비회원일 경우 플랜저장이 되지 않는다는 점 유의하세요 ! ");
       	  	 location.href = "/et/selectCityList.pl";
+      	  	 <%}%>
          }
          
          function goSeePlan(){

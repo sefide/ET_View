@@ -2,7 +2,6 @@
     pageEncoding="UTF-8" import = "com.kh.et.member.model.vo.Member" %>
  <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
- 	
 %> 
 <!DOCTYPE html>
 <html>
@@ -227,7 +226,7 @@
             		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-div-50"> 
                 		
                 		<li class="nav-item  nav-item-first">               		
-                   		 	<a class="nav-link" onclick = "location.href = '/et/selectCityList.pl'">플랜짜기</a> 
+                   		 	<a class="nav-link" onclick = "goPlan();">플랜짜기</a> 
                    		 	<!-- "href="/et/views/normal/plan/create_plan.jsp" -->
                 		</li>
                 		<li class="nav-item">
@@ -266,6 +265,23 @@
     		
     		function goLogout(){
     			location.href = "/et/logout.me";
+    		}
+    		
+    		function goPlan(){
+    			<%
+        	 	System.out.println("세션에 저장된 사람 " + loginUser);
+        	 	if(loginUser != null){
+        	 		if(loginUser.getM_plan_num() == -1){%>
+        	 			alert("에러발생, 다시 로그인해주세요.");
+        	 		<%} else if((loginUser.getM_storage()-loginUser.getM_plan_num()) <= 0){%>
+        	 			alert("저장가능한 플랜공간이 가득찼습니다. 플랜공간부터 늘려주세요 ㅎ")	
+        	 		<%} else { %>
+             	  	 location.href = "/et/selectCityList.pl";
+        	 		<% }
+        	 	} else {%>
+        	 	 alert("비회원일 경우 플랜저장이 되지 않는다는 점 유의하세요 ! ");
+      	  	 location.href = "/et/selectCityList.pl";
+      	  	 <%}%>
     		}
     		
     </script>

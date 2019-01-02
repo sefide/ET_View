@@ -420,7 +420,6 @@ table{
 		
 	//가입하기 버튼 클릭시 && 널값
 	function join(){
-		<%System.out.println("들어와");%>
 		 if($("#userId").val() == ""){	
 			alert("아이디를 입력해주세요");
 			return false;
@@ -449,7 +448,6 @@ table{
 			return false;
 		}else{ 
 			console.log("성공..!!!???");
-			<%System.out.println("들어와짜나 ");%>
 			 <%-- $("#joinForm").attr("action","<%=request.getContextPath()%>/insert.me");  --%>
 			$("#joinForm").submit();
 			return true;
