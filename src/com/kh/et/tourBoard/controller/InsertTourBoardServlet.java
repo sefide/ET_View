@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.et.common.MyFileRenamePolicy;
+import com.kh.et.company.model.vo.Company;
 import com.kh.et.tourBoard.model.service.TourBoardService;
 import com.kh.et.tourBoard.model.vo.Attachment;
 import com.kh.et.tourBoard.model.vo.TourBoard;
@@ -38,9 +39,10 @@ public class InsertTourBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		//폼전송을  multipart/form-data로 전송하는 경우에는
 		//기존처럼 request.getParameter로 값을 받을 수 없다.
-		
+		Company loginUser = (Company)request.getSession().getAttribute("loginCompany");
 		//cos.jar 가 파일도 받고 다른 값들도 받아주는 역할을 한다.
 		//com.orelilly.servlet의 약자이다.
 		if(ServletFileUpload.isMultipartContent(request)) {
@@ -125,10 +127,10 @@ public class InsertTourBoardServlet extends HttpServlet {
 				
 				fileList.add(at);
 			}
-			int result = new TourBoardService().insertTourBoard(tb, fileList);
+			int result = new TourBoardService().insertTourBoard(tb, fileList,loginUser);
 			
 			if(result > 0) {
-				response.sendRedirect(request.getContextPath()+"/selectList.tbo");
+				response.sendRedirect(request.getContextPath()+"/selectList.tbo?cno="+loginUser.getC_no());
 			}else {
 				//실패시 저장된 사진 삭제
 				for(int i=0;i<saveFiles.size();i++) {

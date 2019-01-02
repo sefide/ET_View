@@ -291,12 +291,24 @@
 	    }
 	    
 	    function setPrivate(num) {
-	   	 	if(window.confirm("비공개로 설정하시겠습니까?(비공개시 포인트 50점!!!이 차감됩니다.)")){
-	   	 	var mno = <%=loginUser.getM_no()%>;
-	   	 		location.href = "<%=request.getContextPath()%>/planSetPrivate.po?pNo="+num+"&mNo="+mno;
-	   	 	}else{
-	   	 		
-	   	 	}
+	    /* 	$(".div-plan-private").click() */
+	    /* var pri = document.getElementById('divPrivate').innerHTML(); */
+	    var point =<%=loginUser.getM_point()%>;
+	    <%-- var status = <%=planList.get(%>num<%).getpStatus();%> --%>
+	    if(point > 50){
+	    	/* if(status == 'Y'){ */
+		   	 	if(window.confirm("비공개로 설정하시겠습니까?(비공개시 포인트 50점!!!이 차감됩니다.)")){
+		   	 		var mno = <%=loginUser.getM_no()%>;
+		   	 		location.href = "<%=request.getContextPath()%>/planSetPrivate.po?pNo="+num+"&mNo="+mno;
+		   	 	}else{
+		   	 		
+		   	 	}
+	    	/* }else{
+	    		alert("공개로 전환하시겠습니까?");
+	    	} */
+	    }else{
+	    	alert("포인트가 부족합니다!!")
+	    }
 	    }
 	    
 	    function goMyPlan(){
@@ -328,7 +340,7 @@
 	    		<%for(int i = 0; i <  planList.size(); i++){%>
 	        		// 새로운 도시 div 추가 
 	        		var mapContent = "<div class ='planBox map"+<%=i%>+"'><div id = 'planMap"+<%=i%>+"' class ='planMap' readonly></div>";
-	        		var mapInfoContent = "<div class = 'div-plan-title' onclick = 'goPlanDetail("+<%=planList.get(i).getpNo()%>+");'><%= planList.get(i).getpTitle() %> </div><div class = 'div-plan-private' onclick = 'setPrivate();'> <%if(planList.get(i).getpPrivate().equals("Y")) {%>공개 <%}else {%> 비공개 <%}%></div><div class = 'div-plan-cities'><%=planList.get(i).getpCites()%> </div></div>";
+	        		var mapInfoContent = "<div class = 'div-plan-title' onclick = 'goPlanDetail("+<%=planList.get(i).getpNo()%>+");'><%= planList.get(i).getpTitle() %> </div><div class = 'div-plan-private' onclick = 'setPrivate(<%=planList.get(i).getpNo()%>);'> <%if(planList.get(i).getpPrivate().equals("Y")) {%>공개<%}else {%>비공개<%}%></div><div class = 'div-plan-cities'><%=planList.get(i).getpCites()%> </div></div>";
 	        		var content = mapContent + mapInfoContent;
 				 $("#plan-list-inner").prepend(content);
 				

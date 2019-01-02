@@ -1,9 +1,9 @@
 package com.kh.et.point.model.service;
 
-import static com.kh.et.common.JDBCTemplate.getConnection;
-
 import java.sql.Connection;
 
+import com.kh.et.member.model.dao.MemberDao;
+import com.kh.et.member.model.vo.Member;
 import com.kh.et.point.model.dao.PointDao;
 import com.kh.et.point.model.vo.Point;
 import com.kh.et.tourBoard.model.dao.TourBoardDao;
@@ -11,7 +11,7 @@ import static com.kh.et.common.JDBCTemplate.*;
 
 public class PointService {
 
-	public int insertPoint(int pmNo, int pFkpNo) {
+	public Member insertPoint(int pmNo, int pFkpNo,Member m) {
 		Connection con = getConnection();
 		int result=0;
 		
@@ -24,16 +24,24 @@ public class PointService {
 	
 		int result3 = new PointDao().updateMemberPoint(con,pmNo);
 		System.out.println("service3");
-	
+		
+		Member loginUser = null;
 		if(result1>0 && result2>0 && result3>0) {
-			commit(con);
-			result=1;
+			loginUser = new MemberDao().selectLoginUser(con, m);
+			if(loginUser != null) {
+				Member profile = new MemberDao().profileChcek(con, m);
+				if(profile != null) {
+					loginUser.setA_change_Name("/et/profileUpload/"+profile.getA_change_Name());
+				} else {
+					loginUser.setA_change_Name("/et/image/common/logo_c.png");
+				}
+			}
 		}else {
 			rollback(con);
 		}
 		close(con);
 		
-		return result;
+		return loginUser;
 	}
 
 

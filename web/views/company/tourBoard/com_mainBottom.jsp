@@ -163,12 +163,12 @@
                 	HashMap<String,Object> hmap = list.get(i);
                 %> 
 	            <div class="card-deck" style="width:230px">
-	             
 	             <input type="hidden" value="<%=hmap.get("tno")%>">
 				  <div class="card">
-				 	<div>
+				 	<a href=<%=hmap.get("link")%>><div>
 				    <img src="/et/tourUpload/<%=hmap.get("changeName")%>"  width="200px" height="200px">
 				    </div>
+				    </a>
 				    <div class="card-body">
 				      <h5 class="card-title"> <%= hmap.get("title") %> </h5>
 				      <p class="card-text"> <%= hmap.get("price") %> </p>
@@ -176,51 +176,9 @@
 				    </div>
 				  </div>
 				 </div>
+				 
 				<%} %>
 				</div>
-				  <!-- <div class="card">
-				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
-				    <div class="card-body">
-				       <h5 class="card-title"> [도시이름]투어명 </h5>
-				      <p class="card-text"> 69,900원 </p>card-img-top
-				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
-				    </div>
-				  </div>
-				  <div class="card">
-				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
-				    <div class="card-body">
-				      <h5 class="card-title"> [도시이름]투어명 </h5>
-				      <p class="card-text"> 69,900원 </p>
-				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
-				    </div>
-				  </div>
-				</div>
-				
-				</div>
-				<div class = "div-tour-paging" style = "margin-top : 25px;">
-                		<nav aria-label="Page navigation">
-					  <ul class="pagination pagination-sm">
-					    <li class="page-item">
-					      <a class="page-link" href="#" aria-label="Previous"  id = "page-link" >
-					        <span aria-hidden="true">&laquo;</span>
-					        <span class="sr-only">Previous</span>
-					      </a>
-					    </li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">1</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">2</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">3</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">4</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">5</a></li>
-					    <li class="page-item">
-					      <a class="page-link" href="#" aria-label="Next"  id = "page-link" >
-					        <span aria-hidden="true">&raquo;</span>
-					        <span class="sr-only">Next</span>
-					      </a>
-					    </li>
-					  </ul>
-					</nav>
-                </div>
-            </div> <!-- 다른 투어보기 mt-20  -->
             <br><br>
              <div class="pagingArea">
 			<button onclick="location.href='<%=request.getContextPath()%>/selectList2.tbo?currentPage=1'"><<</button>

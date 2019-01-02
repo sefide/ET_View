@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.et.board.model.vo.Board;
+import com.kh.et.company.model.vo.Company;
 import com.kh.et.tourBoard.model.vo.Attachment;
 import com.kh.et.tourBoard.model.vo.TourBoard;
 
@@ -32,20 +33,21 @@ private Properties prop = new Properties();
 		
 	}
 
-	public int insertTourBoard(Connection con, TourBoard tb) {
+	public int insertTourBoard(Connection con, TourBoard tb, Company loginUser) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = prop.getProperty("insertTourBoard");
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, tb.getTctno());
-			pstmt.setString(2, tb.gettTitle());
-			pstmt.setString(3, tb.gettConcept());
-			pstmt.setString(4, tb.gettInfo());
-			pstmt.setInt(5, tb.gettPrice());
-			pstmt.setString(6, tb.gettLink());
-			pstmt.setString(7, tb.gettGrade());
+			pstmt.setInt(1, loginUser.getC_no());
+			pstmt.setInt(2, tb.getTctno());
+			pstmt.setString(3, tb.gettTitle());
+			pstmt.setString(4, tb.gettConcept());
+			pstmt.setString(5, tb.gettInfo());
+			pstmt.setInt(6, tb.gettPrice());
+			pstmt.setString(7, tb.gettLink());
+			pstmt.setString(8, tb.gettGrade());
 			
 			
 			
@@ -125,51 +127,8 @@ private Properties prop = new Properties();
 		return result;
 	}
 
-	/*public ArrayList<HashMap<String, Object>> selectThumbnailList(Connection con) {
-		Statement stmt = null;
-		ArrayList<HashMap<String, Object>> list = null;
-		HashMap<String, Object> hmap = null;
-		ResultSet rset = null;
-		
-		String query = prop.getProperty("selectThumbnailMap");
-		
-		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
-			list = new ArrayList<HashMap<String, Object>>();
 
-			while(rset.next()) {
-				hmap = new HashMap<String,Object>();  //멤버 객체대신 hash맵사용
-				
-				hmap.put("tno", rset.getInt("t_no"));  //DB 대소문자 상관없음. 단, 값은 구분함
-				hmap.put("tcno", rset.getInt("t_c_no"));
-				hmap.put("title", rset.getString("t_Title"));
-				hmap.put("concept", rset.getString("t_concept"));
-				hmap.put("price", rset.getInt("t_price"));
-				hmap.put("info", rset.getString("t_info"));
-				hmap.put("link", rset.getString("t_link"));
-				hmap.put("grade", rset.getString("t_grade"));
-				hmap.put("tdate", rset.getDate("t_date"));
-				hmap.put("ano", rset.getInt("a_no"));
-				hmap.put("originName", rset.getString("a_origin_name"));
-				hmap.put("changeName", rset.getString("a_change_name"));
-				hmap.put("filePath", rset.getString("a_file_path"));
-				hmap.put("uploadDate", rset.getDate("a_upload_date"));
-				
-				list.add(hmap);
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(stmt);
-			close(rset);
-		}
-
-		return list;
-	}*/
-
-	public ArrayList<HashMap<String, Object>> selectList(Connection con, int currentPage, int limit) {
+	public ArrayList<HashMap<String, Object>> selectList(Connection con, int currentPage, int limit, Company loginUser) {
 		PreparedStatement pstmt = null;
 		/*Statement stmt = null;*/
 		ArrayList<HashMap<String, Object>> list = null;
@@ -182,9 +141,10 @@ private Properties prop = new Properties();
 			pstmt = con.prepareStatement(query);
 			int startRow = (currentPage -1) * limit +1;
 			int endRow = startRow + limit - 1;
+			pstmt.setInt(1, loginUser.getC_no());
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			list = new ArrayList<HashMap<String, Object>>();
@@ -220,16 +180,18 @@ private Properties prop = new Properties();
 		return list;
 	}
 
-	public int getListCount(Connection con) {
-		Statement stmt = null;
+	public int getListCount(Connection con, Company loginUser) {
+		PreparedStatement pstmt = null;
 		int listCount = 0;
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("listCount");
 		
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginUser.getC_no());
+			
+			rset = pstmt.executeQuery();	
 			
 			if(rset.next()) {
 				listCount = rset.getInt(1);
@@ -238,7 +200,7 @@ private Properties prop = new Properties();
 
 			e.printStackTrace();
 		}finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 
@@ -302,7 +264,7 @@ private Properties prop = new Properties();
 		int listCount = 0;
 		ResultSet rset = null;
 		
-		String query = prop.getProperty("listCount");
+		String query = prop.getProperty("listCount2");
 		
 		try {
 			stmt = con.createStatement();

@@ -1,7 +1,7 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.et.tourBoard.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.kh.et.tourBoard.model.vo.PageInfo, com.kh.et.company.model.vo.*"%>
 <% 
 	ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
 	PageInfo pi=(PageInfo)request.getAttribute("pi");
@@ -10,6 +10,9 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+
+	Company loginUser = (Company)session.getAttribute("loginCompany");
+
 
 %>
 <!DOCTYPE html>
@@ -175,14 +178,18 @@
 	      		</div>
 	      	</div> <!-- 끄엥  -->
 	      	
+	      	
       		<div class="ui mt-20"> 
       			<i class="certificate icon"></i>
                 <div class="ui header title" id ="title">내가 작성한 투어 </div>
                 
+				 
                 <div id = "div-my-tour">
                <%for(int i=0; i <list.size(); i++){ 
                 	HashMap<String,Object> hmap = list.get(i);
                 %>
+                <input type="hidden" value="<%=hmap.get("tcno")%>">
+               <%if(list != null){ %>
 	                <div class = "div_tour_left">
 	                	<input type="hidden" value="<%=hmap.get("tno")%>">
 		                <div class = "span-tour-title"> 투어명 </div> 
@@ -202,34 +209,15 @@
 						<%}else{ %>
 						<span class = "span-tour-ex"> No</span><i class="star icon"></i> <label> Standard </label>
 						<%} %>
-						<div  class = "span-tour-title"> 연결링크 </div>
-						<a href ='<%=hmap.get("link")%>'><%=hmap.get("link")%></a>
+						<div  class = "span-tour-title">연결링크 </div>
+						<a href="<%=hmap.get("link")%>"><%=hmap.get("link")%></a>
 						<div  class = "span-tour-title"> 대표사진  </div>
 						<span class = "span-tour-ex"> <%=hmap.get("originName") %> </span>
 	                </div>
                 </div>
-              <%} %> 
-                <!-- <div class = "div-tour-paging">
-                		<nav aria-label="Page navigation">
-					  <ul class="pagination pagination-sm">
-					    <li class="page-item">
-					      <a class="page-link" href="#" aria-label="Previous"  id = "page-link" >
-					        <span aria-hidden="true">&laquo;</span>
-					        <span class="sr-only">Previous</span>
-					      </a>
-					    </li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">1</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">2</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">3</a></li>
-					    <li class="page-item">
-					      <a class="page-link" href="#" aria-label="Next"  id = "page-link" >
-					        <span aria-hidden="true">&raquo;</span>
-					        <span class="sr-only">Next</span>
-					      </a>
-					    </li>
-					  </ul>
-					</nav>
-                </div> -->
+                
+                <%} %>
+	
             <div class="pagingArea" align="center">
 			<button onclick="location.href='<%=request.getContextPath()%>/selectList.tbo?currentPage=1'"><<</button>
 			<%if(currentPage <= 1){%>
@@ -261,8 +249,9 @@
 					<!-- <button class="ui yellow button">삭제하기 </button> -->
 				</div>
             </div>
-            
-            
+    		<%} %>
+    		
+    		
       		<div class="ui mt-20"> 
       			<i class="certificate icon"></i>
                 <div class="ui header title" id ="title">다른 투어보기 </div>
@@ -285,7 +274,7 @@
 		function goEditTour() {
 			location.href = "/et/views/company/tourBoard/com_EditBoard.jsp";
 		}
-		
+	
 		<%-- function test(){
 			jb.ajax({
 				url:"<%=request.getContextPath()%>/AjaxselectList.tbo",
