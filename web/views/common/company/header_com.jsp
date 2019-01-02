@@ -148,7 +148,7 @@
         		<div class="collapse navbar-collapse nav-left-mrg nav-div-50" id="navbarTogglerDemo02">
             		<ul class="navbar-nav mr-auto mt-2 mt-lg-0 nav-div-50"> 
                 		<li class="nav_item  nav-item-first">
-                   		 <a class="nav_link" href="/et/views/company/tourBoard/com_main.jsp">투어관리 </a>
+                   		 <a class="nav_link" href="<%=request.getContextPath()%>/selectList.tbo">투어관리 </a>
                 		</li>
                 		<li class="nav_item">
                     		<a class="nav_link" href="/et/views/company/tourBoard/com_InsertBoard.jsp">투어글 작성</a>
