@@ -14,6 +14,8 @@ import java.util.Properties;
 import com.kh.et.board.model.vo.Board;
 import com.kh.et.tourBoard.model.vo.TourBoard;
 
+
+
 import static com.kh.et.common.JDBCTemplate.*;
 
 public class BoardDao {
@@ -169,10 +171,63 @@ public class BoardDao {
 		
 		return b;
 	}
+	
+	//수정 메소드
+		public int updateBoard(Connection con, Board b) {
+			System.out.println("수정 다오닷!");
+			
+			PreparedStatement pstmt = null;
+			int result = 0;
+			
+			String query = prop.getProperty("updateBoard");
+			//updateBoard=UPDATE Board SET b_title = ? , b_content = ? WHERE b_no= ? 
 
+			try {
+				pstmt = con.prepareStatement(query);		
+				pstmt.setString(1, b.getBtitle());					
+				pstmt.setString(2, b.getbContent());		
+				
+				pstmt.setInt(3, b.getbNo());
+		
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;			
+		}
+		
+		//게시글 삭제
+		public int deleteBoard(Connection con, Board b) {
+		System.out.println("식제 다오닷!");
+			
+			PreparedStatement pstmt = null;
+			int result = 0;
+			
+			String query = prop.getProperty("deleteBoard");
+			//deleteBoard=UPDATE Board SET b_status = 'N' WHERE b_no= ?
+			System.out.println(query);
 
+			try {
+				pstmt = con.prepareStatement(query);		
+				pstmt.setInt(1, b.getbNo() );							
+		
+				result = pstmt.executeUpdate();
+				System.out.println(result);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;	
+		}
+		
+		
 
-	public ArrayList<Board> selectTopBoard(Connection con) {
+		public ArrayList<Board> selectTopBoard(Connection con) {
 		ArrayList<Board> boardList = null;
 		String bitype = "좋아요";
 		PreparedStatement pstmt = null;
@@ -208,6 +263,8 @@ public class BoardDao {
 		return boardList;
 	}
 
+	
+	
 	
 
 }

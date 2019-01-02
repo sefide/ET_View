@@ -26,6 +26,7 @@ public class BoardService {
 			rollback(con);
 		}
 		
+		close(con);
 		return result;
 	}
 	
@@ -70,6 +71,7 @@ public class BoardService {
 			
 		b = new BoardDao().selectOne(con, num);
 	
+		close(con);
 		return b;
 	}
 
@@ -91,6 +93,38 @@ public class BoardService {
 		
 		return boardList;
 	}
+
+	
+	//게시글 수정
+	public int updateBoard(Board b) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().updateBoard(con, b);
+		
+		if(result > 0) commit(con);
+		
+		else rollback(con);
+		
+		close(con);
+		
+		return result;
+	}
+	
+	//게시글 삭제
+	public int deleteBoard(Board b) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().deleteBoard(con, b);
+		
+		if(result > 0) commit(con);
+		
+		else rollback(con);
+		
+		close(con);
+		
+		return result;
+	}
+	
 
 
 }
