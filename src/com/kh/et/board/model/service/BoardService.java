@@ -92,5 +92,21 @@ public class BoardService {
 		return boardList;
 	}
 
+	//내가 스크랩한 QnA리스트 보기
+	public ArrayList<Board> selectQnAList(int mno) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectQnAList(con, mno);
+		
+		if(list != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		return list;
+	}
+
 
 }

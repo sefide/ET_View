@@ -208,6 +208,17 @@ public class BoardDao {
 		return boardList;
 	}
 
+	public ArrayList<Board> selectQnAList(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		
+		String query = prop.getProperty("selectQnAList");
+		
+		
+		return null;
+	}
+
 	
 
 }
