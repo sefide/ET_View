@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	import="java.util.*, com.kh.et.board.model.vo.*, com.kh.et.plan.model.vo.*, com.kh.et.tourBoard.model.vo.*"%>
+
+<%
+	String msg = (String) request.getAttribute("msg");
+
+	HashMap<String, Object> bestplanMap = (HashMap<String, Object>) request.getAttribute("bestplanMap");
+	
+	HashMap<String, City> cityMap = null;
+	
+	ArrayList<Plan> planList = null;
+	
+	if (bestplanMap != null) {
+		cityMap = (HashMap<String, City>) bestplanMap.get("cityMap");
+	}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,6 +46,10 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous"></script>
+<!-- 구글 맵 -->
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0"
+	type="text/javascript"></script>
 
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
@@ -42,191 +61,46 @@
 <link rel="icon" href="/views/image/common/logo.png">
 
 <style>
-.container1 {
-	margin-left: 50px;
-	width: 90%;
-	border-bottom: 1px solid rgb(200, 200, 200);
-	height: 380px;
-}
-/* 프로필  */
-.div-img-profile {
-	width: 240px;
-	height: 350px;
-	border: 1px solid gray;
-	background: rgba(42, 90, 133, 0.5);
-	border-radius: 50%;
-	float: left;
-	text-align: center;
-}
-
-.img-profile {
-	width: 190px;
-	height: 190px;
-	margin: 15% 0;
-}
-
-.div-txt-profile {
-	float: left;
-	margin: 50px 0 30px 40px;
-}
-
-.div-name {
-	font-size: 36px;
-	font-weight: 600;
-	font-family: 'Ubuntu', sans-serif;
-}
-
-.div-point {
-	font-size: 20px;
-	font-weight: 500;
-	font-family: 'Ubuntu', sans-serif;
-	margin-bottom: 1px;
-}
-
-.div-profileTxt {
-	font-size: 18px;
-	font-weight: 300;
-	font-family: 'Ubuntu', sans-serif;
-	margin-bottom: 10px;
-}
-
-.btn-profile {
-	margin-top: 35px;
-	font-family: 'Ubuntu', sans-serif;
-	width: 100px;
-	height: 30px;
-	border-radius: 7px;
-}
-
-/* 하단 플랜보기  */
-.container2 {
-	width: 93%;
-	margin-left: 40px;
-}
-
-.div-myPage-title {
-	margin-top: 20px;
-	font-size: 30px;
-	font-weight: 600;
-	font-family: 'Ubuntu', sans-serif;
-	display: inline-block;
-	width: 170px;
-}
-
+/* 인기플랜  */
 .div-plan-list {
-	margin-left: 5px;
-}
-
-.div-best-plan-map {
-	float: left;
+	margin-left: 15px;
 }
 
 .div-plan-map {
-	/* width: 380px; */
-	height: 420px;
+	width: 340px;
+	height: 380px;
 	display: inline-block;
-	margin: 5px 10px 10px 0px;
+	margin: 5px 12px 30px 10px;
+	/* background-color: yellow; */
+}
+
+.plan-map {
+	width: 340px;
+	height: 340px;
 }
 
 .div-plan-title {
-	font-size: 28px;
+	font-size: 25px;
 	font-weight: 500;
 	font-family: 'Ubuntu', sans-serif;
-	display: block;
-}
-
-.div-plan-private {
-	width: 80px;
-	height: 30px;
-	color: rgba(255, 255, 255, 0.8);
-	font-size: 18px;
-	font-family: 'Ubuntu', sans-serif;
-	background: rgba(42, 90, 133, 0.5);
-	border-radius: 5px;
-	text-align: center;
-	float: right;
-	cursor: pointer;
-}
-
-.div-plan-add {
-	font-weight: 600;
-	color: white;
-	font-size: 40px;
-	text-align: center;
-	width: 380px;
-	height: 380px;
-	border: 2px dashed white;
-	background: rgba(200, 200, 200, 0.4);
-	border-radius: 10px;
 	display: inline-block;
 }
-/* 검색창 */
-.container3 {
-	float: left; width : 93%;
-	margin-left: 40px;
-	width: 93%;
-}
 
-
-#custom-search-input {
-	padding: 3px;
-	border: solid 1px #E4E4E4;
-	border-radius: 6px;
-	background-color: #fff;
-}
-
-#custom-search-input input {
-	border: 0;
-	box-shadow: none;
-}
-
-#custom-search-input button {
-	margin: 2px 0 0 0;
-	background: none;
-	box-shadow: none;
-	border: 0;
-	color: #666666;
-	padding: 0 8px 0 10px;
-	border-left: solid 1px #ccc;
-}
-
-#custom-search-input button:hover {
-	border: 0;
-	box-shadow: none;
-	border-left: solid 1px #ccc;
-}
-
-#custom-search-input .glyphicon-search {
-	font-size: 23px;
-}
-
-/* 좋아요 */
 .div-plan-like {
-	/* width: 80px;
-	height: 30px; */
+	width: 80px;
+	height: 30px;
 	color: red;
 	font-size: 18px;
 	font-family: 'Ubuntu', sans-serif;
 	border-radius: 5px;
 	text-align: center;
-	float: left;
-	cursor: pointer;
-}
-
-.div-like{
-	font-size: 18px;
-	font-family: 'Ubuntu', sans-serif;
-	width: 100px;
-	height: 75px;
-	
-}
-.ui yellow button{
 	float: right;
+	cursor: pointer;
 }
 </style>
 </head>
 <body>
-	<%@ include file = "/views/common/normal/header.jsp" %>
+	<%@ include file="/views/common/normal/header.jsp"%>
 	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다	면 include path를 수정해야합니 -->
 
 	<div class="ui grid">
@@ -234,47 +108,47 @@
 		<div class="twelve wide column" style="margin-top: 50px;">
 
 			<!-- 내용 넣기 -->
-			<div class="container1">
-				<!-- 위에 자기내용  -->
-				<div class="div-txt-profile">
-					<div class="div-best-plan-map">
-						<iframe class="plan-map" src=""
-							width="300px" height="300px" style="border-color: yellow ;"></iframe>
-					</div>
-				</div>
-				
-				<div class="div-txt-profile">
-					<div class="div-name">
-					<i class="thumbs up outline icon"></i>이번주 Best 플랜</div>
-					<div class="div-point">플랜제목</div>
-					<div class="div-profileTxt">여행목록</div>
-					
+
+
+			<!-- 인기플랜이 보여지는 div -->
+			<div>
+				<div class="ui mt-20">
+					<div class="ui huge header">BEST Plan TOP 3</div>
 					<div>
-					<div class="div-like">
-						<div>좋아요 수 </div>
-						<div class="div-plan-like">
-							<i class="icon heart">34</i>
+						<div class="div-plan-list" ">
+							<% if(bestplanMap!= null){
+								System.out.println("jsp에서의 bestplanMap:"+bestplanMap);
+        					planList = (ArrayList<Plan>)bestplanMap.get("planList");
+        					for(int i = 0; i < planList.size(); i++){
+        					System.out.println("i : " + i);
+        					Plan p = planList.get(i);%>
+							<div class ="div-plan-map"> 
+        					    <div id ="plan-map<%=i%>" class ="plan-map"></div>
+        						<div class = "div-plan-title"><%=p.getpTitle() %></div>
+        						<div class = "div-plan-like"> 
+        							<i class = "icon heart"><%=p.getpLike() %></i>
+        						</div>
+        					</div>
+        					<%}
+        				}%>
+        				 
+							
 						</div>
 					</div>
-					<div class="div-like">
-						<div>스크랩 수 </div>
-						<div class="div-plan-like">
-							<i class="cut icon">14</i>
-						</div>
-					</div>	
-					</div>
-					<button class="ui yellow button" onclick="location.href ='seePlan_detail.jsp'">보러가기</button>			
 				</div>
-				
-				
-			
 			</div>
 			
+			
+			
+			<br><br>
+			
+
 			<br>
-			<div class="container3">
+			<!-- 플랜 검색 div -->
+			<!-- <div>
 				<div class="row">
 					<div class="col-md-6">
-						<!-- <h2>Custom search field</h2> -->
+						<!-- <h2>Custom search field</h2> 
 						<div id="custom-search-input">
 							<div class="input-group col-md-12" id="div-search-plan">
 								<input type="text" class="form-control input-lg"
@@ -287,63 +161,28 @@
 						</div>
 					</div>
 				</div>
-			</div>
-
-			<br> <br clear="both">
-
-			<div class="container2">
-
-				<!-- <i class="calendar alternate outline big icon"></i> -->
-				<!-- <div class="div-myPage-title">내 플랜보기</div> -->
-				<br>
-				<div>
-					<!-- 뒤에 지도  등   -->
-					<div class="div-plan-list">
-						<div class="div-plan-map">
-							<iframe class="plan-map"
-								src="" width="200px"
-								height="200px" style="border-color: yellow ;"></iframe>
-							<div class="div-plan-title">플랜 제목</div>
-						</div>
-						
-						<div class="div-plan-map">
-							<iframe class="plan-map"
-								src="" width="200px"
-								height="200px" style="border-color: yellow ;"></iframe>
-							<div class="div-plan-title">플랜 제목</div>
-
-						</div>
-
-						<div class="div-plan-map">
-							<iframe class="plan-map"
-								src="" width="200px"
-								height="200px" style="border-color: yellow ;"></iframe>
-							<div class="div-plan-title">플랜 제목</div>
-						</div>
-						<div class="div-plan-map">
-							<iframe class="plan-map"
-								src="" width="200px"
-								height="200px" style="border-color: yellow ;"></iframe>
-							<div class="div-plan-title">플랜 제목</div>
-						</div>
-						<div class="div-plan-map">
-							<iframe class="plan-map"
-								src="" width="200px"
-								height="200px" style="border-color: yellow ;"></iframe>
-							<div class="div-plan-title">플랜 제목</div>
-						</div>
-						<div class="div-plan-map">
-							<iframe class="plan-map"
-								src="" width="200px"
-								height="200px" style="border-color: yellow ;"></iframe>
-							<div class="div-plan-title">플랜 제목</div>
-						</div>
+			</div>  -->
 
 
-					</div>
-					
-				</div>
-			</div>
+
+			<!-- 모든 플랜 보기 -->
+			<div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<!-- --------------->
 		</div>
 		<div class="two wide column"></div>
 	</div>
@@ -357,7 +196,7 @@
 	<%@ include file="/views/common/normal/footer.jsp"%>
 
 
-		
+
 	</script>
 </body>
 </html>
