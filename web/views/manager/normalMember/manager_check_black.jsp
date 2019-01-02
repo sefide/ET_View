@@ -12,6 +12,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 	<!-- jquery -->
@@ -27,8 +28,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	
-	<!-- 글꼴  -->
-	<link rel="stylesheet" href="/css/style.css">
+<!-- 글꼴  -->
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
+
+
 
 <style>
 	.ul_01{
@@ -77,7 +80,7 @@
 <body>
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
    
-    <div class="main_02">
+    <%-- <div class="main_02">
     	<div class="nav">	
 			<%@ include file = "/views/common/manager/manager_nav1.jsp" %>
     	</div>
@@ -86,7 +89,6 @@
     	
     	<div class="ui header title"><br>▶블랙리스트</div>
     	
-    	<div class="tb">
     	- 블랙 회원 조회 <br><br>
     	<table id="tb1">
     		<tr>
@@ -96,9 +98,9 @@
     			<th>이메일</th>
     			<th>신고수</th>
     		</tr>
-    		<% for(Member m : BlackList){ %>
+    		<%for(Member m : BlackList){%>
 	    		<tr height="27px">
-	    			<td><input type="checkbox"></td>
+	    			<td><input type="checkbox" value=<%= m.getM_no() %>></td>
 	    			<td><%= m.getM_no() %></td>
 	    			<td><%= m.getM_id() %></td>
 	    			<td><%= m.getM_email() %></td>
@@ -138,11 +140,32 @@
 		
 	    
     	<div class="btn">
-    	<button onclick="">정지</button>
-    	<button onclick="">탈퇴</button>
+    	<button onclick="stop()">정지</button>
+    	<button onclick="out()">탈퇴</button>
     	</div>
+    	
+    	<script>
+    		var arr=[];
+			$("input:checkbox").change(chk1);
+			
+			function chk1(){
+				if($(this).prop("checked")){
+					arr.push($(this).val());
+				}
+			}
 
-    </div>
+			
+    		function stop(){
+    			for(var i in arr){
+    				console.log(arr[i] +"번");
+    			}
+    		}
+    		function out(){
+    			alert("out처리 되었습니다!");
+    		}
+    	</script>
+
+    
     
     <div class="notice">
     <br><br>
@@ -156,7 +179,152 @@
     </div>
     
     </div>
+    </div> --%>
+    
+    <div class="main_02">
+    
+    <div class="nav">
+		<%@ include file = "/views/common/manager/manager_nav1.jsp" %>
     </div>
+    
+    <div class="sub">
+    
+	    	<div class="ui header title"><br>▶블랙리스트</div>
+	    	- 블랙 회원 조회  <br><br>
+	   
+	    	<table id="tb1">
+	    		<tr>
+	    			<th>선택</th>
+	    			<th>회원번호</th>
+	    			<th>아이디</th>
+	    			<th>이메일</th>
+	    			<th>신고수</th>
+	    		</tr>
+	    		<% for(Member m : BlackList){ %>
+	    		<tr height="27px">
+	    			<td><input id = "check" type="checkbox" value=<%= m.getM_no() %>></td>
+	    			<td><%= m.getM_no() %></td>
+	    			<td><%= m.getM_id() %></td>
+	    			<td><%= m.getM_email() %></td>
+	    			<td><%= m.getM_point() %></td>
+	    		</tr>
+	    		<%} %>
+	    	
+	    	</table>
+	    	<br>
+	    <div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath() %>/select03.mng?currnetPage=1'"><<</button>
+			<% if(currentPage <=1) {%>
+			<button disabled><<<</button>
+			<%}else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/select03.mng?currentPage=<%= currentPage -1%>'"><</button>		
+			<%} %>
+			
+			<% for(int p=startPage; p<=endPage;p++){ 
+				if(p==currentPage){
+			%>		<button disabled><%= p %></button>
+			<%	}else{ %>
+					<button onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%= p%>'"><%= p %></button>
+			
+			<% }%>
+			
+			<%} %>
+			
+			<% if(currentPage >= maxPage){ %>
+			<button disabled>></button>
+			<%}else{ %>
+			<button onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%= currentPage +1%>'">></button>
+			<%} %>
+			
+			<button onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%=maxPage%>'">>></button>
+		</div>
+	    
+	    
+	    
+	    <div>
+		    <button id="stopBtn">정지</button>
+	    	<button id="outBtn">탈퇴</button>
+	    </div>
+    
+     <div class="notice">
+	    <br><br>
+	    <b>-회원 정지 기준</b><br>
+	    	<div>
+	    		신고 5개 - 10일 정지 <br>
+	    		신고 10개 - 3주 정지 <br>
+	    		신고 20개 - 강제탈퇴 <br>
+	    	</div>
+	 </div>
+	 
+	 
+     </div>
+     </div>
+     
+     <script>
+			/* $("input:checkbox").change(chk1); 
+				
+				function chk1(){
+				if($(this).prop("checked")){
+					arr.push($(this).val());
+				}
+			} */
+
+			$(function(){
+	    		var arr=new Array;
+				//회원정지
+				$("#stopBtn").click(function(){
+					//체크박스중 선택된값 있으면 배열에 담기
+					$("#check:checked").each(function(){
+							arr.push($(this).val());	
+					});
+					
+					var arr1=new Array;
+					arr1 = arr;
+					
+					$.ajax({
+						url:"stop.mng",
+						type:"GET",
+						data:{arr1:arr1},
+						success:function(data){
+							console.log("성공");
+						},
+						error:function(data){
+							console.log("실패");
+						}
+					});
+				});
+				
+				//회원탈퇴
+				$("#outBtn").click(function(){
+					var outArr = new Array;
+					//체크박스중 선택된값 있으면 배열에 담기
+					$("#check:checked").each(function(){
+							outArr.push($(this).val());	
+					});
+					
+					var arr1=new Array;
+					arr1 = outArr;
+					
+					$.ajax({
+						url:"out.mng",
+						type:"GET",
+						data:{arr1:arr1},
+						success:function(data){
+							if(data=="성공"){
+								console.log("성공");
+								alert("탈퇴처리 되었습니다.");
+							}
+						},
+						error:function(data){
+							if(data=="실패"){
+								console.log("실패");
+							}
+						}
+					});
+				});
+				
+			});	
+    	</script>
     
 	<div class = "two wide column"></div>
 	

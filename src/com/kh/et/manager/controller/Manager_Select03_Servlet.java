@@ -47,6 +47,7 @@ public class Manager_Select03_Servlet extends HttpServlet {
 		limit=10;
 		
 		int BlackListCount = new ManagerService().getBlackListCount();
+		System.out.println("카운트 : "+BlackListCount);
 		
 		//총 페이지수 계산
 		//ex) 목록수 123(=>(int)(12.3+0.9))개 -> 페이지 13개필요
@@ -72,6 +73,7 @@ public class Manager_Select03_Servlet extends HttpServlet {
 		if(BlackList!=null) {
 			page="views/manager/normalMember/manager_check_black.jsp";
 			request.setAttribute("BlackList", BlackList);
+			System.out.println("사이즈  :"+BlackList.size());
 			request.setAttribute("pi", pi); //PageInfo도 같이전달
 			
 		}else {

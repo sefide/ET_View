@@ -277,7 +277,7 @@ public class ManagerService {
 		Connection con=getConnection();
 		ArrayList<HashMap<String,Object>> list=null;
 		
-			list=new ManagerDao().tourboardList(con,currentPage,limit);
+		list=new ManagerDao().tourboardList(con,currentPage,limit);
 		
 		close(con);
 		
@@ -298,6 +298,42 @@ public class ManagerService {
 		close(con);
 		
 		return listCount;
+	}
+
+	//회원정지시키기
+	public int stopMember(int[] arr2) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		
+		result = new ManagerDao().stopMember(con,arr2);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	//회원탈퇴
+	public int outMember(int[] arr2) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		
+		result = new ManagerDao().outMember(con,arr2);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
 	}
 
 }
