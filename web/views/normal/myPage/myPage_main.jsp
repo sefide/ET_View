@@ -4,6 +4,7 @@
 	String msgTrue = (String)request.getAttribute("msgTrue");
 	ArrayList<Plan> planList = (ArrayList<Plan>)request.getAttribute("planList");
 	HashMap<String,City> cityMap = (HashMap<String,City>)request.getAttribute("cityMap");
+	String msg = (String)request.getAttribute("msg");
 %>
 <!DOCTYPE html>
 <html>
@@ -242,7 +243,7 @@
     				<div class = "div-menu">
     					<ul>
     						<li><a onclick = "goMyPlan();" class = "this-page" href =  ""> > 내 플랜보기 </a> </li>
-    						<li><a onclick="goMyActivity();" href =  ""> > 나의 활동내역 </a></li>
+    						<li><a onclick="goMyActivity();"> > 나의 활동내역 </a></li>
     						<li><a href = "/et/views/normal/myPage/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
     						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
     					</ul>
@@ -256,7 +257,7 @@
         		
 	        		<i class="calendar alternate outline big icon"></i>
 	        		<div class = "div-myPage-title"> 내 플랜보기 </div>
-	        		<div class = "div-myStorage"> 플랜 저장공간 개수 : <%=loginUser.getM_storage() %>개  </div>
+	        		<div class = "div-myStorage"> 플랜 저장공간 개수 : <%=loginUser.getM_storage() %>개 </div>
 	        		<br><br>
 	        		
         			<div class = "plan-list-inner" id = "plan-list-inner">

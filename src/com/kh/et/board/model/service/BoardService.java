@@ -7,6 +7,7 @@ import static com.kh.et.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.et.board.model.dao.BoardDao;
 import com.kh.et.board.model.vo.Board;
@@ -125,19 +126,41 @@ public class BoardService {
 		return result;
 	}
 	
-	//내가 스크랩한 QnA리스트 보기
-	public ArrayList<Board> selectQnAList(int mno) {
+	//내 QnA, 내가 스크랩한 QnA 리스트 보기(최근)
+	public HashMap<String, Board> selectMyActivityQnA(int mno) {
 		Connection con = getConnection();
+		System.out.println("service진입");
+		HashMap<String, Board> list = new BoardDao().selectMyNewQnA(con, mno);	//내가 작성한 QnA리스트 해쉬맵으로 뽑기
 		
-		ArrayList<Board> list = new BoardDao().selectQnAList(con, mno);
+		Board b = new BoardDao().selectYourNewQnA(con,mno);//내가 스크랩한 QnA 해쉬맵으로 뽑기
 		
 		if(list != null) {
+			if(b != null) {
+				list.put("you", b);
+			}
 			commit(con);
 		}else {
 			rollback(con);
 		}
 		
 		close(con);
+		return list;
+	}
+
+	//내 소식 보기
+	public ArrayList<Object> selectMyNewsBoard(int mno) {
+		Connection con = getConnection();
+		
+		ArrayList<Object> list = new BoardDao().selectMyNewsBoard(con, mno);
+		
+		
+		if(list != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
 		return list;
 	}
 
