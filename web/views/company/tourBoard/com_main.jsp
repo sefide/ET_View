@@ -190,18 +190,22 @@
 		                	<div class = "span-tour-title"> 투어컨셉 </div> 
 						<span class = "span-tour-ex"> <%= hmap.get("concept") %></span> <br>
 						<div class = "span-tour-title"> 설명 </div> 
-						<span class = "span-tour-ex"> 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 투어설명 예시</span> <br>
+						<span class = "span-tour-ex"> <%=hmap.get("info") %></span> <br>
 						<div class = "span-tour-title"> 가격 </div> 
-						<span class = "span-tour-ex"> 투어가격 예시</span><br>
+						<span class = "span-tour-ex"> <%=hmap.get("price") %>원</span><br>
 	                	</div>
 	                	
 	                	<div class = "div_tour_right">
-						<div  class = "span-tour-title"> 파워링크여부 </div> 
+						<div  class = "span-tour-title"> 파워링크여부 </div>
+						<%if(hmap.get("grade").equals("premium")){ %> 
 						<span class = "span-tour-ex"> YES</span><i class="star icon"></i> <label> Premium </label>
+						<%}else{ %>
+						<span class = "span-tour-ex"> No</span><i class="star icon"></i> <label> Standard </label>
+						<%} %>
 						<div  class = "span-tour-title"> 연결링크 </div>
-						<a href = "www.naver.com">www.naver.com</a>
+						<a href ='<%=hmap.get("link")%>'><%=hmap.get("link")%></a>
 						<div  class = "span-tour-title"> 대표사진  </div>
-						<span class = "span-tour-ex"> 사진명 tour.jpg </span>
+						<span class = "span-tour-ex"> <%=hmap.get("originName") %> </span>
 	                </div>
                 </div>
               <%} %> 
@@ -264,51 +268,9 @@
                 <div class="ui header title" id ="title">다른 투어보기 </div>
                 
 	            <div class = "div-card-tour">
-	    			<iframe src="<%=request.getContextPath() %>/selectList2.tbo" width="1200" height="400" style="border:0"></iframe>
+	    			<iframe src="<%=request.getContextPath() %>/selectList2.tbo" width="1200" height="400" style="border:0" scrolling="no"></iframe>
 	    		</div>
-				  <!-- <div class="card">
-				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
-				    <div class="card-body">
-				       <h5 class="card-title"> [도시이름]투어명 </h5>
-				      <p class="card-text"> 69,900원 </p>card-img-top
-				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
-				    </div>
-				  </div>
-				  <div class="card">
-				    <img class="card-img-top" src="/et/image/city/bar.jpg" alt="Card image cap">
-				    <div class="card-body">
-				      <h5 class="card-title"> [도시이름]투어명 </h5>
-				      <p class="card-text"> 69,900원 </p>
-				      <p class="card-text"><small class="text-muted">투어컨셉 </small></p>
-				    </div>
-				  </div>
-				</div>
-				
-				</div>
-				<div class = "div-tour-paging" style = "margin-top : 25px;">
-                		<nav aria-label="Page navigation">
-					  <ul class="pagination pagination-sm">
-					    <li class="page-item">
-					      <a class="page-link" href="#" aria-label="Previous"  id = "page-link" >
-					        <span aria-hidden="true">&laquo;</span>
-					        <span class="sr-only">Previous</span>
-					      </a>
-					    </li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">1</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">2</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">3</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">4</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">5</a></li>
-					    <li class="page-item">
-					      <a class="page-link" href="#" aria-label="Next"  id = "page-link" >
-					        <span aria-hidden="true">&raquo;</span>
-					        <span class="sr-only">Next</span>
-					      </a>
-					    </li>
-					  </ul>
-					</nav>
-                </div>
-            </div> <!-- 다른 투어보기 mt-20  -->
+				 
             
            </div> <!-- container -->
      	</div> <!-- twelve column 끝  -->

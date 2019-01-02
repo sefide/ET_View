@@ -290,8 +290,13 @@
 	    		alert("저장공간 늘리기");
 	    }
 	    
-	    function setPrivate() {
-	   	 	alert("비공개/ 공개 설정");
+	    function setPrivate(num) {
+	   	 	if(window.confirm("비공개로 설정하시겠습니까?(비공개시 포인트 50점!!!이 차감됩니다.)")){
+	   	 	var mno = <%=loginUser.getM_no()%>;
+	   	 		location.href = "<%=request.getContextPath()%>/planSetPrivate.po?pNo="+num+"&mNo="+mno;
+	   	 	}else{
+	   	 		
+	   	 	}
 	    }
 	    
 	    function goMyPlan(){

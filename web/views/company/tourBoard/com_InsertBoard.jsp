@@ -245,55 +245,55 @@
 						<tr>
 							<td class="attr1"><label>나라 선택</label></td>
 							<td colspan="2"><select class="ui fluid dropdown" name="nation">
-								<option value="">프랑스</option>
-								<option value="">독일</option>
-								<option value="">영국</option>
-								<option value="">네덜란드</option>
-								<option value="">이탈리아</option>
-								<option value="">체코</option>
-								<option value="">그리스</option>
-								<option value="">헝가리</option>
-								<option value="">오스트리아</option>
-								<option value="">크로아티아</option>
-								<option value="">덴마크</option>
-								<option value="">스위스</option>
-								<option value="">터키</option>
-								<option value="">포르투갈</option>
-								<option value="">스페인</option>
+								<option value="프랑스">프랑스</option>
+								<option value="독일">독일</option>
+								<option value="영국">영국</option>
+								<option value="네덜란드">네덜란드</option>
+								<option value="이탈리아">이탈리아</option>
+								<option value="체코">체코</option>
+								<option value="그리스">그리스</option>
+								<option value="헝가리">헝가리</option>
+								<option value="오스트리아">오스트리아</option>
+								<option value="크로아티아">크로아티아</option>
+								<option value="덴마크">덴마크</option>
+								<option value="스위스">스위스</option>
+								<option value="터키">터키</option>
+								<option value="포르투갈">포르투갈</option>
+								<option value="스페인">스페인</option>
 							</select>
 							</td>
 							<td class="attr1" align="center"><label>도시 선택</label></td>
 							<td colspan="2">
 							 <select class="ui fluid dropdown" name="city">
-								<option value="">파리</option>
-								<option value="">리옹</option>
-								<option value="">니스</option>
-								<option value="">뮌헨</option>
-								<option value="">베를린</option>
-								<option value="">뉘른베르크</option>
-								<option value="">프랑크푸르트</option>
-								<option value="">런던</option>
-								<option value="">옥스포드</option>
-								<option value="">암스테르담</option>
-								<option value="">밀라노</option>
-								<option value="">베네치아</option>
-								<option value="">피렌체</option>
-								<option value="">로마</option>
-								<option value="">프라하</option>
-								<option value="">아테네</option>
-								<option value="">부다페스트</option>
-								<option value="">빈</option>
-								<option value="">잘츠부르크</option>
-								<option value="">자그레브</option>
-								<option value="">코펜하겐</option>
-								<option value="">오덴세</option>
-								<option value="">인터라켄</option>
-								<option value="">취리히</option>
-								<option value="">이스탄불</option>
-								<option value="">앙카라</option>
-								<option value="">리스본</option>
-								<option value="">바르셀로나</option>
-								<option value="">마드리드</option>
+								<option value="1">파리</option>
+								<option value="2">리옹</option>
+								<option value="3">니스</option>
+								<option value="4">뮌헨</option>
+								<option value="5">베를린</option>
+								<option value="6">뉘른베르크</option>
+								<option value="7">프랑크푸르트</option>
+								<option value="8">런던</option>
+								<option value="9">옥스포드</option>	
+								<option value="10">밀라노</option>
+								<option value="11">베네치아</option>
+								<option value="12">피렌체</option>
+								<option value="13">로마</option>
+								<option value="14">프라하</option>
+								<option value="15">아테네</option>
+								<option value="16">부다페스트</option>
+								<option value="17">빈</option>
+								<option value="18">잘츠부르크</option>
+								<option value="19">자그레브</option>
+								<option value="20">코펜하겐</option>
+								<option value="21">오덴세</option>
+								<option value="22">인터라켄</option>
+								<option value="23">취리히</option>
+								<option value="24">이스탄불</option>
+								<option value="25">앙카라</option>
+								<option value="26">리스본</option>
+								<option value="27">바르셀로나</option>
+								<option value="28">마드리드</option>
+								<option value="29">암스테르담</option>
 							</select>
 							</td>	
 						</tr>
@@ -330,10 +330,10 @@
 								<div class ="field">
 									<select class="ui dropdown" name="concept">
 										<option value =""> -----  선택  ----- </option> 
-										<option value ="food"> 식도락 </option> 
-										<option value ="human"> 인문학/교양 </option>
-										<option value ="leisure"> 레저/취미 </option>
-										<option value ="sense"> 감성 </option>
+										<option value ="식도락"> 식도락 </option> 
+										<option value ="인문학/교양"> 인문학/교양 </option>
+										<option value ="레저/취미"> 레저/취미 </option>
+										<option value ="감성"> 감성 </option>
 									</select>
 								</div>
 							</td>
@@ -396,7 +396,12 @@
   		 ;
    	});
    	</script>
+   	<script>
+   		function name() {
+			
+		}
    	
+   	</script>
    	<script>
    	function loadImg(value,num) {
 		if(value.files && value.files[0]) { // value는 요소 파일이 있는 상태에 동작한다. 

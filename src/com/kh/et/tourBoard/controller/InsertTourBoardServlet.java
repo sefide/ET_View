@@ -92,7 +92,7 @@ public class InsertTourBoardServlet extends HttpServlet {
 			String multiTourContent = multiRequest.getParameter("tourContent");
 			String multiContectLint = multiRequest.getParameter("link");
 			String multiTcno = multiRequest.getParameter("tcno");
-			String multiTctno = multiRequest.getParameter("name");
+			int multiTctno =Integer.parseInt(multiRequest.getParameter("city"));
 			
 			
 			System.out.println("multiTitle:" + multiTitle);
@@ -101,6 +101,7 @@ public class InsertTourBoardServlet extends HttpServlet {
 			TourBoard tb = new TourBoard();
 			/*tb.setTcno(Integer.parseInt(multiTcno));*/
 			/*tb.setTctno(Integer.parseInt(multiTctno));*/
+			tb.setTctno(multiTctno);
 			tb.settTitle(multiTitle);
 			tb.settConcept(multiConcept);
 			tb.settInfo(multiTourContent);

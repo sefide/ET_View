@@ -72,7 +72,7 @@ public class SelectTourBoardServlet extends HttpServlet {
 		//총 페이지 수 계산   100 100page 
 		//예를 들어, 목록 수가 123개면 페이지수는 13페이지가 필요하다.
 		maxPage = (int)((double)listCount / limit);
-				
+		
 		//현재 페이지에 보여줄 시작페이지 수
 		//1, 11, 21, 31,... 1 2
 		startPage = (((int)((double)currentPage / limit+0.9)) -1) * limit +1;

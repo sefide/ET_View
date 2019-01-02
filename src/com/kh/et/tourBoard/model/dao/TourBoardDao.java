@@ -39,12 +39,13 @@ private Properties prop = new Properties();
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, tb.gettTitle());
-			pstmt.setString(2, tb.gettConcept());
-			pstmt.setString(3, tb.gettInfo());
-			pstmt.setInt(4, tb.gettPrice());
-			pstmt.setString(5, tb.gettLink());
-			pstmt.setString(6, tb.gettGrade());
+			pstmt.setInt(1, tb.getTctno());
+			pstmt.setString(2, tb.gettTitle());
+			pstmt.setString(3, tb.gettConcept());
+			pstmt.setString(4, tb.gettInfo());
+			pstmt.setInt(5, tb.gettPrice());
+			pstmt.setString(6, tb.gettLink());
+			pstmt.setString(7, tb.gettGrade());
 			
 			
 			
