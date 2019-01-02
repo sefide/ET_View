@@ -265,7 +265,7 @@
 			<span style="color: rgb(211, 84, 0); font-size: large;">플랜짜기</span>
 		</span> -->
 		
-		<button class = "btn-save" onclick = "save();"> 수정완료 </button>
+		<button class = "btn-save" onclick = "return save();"> 수정완료 </button>
 		<button class = "btn-return" onclick = "returnMain();"> 돌아가기</button>
 	</div>
 	<div class = "plan-table-calendar">
@@ -492,7 +492,13 @@
 
 			
 		function save(){
-			$("#updatePlanForm").submit();
+			if($("#cityblock1").length > 0){	
+				$("#updatePlanForm").submit();
+				return true;
+			}else{ 
+				alert("플랜을 더 작성해주세요. ");
+				return false;
+			 }
 		}
 		
 		function returnMain(){
@@ -632,8 +638,8 @@
         });
   		
         // 플랜에서 이미 정해져 있던 도시 초기화 
-        <%for(int i = 0; i < DetailList.size()+2; i++){%> // 0 ~
-	        <%if(i > 1){%> // 2~
+        <%for(int i = 0; i < DetailList.size()+2; i++){
+        		if(i > 1){%> // 2~
 				// 이동 수단 수정 0 ~
 				<%-- console.log("<%=DetailList.get(i-2).getPdTrasnfer()%>");  --%>
 				$("#cityblock"+(countCity-1)).find("#trans").val("<%=DetailList.get(i-2).getPdTrasnfer()%>");

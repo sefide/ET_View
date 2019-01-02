@@ -22,8 +22,7 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
- 	
+ 	 	
  	<!-- css 불러오기  -->
  	<link href = "/et/views/css/create_plan.css" type = "text/css" rel= "stylesheet">
 
@@ -221,7 +220,7 @@
 			<span style="color: rgb(211, 84, 0); font-size: large;">플랜짜기</span>
 		</span> -->
 		
-		<button class = "btn-save" onclick = "save();"> 저장하기</button>
+		<button class = "btn-save" onclick = "return save();"> 저장하기</button>
 		<button class = "btn-return" onclick = "returnMain();"> 돌아가기</button>
 	</div>
 	<div class = "plan-table-calendar">
@@ -483,7 +482,13 @@
 
 			
 		function save(){
-			$("#insertPlanForm").submit();
+			if($("#cityblock1").length > 0){	
+				$("#insertPlanForm").submit();
+				return true;
+			}else{ 
+				alert("플랜을 더 작성해주세요. ");
+				return false;
+			 }
 		}
 		
 		function returnMain(){

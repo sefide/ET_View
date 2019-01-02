@@ -32,7 +32,6 @@ public class Plan implements java.io.Serializable{
 	}
 
 
-
 	public int getpNo() {
 		return pNo;
 	}

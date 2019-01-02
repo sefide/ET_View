@@ -22,8 +22,12 @@ public class MemberService {
 		
 		Member loginUser = new MemberDao().loginCheck(con, reqMember);
 		
+		int planNum = -1;
+		
 		if(loginUser != null) {
 			commit(con);
+			planNum = new MemberDao().planNum(con, loginUser);
+			loginUser.setM_plan_num(planNum);
 			Member profile = new MemberDao().profileChcek(con, reqMember);
 			if(profile != null) {
 				loginUser.setA_change_Name("/et/profileUpload/"+profile.getA_change_Name());

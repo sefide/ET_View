@@ -387,6 +387,34 @@ public class MemberDao {
 		
 		return resultM;
 	}
+
+	public int planNum(Connection con, Member reqMember) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int num = -1;
+
+		String query = prop.getProperty("getPlanNum");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reqMember.getM_no());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				num = rset.getInt("CNT");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return num;
+	}
 	
 	
 

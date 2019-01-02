@@ -23,8 +23,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	
 	<!-- googleMap -->
-	<script src="" type="text/javascript"></script>
-		
+ 		
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">
 	
@@ -46,9 +45,10 @@
 		text-align : center;
 	}
 	.img-profile {
-		width : 190px;
-		height : 190px;
-		margin : 15% 0;
+		width : 240px;
+		height : 240px;
+		border-radius : 50%;
+		/* margin : 15% 0; */
 	}
 	
 	.div-txt-profile{
@@ -115,6 +115,7 @@
 		width : 93%;
 		margin-left : 40px;
 	}
+	
 	.div-myPage-title{
 		margin-top : 20px;
 		font-size : 30px;
@@ -122,6 +123,18 @@
 		font-family: 'Nanum Gothic', sans-serif;
 		display : inline-block;
 		width : 170px;
+	}
+	
+	.div-myStorage{
+		background : rgb(20, 91, 137);
+		border-radius : 7px;
+		height : 32px;
+		color : white;
+		font-weight : 700;
+		display : inline-block;
+		font-family: 'Nanum Gothic', sans-serif;
+		font-size : 20px;
+		padding : 0 7px;
 	}
 	
 	.plan-list-inner {
@@ -168,6 +181,14 @@
 		text-align : center;
 		float:right;
 		cursor : pointer;
+	}
+	
+	.div-plan-cities{
+		margin-top : 5px;
+		font-size : 19px;
+		font-weight : 500;
+		font-family: 'Nanum Gothic', sans-serif;
+		color : rgb(60,60,60);
 	}
 	
 	.plan-add-inner{
@@ -235,15 +256,10 @@
         		
 	        		<i class="calendar alternate outline big icon"></i>
 	        		<div class = "div-myPage-title"> 내 플랜보기 </div>
+	        		<div class = "div-myStorage"> 플랜 저장공간 개수 : <%=loginUser.getM_storage() %>개  </div>
 	        		<br><br>
 	        		
         			<div class = "plan-list-inner" id = "plan-list-inner">
-        				<!-- <div class ="planBox map01">
-        					<div id = "planMap0" class ="planMap" readonly></div>
-    						<div class = "div-plan-title"> 플랜 제목 </div>
-    						<div class = "div-plan-private" onclick = "setPrivate();"> 공개 </div>
-   					</div> -->
-        				
         				<div class ="planBox plan-add-outer">
         					<div class ="plan-add-inner" onclick = "addPlanMemory();"> 
      						 <i class="plus big icon" id = "icon-plan-add"></i>
@@ -288,7 +304,7 @@
 	    var flightPlanCoordinatesArr = [];
 	    var flightPlanCoordinates = [];
 	    var path = {};
-	    // ex) [ [{}{}{}.. 여행도시갯수만큼 ], [], [], [], [], []... 플랜갯수만큼 ]
+	   /*  ex) [ [{}{}{}.. 여행도시갯수만큼 ], [], [], [], [], []... 플랜갯수만큼 ] */
 	    
 	    $(function(){
 		    	<%System.out.println("제발 되어주소서..");
@@ -302,7 +318,7 @@
 	    		<%for(int i = 0; i <  planList.size(); i++){%>
 	        		// 새로운 도시 div 추가 
 	        		var mapContent = "<div class ='planBox map"+<%=i%>+"'><div id = 'planMap"+<%=i%>+"' class ='planMap' readonly></div>";
-	        		var mapInfoContent = "<div class = 'div-plan-title' onclick = 'goPlanDetail("+<%=planList.get(i).getpNo()%>+");'><%= planList.get(i).getpTitle() %> </div><div class = 'div-plan-private' onclick = 'setPrivate();'> <%if(planList.get(i).getpPrivate().equals("Y")) {%>공개 <%}else {%> 비공개 <%}%></div></div>";
+	        		var mapInfoContent = "<div class = 'div-plan-title' onclick = 'goPlanDetail("+<%=planList.get(i).getpNo()%>+");'><%= planList.get(i).getpTitle() %> </div><div class = 'div-plan-private' onclick = 'setPrivate();'> <%if(planList.get(i).getpPrivate().equals("Y")) {%>공개 <%}else {%> 비공개 <%}%></div><div class = 'div-plan-cities'><%=planList.get(i).getpCites()%> </div></div>";
 	        		var content = mapContent + mapInfoContent;
 				 $("#plan-list-inner").prepend(content);
 				
@@ -322,9 +338,9 @@
 	    		<% } %>
 	    		
 	    		<%for(int i = 0; i < planList.size();  i++){ %>
-		    		// 해당하는 플랜의 도시 배열을 뽑아서 배열값을 나눈 다음에
-		    		// 여행하는 도시의 번호를 가져와서 도시리스트에서 위도, 경도를 구한다.
-		    		// 위도 경도 값을 해당하는 플랜의 도시 순서대로 PATH를 넣는다. 
+	    			/* 해당하는 플랜의 도시 배열을 뽑아서 배열값을 나눈 다음에
+		    		여행하는 도시의 번호를 가져와서 도시리스트에서 위도, 경도를 구한다.
+		    		위도 경도 값을 해당하는 플랜의 도시 순서대로 PATH를 넣는다.  */
 	    		    var map<%=i%> = new google.maps.Map(document.getElementById('planMap'+<%=i%>), { 
 	    		          zoom: 4.5,
 	    		          center: new google.maps.LatLng(47.778744, 7.397438),
