@@ -14,7 +14,7 @@ import com.kh.et.manager.model.service.ManagerService;
 import com.kh.et.member.model.vo.Member;
 import com.kh.et.member.model.vo.PageInfo;
 
-
+/*탈퇴회원 관리*/
 @WebServlet("/select05.mng")
 public class Manager_Select05_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
