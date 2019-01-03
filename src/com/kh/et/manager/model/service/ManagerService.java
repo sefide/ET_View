@@ -11,6 +11,7 @@ import java.util.HashMap;
 import com.kh.et.manager.model.dao.ManagerDao;
 import com.kh.et.manager.model.vo.Manager;
 import com.kh.et.member.model.vo.Member;
+import com.kh.et.plan.model.vo.City;
 
 
 public class ManagerService {
@@ -300,11 +301,11 @@ public class ManagerService {
 		return listCount;
 	}
 
-	public ArrayList<HashMap<String, Object>> cityList(int currentPage, int limit) {
+	public ArrayList<HashMap<String, Object>> cityList() {
 		Connection con=getConnection();
 		ArrayList<HashMap<String,Object>> list=null;
 		
-			list=new ManagerDao().cityList(con,currentPage,limit);
+			list=new ManagerDao().cityList(con);
 		
 		close(con);
 		
@@ -497,6 +498,21 @@ public class ManagerService {
 		}		
 		close(con);
 		return list;
+	}
+
+	public ArrayList<City> cityList2(int currentPage, int limit) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<City> list2= new ManagerDao().cityList2(con,currentPage,limit);
+		
+		if(list2!=null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return list2;
 	}
 
 

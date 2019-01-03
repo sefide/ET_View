@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.et.manager.model.service.ManagerService;
 import com.kh.et.manager.model.vo.PageInfo;
+import com.kh.et.plan.model.vo.City;
 
 /**
  * Servlet implementation class ManagerCityListServlet
@@ -33,6 +34,11 @@ public class ManagerCityListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+
+		
+		
 		int currentPage;	//현재 페이지를 표시할 변수
 		int limit;			//한 페이지에 게시글이 몇 개가 보여질 것인지 표시
 		int maxPage;		//전체 페이지에서 가장 마지막 페이지
@@ -71,15 +77,20 @@ public class ManagerCityListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);	//페이징에 필요한 매개변수 넣어 객체 생성
 		
+		
+		ArrayList<City> list2=new ManagerService().cityList2(currentPage,limit);
+		
+		
 		//게시물 리스트에서 현재페이지, 한 페이지에 보이게 할 글의 수를 넣어 리스트 생성
 		
-		ArrayList<HashMap<String,Object>> list=new ManagerService().cityList(currentPage,limit);
+		ArrayList<HashMap<String,Object>> list=new ManagerService().cityList();
 		System.out.println("리스트 가져오나");
 		System.out.println(list);
 		String page="";
 		if(list !=null) {
 			page="views/manager/plan/manager_travel.jsp";
 			request.setAttribute("list", list);
+			request.setAttribute("list2", list2);
 			request.setAttribute("pi", pi);
 		}else {
 			page="views/common/errorPage.jsp";
