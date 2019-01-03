@@ -22,10 +22,10 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
+ 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
  	 	
  	<!-- css 불러오기  -->
  	<link href = "/et/views/css/create_plan.css" type = "text/css" rel= "stylesheet">
- 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
 
 	
 <style>
@@ -575,7 +575,7 @@
 						console.log("키 : " +key);
 						var tour = data[key];
 						
-						var tourName = decodeURIComponent(tour.title);
+						var tourName = decodeURIComponent(tour.title).replace("+"," ");
 						var tourConcept = decodeURIComponent(tour.concept);
 						var tourPrice = tour.price;
 						var tourPhoto =  decodeURIComponent(tour.changeName);
@@ -631,7 +631,6 @@
 		 	  var cityPhoto = "<img src = '/et/image/city/"+locations[i][0]+".jpg' alt = 'city' id = 'win-photo'>"
 		      var cityInfo = "<div id = 'win-info-div'><font id = 'win-info'>" + locations[i][1] + "<font></div> <br>";
 		      var plusBtn = "<div id = 'win-btn'><button class='ui basic button' onclick = 'addCity("+i +");'>추가하기 </button></div><br>";
-		      //<span><i class='plus square outline icon' id = 'win-plus-icon' onclick = 'addCity("+i +");'></i><span>
 		
 		      infowindow.setContent(cityName + cityPhoto + cityInfo + plusBtn);
 		      infowindow.open(map, marker);
@@ -642,6 +641,7 @@
         
         
         var countCity = 0;
+        
         var flightPlanCoordinates = [];
         var path = {};
         // 선 정보 설정 

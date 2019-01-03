@@ -179,15 +179,15 @@
 	      	</div> <!-- 끄엥  -->
 	      	
 	      	
-      		<div class="ui mt-20"> 
+      		<div class="ui mt-20"> <!-- mt-20 -->
       			<i class="certificate icon"></i>
                 <div class="ui header title" id ="title">내가 작성한 투어 </div>
                 
 				 
-                <div id = "div-my-tour">
                <%for(int i=0; i <list.size(); i++){ 
                 	HashMap<String,Object> hmap = list.get(i);
                 %>
+                <div id = "div-my-tour">
                 <input type="hidden" value="<%=hmap.get("tcno")%>">
                <%if(list != null){ %>
 	                <div class = "div_tour_left">
@@ -214,52 +214,54 @@
 						<div  class = "span-tour-title"> 대표사진  </div>
 						<span class = "span-tour-ex"> <%=hmap.get("originName") %> </span>
 	                </div>
-                </div>
-                
-                <%} %>
-	
-            <div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.tbo?currentPage=1'"><<</button>
-			<%if(currentPage <= 1){%>
-			<button disabled><</button>
-			<% }else{%>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.tbo?currentPage=<%=currentPage -1%>'"><</button>
-			<%} %>
-			
-			<% for(int p = startPage; p <= endPage; p++){ 
-					if(p == currentPage){
-			%>
-					<button disabled><%= p %></button>
-			<%		}else{ %>
-					<button onclick="location.href='<%= request.getContextPath()%>/selectList.tbo?currentPage=<%= p %>'"><%= p %></button>
-			<%		}%>
+                <%} %> <!-- list != null -->
+				</div> <!-- div-my-tour -->
+                	<%} %>
+	            <div class="pagingArea" align="center">
+					<button onclick="location.href='<%=request.getContextPath()%>/selectList.tbo?currentPage=1'"><<</button>
+					<%if(currentPage <= 1){%>
+					<button disabled><</button>
+					<% }else{%>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectList.tbo?currentPage=<%=currentPage -1%>'"><</button>
+					<%} %>
+					
+					<% for(int p = startPage; p <= endPage; p++){ 
+							if(p == currentPage){
+					%>
+							<button disabled><%= p %></button>
+					<%		}else{ %>
+							<button onclick="location.href='<%= request.getContextPath()%>/selectList.tbo?currentPage=<%= p %>'"><%= p %></button>
+					<%		}%>
+						
+					<% } %>
+					
+					
+					<%if(currentPage >= maxPage){ %>
+					<button disable>></button>
+					<%}else{ %>
+					<button onclick="location.href='<%= request.getContextPath()%>/selectList.tbo?currentPage=<%=currentPage + 1%>'">></button>
+					<%} %>
 				
-			<% } %>
-			
-			
-			<%if(currentPage >= maxPage){ %>
-			<button disable>></button>
-			<%}else{ %>
-			<button onclick="location.href='<%= request.getContextPath()%>/selectList.tbo?currentPage=<%=currentPage + 1%>'">></button>
-			<%} %>
-			
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.tbo?currentPage=<%=maxPage%>'">>></button>
-                <div class = "div-tour-btn">
-             	  	<button class="ui yellow button" onclick = "goEditTour();">수정하기 </button>
-					<!-- <button class="ui yellow button">삭제하기 </button> -->
-				</div>
-            </div>
-    		<%} %>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectList.tbo?currentPage=<%=maxPage%>'">>></button>
+	                <div class = "div-tour-btn">
+	             	  	<button class="ui yellow button" onclick = "goEditTour();">수정하기 </button>
+						<!-- <button class="ui yellow button">삭제하기 </button> -->
+					</div>
+	            </div>
+	    	
+	    			
     		
-    		
+    		 	</div><!-- mt-20 -->
+    		 	
       		<div class="ui mt-20"> 
       			<i class="certificate icon"></i>
                 <div class="ui header title" id ="title">다른 투어보기 </div>
                 
 	            <div class = "div-card-tour">
 	    			<iframe src="<%=request.getContextPath() %>/selectList2.tbo" width="1200" height="400" style="border:0" scrolling="no"></iframe>
-	    		</div>
-				 
+	    			</div>
+			</div>
+				
             
            </div> <!-- container -->
      	</div> <!-- twelve column 끝  -->
