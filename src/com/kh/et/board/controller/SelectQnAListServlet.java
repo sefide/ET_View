@@ -18,7 +18,7 @@ import com.kh.et.member.model.vo.News;
 /**
  * Servlet implementation class SelectQnAListServlet
  */
-@WebServlet("/selectQnAList.pl")
+@WebServlet("/selectQnAList.bo")
 public class SelectQnAListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -52,6 +52,8 @@ public class SelectQnAListServlet extends HttpServlet {
 			request.setAttribute("newsmsg", "내 소식 보기 조회 실패");
 			newspage = "views/normal/myPage/myPage_main.jsp";
 		}
+		RequestDispatcher view = request.getRequestDispatcher(newspage);
+		view.forward(request, response);
 	}
 
 	/**
