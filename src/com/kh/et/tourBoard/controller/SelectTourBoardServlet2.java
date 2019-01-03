@@ -66,7 +66,7 @@ public class SelectTourBoardServlet2 extends HttpServlet {
 		//한 페이지에 보여질 목록 개수
 		limit = 4;
 		TourBoardService tbs = new TourBoardService();
-		int listCount = tbs.getListCount();
+		int listCount = tbs.getListCount2();
 		
 		
 		//총 페이지 수 계산   100 100page 

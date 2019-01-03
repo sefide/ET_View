@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.et.company.model.vo.Company;
 import com.kh.et.tourBoard.model.service.TourBoardService;
 import com.kh.et.tourBoard.model.vo.PageInfo;
 import com.kh.et.tourBoard.model.vo.TourBoard;
@@ -49,7 +50,8 @@ public class SelectTourBoardServlet extends HttpServlet {
 		
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);*/
-		
+		Company loginUser = (Company)request.getSession().getAttribute("loginCompany");
+
 		int currentPage;    //현재 페이지를 표시할 변수
 		int limit;			//한 페이지에 게시글이 몇 개가 보여질 것인지 표시
 		int maxPage;		//전체 페이지에서 가장 마지막 페이지
@@ -66,7 +68,7 @@ public class SelectTourBoardServlet extends HttpServlet {
 		//한 페이지에 보여질 목록 개수
 		limit = 1;
 		TourBoardService tbs = new TourBoardService();
-		int listCount = tbs.getListCount();
+		int listCount = tbs.getListCount(loginUser);
 		
 		
 		//총 페이지 수 계산   100 100page 
@@ -86,11 +88,7 @@ public class SelectTourBoardServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<HashMap<String, Object>> list = new TourBoardService().selectList(currentPage,limit);
-		
-		/*response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(list,response.getWriter());*/
+		ArrayList<HashMap<String, Object>> list = new TourBoardService().selectList(currentPage,limit,loginUser);
 	
 		String page="";
 		if(list != null) {
@@ -104,20 +102,7 @@ public class SelectTourBoardServlet extends HttpServlet {
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-		
-		/*HashMap<String,Object> result = null;
-		
-		if(list != null && pi != null) {
-			result = new HashMap<String,Object>();
-			result.put("pi", pi);
-			result.put("list", list);
-			
-			
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			new Gson().toJson(result,response.getWriter());
-		}*/
-	
+
 	
 	}
 

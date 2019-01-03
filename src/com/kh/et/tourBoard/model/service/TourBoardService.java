@@ -6,18 +6,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.et.board.model.dao.BoardDao;
+import com.kh.et.company.model.vo.Company;
 import com.kh.et.tourBoard.model.dao.TourBoardDao;
 import com.kh.et.tourBoard.model.vo.Attachment;
 import com.kh.et.tourBoard.model.vo.TourBoard;
 
 public class TourBoardService {
 
-	public int insertTourBoard(TourBoard tb, ArrayList<Attachment> fileList) {
+	public int insertTourBoard(TourBoard tb, ArrayList<Attachment> fileList, Company loginUser) {
 		
 		Connection con = getConnection();
 		int result = 0;
 		
-		int result1 = new TourBoardDao().insertTourBoard(con, tb);
+		int result1 = new TourBoardDao().insertTourBoard(con, tb,loginUser);
 		
 		if(result1 > 0) {
 			int tno  = new TourBoardDao().selectCurrval(con);
@@ -42,22 +43,11 @@ public class TourBoardService {
 		return result;
 	}
 
-	/*public ArrayList<HashMap<String, Object>> selectThumbnailList() {
-		Connection con = getConnection();
-		
-		ArrayList<HashMap<String, Object>> list = new TourBoardDao().selectThumbnailList(con);
-		
-		close(con);
-		
-		
-		
-		return list;
-	}*/
 
-	public ArrayList<HashMap<String, Object>> selectList(int currentPage, int limit) {
+	public ArrayList<HashMap<String, Object>> selectList(int currentPage, int limit, Company loginUser) {
 		Connection con = getConnection();
 		
-		ArrayList<HashMap<String, Object>> list = new TourBoardDao().selectList(con, currentPage, limit);
+		ArrayList<HashMap<String, Object>> list = new TourBoardDao().selectList(con, currentPage, limit,loginUser);
 		
 		if(list != null) {
 			commit(con);
@@ -68,10 +58,10 @@ public class TourBoardService {
 		
 		return list;
 	}
-	public int getListCount() {
+	public int getListCount(Company loginUser) {
 		Connection con = getConnection();
 		
-		int listCount = new TourBoardDao().getListCount(con);
+		int listCount = new TourBoardDao().getListCount(con,loginUser);
 		if(listCount > 0) {
 			commit(con);
 		}else {

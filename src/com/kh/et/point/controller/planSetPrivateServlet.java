@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.et.member.model.vo.Member;
 import com.kh.et.point.model.service.PointService;
 import com.kh.et.point.model.vo.Point;
 
@@ -37,12 +38,14 @@ public class planSetPrivateServlet extends HttpServlet {
 		int pFkpNo = Integer.parseInt(request.getParameter("pNo"));
 		
 		/*Point p  = new Point();*/
-		
-		int result = new PointService().insertPoint(pmNo,pFkpNo);
+		Member m = new Member();
+		m.setM_no(pmNo);
+		Member result = new PointService().insertPoint(pmNo,pFkpNo,m);
 		System.out.println("servlet");
 		
 		String page="";
-		if(result > 0) {
+		if(result != null) {
+			request.getSession().setAttribute("loginUser", result);
 			response.sendRedirect(request.getContextPath()+"/selectPlanList.pl?mno="+pmNo);
 		}else {
 			request.setAttribute("msg", "비공개 실패");
