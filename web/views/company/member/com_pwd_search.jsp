@@ -179,7 +179,7 @@
 			var companyId = document.getElementById("companyId").value;
 			var companyEmailPass = document.getElementById("companyEmailPass").value;
 			
-			$.ajax({
+			 $.ajax({
 				url:"/et/temporaryPassword.co",
 				type:"get",
 				data:{companyId:companyId, companyEmailPass:companyEmailPass, randomCode:randomCode},
@@ -194,7 +194,7 @@
 				error:function(){
 					console.log("실패!");
 				}
-			});
+			}); 
 			return false;
 		}
 	</script>

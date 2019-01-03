@@ -14,6 +14,7 @@ import java.util.Properties;
 import com.kh.et.plan.model.vo.City;
 import com.kh.et.plan.model.vo.Plan;
 import com.kh.et.plan.model.vo.PlanDetail;
+import com.kh.et.member.model.vo.News;
 import com.kh.et.plan.model.dao.PlanDao;
 
 public class PlanDao {
@@ -498,6 +499,39 @@ public class PlanDao {
 		}
 		
 		return resultMap;
+	}
+
+	//내소식 보기 플랜
+	public News selectMyNewsPlan(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		News n = null;
+		
+		String query = prop.getProperty("selectMyNewsPlan");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				n = new News();
+				System.out.println("다오 - 풀랜있어요 ");
+				n.setTitle(rset.getString("P_TITLE"));
+				n.setName(rset.getString("M_NAME"));
+				n.setType(rset.getString("PI_TYPE"));
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return n;
 	}
 	
 

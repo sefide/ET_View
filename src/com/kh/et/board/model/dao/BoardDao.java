@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.et.board.model.vo.Board;
+import com.kh.et.member.model.vo.News;
 import com.kh.et.tourBoard.model.vo.TourBoard;
 
 
@@ -338,23 +339,40 @@ public class BoardDao {
 	}
 
 	//내 소식보기
-	public ArrayList<Object> selectMyNewsBoard(Connection con, int mno) {
+	//보드
+	public ArrayList<News> selectMyNewsBoard(Connection con, int mno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Board> list = null;
+		ArrayList<News> list = null;
 		
-		String query = prop.getProperty("selectMyNews");
+		String query = prop.getProperty("selectMyNewsBoard");
 		try {
 			pstmt = con.prepareStatement(query);
-						
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
 			
 			
+			list = new ArrayList<News>();
+			if(rset.next()) {
+				News n = new News();
+				System.out.println("다오 - 보드 있어요 ");
+				n.setTitle(rset.getString("B_TITLE"));
+				n.setName(rset.getString("M_NAME"));
+				n.setType(rset.getString("BI_TYPE"));
+				
+				list.add(n);
+			}
+	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
 		}
 		
-		return null;
+		return list;
 	}
 
 	

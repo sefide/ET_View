@@ -1,8 +1,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.Board, java.util.*"%>
+	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.Board, java.util.*, com.kh.et.member.model.vo.News"%>
 <% 
 	HashMap<String, Board> QnAlist = (HashMap<String, Board>)request.getAttribute("QnAlist"); 
+	ArrayList<News> NewsList = (ArrayList<News>)request.getAttribute("NewsList");
 %>	
 <!DOCTYPE html>
 <html>
@@ -145,10 +146,9 @@
 	
 	/* 새 소식 */
 	.news{
-		margin-left: 10%; 
 		font-size: 30px;
 		font-family:'Nanum Gothic', sans-serif;
-		padding-top: 50px;
+		padding-top:15px;
 	}
 	#news-content{
 		margin-left: 10%;
@@ -211,13 +211,14 @@
         			<!-- 좌측 -->
         			<div class ="con2-left">
 	        			<div class ="con2-left-inner "> 
-	        				<div class="news"><b>새 소식</b></div>
+	        				<div align="center" class="news"><b>My News</b></div>
+	        			<%if(QnAlist != null && QnAlist.get("my") != null) { %>
 						<div class="ui relaxed divided list" id="news-content">
 						  <div class="item">
-						    <i class="big bell outline icon"></i>
+						    <i class="big yellow bell icon"></i>
 						    <div class="content">		      
-						      <div class="description"><b>아진님, 애린님이 회원님의 
-						      	"이동수단~" 게시물을 좋아합니다.</b>
+						      <div class="description"><b><%=NewsList.get(0).getName()%>님이 회원님의 
+						      	 게시물을 좋아합니다.</b>
 						      </div>
 						    </div>
 						  </div>
@@ -225,7 +226,7 @@
 						
 						<div class="ui relaxed divided list" id="news-content">
 						  <div class="item">
-						    <i class="big bell outline icon"></i>
+						    <i class="big yellow bell icon"></i>
 						    <div class="content">		      
 						      <div class="description"><b>병현님이 회원님의 "파리는~"
 						      게시물을 스크랩했습니다.</b></div>
@@ -235,7 +236,7 @@
 						
 						<div class="ui relaxed divided list" id="news-content">
 						  <div class="item">
-						    <i class="big bell outline icon"></i>
+						    <i class="big yellow bell icon"></i>
 						    <div class="content">		      
 						      <div class="description"><b>아진님, 애린님이 회원님의 
 						      	"이동수단~" 게시물을 좋아합니다.</b>
@@ -244,6 +245,17 @@
 						  </div>
 						</div>
 						
+						<div class="ui relaxed divided list" id="news-content">
+						  <div class="item">
+						    <i class="big yellow bell icon"></i>
+						    <div class="content">		      
+						      <div class="description"><b>병현님이 회원님의 "파리는~"
+						      게시물을 스크랩했습니다.</b></div>
+						    </div>
+						  </div>
+						</div>
+						<%} %>
+						</div>
 						<br>
 	        			</div>
         			</div>
