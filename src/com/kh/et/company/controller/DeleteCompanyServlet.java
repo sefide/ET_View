@@ -32,35 +32,25 @@ public class DeleteCompanyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String test = request.getParameter("chkValue");
-		System.out.println(test);
 		
-		String[] testChk = test.split(",");
-		int comNo = 0;
 		
-		for(String msg : testChk) {
-			System.out.println("테스트 체크!!! :" + msg);
-			comNo = Integer.parseInt(msg);
+		String[]arr=request.getParameterValues("arr1[]");
+		int[]arr2=new int[arr.length];
+		
+		for(int i=0;i<arr.length;i++) {
+			System.out.println("arr[i]:"+arr[i]);
+			arr2[i]=Integer.parseInt(arr[i]);
 		}
+		
+		int result=new CompanyService().deleteCompany(arr2);
 
-		
-		Company c=new CompanyService().deleteCompany(testChk);
-		
-		String page="";
-		
-		if(c!=null) {
-			page="/et/selectList.co";
-			request.setAttribute("comNo",comNo);
-			response.sendRedirect(page);
-			
-			
+		if(result!=0) {
+			response.getWriter().print("성공");
 		}else {
-			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시글 상세보기 실패!");
+			response.getWriter().print("실패");
 		}
 		
-		RequestDispatcher view=request.getRequestDispatcher(page);
-		view.forward(request, response);
+	
 	}
 
 		

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import com.kh.et.company.model.dao.CompanyDao;
 import com.kh.et.company.model.vo.Company;
-import com.kh.et.member.model.dao.MemberDao;
 
 
 
@@ -89,18 +88,6 @@ public class CompanyService {
 
 
 
-	public Company deleteCompany(String[] testChk) {
-		Connection con=getConnection();
-		Company c = null;
-		for(String item : testChk) {
-			c=new CompanyDao().deleteCompany(con,item);	
-		}		
-		
-		close(con);
-		return c;
-	}
-
-
 	//임시비밀번호 발급 후 DB에서 비밀번호 변경해주기
 	public static int newpass(String companyEmailPass, String companyId, String randomCode) {
 		Connection con = getConnection();
@@ -111,6 +98,40 @@ public class CompanyService {
 		
 		return result;
 	}
+
+
+
+	public int deleteCompany(int[] arr2) {
+		
+		Connection con=getConnection();
+		int[]result=new int[arr2.length];
+		int sum=0;
+		int res=0;
+		
+		for(int i=0;i<arr2.length;i++) {
+			result[i]=new CompanyDao().deleteCompany(con, arr2[i]);
+			
+			if(result[i]==0) {
+				System.out.println("실패");
+			}
+			else {
+				sum+=result[i];
+				
+			}
+		}
+		if(sum/arr2.length==1) {
+			res=1;
+			commit(con);
+		}else {
+			res=0;
+			rollback(con);
+		}
+		
+		close(con);
+		return res;
+		
+	}
+	
 
 
 
