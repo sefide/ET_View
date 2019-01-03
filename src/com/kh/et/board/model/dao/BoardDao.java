@@ -263,13 +263,96 @@ public class BoardDao {
 		return boardList;
 	}
 
-	public ArrayList<Board> selectQnAList(Connection con, int mno) {
+	//내가 작성한 QnA
+	public HashMap<String, Board> selectMyNewQnA(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Board> list = null;
+		
+		String query = prop.getProperty("selectMyNewQnA");//내가 작성한 QnA 리스트 
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new HashMap<String, Board>();
+			while(rset.next()) {
+				Board b = new Board();//보드객체에 반복적으루 담는당
+				
+				b.setbNo(rset.getInt("B_NO"));
+				b.setBtitle(rset.getString("B_TITLE"));
+				b.setbContent(rset.getString("B_CONTENT"));
+				b.setbDate(rset.getDate("B_DATE"));
+				b.setbCheckBest(rset.getString("B_CHECK_BEST"));
+				
+				list.put("my", b);	//보드객체 생성 후 필요한 값들을 넣어주고 키-밸류로 넣어준다. ->b(값=밸류)의 이름(키)을 "my"라고 해줬다
+			
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	//내가 스크랩한 다른 회원의 QnA
+	public Board selectYourNewQnA(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Board b = null;
+		
+		String query = prop.getProperty("selectYourNewQnA");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new Board();
+				
+				b.setbNo(rset.getInt("B_NO"));
+				b.setBtitle(rset.getString("B_TITLE"));
+				b.setbContent(rset.getString("B_CONTENT"));
+				b.setbDate(rset.getDate("B_DATE"));
+				b.setbCheckBest(rset.getString("B_CHECK_BEST"));
+		
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return b;
+	}
+
+	//내 소식보기
+	public ArrayList<Object> selectMyNewsBoard(Connection con, int mno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> list = null;
 		
-		String query = prop.getProperty("selectQnAList");
-		
+		String query = prop.getProperty("selectMyNews");
+		try {
+			pstmt = con.prepareStatement(query);
+						
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		return null;
 	}

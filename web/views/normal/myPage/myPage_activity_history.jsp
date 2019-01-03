@@ -1,5 +1,9 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.Board, java.util.*"%>
+<% 
+	HashMap<String, Board> QnAlist = (HashMap<String, Board>)request.getAttribute("QnAlist"); 
+%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -161,6 +165,13 @@
 		font-size: 15px;
 	}
 
+	#plus1{
+		margin-left: 300px;
+	}
+	#plus2{
+		margin-left: 280px;
+	}
+	
 </style>
 </head>
 <body>
@@ -222,6 +233,17 @@
 						  </div>
 						</div>
 						
+						<div class="ui relaxed divided list" id="news-content">
+						  <div class="item">
+						    <i class="big bell outline icon"></i>
+						    <div class="content">		      
+						      <div class="description"><b>아진님, 애린님이 회원님의 
+						      	"이동수단~" 게시물을 좋아합니다.</b>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						
 						<br>
 	        			</div>
         			</div>
@@ -231,33 +253,42 @@
 					<!-- 나의 Q&A -->	
         				<div class = "con2-qna">
 						<div class="myQnA-content" style='display:inline; float:left; width:500px'>
-							<div class="QnA"><b style="font-size: 25px;">나의 Q&A</b></div>
+							<div class="QnA"><b style="font-size: 25px;">나의 Q&A</b>
+								<span id="plus1"><i class="chevron circle right icon"></i><a>더 보기</a></span>
+							</div>
+							<%if(QnAlist != null && QnAlist.get("my") != null) { %>
 							  <div class="column">
 							    <div class="ui raised segment">
 							      <a class="ui red ribbon label" id="redBlue-avel">제목</a>
-							      <span>안녕하세요</span>
+							      <span><%=QnAlist.get("my").getBtitle()%></span>
 							      <p></p>
 							      <a class="ui blue ribbon label" id="redBlue-avel">내용</a>
-							      <span>제 이름은 애리닝이에오</span>
+							      <span><%=QnAlist.get("my").getbContent()%></span>
 							      <p></p>
 							    </div>
 							  </div>
+							  <%} %>
 						</div>
 					</div>	
         				<!-- 스크랩 Q&A -->
         				<div  class = "con2-qna">
 						<div class="scrapQnA-content" style='display:inline; float:left; width:500px; height: 100px;'>
-							<br><div class="QnA"><b style="font-size: 25px;">스크랩 Q&A</b></div>
+							<br>
+							<div class="QnA"><b style="font-size: 25px;">스크랩 Q&A</b>
+								<span id="plus2"><i class="chevron circle right icon"></i><a>더 보기</a></span>
+							</div>
+							<%if(QnAlist != null && QnAlist.get("you") != null) { %>
 							<div class="column" >
 								<div class="ui raised segment">
 									<a class="ui red ribbon label" id="redBlue-avel">제목</a>
-								    <span>안녕하세요</span>
+								    <span><%=QnAlist.get("you").getBtitle() %></span>
 								    <p></p>
 								    <a class="ui blue ribbon label" id="redBlue-avel">내용</a>
-								    <span>제 이름은 애리닝이에오</span>
+								    <span><%=QnAlist.get("you").getbContent() %></span>
 								    <p></p>
 								</div>
 							</div>
+							<%} %>
 						</div>
         				</div>
         			</div>
