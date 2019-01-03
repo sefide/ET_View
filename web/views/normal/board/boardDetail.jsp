@@ -158,10 +158,10 @@
 			</div>
 		
 			<!-- 댓글달기 -->
-			<script>
-            $(function() {
+			<!-- <script>
+             $(function() {
                $("#addReply").click(function() {
-            	   /* user01 is undefined error */
+            	    
             	  var writer = <%=loginUser.getM_no() %>;
                   var bid = <%= b.getbNo() %>;
                   var content = $("#replyContent").val();
@@ -198,7 +198,7 @@
 				});
 			});
 		});
-	</script>
+	</script>  -->
 			
 			
 			
