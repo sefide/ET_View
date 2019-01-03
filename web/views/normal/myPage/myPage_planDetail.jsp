@@ -299,10 +299,6 @@
 		var d = '<%=(plan.getpStartDate().toString()).substring(8,10)%>';
 		var date = new Date(y, m-1, d);
 		
-		/* var date = new Date();
-		var d = date.getDate();
-		var m = date.getMonth();
-		var y = date.getFullYear(); */
 		var event = [];
 		var eventInfo = {};
 		var sy, sm, sd;

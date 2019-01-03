@@ -348,9 +348,10 @@
                 <div class="ui top-img">
                     <img class = "img_main mySlides" src="https://d1blyo8czty997.cloudfront.net/tour-photos/n/2231/1200x600/2036422203.jpg">
                     <img class = "img_main mySlides" src="https://img-wishbeen.akamaized.net/plan/1466139331562_shutterstock_128300366.jpg">
-               	    <img class = "img_main mySlides" src="http://www.travelnbike.com/news/photo/201706/40021_37790_466.jpg">
-                    <img class = "img_main mySlides" src="https://previews.123rf.com/images/ventdusud/ventdusud1601/ventdusud160100003/50960502-%EB%91%90%EC%98%A4%EB%AA%A8-%EC%9D%BC%EC%B6%9C-%EB%B0%80%EB%9D%BC%EB%85%B8-%EC%9C%A0%EB%9F%BD%EC%9E%85%EB%8B%88%EB%8B%A4-.jpg">
+               	    <img class = "img_main mySlides" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_720,f_auto/w_80,x_15,y_15,g_south_west,l_klook_water/activities/z8cchxx4xdk5nfadwjng/%EB%B2%A0%EC%8A%A4%ED%8A%B8%EA%B0%80%EC%9A%B0%EB%94%94%ED%88%AC%EC%96%B4.webp">
+                    <img class = "img_main mySlides" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_720,f_auto/w_80,x_15,y_15,g_south_west,l_klook_water/activities/nmn6syrc8kkfawqpmxkc/%EB%A7%88%EB%93%9C%EB%A6%AC%EB%93%9C%EA%B0%80%EC%9D%B4%EB%93%9C%ED%88%AC%EC%96%B4.webp">
         		        <img class = "img_main mySlides" src="http://www.seoulmilkblog.co.kr/wp/wp-content/uploads/2016/10/%EA%B2%A8%EC%9A%B8%EC%9C%A0%EB%9F%BD%EC%97%AC%ED%96%892.jpg">
+    			        	<img class = "img_main mySlides" src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_720,f_auto/w_80,x_15,y_15,g_south_west,l_klook_water/activities/djvwelyhrz8z9ufftnyk/%EB%A3%A8%EB%B8%8C%EB%A5%B4%EB%B0%95%EB%AC%BC%EA%B4%80%ED%8C%A8%EC%8A%A4%ED%8A%B8%ED%8A%B8%EB%9E%99%EC%9E%85%EC%9E%A5%EA%B6%8C(%EC%98%88%EC%95%BD%EC%88%98%EC%88%98%EB%A3%8C%ED%8F%AC%ED%95%A8).jpg">
                 	</div>
                 <div class ="top-btn">
                 	<div class ="top-btn-inner">
@@ -493,7 +494,7 @@
 	           	
 	        if(topTour != null){%>
             <div class="ui mt-20"> 
-                <div class="ui huge header">인기 투어 TOP 4 </div>
+                <div class="ui huge header">파워투어 TOP 4 </div>
                  <div class = "more-div" onclick = "location.href ='/et/views/normal/tourBoard/seeTour_main.jsp'">
 	                <i class="chevron circle right icon" id = "more-icon"></i>
 	                <font id ="more-txt">더보기 </font>

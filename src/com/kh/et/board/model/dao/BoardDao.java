@@ -376,6 +376,78 @@ public class BoardDao {
 		System.out.println(list);
 		return list;
 	}
+	//댓글 달기
+	public int insertReply(Connection con, Board b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertReply");
+		//insertReply=INSERT INTO BOARD VALUES(SEQ_B_NO.NEXTVAL, ? , NULL, ? , DEFAULT, 'N', 1, 'Y', ?)
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, b.getbWriter());
+			pstmt.setString(2, b.getbContent());
+			pstmt.setInt(3, b.getbNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+	
+		return result;
+	}
+	
+	//댓글 조회
+	public ArrayList<Board> selectReplyList(Connection con, int getbNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		
+		String query = prop.getProperty("selectReplyList");
+		//selectReplyList=SELECT B.B_NO, B.B_CONTENT, M.M_ID , B.B_REF_NO, B.B_TYPE, B.B_DATE FROM BOARD B JOIN MEMBER M ON(B.B_N_NO = M.M_NO) WHERE B.B_REF_NO = ? AND B.B_TYPE=1 AND B.B_STATUS ='Y' ORDER BY B.B_NO DESC
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, getbNo );
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board b = new Board();
+				
+				b.setbNo(rset.getInt("B_NO"));
+				b.setbContent(rset.getString("B_CONTENT"));
+				b.setbWriter(rset.getString("M_ID"));
+				b.setbRefNo(rset.getInt("B_REF_NO"));
+				//b.set(rset.getInt("REPLY_LEVEL"));
+				b.setbDate(rset.getDate("B_DATE"));
+				
+				list.add(b);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
+	}
+	
+	}
 
 	/*public ArrayList<HashMap<String, Object>> selectMyNewsBoard3(Connection con, int mno) {
 		PreparedStatement pstmt = null;
@@ -413,4 +485,4 @@ public class BoardDao {
 	
 	
 
-}
+
