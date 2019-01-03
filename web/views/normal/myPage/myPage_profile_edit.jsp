@@ -20,17 +20,7 @@
 <title>ET_My_Profile</title>
 <link rel="icon" href="/views/image/common/logo.png">
 
-<script>
-$(function(){
-	<%System.out.println("얍isclose " + isclose);%>
-	if(<%=isclose != null && isclose.equals("Y")%>){
-		alert("얍");
-		window.opener.location.href="<%=request.getContextPath()%>/selectPlanList.pl?mno=<%=loginUser.getM_no()%>";
-		//window.opener.parent.location.reload();
-		window.self.close();
-	}
-});
-</script>
+
 <style>
 	body {
 		width:100%;
@@ -139,4 +129,12 @@ $(function(){
 	
 	
 	</script>
+	<script>
+	$(function(){
+		if(<%=isclose != null && isclose.equals("Y")%>){
+			window.opener.location.href="<%=request.getContextPath()%>/selectPlanList.pl?mno=<%=loginUser.getM_no()%>";
+			close();
+		}
+	});
+</script>
 </html>

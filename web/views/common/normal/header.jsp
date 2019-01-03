@@ -270,7 +270,6 @@
     		
     		function goPlan(){
     			<%
-        	 	System.out.println("세션에 저장된 사람 " + loginUser);
         	 	if(loginUser != null){
         	 		if(loginUser.getM_plan_num() == -1){%>
         	 			alert("에러발생, 다시 로그인해주세요.");

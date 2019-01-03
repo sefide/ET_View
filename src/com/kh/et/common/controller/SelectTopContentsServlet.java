@@ -45,7 +45,6 @@ public class SelectTopContentsServlet extends HttpServlet {
 		String page = "";
 		if (planMap != null && cityList != null && tourList != null && boardMap != null) {
 			page = "index.jsp";
-			System.out.println("좋아");
 			request.setAttribute("topPlan", planMap);
 			request.setAttribute("topCity", cityList);
 			request.setAttribute("topTour", tourList);

@@ -271,7 +271,7 @@
    	</script>
    
    	<!-- 달력 -->
-   	<link rel='stylesheet' type='text/css' href='http://www.blueb.co.kr/data/201010/IJ12872423858253/theme.css' />
+   	<link rel='stylesheet' type='text/css' href="/et/views/css/theme.css" />
    	
 	<link rel='stylesheet' type='text/css'
 	href='http://www.blueb.co.kr/data/201010/IJ12872423858253/fullcalendar.css' />

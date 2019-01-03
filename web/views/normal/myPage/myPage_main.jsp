@@ -24,7 +24,9 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	
 	<!-- googleMap -->
- 		
+ 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
+ 	
+ 	
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">
 	
@@ -279,10 +281,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
    	<script>
 
-	   /*  $('.div-plan-add').dimmer({
-			on : 'hover'
-		});
-	   */
 	    function editProfile() {
 	  	  	window.open("views/normal/myPage/myPage_profile_edit.jsp", "프로필 수정", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
 	    }
@@ -329,7 +327,7 @@
 	    		<%for(int i = 0; i <  planList.size(); i++){%>
 	        		// 새로운 도시 div 추가 
 	        		var mapContent = "<div class ='planBox map"+<%=i%>+"'><div id = 'planMap"+<%=i%>+"' class ='planMap' readonly></div>";
-	        		var mapInfoContent = "<div class = 'div-plan-title' onclick = 'goPlanDetail("+<%=planList.get(i).getpNo()%>+");'><%= planList.get(i).getpTitle() %> </div><div class = 'div-plan-private' onclick = 'setPrivate();'> <%if(planList.get(i).getpPrivate().equals("Y")) {%>공개 <%}else {%> 비공개 <%}%></div><div class = 'div-plan-cities'><%=planList.get(i).getpCites()%> </div></div>";
+	        		var mapInfoContent = "<div class = 'div-plan-title' onclick = 'goPlanDetail("+<%=planList.get(i).getpNo()%>+");'><%= planList.get(i).getpTitle() %> </div><div class = 'div-plan-private' onclick = 'setPrivate(<%=planList.get(i).getpNo()%>);'> <%if(planList.get(i).getpPrivate().equals("Y")) {%>공개 <%}else {%> 비공개 <%}%></div><div class = 'div-plan-cities'><%=planList.get(i).getpCites()%> </div></div>";
 	        		var content = mapContent + mapInfoContent;
 				 $("#plan-list-inner").prepend(content);
 				
@@ -340,10 +338,12 @@
 	    		String[] planCityArr = null;
 	    		for (int i = 0; i < planList.size(); i++){
 	    			planCityArr =  (planList.get(i).getpCites()).split(", "); // 이건 String
+	    			if(cityMap != null){
 	    			for(String cityNo : planCityArr){
 	    				%> path = {lat : <%=cityMap.get(cityNo).getCtLat()%>, lng : <%=cityMap.get(cityNo).getCtLng()%>};
 	    				flightPlanCoordinates.push(path); 
-	    			<% }%> 
+	    			<% }
+	    			}%> 
 	    			flightPlanCoordinatesArr.push(flightPlanCoordinates); 
 	    			flightPlanCoordinates = [];
 	    		<% } %>

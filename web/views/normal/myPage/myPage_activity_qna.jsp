@@ -44,9 +44,9 @@
 		text-align : center;
 	}
 	.img-profile {
-		width : 190px;
-		height : 190px;
-		margin : 15% 0;
+		width : 240px;
+		height : 240px;
+		border-radius : 50%;
 	}
 	
 	.div-txt-profile{
@@ -120,17 +120,17 @@
 		width : 100%;
 	}
 	.con2-left{
-		width : 34%;
+		width : 47%;
 		margin : 1%;
 	}
 	.con2-left-inner {
-		width : 94%;
+		width : 100%;
 		border : 1px solid lightgray;
 		border-radius : 7px;
 		margin-left : 3%;
 	}
 	.con2-right{
-		width : 60%;
+		width : 47%;
 		margin : 1%;
 	}
 	.con2-qna{
@@ -138,20 +138,11 @@
 		margin-left : 10%;
 	}
 	
-	
-	/* 새 소식 */
-	.news{
-		margin-left: 10%; 
-		font-size: 30px;
-		font-family:'Nanum Gothic', sans-serif;
-		padding-top: 50px;
-	}
-	#news-content{
-		margin-left: 10%;
-		font-family:'Nanum Gothic', sans-serif;
-	}
-	
 	/* 나의 Q&A / 스크랩 Q&A */
+	.qna{
+		margin : 30px 0;
+	}
+	
 	.description{
 		font-size: 15px;
 		width: 90%;
@@ -170,7 +161,7 @@
 
 	<div class="ui grid">
 		<div class="two wide column"></div>
-		<div class="twelve wide column" style="margin-top:120px;">
+		<div class="twelve wide column" style="margin:120px 0;">
 			 <div class = "container1"> <!-- 위에 자기내용  -->
     				<div class = "div-img-profile">
     					<img src = "<%=loginUser.getA_change_Name() %>" class = "img-profile">
@@ -199,40 +190,10 @@
         		<div class ="cont2-flex">
         			<!-- 좌측 -->
         			<div class ="con2-left">
-	        			<div class ="con2-left-inner "> 
-	        				<div class="news"><b>새 소식</b></div>
-						<div class="ui relaxed divided list" id="news-content">
-						  <div class="item">
-						    <i class="big bell outline icon"></i>
-						    <div class="content">		      
-						      <div class="description"><b>아진님, 애린님이 회원님의 
-						      	"이동수단~" 게시물을 좋아합니다.</b>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-						
-						<div class="ui relaxed divided list" id="news-content">
-						  <div class="item">
-						    <i class="big bell outline icon"></i>
-						    <div class="content">		      
-						      <div class="description"><b>병현님이 회원님의 "파리는~"
-						      게시물을 스크랩했습니다.</b></div>
-						    </div>
-						  </div>
-						</div>
-						
-						<br>
-	        			</div>
-        			</div>
-        			
-        			<!-- 우측  -->
-        			<div class ="con2-right">
-					<!-- 나의 Q&A -->	
-        				<div class = "con2-qna">
+					<div class = "con2-qna">
 						<div class="myQnA-content" style='display:inline; float:left; width:500px'>
 							<div class="QnA"><b style="font-size: 25px;">나의 Q&A</b></div>
-							  <div class="column">
+							  <div class="column qna">
 							    <div class="ui raised segment">
 							      <a class="ui red ribbon label" id="redBlue-avel">제목</a>
 							      <span>안녕하세요</span>
@@ -243,23 +204,37 @@
 							  </div>
 						</div>
 					</div>	
+						
+        			</div>
+        			
+        			<!-- 우측  -->
+        			<div class ="con2-right">
         				<!-- 스크랩 Q&A -->
         				<div  class = "con2-qna">
 						<div class="scrapQnA-content" style='display:inline; float:left; width:500px; height: 100px;'>
 							<div class="QnA"><b style="font-size: 25px;">스크랩 Q&A</b></div>
-							<div class="column" >
+							<div class="column qna" >
 								<div class="ui raised segment">
 									<a class="ui red ribbon label" id="redBlue-avel">제목</a>
 								    <span>안녕하세요</span>
 								    <p></p>
-								    <a class="ui blue ribbon label" id="redBlue-avel">내용</a>
-								    <sapn><p>제 이름은 애리닝이에오</p></sapn>
+								    <a class="ui blue ribbon label" id="redBlue-avel">내용</a>제 이름은 애리닝이에오
+							      	<p></p>
+								</div>
+							</div>
+							
+							<div class="column qna" >
+								<div class="ui raised segment">
+									<a class="ui red ribbon label" id="redBlue-avel">제목</a>
+								    <span>안녕하세요</span>
+								    <p></p>
+								    <a class="ui blue ribbon label" id="redBlue-avel">내용</a>제 이름은 애리닝이에오
+							      	<p></p>
 								</div>
 							</div>
 						</div>
         				</div>
         			</div>
-        			
         		</div>
         		
         		</div>

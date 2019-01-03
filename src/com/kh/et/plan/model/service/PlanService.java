@@ -84,7 +84,7 @@ public class PlanService {
 		if(resultMap != null) commit(con);
 		else rollback(con);
 		
-		commit(con);
+		close(con);
 		
 		return resultMap;
 	}

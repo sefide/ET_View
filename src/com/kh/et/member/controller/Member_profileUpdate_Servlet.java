@@ -116,7 +116,7 @@ public class Member_profileUpdate_Servlet extends HttpServlet {
 			if(resultUser != null) {
 				request.getSession().setAttribute("loginUser", resultUser);
 				request.setAttribute("isclose", "Y");
-				request.getRequestDispatcher("/selectPlanList.pl?mno="+resultUser.getM_no()).forward(request, response);
+				request.getRequestDispatcher("views/normal/myPage/myPage_profile_edit.jsp").forward(request, response);
 				//response.sendRedirect(request.getContextPath() + "/selectPlanList.pl?mno="+resultUser.getM_no());
 			} else {
 				// 실패 시 저장된 사진 삭제시켜줘야 한다.

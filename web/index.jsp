@@ -386,7 +386,6 @@
         				<% if(topPlan!= null){
         				planList = (ArrayList<Plan>)topPlan.get("planList");
         				for(int i = 0; i < planList.size(); i++){
-        					System.out.println("i : " + i);
         					Plan p = planList.get(i);
         				%>
         					<div class ="div-plan-map"> 
@@ -579,7 +578,7 @@
          
          function goPlan(){
         	 	<%
-        	 	System.out.println("세션에 저장된 사람 " + loginUser);
+        	 	
         	 	if(loginUser != null){
         	 		if(loginUser.getM_plan_num() == -1){%>
         	 			alert("에러발생, 다시 로그인해주세요.");
@@ -614,7 +613,7 @@
 		<%
 		if(cityMap != null && planList != null){
 		String[] planCityArr = null;
-		System.out.println("잉" + planList.size());
+		System.out.println("인기 플랜 개수 : " + planList.size());
 		for (int i = 0; i < planList.size(); i++){
 			planCityArr =  (planList.get(i).getpCites()).split(", "); // 이건 String
 			for(String cityNo : planCityArr){
@@ -661,16 +660,12 @@
 	        console.log("marker"+j);
 	        }
 	    <%}%>
- 		});
        <%}%>
+ 		});
          
     </script>
     
 	<script>
-		$(document).ready(function(){
-			console.log("얍");
-			<% System.out.println("얍_index.jsp");%>
-		});
 		var myIndex = 0;
 		carousel();
 		
