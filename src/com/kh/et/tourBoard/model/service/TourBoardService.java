@@ -27,19 +27,14 @@ public class TourBoardService {
 				fileList.get(i).setAtno(tno);;
 			}
 		}
-		
 		int result2 = new TourBoardDao().insertAttachment(con, fileList);
-		
 		if(result1 > 0 && result2 > 0) {
 			commit(con);
 			result = 1;
-			
 		}else {
 			rollback(con);
 		}
-		
 		close(con);
-		
 		return result;
 	}
 

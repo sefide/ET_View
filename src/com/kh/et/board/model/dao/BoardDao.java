@@ -374,6 +374,35 @@ public class BoardDao {
 		
 		return list;
 	}
+	
+	
+	//글번호를 알아오기 위한 메서드
+	public int selectCurrval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		int tno = 0;
+		
+		String query = prop.getProperty("selectCurrval2");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				tno = rset.getInt("CURRVAL");
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		
+		
+		return tno;
+	}
 
 	
 	

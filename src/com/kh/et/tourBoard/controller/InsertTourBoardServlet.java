@@ -43,8 +43,7 @@ public class InsertTourBoardServlet extends HttpServlet {
 		//폼전송을  multipart/form-data로 전송하는 경우에는
 		//기존처럼 request.getParameter로 값을 받을 수 없다.
 		Company loginUser = (Company)request.getSession().getAttribute("loginCompany");
-		//cos.jar 가 파일도 받고 다른 값들도 받아주는 역할을 한다.
-		//com.orelilly.servlet의 약자이다.
+
 		if(ServletFileUpload.isMultipartContent(request)) {
 			//전송 파일 용량 제한: 10MB로 제한
 			int maxSize = 1024 * 1024 * 10;
@@ -55,13 +54,6 @@ public class InsertTourBoardServlet extends HttpServlet {
 			
 			String filePath = root + "tourUpload/";
 			
-			//사용자가 올린 파일명을 그대로 저장하지 않는 것이 일반적이다.
-			//1.같은 파일명이 있는 경우 이전 파일을 덮어 쓸 수 있다.
-			//2.한글로된 파일명, 특수기호, 띄어쓰기는 서버에 따라 문제가 생길 수 도 있다.
-			
-			//DefaultFileRenamePolicy는 cos.jar 제공하는 클래스
-			//같은 파일명이 존재하는지를 검사하고 있을 경우에는 뒤에 숫자를 붙여존다.
-			//ex : aaa.zip, aaa1.zip, aaa2.zip
 			
 			MultipartRequest multiRequest 
 				= new MultipartRequest(request, filePath, maxSize, "UTF-8", new MyFileRenamePolicy());
