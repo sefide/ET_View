@@ -40,7 +40,8 @@ public class SelectQnAListServlet extends HttpServlet {
 		HashMap<String, Board> QnAlist = new BoardService().selectMyActivityQnA(mno);	//뽑아올 보드를 해쉬맵에 담기
 		
 		//내 소식 보기
-		ArrayList<News> NewsList = new BoardService().selectMyNewsBoard(mno);
+		ArrayList<News> NewsList = new BoardService().selectMyNews(mno);
+		/*ArrayList<HashMap<String, Object>> testList = new BoardService().selectMyNewsBoard3(mno);*/
 		
 		String newspage = "";
 		if(QnAlist != null && NewsList != null) {

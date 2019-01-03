@@ -14,6 +14,7 @@ import com.kh.et.board.model.vo.Board;
 import com.kh.et.member.model.vo.News;
 import com.kh.et.plan.model.dao.PlanDao;
 import com.kh.et.plan.model.vo.Plan;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 
 public class BoardService {
@@ -152,27 +153,21 @@ public class BoardService {
 	}
 
 	//내 소식 보기
-	public ArrayList<News> selectMyNewsBoard(int mno) {
+	public ArrayList<News> selectMyNews(int mno) {
 		Connection con = getConnection();
 		System.out.println("service진입");
-		ArrayList<News> list = new BoardDao().selectMyNewsBoard(con, mno);
 		
-		News n = new PlanDao().selectMyNewsPlan(con, mno);
+		ArrayList<News> Boardlist = new BoardDao().selectMyNewsBoard(con, mno);
 		
-		if(list != null) {
-			System.out.println("보드 있어요 ");
-			if(n != null) {
-				list.add(n);
-				System.out.println("플랜 있어요 ");
-				System.out.println("반환 LIST 사이즈 "+list.size());
-			}
-			commit(con);
-		}else {
-			rollback(con);
-		}
+		ArrayList<News> Planlist = new PlanDao().selectMyNewsPlan(con, mno);
+		
+		ArrayList<News> allList = new ArrayList<News>();
+		allList.addAll(Boardlist);
+		allList.addAll(Planlist);
+		
 		close(con);
 		
-		return list;
+		return allList;
 	}
 	
 	//댓글 달기
@@ -193,6 +188,15 @@ public class BoardService {
 		
 		return replyList;
 	}
+
+	/*public ArrayList<HashMap<String, Object>> selectMyNewsBoard3(int mno) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> list = new BoardDao().selectMyNewsBoard3(con,mno);
+		
+		
+		close(con);
+		return list;
+	}*/
 
 
 }

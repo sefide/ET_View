@@ -501,11 +501,12 @@ public class PlanDao {
 		return resultMap;
 	}
 
-	//내소식 보기 플랜
-	public News selectMyNewsPlan(Connection con, int mno) {
+	//내소식 보기 
+	//플랜
+	public ArrayList<News> selectMyNewsPlan(Connection con, int mno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		News n = null;
+		ArrayList<News> list = null;
 		
 		String query = prop.getProperty("selectMyNewsPlan");
 		try {
@@ -514,13 +515,17 @@ public class PlanDao {
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
-				n = new News();
+			list = new ArrayList<News>();
+			if(rset != null) {
+				while(rset.next()) {
+				News n = new News();
 				System.out.println("다오 - 풀랜있어요 ");
 				n.setTitle(rset.getString("P_TITLE"));
 				n.setName(rset.getString("M_NAME"));
 				n.setType(rset.getString("PI_TYPE"));
 				
+				list.add(n);
+				}
 			}
 			
 			
@@ -530,8 +535,8 @@ public class PlanDao {
 			close(pstmt);
 			close(rset);
 		}
-		
-		return n;
+		System.out.println("몇개 담겼어요? : " + list);
+		return list;
 	}
 
 	// 해당 플랜 좋아요 개수 

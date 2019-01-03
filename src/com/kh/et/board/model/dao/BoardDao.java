@@ -354,7 +354,8 @@ public class BoardDao {
 			
 			
 			list = new ArrayList<News>();
-			if(rset.next()) {
+			if(list != null) {
+				while(rset.next()) {
 				News n = new News();
 				System.out.println("다오 - 보드 있어요 ");
 				n.setTitle(rset.getString("B_TITLE"));
@@ -362,6 +363,7 @@ public class BoardDao {
 				n.setType(rset.getString("BI_TYPE"));
 				
 				list.add(n);
+				}
 			}
 	
 			
@@ -371,7 +373,7 @@ public class BoardDao {
 			close(pstmt);
 			close(rset);
 		}
-		
+		System.out.println(list);
 		return list;
 	}
 	//댓글 달기
@@ -446,6 +448,38 @@ public class BoardDao {
 	}
 	
 	}
+
+	/*public ArrayList<HashMap<String, Object>> selectMyNewsBoard3(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectMyNewsBoard");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			rset = pstmt.executeQuery();
+			if(rset != null) {
+				list = new ArrayList<HashMap<String, Object>>();
+				while(rset.next()) {
+					hmap = new HashMap<String,Object>();
+					hmap.put("b_title",rset.getString("B_TITLE"));
+					hmap.put("m_name",rset.getString("M_NAME"));
+					hmap.put("bi_type",rset.getString("BI_TYPE"));
+					
+					list.add(hmap);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("dao에서 새로 뽑은 리스트요 : " + list);
+		return list;
+	}*/
 
 	
 	
