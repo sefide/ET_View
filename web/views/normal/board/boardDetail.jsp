@@ -9,8 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <!-- jquery -->
-<!-- <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+ <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <!-- Semantic UI -->
@@ -23,9 +23,9 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
-<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script> -->
+	crossorigin="anonymous"></script> 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
 	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -110,13 +110,7 @@
 					</div>
 				</div>
 			
-			<%-- <div class="ui form">
-			<div class="field">
-			<div class="ui list" style="text-align: right;">
-			<button class="ui right yellow button" onclick="location.href='<%=request.getContextPath()%>/selectList.bo'">목록으로 되돌아가기</button>
-			<button class="ui right yellow button" onclick="location.href='<%=request.getContextPath()%>/update.bo'"> 수정하기</button>
-			</div>
-			</div> --%>
+			
 			
 			
 			
@@ -125,8 +119,9 @@
 			<div class="ui list" style="text-align: right;">
 			<button class="ui right yellow button" onclick="location.href='<%=request.getContextPath()%>/selectList.bo'">목록으로 되돌아가기</button>
 			<% if( loginUser != null && loginUser.getM_id().equals(b.getbWriter()) ){%>		
-			<% int num = b.getbNo();  %>				
+			<% int num = b.getbNo();  %>			
 			<button class="ui right yellow button" id="edit" >수정 및 삭제 하기</button>
+			<%}%>
 			<script>
 				$(edit).click(function name() {
 					
@@ -137,7 +132,7 @@
 				} );
 			
 			</script>
-			<%}%>
+			
 			</div>								
 			</div>
 			</div>
@@ -162,18 +157,20 @@
 				</div>
 			</div>
 		
-			
+			<!-- 댓글달기 -->
 			<script>
             $(function() {
-               $("#addBoard").click(function() {
-                  var writer =<%=loginUser.getM_id()%>  ;
+               $("#addReply").click(function() {
+            	   /* user01 is undefined error */
+            	  var writer = <%=loginUser.getM_no() %>;
                   var bid = <%= b.getbNo() %>;
                   var content = $("#replyContent").val();
 
                   $.ajax({
                      url : "/et/insertReply.bo",
                      data : {
-                        writer : writer,
+                        writer : writer, 
+                        bid:bid ,
                         content : content
                      },
                      type : "post",

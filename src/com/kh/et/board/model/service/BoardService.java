@@ -174,6 +174,25 @@ public class BoardService {
 		
 		return list;
 	}
+	
+	//댓글 달기
+	public ArrayList<Board> insertReply(Board b) {
+		Connection con = getConnection();
+		ArrayList<Board> replyList = null;
+		
+		int result = new BoardDao().insertReply(con, b);
+		
+		if(result > 0) {
+			commit(con);
+			replyList = new BoardDao().selectReplyList(con, b.getbNo());
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return replyList;
+	}
 
 
 }
