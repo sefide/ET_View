@@ -165,7 +165,7 @@
 	            <div class="card-deck" style="width:230px">
 	             <input type="hidden" value="<%=hmap.get("tno")%>">
 				  <div class="card">
-				 	<a href=<%=hmap.get("link")%>><div>
+				 	<a href="http://<%=hmap.get("link")%>" target="_blank"><div>
 				    <img src="/et/tourUpload/<%=hmap.get("changeName")%>"  width="200px" height="200px">
 				    </div>
 				    </a>

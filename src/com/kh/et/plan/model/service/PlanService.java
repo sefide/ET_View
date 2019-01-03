@@ -212,6 +212,21 @@ public class PlanService {
 		
 		return bestPlanMap;
 	}
+
+	public int updatePlanPrivate(int pmNo, int pFkpNo) {
+		Connection con = getConnection();
+		
+		int result = new PlanDao().updatePlanPrivate(con, pmNo, pFkpNo);
+		
+		if(result>0) {
+			commit(con);		
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		return result;
+	}
 	
 
 

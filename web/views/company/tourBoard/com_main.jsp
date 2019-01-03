@@ -210,7 +210,7 @@
 						<span class = "span-tour-ex"> No</span><i class="star icon"></i> <label> Standard </label>
 						<%} %>
 						<div  class = "span-tour-title">연결링크 </div>
-						<a href="<%=hmap.get("link")%>"><%=hmap.get("link")%></a>
+						<a href="http://<%=hmap.get("link")%>" target="_blank"><%=hmap.get("link")%></a>
 						<div  class = "span-tour-title"> 대표사진  </div>
 						<span class = "span-tour-ex"> <%=hmap.get("originName") %> </span>
 	                </div>
