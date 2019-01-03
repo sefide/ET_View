@@ -11,6 +11,9 @@ import java.util.HashMap;
 
 import com.kh.et.board.model.dao.BoardDao;
 import com.kh.et.board.model.vo.Board;
+import com.kh.et.member.model.vo.News;
+import com.kh.et.plan.model.dao.PlanDao;
+import com.kh.et.plan.model.vo.Plan;
 
 
 public class BoardService {
@@ -129,12 +132,13 @@ public class BoardService {
 	//내 QnA, 내가 스크랩한 QnA 리스트 보기(최근)
 	public HashMap<String, Board> selectMyActivityQnA(int mno) {
 		Connection con = getConnection();
-		System.out.println("service진입");
+		
 		HashMap<String, Board> list = new BoardDao().selectMyNewQnA(con, mno);	//내가 작성한 QnA리스트 해쉬맵으로 뽑기
 		
 		Board b = new BoardDao().selectYourNewQnA(con,mno);//내가 스크랩한 QnA 해쉬맵으로 뽑기
 		
 		if(list != null) {
+			
 			if(b != null) {
 				list.put("you", b);
 			}
@@ -148,13 +152,20 @@ public class BoardService {
 	}
 
 	//내 소식 보기
-	public ArrayList<Object> selectMyNewsBoard(int mno) {
+	public ArrayList<News> selectMyNewsBoard(int mno) {
 		Connection con = getConnection();
+		System.out.println("service진입");
+		ArrayList<News> list = new BoardDao().selectMyNewsBoard(con, mno);
 		
-		ArrayList<Object> list = new BoardDao().selectMyNewsBoard(con, mno);
-		
+		News n = new PlanDao().selectMyNewsPlan(con, mno);
 		
 		if(list != null) {
+			System.out.println("보드 있어요 ");
+			if(n != null) {
+				list.add(n);
+				System.out.println("플랜 있어요 ");
+				System.out.println("반환 LIST 사이즈 "+list.size());
+			}
 			commit(con);
 		}else {
 			rollback(con);

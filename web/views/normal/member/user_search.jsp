@@ -246,7 +246,7 @@
 						<!-- 회원가입 하러가기 버튼 -->
 						<div id="joinGo" align="center">
 							<a href="/et/views/normal/member/user_join.jsp"><button class="ui blue button" style="color: black; font-family: 'Nanum Gothic', sans-serif; font-size: 15px;">ET로 회원가입 하기</button></a>
-						</div>
+						</div><br>
 					</td>
 					<td></td>
 				</tr>

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.et.board.model.service.BoardService;
 import com.kh.et.board.model.vo.Board;
+import com.kh.et.member.model.vo.News;
 
 /**
  * Servlet implementation class SelectQnAListServlet
@@ -38,20 +39,19 @@ public class SelectQnAListServlet extends HttpServlet {
 		//내 QnA리스트, 내가 스크랩한 QnA리스트 보기
 		HashMap<String, Board> QnAlist = new BoardService().selectMyActivityQnA(mno);	//뽑아올 보드를 해쉬맵에 담기
 		
-		String page ="";
-		if(QnAlist != null) {
-			request.setAttribute("QnAlist", QnAlist);
-			page = "views/normal/myPage/myPage_activity_history.jsp";
-		
-		}else {
-			request.setAttribute("msg", "Q&A스크랩 리스트 조회 실패");
-			page = "views/normal/myPage/myPage_main.jsp";
-		}
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
-		
 		//내 소식 보기
-		ArrayList<Object> ActivityList = new BoardService().selectMyNewsBoard(mno);
+		ArrayList<News> NewsList = new BoardService().selectMyNewsBoard(mno);
+		
+		String newspage = "";
+		if(QnAlist != null && NewsList != null) {
+			System.out.println("서블릿 할 일 끝났다 전송 ");
+			request.setAttribute("QnAlist", QnAlist);
+			request.setAttribute("NewsList", NewsList);
+			newspage = "views/normal/myPage/myPage_activity_history.jsp";
+		}else {
+			request.setAttribute("newsmsg", "내 소식 보기 조회 실패");
+			newspage = "views/normal/myPage/myPage_main.jsp";
+		}
 	}
 
 	/**
