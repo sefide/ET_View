@@ -68,9 +68,7 @@ public class SelectCityDetailServlet extends HttpServlet {
 			obj.put("ano", ((Attachment)tourList.get(i).get("a")).getAno());
 			obj.put("originName",  URLEncoder.encode(((Attachment)tourList.get(i).get("a")).getOriginName(),"UTF-8"));
 			obj.put("changeName",  URLEncoder.encode(((Attachment)tourList.get(i).get("a")).getChangeName(),"UTF-8"));
-//			obj.put("filePath",  URLEncoder.encode(((Attachment)tourList.get(i).get("a")).getFilePath(),"UTF-8"));
-//			obj.put("date",  ((Attachment)tourList.get(i).get("a")).getUploadDate());
-			
+
 			tourMap.put("t"+i, obj);
 		}	
 		}

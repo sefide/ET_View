@@ -130,8 +130,8 @@
 	#closePop {
 		font-size : 1.8em;
 		margin-right : 100px;
-		/* margin-left : 18px;
-		margin-top : 18px; */
+		margin-top : 1%;
+		margin-left : 1%;
 		
 	}
 	
@@ -185,7 +185,6 @@
 		width : 23%;
 		margin: 0 1% 1% 1%;
 		height : 250px;
-		/* border: 1px solid skyblue; */
 		text-align : center;
 	}
 	
@@ -193,8 +192,6 @@
 		width : 23%;
 		margin: 0 1% 1% 1%;
 		height : 270px;
-		/* border: 1px solid skyblue; */
-		
 	}
 	
 	.p-p-img{
@@ -217,17 +214,7 @@
 		margin-bottom : 10px;
 	}
 	
-	.p-t-name{
-		font-weight : 700;
-		font-size : 18px;
-		font-family: 'Nanum Gothic', sans-serif;
-	}
-	
-	.p-t-price{
-		font-weight : 800;
-		font-size : 18px;
-		font-family: 'Nanum Gothic', sans-serif;
-	}
+
 	
 	/* 이동수단 팝업  */
 	#icon-close{
