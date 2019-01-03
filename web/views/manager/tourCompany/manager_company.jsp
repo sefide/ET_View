@@ -170,13 +170,40 @@ table{
  	});
  	
  	$(function(){
+ 		var arr=new Array;
+ 		
  		$("#deleteBtn").click(function(){
- 			var items = [];
+ 			var delArr=new Array;
+ 			
  			$(".chkCheckBox:checked").each(function(){
- 				items.push($(this).val());
- 				console.log(items);
+ 				delArr.push($(this).val());
+ 				console.log(delArr);
+ 				
  			});
- 			location.href = '<%=request.getContextPath()%>/deleteOne.co?chkValue='+items;
+ 			
+ 			var arr1=new Array;
+ 			arr1=delArr;
+ 			
+ 				$.ajax({
+ 					url:"deleteOne.co",
+ 					type:"GET",
+ 					data:{arr1:arr1},
+ 					success:function(data){
+ 						if(data=="성공"){
+ 							console.log("성공");
+ 							alert("삭제되었습니다");
+ 							window.location.reload();
+ 						}
+ 					},
+ 					error:function(data){
+ 						if(data=="실패"){
+ 							console.log("실패");
+ 							alert("실패");
+ 						}
+ 					}
+ 				
+ 			});
+ 			
  			
  		});
  	

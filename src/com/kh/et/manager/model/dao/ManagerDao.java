@@ -858,13 +858,8 @@ public class ManagerDao {
 		try {
 			pstmt=con.prepareStatement(query);
 		
-			int startRow=(currentPage-1)*limit+1;
-			int endRow = startRow + limit - 1;	//한 페이지에서의 글 목록 끝 번호
-			
-			pstmt.setInt(1, startRow);
-			System.out.println(startRow);
-			pstmt.setInt(2, endRow);
-			System.out.println(endRow);
+	
+		
 			rset = pstmt.executeQuery();
 			
 			list=new ArrayList<HashMap<String,Object>>();
@@ -873,7 +868,7 @@ public class ManagerDao {
 				
 				
 				hmap=new HashMap<String,Object>();
-				hmap.put("ctNo",rset.getInt("RNUM"));
+				hmap.put("ctNo",rset.getInt("CT_NO"));
 				hmap.put("ctName",rset.getString("CT_NAME"));
 				hmap.put("ctCountry",rset.getString("CT_COUNTRY"));
 				hmap.put("rank",rset.getInt("RK"));
@@ -1086,6 +1081,45 @@ public class ManagerDao {
 		return result;
 	}
 
+
+	public ArrayList<HashMap<String, Object>> updateOne(Connection con, String item) {
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		ArrayList<HashMap<String,Object>> list=null;
+		HashMap<String, Object> hmap=null;
+		System.out.println("service"+item);
+		
+		String query=prop.getProperty("updateOne");
+		
+		try {
+			
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(item));
+			rset=pstmt.executeQuery();
+			
+			list=new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				
+				hmap=new HashMap<String,Object>();
+				hmap.put("ctNo",rset.getInt("PD_NO"));
+				hmap.put("ctName",rset.getString("CT_NAME"));
+				hmap.put("ctCountry", rset.getString("CT_COUNTRY"));
+				hmap.put("rank", rset.getInt("RK"));
+				list.add(hmap);
+			}
+			
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
 
 	
 }

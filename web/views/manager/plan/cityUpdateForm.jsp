@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*"%>
+     <%
+    ArrayList<HashMap<String,Object>> list=(ArrayList<HashMap<String,Object>>)request.getAttribute("list");
+    int comNo = (int)request.getAttribute("comNo");
+    %> 
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +45,44 @@
      	width:70%;
      	margin-left:100px;
      }
+     input, textarea { 
+			padding: 9px;
+			border: solid 1px #E5E5E5;
+			outline: 0;
+			font: normal 13px/100% Verdana, Tahoma, sans-serif;
+			width: 100px;
+			background: #FFFFFF url('http://store.blueb.co.kr/data/201010/IJ12864517897808/bg_form.png') left top repeat-x;
+			background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));
+			background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px);
+			box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+			-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+			-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+			}
+
+		textarea { 
+			width: 400px;
+			max-width: 400px;
+			height: 150px;
+			line-height: 150%;
+			}
+
+		input:hover, textarea:hover,
+		input:focus, textarea:focus { 
+			border-color: #C9C9C9; 
+			-webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px;
+			}
+
+		.form label { 
+			margin-left: 10px; 
+			color: #999999; 
+			}
+
+
+     
+     #etc {
+     width:150px;
+     height:30px;
+     }
     
 </style>
 
@@ -60,33 +104,25 @@
         	
     	
         	<div class="inner-2">
-        	<h1> ▶여행지 수정</h1>
-        	<p>체크박스에 체크한 여행지들을 보여주는 공간</p>
         	
-        	<p>여행지 설명</p>
-         	<textArea>내용을 입력해주세요</textArea>
+        	<h1> ▶여행지 수정</h1>
+        	 <% for(int i=0;i<list.size();i++){
+    			HashMap<String,Object>hmap=list.get(i);
+    		%> 
+        	<p> <%=hmap.get("ctName")%>,<%=hmap.get("ctCountry")%></p>
+        	<%} %> 
+        	<p >여행지 설명</p>
+         	<textArea >내용을 입력해주세요</textArea>
          	
-         	<p>이동수단</p>
-         	
-         	<input type="checkbox" value="비행기">비행기 <br>      
-         	<input type="checkbox" value="기차">기차      <br>
-         	<input type="checkbox" value="버스">버스      <br>
-         	<input type="checkbox" value="배">배      <br>
-         	<input type="checkbox" value="">기타<textArea></textArea>  
-         	
-         	<p>권장 체류 일수</p>
-         	  <textArea>내용을 입력해주세요</textArea>  <br> 
-         	  <button>완료</button>
+         
         	 </div>
-         
-         
-         
-         
-         
+    
+          
         </div>
         </div>
+         	 </div>
         <div class = "two wide column"></div>
-   	</div>
+
    	
    	<!-- footer -->
 	<%@ include file= "/views/common/normal/footer.jsp" %>

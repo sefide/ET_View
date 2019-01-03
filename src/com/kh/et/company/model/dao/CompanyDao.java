@@ -243,29 +243,7 @@ public class CompanyDao {
 	}
 
 
-	public Company deleteCompany(Connection con, String item) {
-		PreparedStatement pstmt=null;
-		
-		ResultSet rset=null;
-		Company c=null;
-		String query1=prop.getProperty("deleteCompany");
-		System.out.println(query1);
-		try {
-			pstmt=con.prepareStatement(query1);
-			pstmt.setInt(1,Integer.parseInt(item));
-			rset=pstmt.executeQuery();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-
-		return c;
-	}
+	
 
 	//임시비밀번호 발급 후 DB에서 바꿔주기
 	public int newpass(Connection con, String randomCode, String companyId, String companyEmailPass) {
@@ -283,6 +261,27 @@ public class CompanyDao {
 			
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteCompany(Connection con, int arr2) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		String query=prop.getProperty("deleteCompany");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, arr2);
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);

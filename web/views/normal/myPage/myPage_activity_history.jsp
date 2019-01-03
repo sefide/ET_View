@@ -166,10 +166,15 @@
 	}
 
 	#plus1{
-		margin-left: 300px;
+		margin-left: 305px;
 	}
 	#plus2{
 		margin-left: 280px;
+	}
+	.plus{
+		color : black;
+		text-decoration : none;
+		font-size: 600;
 	}
 	
 </style>
@@ -181,146 +186,139 @@
 
 	<div class="ui grid">
 		<div class="two wide column"></div>
-		<div class="twelve wide column" style="margin-top:120px;">
-			 <div class = "container1"> <!-- 위에 자기내용  -->
-    				<div class = "div-img-profile">
-    					<img src = "<%=loginUser.getA_change_Name() %>" class = "img-profile">
-    				</div>
-    				<div class = "div-txt-profile">
-    					<div class = "div-name"><%=loginUser.getM_name() %></div>
-    					<div class = "div-point"><%=loginUser.getM_point() %> <i class="euro sign icon"></i></div>
-    					<div class = "div-profileTxt"><%=loginUser.getM_profile() %> </div>
-    					<button class = "btn-profile" onclick = "editProfile();"> 프로필 수정 </button>
-    				</div>
-    				<div class = "div-menu">
-    					<ul>
-    						<li><a onclick = "goMyPlan();" > > 내 플랜보기 </a> </li>
-    						<li><a href = "/et/views/normal/myPage/myPage_activity_history.jsp"  class = "this-page"> > 나의 활동내역 </a></li>
-    						<li><a href = "/et/views/normal/myPage/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
-    						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
-    					</ul>
-    				</div>
-    				
-    			</div>
-    			
-    			<br>
-     		<br clear = "both">
-        		<div class = "container2">
-        		
-        		<div class ="cont2-flex">
-        			<!-- 좌측 -->
-        			<div class ="con2-left">
-	        			<div class ="con2-left-inner "> 
-	        				<div align="center" class="news"><b>My News</b></div>
-	        			<%if(QnAlist != null && QnAlist.get("my") != null) { %>
-						<div class="ui relaxed divided list" id="news-content">
-						  <div class="item">
-						    <i class="big yellow bell icon"></i>
-						    <div class="content">		      
-						      <div class="description"><b><%=NewsList.get(0).getName()%>님이 회원님의 
-						      	 게시물을 좋아합니다.</b>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-						
-						<div class="ui relaxed divided list" id="news-content">
-						  <div class="item">
-						    <i class="big yellow bell icon"></i>
-						    <div class="content">		      
-						      <div class="description"><b>병현님이 회원님의 "파리는~"
-						      게시물을 스크랩했습니다.</b></div>
-						    </div>
-						  </div>
-						</div>
-						
-						<div class="ui relaxed divided list" id="news-content">
-						  <div class="item">
-						    <i class="big yellow bell icon"></i>
-						    <div class="content">		      
-						      <div class="description"><b>아진님, 애린님이 회원님의 
-						      	"이동수단~" 게시물을 좋아합니다.</b>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-						
-						<div class="ui relaxed divided list" id="news-content">
-						  <div class="item">
-						    <i class="big yellow bell icon"></i>
-						    <div class="content">		      
-						      <div class="description"><b>병현님이 회원님의 "파리는~"
-						      게시물을 스크랩했습니다.</b></div>
-						    </div>
-						  </div>
-						</div>
-						<%} %>
-						</div>
-						<br>
-	        			</div>
-        			</div>
-        			
-        			<!-- 우측  -->
-        			<div class ="con2-right">
-					<!-- 나의 Q&A -->	
-        				<div class = "con2-qna">
-						<div class="myQnA-content" style='display:inline; float:left; width:500px'>
-							<div class="QnA"><b style="font-size: 25px;">나의 Q&A</b>
-								<span id="plus1"><i class="chevron circle right icon"></i><a>더 보기</a></span>
+		<div class="twelve wide column" style="margin-top: 120px;">
+			<div class="container1">
+				<!-- 위에 자기내용  -->
+				<div class="div-img-profile">
+					<img src="<%=loginUser.getA_change_Name()%>" class="img-profile">
+				</div>
+				<div class="div-txt-profile">
+					<div class="div-name"><%=loginUser.getM_name()%></div>
+					<div class="div-point"><%=loginUser.getM_point()%>
+						<i class="euro sign icon"></i>
+					</div>
+					<div class="div-profileTxt"><%=loginUser.getM_profile()%></div>
+					<button class="btn-profile" onclick="editProfile();">프로필 수정</button>
+				</div>
+				<div class="div-menu">
+					<ul>
+						<li><a onclick="goMyPlan();"> > 내 플랜보기 </a></li>
+						<li><a href="/et/views/normal/myPage/myPage_activity_history.jsp" class="this-page"> > 나의 활동내역 </a></li>
+						<li><a href="/et/views/normal/myPage/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
+						<li><a href="/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
+					</ul>
+				</div>
+			</div>
+			<br> 
+			<br clear="both">
+			<div class="container2">
+				<div class="cont2-flex">
+					<!-- 좌측 -->
+					<div class="con2-left">
+						<div class="con2-left-inner ">
+							<div align="center" class="news">
+								<b>My News</b>
 							</div>
-							<%if(QnAlist != null && QnAlist.get("my") != null) { %>
-							  <div class="column">
-							    <div class="ui raised segment">
-							      <a class="ui red ribbon label" id="redBlue-avel">제목</a>
-							      <span><%=QnAlist.get("my").getBtitle()%></span>
-							      <p></p>
-							      <a class="ui blue ribbon label" id="redBlue-avel">내용</a>
-							      <span><%=QnAlist.get("my").getbContent()%></span>
-							      <p></p>
-							    </div>
-							  </div>
-							  <%} %>
-						</div>
-					</div>	
-        				<!-- 스크랩 Q&A -->
-        				<div  class = "con2-qna">
-						<div class="scrapQnA-content" style='display:inline; float:left; width:500px; height: 100px;'>
-							<br>
-							<div class="QnA"><b style="font-size: 25px;">스크랩 Q&A</b>
-								<span id="plus2"><i class="chevron circle right icon"></i><a>더 보기</a></span>
-							</div>
-							<%if(QnAlist != null && QnAlist.get("you") != null) { %>
-							<div class="column" >
-								<div class="ui raised segment">
-									<a class="ui red ribbon label" id="redBlue-avel">제목</a>
-								    <span><%=QnAlist.get("you").getBtitle() %></span>
-								    <p></p>
-								    <a class="ui blue ribbon label" id="redBlue-avel">내용</a>
-								    <span><%=QnAlist.get("you").getbContent() %></span>
-								    <p></p>
+							<%
+							if (NewsList != null) {
+								System.out.println("왜 안나오냐고요 : " + NewsList.size());
+								for (int i = 0; i < NewsList.size(); i++) {
+							%>
+							<div class="ui relaxed divided list" id="news-content">
+								<div class="item">
+									<i class="big yellow bell icon"></i>
+									<div class="content">
+										<div class="description">
+											<b>'<%=NewsList.get(i).getName()%>'님이 회원님의 "<%=NewsList.get(i).getTitle()%>" 을(를) 
+												<%=NewsList.get(i).getType()%>하셨습니다.
+											</b>
+										</div>
+									</div>
 								</div>
 							</div>
-							<%} %>
+							<br>
+							<%
+								}
+							%>
+							<%
+								}
+							%>
 						</div>
-        				</div>
-        			</div>
-        			
-        		</div>
-        		
-        		</div>
+						<br> 
+						<br>
+					</div>
+					
+
+					<!-- 우측  -->
+					<div class="con2-right">
+						<!-- 나의 Q&A -->
+						<div class="con2-qna">
+							<div class="myQnA-content"
+								style='display: inline; float: left; width: 500px'>
+								<div class="QnA">
+									<b style="font-size: 25px;">나의 Q&A</b> <span id="plus1"><i class="chevron circle right icon"></i><a class="plus" onclick="myQnAPlus();">더 보기</a></span>
+								</div>
+								<%
+									if (QnAlist != null && QnAlist.get("my") != null) {
+								%>
+								<div class="column">
+									<div class="ui raised segment">
+										<a class="ui red ribbon label" id="redBlue-avel">제목</a> <span><%=QnAlist.get("my").getBtitle()%></span>
+										<p></p>
+										<a class="ui blue ribbon label" id="redBlue-avel">내용</a> <span><%=QnAlist.get("my").getbContent()%></span>
+										<p></p>
+									</div>
+								</div>
+								<%
+									}
+								%>
+							</div>
+						</div>
+						<!-- 스크랩 Q&A -->
+						<div class="con2-qna">
+							<div class="scrapQnA-content"
+								style='display: inline; float: left; width: 500px; height: 100px;'>
+								<br>
+								<div class="QnA">
+									<b style="font-size: 25px;">스크랩 Q&A</b> <span id="plus2"><i class="chevron circle right icon"></i><a class="plus" onclick="yourQnAPlus();">더 보기</a></span>
+								</div>
+								<%
+									if (QnAlist != null && QnAlist.get("you") != null) {
+								%>
+								<div class="column">
+									<div class="ui raised segment">
+										<a class="ui red ribbon label" id="redBlue-avel">제목</a> <span><%=QnAlist.get("you").getBtitle()%></span>
+										<p></p>
+										<a class="ui blue ribbon label" id="redBlue-avel">내용</a> <span><%=QnAlist.get("you").getbContent()%></span>
+										<p></p>
+									</div>
+								</div>
+								<%
+									}
+								%>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="two wide column"></div>
 	</div>
-	<div style="height: 50px;"></div>
-	<br><br>
-	
+	<br>
+	<br>
+	<br>
+	<br>
 	<script>
 	    function goMyPlan(){
 		    	var mno = <%=loginUser.getM_no()%>;
-		    	location.href = "<%=request.getContextPath()%>/selectPlanList.pl?mno="+mno;
-	    }
+		    	location.href = "<%=request.getContextPath()%>/selectPlanList.pl?mno="+ mno;
+		}
 		function editProfile() {
-			window.open("views/normal/myPage/myPage_profile_edit.jsp", "프로필 수정", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+			window.open("views/normal/myPage/myPage_profile_edit.jsp","프로필 수정","width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+		}
+		
+		function myQnAPlus(){
+			var mno = <%=loginUser.getM_no()%>;
+			location.href = "<%=request.getContextPath()%>/selectMyQnAList.bo?mno="+mno;
 		}
 	</script>
 
