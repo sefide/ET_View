@@ -3,7 +3,9 @@
 	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.Board, java.util.*, com.kh.et.member.model.vo.News"%>
 <% 
 	HashMap<String, Board> QnAlist = (HashMap<String, Board>)request.getAttribute("QnAlist"); 
-	ArrayList<News> NewsList = (ArrayList<News>)request.getAttribute("NewsList");
+	 ArrayList<News> NewsList = (ArrayList<News>)request.getAttribute("NewsList");
+	
+	/* ArrayList<HashMap<String,Object>> NewsList = (ArrayList<HashMap<String,Object>>)request.getAttribute("NewsList"); */
 %>	
 <!DOCTYPE html>
 <html>
@@ -222,7 +224,8 @@
 							<%
 							if (NewsList != null) {
 								System.out.println("왜 안나오냐고요 : " + NewsList.size());
-								for (int i = 0; i < NewsList.size(); i++) {
+								 for (int i = 0; i < NewsList.size(); i++) { 
+									/* for(HashMap<String,Object> hmap : NewsList){ */
 							%>
 							<div class="ui relaxed divided list" id="news-content">
 								<div class="item">
@@ -231,14 +234,20 @@
 										<div class="description">
 											<b>'<%=NewsList.get(i).getName()%>'님이 회원님의 "<%=NewsList.get(i).getTitle()%>" 을(를) 
 												<%=NewsList.get(i).getType()%>하셨습니다.
-											</b>
+											</b> 
+											<%-- <b>
+												'<%=hmap.get("m_name") %>'님이 회원님의
+												<%=hmap.get("b_title") %>을(를)
+												<%=hmap.get("bi_type") %>하셨습니다.
+											</b> --%>
 										</div>
 									</div>
 								</div>
 							</div>
 							<br>
 							<%
-								}
+									/* }  */
+								 } 
 							%>
 							<%
 								}
