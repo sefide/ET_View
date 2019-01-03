@@ -16,6 +16,7 @@ import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import com.kh.et.manager.model.vo.Manager;
 import com.kh.et.member.model.vo.Member;
+import com.kh.et.plan.model.vo.City;
 
 import static com.kh.et.common.JDBCTemplate.close;
 
@@ -841,7 +842,7 @@ public class ManagerDao {
 		return tourCount;
 	}
 
-	public ArrayList<HashMap<String, Object>> cityList(Connection con, int currentPage, int limit) {
+	public ArrayList<HashMap<String, Object>> cityList(Connection con) {
 		
 		PreparedStatement pstmt=null;
 		ArrayList<HashMap<String,Object>> list=null;
@@ -1119,6 +1120,51 @@ public class ManagerDao {
 		
 		
 		return list;
+	}
+
+	public ArrayList<City> cityList2(Connection con, int currentPage, int limit) {
+		
+		PreparedStatement pstmt= null;
+		ResultSet rset = null;
+		ArrayList<City> list2 = null;
+		
+		String query = prop.getProperty("cityList2");
+				
+		try {
+			pstmt =con.prepareStatement(query);
+			
+			
+			//현재페이지(목록)에서 시작하는 글번호
+			int startRow = (currentPage - 1) * limit + 1;
+			//현재페이지에서 마지막 글번호
+			int endRow = startRow + limit - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list2 = new ArrayList<City>();
+			
+			while(rset.next()) {
+				City city = new City();
+				
+				
+				city.setCtNo(rset.getInt("CT_NO"));
+				city.setCtName(rset.getString("CT_NAME"));
+				city.setCtCountry(rset.getString("CT_COUNTRY"));
+				city.setCtInfo(rset.getString("CT_INFO"));
+				list2.add(city);				
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list2;
 	}
 
 	

@@ -4,7 +4,7 @@
     
      <%ArrayList<HashMap<String,Object>> list=(ArrayList<HashMap<String,Object>>)request.getAttribute("list");
     PageInfo pi=(PageInfo)request.getAttribute("pi");
-    ArrayList<City> list1=(ArrayList<City>)request.getAttribute("list1");
+    ArrayList<City> list2=(ArrayList<City>)request.getAttribute("list2");
 
     int listCount=pi.getListCount();
     int currentPage = pi.getCurrentPage();
@@ -64,6 +64,11 @@ table{
  .num{
  	width:116px;
  }
+ #table1 {
+ 	width:1000px;
+ 	height:200px;
+ 	text-align:center
+ }
 </style>
 </head>
 <body>
@@ -97,7 +102,7 @@ table{
   
     	</table>
     	<br>
-    	<%-- <table>
+     <table id="table1">
     	<tr>
     	
     		<th></th>
@@ -107,7 +112,7 @@ table{
     		<th>상세설명</th>
 
     	</tr>
-    	<%for(City city:list1) {%>
+    	<%for(City city:list2) {%>
     	<tr>
     	<td class="num"><input type="checkbox" name="checkbox" class="chkCheckBox" value=<%=city.getCtNo()%>></td>
     	<td><%=city.getCtNo() %></td>
@@ -121,12 +126,12 @@ table{
     	
     	<br>
     	<div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/updateOne.mng?currentPage = 1'"> << </button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage = 1'"> << </button>
 			
 			<% if(currentPage <= 1){ %>
 			<button disabled> < </button>
 			<% }else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/updateOne.mng?currentPage=<%=currentPage - 1%>'"> < </button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage=<%=currentPage - 1%>'"> < </button>
 			<% } %>
 			
 			<% for(int p = startPage; p <= endPage; p++){ 
@@ -134,7 +139,7 @@ table{
 			%>
 					<button disabled><%= p %></button>
 			<%      }else{ %>
-					<button onclick="location.href='<%=request.getContextPath()%>updateOne.mng?currentPage=<%= p %>'"><%= p %></button>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage=<%= p %>'"><%= p %></button>
 			<%      } %>
 	
 			<% } %>
@@ -143,21 +148,16 @@ table{
 			<% if(currentPage >= maxPage){ %> <!-- 마지막 페이지일 경우 -->
 			<button disabled> > </button>
 			<% }else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/updateOne.mng?currentPage=<%=currentPage + 1%>'"> > </button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage=<%=currentPage + 1%>'"> > </button>
 			<% } %>
-			<button onclick="location.href='<%=request.getContextPath()%>/updateOne.mng?currentPage=<%=maxPage%>'"> >> </button> 
+			<button onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage=<%=maxPage%>'"> >> </button> 
 			
 		</div>
     	
     	<button style=float:right>삭제하기</button>
     	<button style=float:right;margin-right:30px; id="updateBtn">수정하기</button>
     
-    </div> --%>
-	
- <div class = "two wide column"></div> 
-		
-	<%@ include file = "/views/common/company/footer_com.jsp" %>
-
+ 
 	<script>
 	$(function(){
  		$("#updateBtn").click(function(){
@@ -172,6 +172,12 @@ table{
  	
  	
  	});
+	
 	</script>
+	  
+	 
+	 <div class = "two wide column"></div> 
+	   <%@ include file = "/views/common/company/footer_com.jsp" %>
+	 </div>
 </body>
 </html>
