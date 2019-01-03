@@ -499,6 +499,27 @@ public class PlanDao {
 		
 		return resultMap;
 	}
+
+	public int updatePlanPrivate(Connection con, int pmNo, int pFkpNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePlanPrivate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pFkpNo);
+			pstmt.setInt(2, pmNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 
 }

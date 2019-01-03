@@ -1,5 +1,15 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.et.point.model.vo.*"%>
+ <%
+	ArrayList<Point> list = (ArrayList<Point>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,11 +163,11 @@
     	width:100px;
     }
     .td-2{
-    	width:120px;
+    	width:140px;
     }
     .td-3{
     	text-align:right;
-    	width:184px;
+    	width:164px;
     }
    
 
@@ -202,41 +212,64 @@
         		<div class = "div-myPage-title"> 포인트 히스토리 </div>
         		<br><br>
         			<div> <!-- 포인트내역   -->
-        				<div class = "div-point-list">  
-        				<div id="pointArea">
+      				<div class = "div-point-list">  
+      				<div id="pointArea">
         <div id="point">
-        	<h1>1111€</h1>
+        	<h1><%=loginUser.getM_point() %><i class="euro sign icon"></i></h1>
         	<h3>보유포인트</h3>
         </div>
         <div id="pointHistory">
-        	<table>
-        		<thead>
-        			<tr>
-        				<th colspan="3"><h1>포인트 사용내역</h1></th>
-        			</tr>
-        		</thead>
-        		<tbody>
-        			<tr>
-        				<td class="td-1">5유로 획득</td>
-        				<td class="td-2">댓글 좋아요!</td>
-        				<td class="td-3">2018-12-16</td>
-        			
-        			</tr>
-        			<tr>
-        				<td class="td-1">10유로 획득</td>
-        				<td class="td-2">베스트 댓글!</td>
-        				<td class="td-3">2018-12-16</td>
-        			
-        			</tr>
-        			<tr>
-        				<td class="td-1">50유로 차감</td>
-        				<td class="td-2">플랜 공간 확장!</td>
-        				<td class="td-3">2018-12-16</td>
-        			
-        			</tr>
-        		</tbody>
+        	<table>       		
+       			<tr>
+       				<th colspan="3"><h1>포인트 사용내역</h1></th>
+       			</tr>
+       			<%for (Point p : list){ %>
+				<tr>
+				<%--<input type="hidden" value="<%= p.get()%>"> --%>
+					<%int point= p.getpValue();
+					if(point > 0){ %>
+					<td class="td-1"><%= p.getpValue() %> 획득!</td>
+					<%}else{ %>
+					<td class="td-1"><%=Math.abs(p.getpValue()) %> 차감!</td>v
+					<%} %>
+					<td class="td-2"><%= p.getpReason() %></td>
+					<td class="td-3"><%= p.getpDate() %></td>
+					
+				</tr>
+				<%} %>
         	</table>
+        	<br>
+        	<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/pointList.po?currentPage=1'"><<</button>
+			<%if(currentPage <= 1){%>
+			<button disabled><</button>
+			<% }else{%>
+			<button onclick="location.href='<%=request.getContextPath()%>/pointList.po?currentPage=<%=currentPage -1%>'"><</button>
+			<%} %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+					if(p == currentPage){
+			%>
+					<button disabled><%= p %></button>
+			<%		}else{ %>
+					<button onclick="location.href='<%= request.getContextPath()%>/pointList.po?currentPage=<%= p %>'"><%= p %></button>
+			<%		}%>
+				
+			<% } %>
+			
+			
+			<%if(currentPage >= maxPage){ %>
+			<button disable>></button>
+			<%}else{ %>
+			<button onclick="location.href='<%= request.getContextPath()%>/pointList.po?currentPage=<%=currentPage + 1%>'">></button>
+			<%} %>
+			
+			<button onclick="location.href='<%=request.getContextPath()%>/pointList.po?currentPage=<%=maxPage%>'">>></button>
+		</div>
+		
         </div>
+        
+ 
         </div>
         								
         			</div>

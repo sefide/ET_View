@@ -246,7 +246,7 @@
     					<ul>
     						<li><a onclick = "goMyPlan();" class = "this-page" href =  ""> > 내 플랜보기 </a> </li>
     						<li><a onclick="goMyActivity();"> > 나의 활동내역 </a></li>
-    						<li><a href = "/et/views/normal/myPage/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
+    						<li><a onclick = "goMyPointHistory();"> > 포인트 히스토리 </a></li>
     						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
     					</ul>
     				</div>
@@ -286,30 +286,56 @@
 	    }
 	    
 	    function addPlanMemory(){
-	    		alert("저장공간 늘리기");
+	    	var storage = <%=loginUser.getM_storage() %>;
+	    	var point =<%=loginUser.getM_point()%>;
+	    		if(storage<6){
+	    			if(point>50){
+	    				if(window.confirm("플랜 저장 공간을 추가하시겠습니까?(추가 시 포인트 50점!!!이 차감됩니다.)"))	{
+	    					var mno = <%=loginUser.getM_no()%>;
+	    		   	 		location.href = "<%=request.getContextPath()%>/updatePlanStorage.po?&mNo="+mno;
+	    				}else{
+	    					
+	    				}
+	    				
+	    			}else{
+	    				alert("포인트가 부족합니다!!!")
+	    			}
+	    		
+	    		}else{
+	    			alert("더이상 플랜 저장 공간을 추가할 수 없습니다!!!!(최대 공간 6개)")
+	    		}
 	    }
 	    
-	    function setPrivate(num) {
+	    function setPrivate(num,divBtn) {
 	    /* 	$(".div-plan-private").click() */
-	    /* var pri = document.getElementById('divPrivate').innerHTML(); */
+	     var pri = jQuery(divBtn).html().trim();
+	    console.log(pri);
 	    var point =<%=loginUser.getM_point()%>;
-	    <%-- var status = <%=planList.get(%>num<%).getpStatus();%> --%>
-	    if(point > 50){
-	    	/* if(status == 'Y'){ */
-		   	 	if(window.confirm("비공개로 설정하시겠습니까?(비공개시 포인트 50점!!!이 차감됩니다.)")){
-		   	 		var mno = <%=loginUser.getM_no()%>;
-		   	 		location.href = "<%=request.getContextPath()%>/planSetPrivate.po?pNo="+num+"&mNo="+mno;
-		   	 	}else{
+	     <%-- var status = <%=planList.get(%>num<%).getpStatus();%>  --%>
+	 if(pri == "공개"){  
+	    if(point > 100){
+	    	if(window.confirm("비공개로 설정하시겠습니까?(비공개시 포인트 100점!!!이 차감됩니다.)")){
+	   	 		var mno = <%=loginUser.getM_no()%>;
+	   	 		location.href = "<%=request.getContextPath()%>/planSetPrivate.po?pNo="+num+"&mNo="+mno;
+		   	 }else{
 		   	 		
-		   	 	}
-	    	/* }else{
-	    		alert("공개로 전환하시겠습니까?");
-	    	} */
+		   	 }
 	    }else{
-	    	alert("포인트가 부족합니다!!")
-	    }
-	    }
-	    
+   		 	alert("포인트가 부족합니다!!")
+	   	}
+ 	}else{
+ 		if(window.confirm("공개로 전환하시겠습니까?")){
+			var mno = <%=loginUser.getM_no()%>;
+		location.href = "<%=request.getContextPath()%>/UpdateSetPrivate.pl?pNo="+num+"&mNo="+mno;
+		}else{
+			
+		}
+ 	}
+}
+		function goMyPointHistory() {
+			var mno = <%=loginUser.getM_no()%>;
+	    	location.href = "<%=request.getContextPath()%>/pointList.po";
+		}
 	    function goMyPlan(){
 		    	var mno = <%=loginUser.getM_no()%>;
 		    	location.href = "<%=request.getContextPath()%>/selectPlanList.pl?mno="+mno;
@@ -339,14 +365,14 @@
 	    		<%for(int i = 0; i <  planList.size(); i++){%>
 	        		// 새로운 도시 div 추가 
 	        		var mapContent = "<div class ='planBox map"+<%=i%>+"'><div id = 'planMap"+<%=i%>+"' class ='planMap' readonly></div>";
-	        		var mapInfoContent = "<div class = 'div-plan-title' onclick = 'goPlanDetail("+<%=planList.get(i).getpNo()%>+");'><%= planList.get(i).getpTitle() %> </div><div class = 'div-plan-private' onclick = 'setPrivate(<%=planList.get(i).getpNo()%>);'> <%if(planList.get(i).getpPrivate().equals("Y")) {%>공개<%}else {%>비공개<%}%></div><div class = 'div-plan-cities'><%=planList.get(i).getpCites()%> </div></div>";
+	        		var mapInfoContent = "<div class = 'div-plan-title' onclick = 'goPlanDetail("+<%=planList.get(i).getpNo()%>+");'><%= planList.get(i).getpTitle() %> </div><div class = 'div-plan-private' onclick = 'setPrivate(<%=planList.get(i).getpNo()%>,this);'> <%if(planList.get(i).getpPrivate().equals("Y")){%>공개<%}else{%>비공개<%}%></div><div class = 'div-plan-cities'><%=planList.get(i).getpCites()%> </div></div>";
 	        		var content = mapContent + mapInfoContent;
 				 $("#plan-list-inner").prepend(content);
 				
 	    		<%}%>
 	    		
 	    		// 플랜 별 도시 위도 경도를 찍는다. 
-	    		<%
+	    		<% 
 	    		String[] planCityArr = null;
 	    		for (int i = 0; i < planList.size(); i++){
 	    			planCityArr =  (planList.get(i).getpCites()).split(", "); // 이건 String

@@ -238,7 +238,7 @@
 							<td class="attr1">제목</td>
 							<td colspan="5">
 								<div class="field">
-									<input type="text" class="ui input" size="80" name="title">
+									<input type="text" class="ui input" size="80" name="title" placeholder="20자내로 입력해주세요!">
 								</div>
 							</td>
 						</tr>
@@ -350,7 +350,7 @@
 							<td class="attr1">설명</td>
 							<td colspan="5">
 							    <div class="field">
-								    <textarea name = "tourContent" placeholder = "투어에 대해 설명해주세요. "></textarea>
+								    <textarea name = "tourContent" placeholder = "투어에 200자내로 대해 설명해주세요. "></textarea>
 							    </div>
 							</td>
 						
