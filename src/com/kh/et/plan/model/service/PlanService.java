@@ -94,8 +94,16 @@ public class PlanService {
 		Connection con = getConnection();
 		
 		HashMap<String, Object> resultMap = new PlanDao().selectPlanDetail(con, planNo);
-		
-		if(resultMap != null) commit(con);
+		int like = 0;
+		int scrap = 0;
+		if(resultMap != null) {
+			Plan plan = (Plan) resultMap.get("plan");
+			like = new PlanDao().getLikeNum(con, plan.getpNo());
+			scrap = new PlanDao().getScrapNum(con, plan.getpNo());
+			resultMap.put("like", like);
+			resultMap.put("scrap", scrap);
+			commit(con);
+		}
 		else rollback(con);
 		
 		commit(con);

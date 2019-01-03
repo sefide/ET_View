@@ -525,7 +525,7 @@
 	        if(topBoard != null){%>
              <div class="ui mt-20"> 
                 <div class="ui huge header">인기 Q&A </div>
-                 <div class = "more-div" onclick = "location.href ='/et/views/normal/board/memberBoard.jsp'">
+                 <div class = "more-div" onclick = "location.href ='/et/selectList.bo'">
 	                <i class="chevron circle right icon" id = "more-icon"></i>
 	                <font id ="more-txt">더보기 </font>
                 </div>

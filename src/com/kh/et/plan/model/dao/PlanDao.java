@@ -499,6 +499,65 @@ public class PlanDao {
 		
 		return resultMap;
 	}
+
+	// 해당 플랜 좋아요 개수 
+	public int getLikeNum(Connection con, int pno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		 
+		String query = prop.getProperty("getLikeNum");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pno);
+			pstmt.setString(2, "좋아요");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("CNT");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return result;
+	}
+
+	public int getScrapNum(Connection con, int pno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		 
+		String query = prop.getProperty("getScrapNum");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pno);
+			pstmt.setString(2, "스크랩");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("CNT");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return result;
+	}
 	
 
 }

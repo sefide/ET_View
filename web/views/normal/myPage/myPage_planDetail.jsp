@@ -29,6 +29,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
 	
 	<!-- googleMap -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
 	
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">
@@ -84,17 +85,13 @@
         visibility : hidden;
     }
     .plan-infoBox{
-    		margin : auto;
-    		border : 1px solid gray;
-    		width : 95%;
-    		height : 90%;
-    		border-radius : 7px;
-    		padding : 3%;
+    		margin-top : 1%;
+    		padding : 1%;
     }
     .txt{
-    		font-size : 18px;
+    		font-size : 16px;
     		font-family: 'Nanum Gothic', sans-serif;
-    		color : gray;
+    		color : black;
     }
     
     #selectSetting{
@@ -126,6 +123,10 @@
 	border-color: #fff #fff #f0f0f0 !important; /* inner border */
 	background: black !important;
 	}
+	
+	.div-plan-info{
+		margin-top : 1%;
+	}
     
 </style>
 
@@ -144,32 +145,44 @@
 	        		<div class ="div-plan-top">
 	        			<div class = "" id= "plan-title"><%=plan.getpTitle() %> </div> 
 	        			<div class = "" id = "plan-btns">
-	        				<i class="info icon" id = "seeInfo" >
+	        				<i class="cog icon" id = "setting" >
 	        				<div id ="selectSetting">
 	        					<button class = "settingBtn" id = "Update"> 수정하기 </button>
 	        					<button class = "settingBtn" id = "Delete"> 삭제하기 </button>
 	        				</div>
 	        				</i>
-	        				<i class="cog icon" id = "setting" ></i>
 	        			</div>
-	        			<div class ="div-absolute" >
-			        <div class ="plan-infoBox">
-				        	<div class = "txt"> 첫 작성날짜 : <%=plan.getpDate().toString() %></div>
-				        	<div class = "txt"> 공개/비공개 : <% if(plan.getpPrivate().equals("Y")) { %> 공개 <%} else { %> 비공개 <%} %></div>
-				        	<div class = "txt"> 여행도시 개수 : <%=plan.getpCites().split(", ").length %>개 도시 </div>
-				    </div>
-			        </div>
 	        		</div>
 	        		<div id = "map-canvas"></div>
 	        	</div>
 	        	 
 	        <div class = "div-right"> 
-		        <div class = "calendar" style="margin-top:50px;">
+		        <div class = "calendar" style="margin-top:30px;">
 		        		<%-- <%@ include file = "/views/normal/plan/calendar_plan.jsp" %> --%>
 		        		<div id='calendar'></div>
 		        </div>
+		        <div class ="plan-infoBox">
+			        	<div class = "txt"> 첫 작성날짜 : <%=plan.getpDate().toString() %></div>
+			        	<div class = "txt"> 공개/비공개 : <% if(plan.getpPrivate().equals("Y")) { %> 공개 <%} else { %> 비공개 <%} %></div>
+			        	<div class = "txt"> 여행도시 개수 : <%=plan.getpCites().split(", ").length %>개 도시 </div>
+			    </div>
 		        <div class = "div-plan-info">
-		        		<div>좋아요, 스크랩개수 </div>
+		        		<div class="ui labeled button" tabindex="0">
+					  <div class="ui red button">
+					    <i class="heart icon"></i> Like
+					  </div>
+					  <a class="ui basic red left pointing label">
+					    <%= planMap.get("like") %>
+					  </a>
+					</div>
+					<div class="ui labeled button" tabindex="0">
+					  <div class="ui basic blue button">
+					    <i class="fork icon"></i> Scrap
+					  </div>
+					  <a class="ui basic left pointing blue label">
+					    <%= planMap.get("scrap") %>
+					  </a>
+					</div>
 		        </div>
 	        </div>
         </div>
@@ -273,14 +286,10 @@
    	<!-- 달력 -->
    	<link rel='stylesheet' type='text/css' href="/et/views/css/theme.css" />
    	
-	<link rel='stylesheet' type='text/css'
-	href='http://www.blueb.co.kr/data/201010/IJ12872423858253/fullcalendar.css' />
-	<script type='text/javascript'
-		src='http://www.blueb.co.kr/data/201010/IJ12872423858253/jquery.js'></script>
-	<script type='text/javascript'
-		src='http://www.blueb.co.kr/data/201010/IJ12872423858253/jquery-ui-custom.js'></script>
-	<script type='text/javascript'
-		src='http://www.blueb.co.kr/data/201010/IJ12872423858253/fullcalendar.min.js'></script>
+	<link rel='stylesheet' type='text/css' href='/et/views/css/fullcalendar.css' />
+	<script type='text/javascript' src='/et/views/js/jquery.js'></script>
+	<script type='text/javascript' src='/et/views/js/jquery-ui-custom.js'></script>
+	<script type='text/javascript' src='/et/views/js/fullcalendar.min.js'></script>
 	<script>
 	var jb = jQuery.noConflict();
 	
