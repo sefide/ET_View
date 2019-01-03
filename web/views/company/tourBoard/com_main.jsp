@@ -286,6 +286,19 @@
 			location.href = "/et/views/company/tourBoard/com_EditBoard.jsp";
 		}
 		
+		
+		
+	<%-- 	$(function(){
+			$("#div-my-tour").click(function(){
+				var num=$(this).attr("id");
+				
+				console.log(num);
+				location.href="<%=request.getContextPath()%>/edit.no?num="+num;
+			});
+		}); --%>
+		
+		
+		
 		<%-- function test(){
 			jb.ajax({
 				url:"<%=request.getContextPath()%>/AjaxselectList.tbo",

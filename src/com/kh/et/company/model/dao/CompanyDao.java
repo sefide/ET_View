@@ -125,7 +125,7 @@ public class CompanyDao {
 			
 			while(rset.next()) {
 				Company c = new Company();
-				c.setC_no(rset.getInt("RNUM"));
+				c.setC_no(rset.getInt("c_no"));
 				c.setC_name(rset.getString("c_name"));
 				c.setC_biss_num(rset.getString("c_biss_num"));
 				c.setC_phone(rset.getString("c_phone"));
@@ -209,6 +209,7 @@ public class CompanyDao {
 		Company c=null;
 		
 		String query=prop.getProperty("selectOne");
+		System.out.println("selectOne dao");
 		
 		try {
 			pstmt=con.prepareStatement(query);
@@ -244,10 +245,11 @@ public class CompanyDao {
 
 	public Company deleteCompany(Connection con, String item) {
 		PreparedStatement pstmt=null;
-	
+		
 		ResultSet rset=null;
 		Company c=null;
 		String query1=prop.getProperty("deleteCompany");
+		System.out.println(query1);
 		try {
 			pstmt=con.prepareStatement(query1);
 			pstmt.setInt(1,Integer.parseInt(item));
