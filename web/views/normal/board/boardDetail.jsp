@@ -74,7 +74,7 @@
 			<!-- 내용 넣기 -->
 			
 			
-  			<h1 class="ui header">
+  			<h1 class="ui header"><br>
 				게시글 상세보기
 			</h1>
 			<div class="ui segment">
