@@ -11,20 +11,48 @@ import java.util.HashMap;
 
 import com.kh.et.board.model.dao.BoardDao;
 import com.kh.et.board.model.vo.Board;
+import com.kh.et.member.model.dao.MemberDao;
+import com.kh.et.member.model.vo.Member;
 import com.kh.et.member.model.vo.News;
 import com.kh.et.plan.model.dao.PlanDao;
 import com.kh.et.plan.model.vo.Plan;
+import com.kh.et.point.model.dao.PointDao;
+import com.kh.et.point.model.service.PointService;
+import com.kh.et.tourBoard.model.dao.TourBoardDao;
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 
 public class BoardService {
 
-	//글 작성
-	public int insertBoard(Board b) {
+	//글 작성 //포인트 부분 Member m매개변수 추가
+	//리턴도 Member로 리턴하도록 변환
+	public Member insertBoard(Board b, Member m) {
 		Connection con = getConnection();
+		//포인트 부분  작성
+		int result =0;
+		//result = result1로변경(변수나 Dao에서 건드리지 않음)
+		int result1 = new BoardDao().insertBoard(con, b);
 		
-		int result = new BoardDao().insertBoard(con, b);
+		//글번호를 가져오기위해 커발추가
+		if(result1>0) {
+			int tno  = new BoardDao().selectCurrval(con);
+			b.setbNo(tno);
+		}
 		
+		//포인트 테이블 삽입을 위해 실행 dao는 PointDao에 배치
+		int result2 = new PointDao().insertPointBoard(con,m,b);
+		
+		//멤버의 포인트값을 업데이트하기 위해 실행(dao는 PointDao에 배치)
+		int result3 = new PointDao().BoardMemberPointUpdate(con,m);
+		
+		/*if(result1>0 && result2>0 && result3>0 ) {
+			result=1;
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		//아래 if문이 기존의 if문
 		if(result > 0) {
 			commit(con);
 		}else {
@@ -32,7 +60,26 @@ public class BoardService {
 		}
 		
 		close(con);
-		return result;
+		return result;*/
+		
+		//아래는 세션 request를 위해 실행함. 이것을 실행하지 않으면 로그아웃 후에 마이페이지 포인트값이 바뀌기 때문에 꼭 필요.
+		Member loginUser = null;
+		if(result1>0 && result2>0 && result3>0) {
+			loginUser = new MemberDao().selectLoginUser(con, m);
+			if(loginUser != null) {
+				Member profile = new MemberDao().profileChcek(con, m);
+				if(profile != null) {
+					loginUser.setA_change_Name("/et/profileUpload/"+profile.getA_change_Name());
+				} else {
+					loginUser.setA_change_Name("/et/image/common/logo_c.png");
+				}
+			}
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return loginUser;
 	}
 	
 	//전체 게시글 조회

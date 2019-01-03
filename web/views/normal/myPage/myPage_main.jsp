@@ -24,8 +24,6 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	
 	<!-- googleMap -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
- 	
  	
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">
@@ -298,7 +296,7 @@
 	    				}
 	    				
 	    			}else{
-	    				alert("포인트가 부족합니다!!!")
+	    				alert("포인트가 부족합니다!!!(플랜저장공간추가:50point필요!!)")
 	    			}
 	    		
 	    		}else{
@@ -308,30 +306,29 @@
 	    
 	    function setPrivate(num,divBtn) {
 	    /* 	$(".div-plan-private").click() */
-	     var pri = jQuery(divBtn).html().trim();
-	    console.log(pri);
+	     var pri = jQuery(divBtn).html().trim(); 
 	    var point =<%=loginUser.getM_point()%>;
 	     <%-- var status = <%=planList.get(%>num<%).getpStatus();%>  --%>
-	 if(pri == "공개"){  
-	    if(point > 100){
-	    	if(window.confirm("비공개로 설정하시겠습니까?(비공개시 포인트 100점!!!이 차감됩니다.)")){
-	   	 		var mno = <%=loginUser.getM_no()%>;
-	   	 		location.href = "<%=request.getContextPath()%>/planSetPrivate.po?pNo="+num+"&mNo="+mno;
-		   	 }else{
-		   	 		
-		   	 }
-	    }else{
-   		 	alert("포인트가 부족합니다!!")
-	   	}
- 	}else{
- 		if(window.confirm("공개로 전환하시겠습니까?")){
-			var mno = <%=loginUser.getM_no()%>;
-		location.href = "<%=request.getContextPath()%>/UpdateSetPrivate.pl?pNo="+num+"&mNo="+mno;
-		}else{
-			
-		}
- 	}
-}
+			 if(pri == "공개"){  
+			    if(point > 100){
+			    	if(window.confirm("비공개로 설정하시겠습니까?(비공개시 포인트 100점!!!이 차감됩니다.)")){
+			   	 		var mno = <%=loginUser.getM_no()%>;
+			   	 		location.href = "<%=request.getContextPath()%>/planSetPrivate.po?pNo="+num+"&mNo="+mno;
+				   	 }else{
+				   	 		
+				   	 }
+			    }else{
+		   		 	alert("포인트가 부족합니다!!(플랜비공개:100point필요!)");
+			   	}
+		 	}else{
+		 		if(window.confirm("공개로 전환하시겠습니까?")){
+					var mno = <%=loginUser.getM_no()%>;
+				location.href = "<%=request.getContextPath()%>/UpdateSetPrivate.pl?pNo="+num+"&mNo="+mno;
+				}else{
+					
+				}
+		 	}
+	}
 		function goMyPointHistory() {
 			var mno = <%=loginUser.getM_no()%>;
 	    	location.href = "<%=request.getContextPath()%>/pointList.po";

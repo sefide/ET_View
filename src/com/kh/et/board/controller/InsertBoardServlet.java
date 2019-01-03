@@ -32,8 +32,9 @@ public class InsertBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		
-		
+		//포인트 작성 부분
+		Member m = new Member();
+		//포인트 작성 부분입니다.
 		String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getM_no());
 		
 		System.out.println(title);
@@ -41,15 +42,18 @@ public class InsertBoardServlet extends HttpServlet {
 		System.out.println(writer);
 		
 		Board b = new Board();
-		
+		m.setM_no(Integer.parseInt(writer));
 		b.setBtitle(title);
 		b.setbContent(content);
 		b.setbWriter(writer);
 		
-		int result = new BoardService().insertBoard(b);
-		
+		//포인트 작성 부분 m 추가 헀습니다. int 형을 Member형으로 바꿈.
+		Member result = new BoardService().insertBoard(b,m);
+		//포인트 작성 부분 입니다.
 		String page = "";
-		if(result > 0) {
+		//result 조건 변경, 세션 추가
+		if(result != null) {
+			request.getSession().setAttribute("loginUser", result);
 			response.sendRedirect(request.getContextPath() + "/selectList.bo");
 		}else {
 			request.setAttribute("msg", "게시판 작성 실패");

@@ -206,7 +206,7 @@
 					<ul>
 						<li><a onclick="goMyPlan();"> > 내 플랜보기 </a></li>
 						<li><a href="/et/views/normal/myPage/myPage_activity_history.jsp" class="this-page"> > 나의 활동내역 </a></li>
-						<li><a href="/et/views/normal/myPage/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
+						<li><a href="<%=request.getContextPath()%>/pointList.po" > > 포인트 히스토리 </a></li>
 						<li><a href="/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
 					</ul>
 				</div>

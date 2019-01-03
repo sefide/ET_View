@@ -1,6 +1,7 @@
 package com.kh.et.point.model.service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 import com.kh.et.member.model.dao.MemberDao;
@@ -99,6 +100,8 @@ public class PointService {
 		
 		return listCount;
 	}
+	
+	
 
 
 }

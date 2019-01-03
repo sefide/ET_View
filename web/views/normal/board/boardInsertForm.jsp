@@ -79,7 +79,8 @@
 							</div>
 							<div class="ui list" style="text-align: right;">
 								<button class="ui right yellow button" type="reset">취소하기</button>
-								<button class="ui right yellow button" type="submit">등록하기</button>
+								 <button class="ui right yellow button" type="submit">등록하기</button>
+
 							</div>
 						</div>
 						</form>
@@ -102,5 +103,6 @@
    	
    	<!-- footer -->
 	<%@ include file= "/views/common/normal/footer.jsp" %>
+
 </body>
 </html>

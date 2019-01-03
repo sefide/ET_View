@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.et.board.model.vo.Board;
 import com.kh.et.member.model.vo.Member;
 import com.kh.et.point.model.vo.Point;
 import com.kh.et.tourBoard.model.dao.TourBoardDao;
@@ -206,6 +207,51 @@ public class PointDao {
 		}
 
 		return listCount;
+	}
+	//게시글 작성 부분
+	public int insertPointBoard(Connection con, Member m, Board b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertPointBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,m.getM_no());
+			pstmt.setString(2, "QnA쓰기");
+			pstmt.setInt(3, b.getbNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int BoardMemberPointUpdate(Connection con, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("BoardMemberPointUpdate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, m.getM_no());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
 	}
 
 

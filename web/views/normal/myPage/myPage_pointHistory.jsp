@@ -160,14 +160,14 @@
     }
     
     .td-1{
-    	width:100px;
+    	width:120px;
     }
     .td-2{
     	width:140px;
     }
     .td-3{
     	text-align:right;
-    	width:164px;
+    	width:144px;
     }
    
 
@@ -199,7 +199,7 @@
     					<ul>
     						<li><a onclick = "goMyPlan();" > > 내 플랜보기 </a> </li>
     						<li><a href = "/et/views/normal/myPage/myPage_activity_history.jsp"> > 나의 활동내역 </a></li>
-    						<li><a href = "/et/views/normal/myPage/myPage_pointHistory.jsp"  class = "this-page"> > 포인트 히스토리 </a></li>
+    						<li><a href = "<%=request.getContextPath()%>/pointList.po"  class = "this-page"> > 포인트 히스토리 </a></li>
     						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
     					</ul>
     				</div>
@@ -225,12 +225,11 @@
        			</tr>
        			<%for (Point p : list){ %>
 				<tr>
-				<%--<input type="hidden" value="<%= p.get()%>"> --%>
 					<%int point= p.getpValue();
 					if(point > 0){ %>
-					<td class="td-1"><%= p.getpValue() %> 획득!</td>
+					<td class="td-1"><%= p.getpValue() %>point 획득!</td>
 					<%}else{ %>
-					<td class="td-1"><%=Math.abs(p.getpValue()) %> 차감!</td>v
+					<td class="td-1"><%=Math.abs(p.getpValue()) %>point 차감!</td>
 					<%} %>
 					<td class="td-2"><%= p.getpReason() %></td>
 					<td class="td-3"><%= p.getpDate() %></td>
