@@ -97,7 +97,7 @@
     			</tr>
     			<% for(Member m : outList){ %>
 	    		<tr height="27px">
-	    			<td><input type="checkbox"></td>
+	    			<td><input id = "check" type="checkbox" value=<%= m.getM_no() %>></td>
 	    			<td><%= m.getM_no() %></td>
 	    			<td><%= m.getM_id() %></td>
 	    			<td><%= m.getM_email() %></td>
@@ -137,11 +137,49 @@
 		</div>
 		
     		<div class="btn">
-    			<button>회원 복구</button>
+    			<button id="restore">회원 복구</button>
     		</div>
     		
     	</div>
     	</div>
+    	
+    	 <script>
+			$(function(){
+	    		var arr=new Array;
+				
+				//회원탈퇴
+				$("#restore").click(function(){
+					var restoreArr = new Array;
+					//체크박스중 선택된값 있으면 배열에 담기
+					$("#check:checked").each(function(){
+						restoreArr.push($(this).val());	
+					});
+					
+					var arr1=new Array;
+					arr1 = restoreArr;
+					
+					$.ajax({
+						url:"outRestore.mng",
+						type:"GET",
+						data:{arr1:arr1},
+						success:function(data){
+							if(data=="성공"){
+								console.log("성공");
+								alert("탈퇴회원이 복구되었습니다.");
+								window.location.reload();
+							}
+						},
+						error:function(data){
+							if(data=="실패"){
+								console.log("실패");
+								alert("탈퇴회원 복구처리 실패ㅠㅜ");
+							}
+						}
+					});
+				});
+				
+			});	
+    	</script>
 	
 	<div class = "two wide column"></div>
 	

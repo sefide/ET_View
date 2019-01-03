@@ -171,6 +171,7 @@
 							if(data=="성공"){
 								console.log("성공");
 								alert("정지취소 되었습니다.");
+								window.location.reload();
 							}
 						},
 						error:function(data){
