@@ -1042,5 +1042,50 @@ public class ManagerDao {
 		return result;
 	}
 
+	//member테이블 상태update
+	public int outRestoreMember_M(Connection con, int i) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("outRestoreMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, i);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	//플랜삭제
+	public int planDelete(Connection con, int i) {
+		
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("planDelete");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, i);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("실행결과 : "+result);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+
 	
 }

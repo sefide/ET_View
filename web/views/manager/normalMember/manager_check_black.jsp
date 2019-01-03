@@ -251,7 +251,7 @@
 	    	<div>
 	    		신고 5개 - 10일 정지 <br>
 	    		신고 10개 - 3주 정지 <br>
-	    		신고 20개 - 강제탈퇴 <br>
+	    		신고 20개 - 강제탈퇴 (>>회원 탈퇴시키기에서 가능)<br>
 	    	</div>
 	 </div>
 	 
@@ -272,16 +272,7 @@
 	    		 var arr=new Array;
 				//회원정지
 				$("#stopBtn").click(function(){
-					//선택된값 담기
-					/* $("#check:checked").each(function(){
-							arr.push($(this).val());	
-					});
-					
-					var arr1=new Array;
-					arr1 = arr;  */
-					
 					var index = $("#check:checked").val();
-					console.log(index);
 					var day = prompt("정지기간을 입력해주세요 ");
 					
 					$.ajax({
@@ -291,6 +282,7 @@
 						success:function(data){
 							if(data=="성공"){
 								alert("정지처리 성공!");
+								window.location.reload();
 							}
 						},
 						error:function(data){

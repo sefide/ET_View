@@ -74,6 +74,7 @@ table{
     	- 여행플랜 <br><br>
     	<table id="tb1">
     		<tr>
+    			<th>플랜관리</th>
     			<th>번호</th>
     			<th>제목</th>
     			<th>작성자</th>
@@ -84,6 +85,7 @@ table{
     		HashMap<String,Object>hmap=list.get(i);
     		%>
     		<tr>
+    			<td><input id = "check" type="checkbox" value=<%= hmap.get("pNo") %>></td>
     			<td><%=hmap.get("pNo") %></td>
     			<td><%=hmap.get("pTitle") %></td>
     			<td><%=hmap.get("m_name") %></td>
@@ -95,6 +97,7 @@ table{
     		
     	</table>
     	
+    	<br>
     	<div class="pagingArea" align="center">
 			<button onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage = 1'"> << </button>
 			
@@ -121,14 +124,56 @@ table{
 			<button onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%=currentPage + 1%>'"> > </button>
 			<% } %>
 			<button onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%=maxPage%>'"> >> </button> 
-			
 		</div>
+		
+		<div class="btn">
+    			<button id="planDelete">플랜 삭제</button>
+    	</div>
+		
+   
+    
+     <script>
+			$(function(){
+	    		var arr=new Array;
+				
+				//회원탈퇴
+				$("#planDelete").click(function(){
+					var restoreArr = new Array;
+					//체크박스중 선택된값 있으면 배열에 담기
+					$("#check:checked").each(function(){
+						restoreArr.push($(this).val());	
+					});
+					
+					var arr1=new Array;
+					arr1 = restoreArr;
+					
+					$.ajax({
+						url:"planDelete.mng",
+						type:"GET",
+						data:{arr1:arr1},
+						success:function(data){
+							if(data=="성공"){
+								console.log("성공");
+								alert("플랜이 삭제되었습니다.");
+								window.location.reload();
+							}
+						},
+						error:function(data){
+							if(data=="실패"){
+								console.log("실패");
+								alert("플랜삭제 실패ㅠㅜ");
+							}
+						}
+					});
+				});
+				
+			});	
+    	</script>
     	
-    	
-    </div>
+    	 </div>
 	
  <div class = "two wide column"></div> 
 		
-	<%@ include file = "/views/common/company/footer_com.jsp" %>
+<%@ include file = "/views/common/company/footer_com.jsp" %>
 </body>
 </html>

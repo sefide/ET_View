@@ -149,9 +149,7 @@
 	    <br><br>
 	    <b>-회원 탈퇴 기준</b><br>
 	    	<div>
-	    		신고 5개 - 10일 정지 <br>
-	    		신고 10개 - 3주 정지 <br>
-	    		신고 20개 - 강제탈퇴 <br>
+	    		신고 20개 이상 - 강제탈퇴 <br>
 	    	</div>
 	 </div>
 	 
@@ -182,6 +180,7 @@
 							if(data=="성공"){
 								console.log("성공");
 								alert("탈퇴처리 되었습니다.");
+								window.location.reload();
 							}
 						},
 						error:function(data){

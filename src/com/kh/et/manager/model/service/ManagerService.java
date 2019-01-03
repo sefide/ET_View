@@ -399,11 +399,9 @@ public class ManagerService {
 		for(int i=0;i<arr2.length;i++) {
 			//MEMBER테이블 상태 update
 			result[i] = new ManagerDao().stopCancel(con, arr2[i]);
-			System.out.println("result["+i+"] :"+result[i]);
 			
 			//STOPLIST테이블에서 delete
 			result2[i] = new ManagerDao().stopCancel2(con,arr2[i]);
-			System.out.println("result2["+i+"] :"+result2[i]);
 			
 			if(result[i]==0 || result2[i]==0) {
 				System.out.println("정지취소처리 실패");
@@ -422,6 +420,69 @@ public class ManagerService {
 			rollback(con);
 		}
 		close(con);
+		
+		return res;
+	}
+
+	//회원복구 - member테이블 상태update, stoplist테이블 탈퇴날짜 update
+	public int outRestoreMember(int[] arr2) {
+		Connection con = getConnection();
+		
+		int result1 = 0;
+		int sum1=0;
+		int res=0;
+		
+		for(int i=0;i<arr2.length;i++) {
+			result1 = new ManagerDao().outRestoreMember_M(con,arr2[i]);
+			
+			if(result1==0) {
+				System.out.println("정지취소처리 실패");
+			}
+			else {
+				sum1+=result1;
+			}
+		}
+		if(sum1/arr2.length==1) {
+			res = 1;
+			commit(con);
+		}else {
+			res=0;
+			rollback(con);
+		}
+		close(con);
+		
+		
+		return res;
+	}
+
+	//플랜삭제
+	public int planDelete(int[] arr2) {
+		Connection con = getConnection();
+		
+		int[] result1 = new int[arr2.length];
+		int sum1=0;
+		int res=0;
+		
+		for(int i=0;i<arr2.length;i++) {
+			result1[i] = new ManagerDao().planDelete(con,arr2[i]);
+			
+			if(result1[i]==0) {
+				System.out.println("정지취소처리 실패");
+			}
+			else {
+				sum1+=result1[i];
+			}
+		}
+		
+		if(sum1/arr2.length==1) {
+			res = 1;
+			commit(con);
+		}else {
+			res=0;
+			rollback(con);
+		}
+		close(con);
+		
 		
 		return res;
 	}
