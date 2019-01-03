@@ -37,6 +37,10 @@
 			top: 9%;
 		}
 		
+		.nav-link:hover{
+			cursor : pointer;
+		}
+		
         .column{
             height: 100%;
         }

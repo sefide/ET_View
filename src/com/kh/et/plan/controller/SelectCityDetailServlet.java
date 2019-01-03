@@ -60,7 +60,7 @@ public class SelectCityDetailServlet extends HttpServlet {
 			obj = new JSONObject();
 			obj.put("tno", ((TourBoard)tourList.get(i).get("t")).getTno());
 			obj.put("title", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).gettTitle(),"UTF-8"));
-			obj.put("ctno", ((TourBoard)tourList.get(i).get("t")).getTctno());
+			obj.put("ctno", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).gettTitle(),"UTF-8"));
 			obj.put("ctname", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).getTctName(),"UTF-8"));
 			obj.put("concept", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).gettConcept(),"UTF-8"));
 			obj.put("price", ((TourBoard)tourList.get(i).get("t")).gettPrice());
