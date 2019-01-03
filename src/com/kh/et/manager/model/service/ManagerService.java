@@ -426,4 +426,18 @@ public class ManagerService {
 		return res;
 	}
 
+	public ArrayList<HashMap<String, Object>> updateOne(String[] testChk) {
+		Connection con=getConnection();
+		ArrayList<HashMap<String,Object>> list= null;
+		for(String item : testChk) {
+			System.out.println("service"+item);
+			list=new ManagerDao().updateOne(con,item);
+	
+		}		
+		close(con);
+		return list;
+	}
+
+
+
 }
