@@ -14,12 +14,17 @@ public class Company implements java.io.Serializable{
 	private String c_biss_address;
 	private Date c_date;
 	private Date c_end_date;
-	private String c_status;
+	private String c_status; 
+	private int cPremium;
+	private int cStandard;
 	
 	public Company() {}
 
+	
+
 	public Company(int c_no, String c_name, String c_biss_num, String c_id, String c_pwd, String c_phone,
-			String c_email, String c_category, String c_biss_address, Date c_date, Date c_end_date, String c_status) {
+			String c_email, String c_category, String c_biss_address, Date c_date, Date c_end_date, String c_status,
+			int cPremium, int cStandard) {
 		super();
 		this.c_no = c_no;
 		this.c_name = c_name;
@@ -33,7 +38,11 @@ public class Company implements java.io.Serializable{
 		this.c_date = c_date;
 		this.c_end_date = c_end_date;
 		this.c_status = c_status;
+		this.cPremium = cPremium;
+		this.cStandard = cStandard;
 	}
+
+
 
 	public int getC_no() {
 		return c_no;
@@ -131,13 +140,40 @@ public class Company implements java.io.Serializable{
 		this.c_status = c_status;
 	}
 
+	public int getcPremium() {
+		return cPremium;
+	}
+
+
+
+	public void setcPremium(int cPremium) {
+		this.cPremium = cPremium;
+	}
+
+
+
+	public int getcStandard() {
+		return cStandard;
+	}
+
+
+
+	public void setcStandard(int cStandard) {
+		this.cStandard = cStandard;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Company [c_no=" + c_no + ", c_name=" + c_name + ", c_biss_num=" + c_biss_num + ", c_id=" + c_id
 				+ ", c_pwd=" + c_pwd + ", c_phone=" + c_phone + ", c_email=" + c_email + ", c_category=" + c_category
 				+ ", c_biss_address=" + c_biss_address + ", c_date=" + c_date + ", c_end_date=" + c_end_date
-				+ ", c_status=" + c_status + "]";
+				+ ", c_status=" + c_status + ", cPremium=" + cPremium + ", cStandard=" + cStandard + "]";
 	}
+
+
+
 	
 	
 }

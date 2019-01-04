@@ -175,7 +175,7 @@
 		      				<th> <i class="star icon"></i> Premium </th>
 		      			</tr>
 		      			<tr> 
-		      				<td> <label> 10장 </label>  </td>
+		      				<td> <label> <%=loginUser.getcStandard()%>장</label>  </td>
 		      				<td> <label> 3장  </label>  </td>
 		      			</tr>
 		      		</table>
