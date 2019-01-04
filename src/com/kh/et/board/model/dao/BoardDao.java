@@ -475,7 +475,7 @@ public class BoardDao {
 		
 		return tno;
 	}
-
+}
 	/*public ArrayList<HashMap<String, Object>> selectMyNewsBoard3(Connection con, int mno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
