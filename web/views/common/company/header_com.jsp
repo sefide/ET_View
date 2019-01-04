@@ -171,7 +171,7 @@
 	    
 	    
 	    function goComHome(){
-	   	 location.href = "/et/views/company/tourBoard/com_main.jsp";
+	   	 location.href = "<%=request.getContextPath()%>/selectList.tbo";
 	    }
 	    
 	    function goLogout(){

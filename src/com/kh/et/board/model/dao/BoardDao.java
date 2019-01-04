@@ -474,6 +474,7 @@ public class BoardDao {
 		return tno;
 	}
 
+
 	//내가 쓴 QnA 리스트 전체 불러오기
 	public int getQnaListCount(Connection con, int mno) {
 		PreparedStatement pstmt = null;

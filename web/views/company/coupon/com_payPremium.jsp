@@ -73,8 +73,10 @@
 	<script>
 	$("input[type = radio]").click(function(){
 		$("#count").text($(this).val());
+		point = $(this).val();
+		price = point*20000;
 		
-		$("price")
+		$("#price").text(price);
 	});
 	
 	

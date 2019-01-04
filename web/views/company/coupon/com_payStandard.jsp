@@ -82,18 +82,23 @@
 			
 			$("#price").text(price);
 		});
+		 name = "<%=loginUser.getC_name()%>";
+		 email = "<%=loginUser.getC_email()%>";
+		 cno = <%=loginUser.getC_no()%>;
 	function pay() {
 		var IMP = window.IMP;
 		IMP.init('imp87909065');
+		
+		
 		
 		IMP.request_pay({
 		    pg : 'inicis', // version 1.1.0부터 지원.
 		    pay_method : 'card',
 		    merchant_uid : 'merchant_' + new Date().getTime(),
-		    name : '주문명:Premium',
-		    amount : price,
-		    buyer_email :<%=loginUser.getC_email()%>,
-		    buyer_name : <%=loginUser.getC_name()%>
+		    name : 'standard',
+		    amount : 10,
+		    buyer_email :email,
+		    buyer_name :name
 		}, function(rsp) {
 		    if ( rsp.success ) {
 		        var msg = '결제가 완료되었습니다.';
@@ -101,6 +106,11 @@
 		        msg += '상점 거래ID : ' + rsp.merchant_uid;
 		        msg += '결제 금액 : ' + rsp.paid_amount;
 		        msg += '카드 승인번호 : ' + rsp.apply_num;
+		        
+		        var muid = rsp.merchant_uid;
+		        var price = rsp.paid_amount;
+		        var applyNum = rsp.apply_num;	
+		        location.href="<%=request.getContextPath()%>/paymentStandardCouponCompany.pco?price="+price+"&apply="+applyNum+"&cno="+cno;
 		    } else {
 		        var msg = '결제에 실패하였습니다.';
 		        msg += '에러내용 : ' + rsp.error_msg;
