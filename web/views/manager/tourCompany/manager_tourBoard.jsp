@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,com.kh.et.manager.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.et.manager.model.vo.*, com.kh.et.common.NumberExec"%>
     
     <%ArrayList<HashMap<String,Object>> list=(ArrayList<HashMap<String,Object>>)request.getAttribute("list");
     
@@ -9,6 +9,8 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage(); 
+	
+	NumberExec Ne = new NumberExec();
     %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -92,7 +94,7 @@ table{
     			<td><%=hmap.get("cName") %></td>
     			<td><%=hmap.get("ctCountry") %>/<%=hmap.get("ctName")%></td>
     			<td><%=hmap.get("tConcept")%></td>
-    			<td><%=hmap.get("tPrice") %></td>
+    			<td><%=Ne.commaMoney((int)hmap.get("tPrice")) %></td>
     			<td><%=hmap.get("tDate") %></td>
     			<td><%=hmap.get("tLink") %></td>
     		</tr>

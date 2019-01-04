@@ -115,8 +115,10 @@ public class Member_profileUpdate_Servlet extends HttpServlet {
 			
 			if(resultUser != null) {
 				String oldFileName = ((Member)request.getSession().getAttribute("loginUser")).getA_change_Name();
+				oldFileName = oldFileName.substring(4);
+				 
 				if(!oldFileName.equals("/et/image/common/logo_c.png")) {
-					File oldFile = new File(oldFileName);
+					File oldFile = new File(root + oldFileName);
 					
 					if( oldFile.exists() ){ 
 						if(oldFile.delete()){ 
