@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.et.tourBoard.model.vo.*"%>
+  
+    
+  <% 
+  ArrayList<HashMap<String,Object>> list=(ArrayList<HashMap<String,Object>>)request.getAttribute("list");
+  %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -233,12 +238,17 @@
 			<div class = "bar-insertTour"></div>
 			<div class="tableArea  ui form">
 				<form method="post" id ="updateForm">
+				<%for(int i=0;i<list.size();i++){ 
+							HashMap<String,Object> hmap=list.get(i);
+							%>
+							
 					<table>
 						<tr>
-							<td class="attr1">제목</td>
+							<td class="attr1"><input type="hidden" name="tno" value="<%=hmap.get("tno")%>">제목</td>
+							
 							<td colspan="5">
 								<div class="field">
-									<input type="text" class="ui input" size="80" name="title">
+									<input type="text" class="ui input" size="80" name="title" value="<%=hmap.get("title")%>">
 								</div>
 							</td>
 						</tr>
@@ -298,7 +308,8 @@
 							</td>	
 						</tr>
 						<tr>
-							<td class="attr1">대표사진 </td>
+						
+							<td class="attr1"><input type="hidden" name="picture" value="<%=hmap.get("originName")%>">대표사진 </td>
 							<td class="attr2" colspan = "3">
 								<input type ="file" name = "tourPhoto"  onchange = "loadImg(this)">
 							</td>
@@ -376,6 +387,7 @@
 						</tr>
 						
 					</table>
+					<%} %>
 					<br>
 					
 					<div align="center">

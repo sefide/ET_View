@@ -32,7 +32,22 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-	
+<!-- bootstrap -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	crossorigin="anonymous"></script>
 	<!-- 글꼴  -->
 	<link rel="stylesheet" href="/css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
@@ -78,6 +93,7 @@ table{
  #td111 {
  font-family: 'Nanum Gothic', sans-serif;
  }
+ 
 </style>
 </head>
 <body>
@@ -116,36 +132,54 @@ table{
   
     	</table>
     	<br>
-    	<div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage = 1'"> << </button>
-			
-			<% if(currentPage <= 1){ %>
-			<button disabled> < </button>
-			<% }else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage - 1%>'"> < </button>
-			<% } %>
-			
-			<% for(int p = startPage; p <= endPage; p++){ 
-					if(p == currentPage){
-			%>
-					<button disabled><%= p %></button>
-			<%      }else{ %>
-					<button onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%= p %>'"><%= p %></button>
-			<%      } %>
-	
-			<% } %>
-			
-			
-			<% if(currentPage >= maxPage){ %> <!-- 마지막 페이지일 경우 -->
-			<button disabled> > </button>
-			<% }else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage + 1%>'"> > </button>
-			<% } %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=maxPage%>'"> >> </button> 
-			
-		</div>
-    	
-    	
+    	<!-- 페이징버튼 -->
+				<tfoot>
+				<tr>
+				<th colspan="5">
+					<div class="ui right floated pagination menu">
+						<a class="item"
+							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=1'"> << </a>
+
+						<%if (currentPage <= 1) {%>
+						<button disabled> < </button>
+						<%} else {%>
+						<a class="item"
+							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage - 1%>'"> < </a>
+						<%}%>
+						
+						
+						<%
+							for (int p = startPage; p <= endPage; p++) {
+								if (p == currentPage) {
+						%>
+								<a class="item" disabled><%=p%></a>
+						<%} else {%>
+								<a class="item"
+							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=p%>'"> <%=p%> </a>
+						<%}%>
+
+						<%}%>
+
+
+						<%if (currentPage >= maxPage) {%>
+							<a class="item" disabled>></a>
+						<%} else {%>
+						<a class="item"
+							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage + 1%>'">></a>
+						<%}%>
+
+						<a class="item"
+							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=maxPage%>'">>></a>
+							
+						</div>
+					</th>
+				</tr>
+				
+				</tfoot>
+    	<br>
+    	<br>
+    	<br>
+    	<br>
     	
     	<button style=float:right; id="deleteBtn">삭제하기</button>
     	<!-- onclick="location.href='/et/views/manager/tourCompany/companyUpdate.jsp'"  -->

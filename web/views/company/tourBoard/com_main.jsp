@@ -212,7 +212,8 @@
 						<div  class = "span-tour-title">연결링크 </div>
 						<a href="http://<%=hmap.get("link")%>" target="_blank"><%=hmap.get("link")%></a>
 						<div  class = "span-tour-title"> 대표사진  </div>
-						<span class = "span-tour-ex"> <%=hmap.get("originName") %> </span>
+						<input type="hidden" name="picture"> 
+						<span class = "span-tour-ex" > <%=hmap.get("originName") %> </span>
 	                </div>
                 <%} %> <!-- list != null -->
 				</div> <!-- div-my-tour -->
@@ -244,8 +245,12 @@
 				
 					<button onclick="location.href='<%=request.getContextPath()%>/selectList.tbo?currentPage=<%=maxPage%>'">>></button>
 	                <div class = "div-tour-btn">
-	             	  	<button class="ui yellow button" onclick = "goEditTour();">수정하기 </button>
+	                <%for(int i=0;i<list.size();i++) {
+	                HashMap<String,Object> hmap=list.get(i);
+	                				%>
+	             	  	<button class="ui yellow button" onclick = "goEditTour(<%=hmap.get("tno")%>);">수정하기 </button>
 						<!-- <button class="ui yellow button">삭제하기 </button> -->
+					<%} %>
 					</div>
 	            </div>
 	    	
@@ -273,8 +278,9 @@
 
 	<script>
 	var jb = jQuery.noConflict();
-		function goEditTour() {
-			location.href = "/et/views/company/tourBoard/com_EditBoard.jsp";
+		function goEditTour(num) {
+			/* location.href = "/et/views/company/tourBoard/com_EditBoard.jsp"; */
+			location.href='<%=request.getContextPath()%>/editOne.tbo?num='+num;
 		}
 	
 		<%-- function test(){

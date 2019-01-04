@@ -120,6 +120,21 @@ public class TourBoardService {
 		close(con);
 		return tourList;
 	}
+
+
+	public ArrayList<HashMap<String, Object>> editOne(String num) {
+		
+		Connection con=getConnection();
+		ArrayList<HashMap<String, Object>> list=new TourBoardDao().editOne(con,num);
+		int result=0;
+		
+		if(result>0) commit(con);
+		else rollback(con);
+		close(con);
+		
+		return list;
+		
+	}
 	
 
 }
