@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.et.board.model.dao.BoardDao;
 import com.kh.et.plan.model.dao.PlanDao;
 import com.kh.et.plan.model.vo.City;
 import com.kh.et.plan.model.vo.Plan;
@@ -215,12 +216,13 @@ public class PlanService {
 
 	
 	//플랜 엿보기 - 모든플랜 조회
-	/*public HashMap<String, Object> selectnormalPlan() {
+	public HashMap<String, Object> selectnormalPlan() {
 		Connection con = getConnection();
 		
+		System.out.println("normalPlan의 Service인걸?");
 		HashMap<String, Object> normalPlanMap = new PlanDao().selectNormalPlan(con);
 		
-		HashMap<String, City> normalCityMap = new PlanDao().selectMap(con);
+		HashMap<String, City> normalCityMap = new PlanDao().selectNormalMap(con);
 		
 		
 		if(normalPlanMap != null && normalCityMap != null) {
@@ -233,8 +235,8 @@ public class PlanService {
 		
 		close(con);
 		
-		return bestPlanMap;
-	}*/
+		return normalPlanMap;
+	}
 	
 	
 	public int updatePlanPrivate(int pmNo, int pFkpNo) {
@@ -251,6 +253,22 @@ public class PlanService {
 		close(con);
 		return result;
 	}
+	
+	//전체 플랜 개수 조회
+	public int getListCount() {
+		Connection con = getConnection();
+		int listCount = new PlanDao().getListCount(con);
+		
+		if(listCount>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return listCount;
+	}
+
+	
 
 
 }

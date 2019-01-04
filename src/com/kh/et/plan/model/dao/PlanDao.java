@@ -611,22 +611,26 @@ public class PlanDao {
 		ResultSet rset = null;
 		HashMap<String, Object> pm = null;
 		ArrayList<Plan> list = null;
+		System.out.println("normalplan의 dao당!");
 
 		String query = prop.getProperty("selectNormalPlan");
-		// selectBestPlan=SELECT ROWNUM, PI_P_NO, P_TITLE, P_CITYS, CNT FROM (SELECT
-		// PI_P_NO, P_TITLE, P_CITYS, COUNT(PI_P_NO) CNT FROM (SELECT PI.PI_P_NO,
-		// P.P_TITLE, P_CITYS FROM PLANINTEREST PI JOIN PLAN P ON (PI.PI_P_NO = P.P_NO)
-		// WHERE PI.PI_TYPE = ? AND P.P_STATUS = 'Y' AND P.P_PRIVATE = 'Y') GROUP BY
-		// PI_P_NO, P_TITLE, P_CITYS ORDER BY COUNT(PI_P_NO) DESC) WHERE ROWNUM BETWEEN
-		// 1 AND 3
+		System.out.println(query);
+		/*
+		 * SELECT RNUM,P_NO,P_TITLE,P_CITYS, M_ID ,LIKEC FROM(SELECT ROWNUM
+		 * RNUM,P_NO,P_TITLE,P_CITYS, M_ID ,LIKEC FROM(SELECT P.P_NO, P.P_TITLE,
+		 * P.P_CITYS, M.M_ID, COUNT(PI_TYPE) AS LIKEC FROM PLANINTEREST PI RIGHT OUTER
+		 * JOIN PLAN P ON(P.P_NO=PI.PI_P_NO) LEFT OUTER JOIN MEMBER M ON(P.P_NO=M.M_NO)
+		 * GROUP BY P.P_NO, P.P_TITLE, P.P_CITYS, M.M_ID ORDER BY P_NO)) GROUP BY
+		 * RNUM,P_NO,P_TITLE,P_CITYS, M_ID ,LIKEC ORDER BY P_NO
+		 */
 
 		try {
-			String pType = "좋아요";
+			//String pType = "좋아요";
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, pType);
+			//pstmt.setString(1, pType);
 
 			rset = pstmt.executeQuery();
-
+			
 			list = new ArrayList<Plan>();
 			pm = new HashMap<String, Object>();
 			while (rset.next()) {
@@ -651,10 +655,41 @@ public class PlanDao {
 
 		return pm;
 	}
-
+	//모든 도시 - 플랜엿조기
 	public HashMap<String, City> selectNormalMap(Connection con) {
-		// TODO Auto-generated method stub
-		return null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		HashMap<String, City> resultMap = null;
+		
+		String query = prop.getProperty("selectCityList");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			resultMap = new HashMap<String, City>();
+			while(rset.next()) {
+				City ct = new City();
+				
+				ct.setCtNo(rset.getInt("CT_NO"));
+				ct.setCtName(rset.getString("CT_NAME"));
+				ct.setCtCountry(rset.getString("CT_COUNTRY"));
+				ct.setCtInfo(rset.getString("CT_INFO"));
+				ct.setCtLat(rset.getFloat("CT_LAT"));
+				ct.setCtLng(rset.getFloat("CT_LNG"));
+				
+				resultMap.put(String.valueOf(ct.getCtName()), ct);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return resultMap;
 	}
 	
 
@@ -677,5 +712,30 @@ public class PlanDao {
 		}
 		
 		return result;
+	}
+	//플랜 전체 조회
+	public int getListCount(Connection con) {
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;		
+		String query = prop.getProperty("listCount");
+		//listCount=SELECT COUNT(*) FROM Plan WHERE  P_PRIVATE = 'Y' AND p_STATUS='Y' 
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}	
+		return listCount;
 	}
 }
