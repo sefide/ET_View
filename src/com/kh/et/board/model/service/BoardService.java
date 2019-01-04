@@ -236,14 +236,36 @@ public class BoardService {
 		return replyList;
 	}
 
-	/*public ArrayList<HashMap<String, Object>> selectMyNewsBoard3(int mno) {
+	//내가 쓴 QnA 리스트 전체 불러오기
+	public int getQnaListCount(int mno) {
 		Connection con = getConnection();
-		ArrayList<HashMap<String, Object>> list = new BoardDao().selectMyNewsBoard3(con,mno);
-		
-		
+		int QnaListCount = new BoardDao().getQnaListCount(con, mno);
+
+		if (QnaListCount > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
 		close(con);
-		return list;
-	}*/
+
+		return QnaListCount;
+	}
+
+	//내가 쓴 Qna리스트 페이징 처리 후 조회
+	public ArrayList<Board> QnaList(int currentPage, int limit, int mno) {
+		Connection con = getConnection();
+		ArrayList<Board> QnaList = new BoardDao().QnaList(con, currentPage, limit, mno);
+
+		if (QnaList != null) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+
+		return QnaList;
+	}
+	
 
 
 }

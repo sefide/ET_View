@@ -182,5 +182,20 @@ public class MemberService {
 	}
 
 
+	public int insertNaverUser(String name, String email, String password) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().insertNaverUser(con, name, email, password);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+
 
 }

@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.et.board.model.vo.*"%>
+<%
+ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+PageInfo pi = (PageInfo)request.getAttribute("pi");
+int listCount = pi.getListCount();
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -180,66 +189,96 @@
     						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
     					</ul>
     				</div>
-    				
     			</div>
-    			
     			<br>
      		<br clear = "both">
-        		<div class = "container2">
-        		
-        		<div class ="cont2-flex">
-        			<!-- 좌측 -->
-        			<div class ="con2-left">
-					<div class = "con2-qna">
-						<div class="myQnA-content" style='display:inline; float:left; width:500px'>
-							<div class="QnA"><b style="font-size: 25px;">나의 Q&A</b></div>
-							  <div class="column qna">
-							    <div class="ui raised segment">
-							      <a class="ui red ribbon label" id="redBlue-avel">제목</a>
-							      <span>안녕하세요</span>
-							      <p></p>
-							      <a class="ui blue ribbon label" id="redBlue-avel">내용</a>제 이름은 애리닝이에오
-							      <p></p>
-							    </div>
-							  </div>
-						</div>
-					</div>	
+        	<!-- QnA리스트 테이블 -->
+			<table class="ui celled padded table" id="listArea">
+				<thead>
+					<tr>
+						<th class="single line">글 번호</th>
+						<th>제목</th>
+						<th>좋아요,스크랩,신고 수</th>
+						<th>작성일</th>
+					</tr>
+				</thead>
+				<!-- 리스트 목록 -->
+				<tbody>
+					<% for(Board b : list){ %>
+					<tr>
+						<input type="hidden" value="<%= b.getbNo()%>">
+						<td><%= b.getbNo() %></td>
+						<td><%= b.getBtitle() %></td>
+						<td><%= b.getbWriter() %></td>
+						<td><%= b.getbNo() %></td>
+						<td><%= b.getbDate() %></td>
+					</tr>
+					<% } %>
+				</tbody>
+				<!-- 페이징버튼 -->
+				<tfoot>
+				<tr>
+				<th colspan="5">
+					<div class="ui right floated pagination menu">
+						<a class="item"
+							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=1'"> << </a>
+
+						<%if (currentPage <= 1) {%>
+						<button disabled> < </button>
+						<%} else {%>
+						<a class="item"
+							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage - 1%>'"> < </a>
+						<%}%>
 						
-        			</div>
-        			
-        			<!-- 우측  -->
-        			<div class ="con2-right">
-        				<!-- 스크랩 Q&A -->
-        				<div  class = "con2-qna">
-						<div class="scrapQnA-content" style='display:inline; float:left; width:500px; height: 100px;'>
-							<div class="QnA"><b style="font-size: 25px;">스크랩 Q&A</b></div>
-							<div class="column qna" >
-								<div class="ui raised segment">
-									<a class="ui red ribbon label" id="redBlue-avel">제목</a>
-								    <span>안녕하세요</span>
-								    <p></p>
-								    <a class="ui blue ribbon label" id="redBlue-avel">내용</a>제 이름은 애리닝이에오
-							      	<p></p>
-								</div>
-							</div>
+						
+						<%
+							for (int p = startPage; p <= endPage; p++) {
+								if (p == currentPage) {
+						%>
+								<a class="item" disabled><%=p%></a>
+						<%} else {%>
+								<a class="item"
+							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=p%>'"> <%=p%> </a>
+						<%}%>
+
+						<%}%>
+
+
+						<%if (currentPage >= maxPage) {%>
+							<a class="item" disabled>></a>
+						<%} else {%>
+						<a class="item"
+							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage + 1%>'">></a>
+						<%}%>
+
+						<a class="item"
+							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=maxPage%>'">>></a>
 							
-							<div class="column qna" >
-								<div class="ui raised segment">
-									<a class="ui red ribbon label" id="redBlue-avel">제목</a>
-								    <span>안녕하세요</span>
-								    <p></p>
-								    <a class="ui blue ribbon label" id="redBlue-avel">내용</a>제 이름은 애리닝이에오
-							      	<p></p>
-								</div>
-							</div>
 						</div>
-        				</div>
-        			</div>
-        		</div>
+					</th>
+				</tr>
+				
+				</tfoot>
+			</table>	
+			
+		<script>
+			$(function(){
+			$("#listArea td").mouseenter(function(){
+				$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+			}).mouseout(function(){
+				$(this).parent().css({"background":"none"});
+			}).click(function(){
+				var num = parseInt( $(this).parent().children("input").val() );
+				
+				location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num ;
+			});
+		});
+		</script>
+        	
+        	
+        	
         		
-        		</div>
 		</div>
-		<div class="two wide column"></div>
 	</div>
 	<div style="height: 50px;"></div>
 	<br><br>
