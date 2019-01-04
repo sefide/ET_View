@@ -148,6 +148,10 @@
 		margin-right: 5%;
 	}
 	
+	button {
+    		border : 1px solid white;
+    }
+	
 </style>
 </head>
 <body>

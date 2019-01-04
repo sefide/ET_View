@@ -213,6 +213,30 @@ public class PlanService {
 		return bestPlanMap;
 	}
 
+	
+	//플랜 엿보기 - 모든플랜 조회
+	/*public HashMap<String, Object> selectnormalPlan() {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> normalPlanMap = new PlanDao().selectNormalPlan(con);
+		
+		HashMap<String, City> normalCityMap = new PlanDao().selectMap(con);
+		
+		
+		if(normalPlanMap != null && normalCityMap != null) {
+			normalPlanMap.put("normalCityMap", normalCityMap); 
+			commit(con);
+			
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return bestPlanMap;
+	}*/
+	
+	
 	public int updatePlanPrivate(int pmNo, int pFkpNo) {
 		Connection con = getConnection();
 		
@@ -227,7 +251,6 @@ public class PlanService {
 		close(con);
 		return result;
 	}
-	
 
 
 }

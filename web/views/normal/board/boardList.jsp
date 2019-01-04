@@ -78,15 +78,15 @@
 			</div>
 			
 			<!-- 등록버튼 -->
-			<% if(loginUser != null){%>
+			<%-- <% if(loginUser != null){%> --%>
 			<div class="ui list" style="text-align: right;">
 				<!-- <button class="ui right yellow button" onclick="location.href='views/normal/board/boardInsertForm.jsp'"> 글 등록하기</button> -->
 				<!-- 글 등록하기 onclick이벤트로 수정(글작성 포인트 제한) -->
-				<button class="ui right yellow button" onclick="goBoardInsert();"> 글 등록하기</button>
+				 <button class="ui right yellow button" onclick="goBoardInsert();"> 글 등록하기</button> 
 			</div>
-			<%}else{
+			<%-- <%}else{
 				
-			} %>
+			} %> --%>
 
 			<!-- 리스트 테이블 -->
 			<table class="ui celled padded table" id="listArea">
@@ -183,14 +183,19 @@
 	<%@ include file="/views/common/normal/footer.jsp"%>
 	<script>
 	//포인트 제한
+	
 		function goBoardInsert() {
-			var point = <%=loginUser.getM_point()%>;
-			if(point>=5){
-				location.href="views/normal/board/boardInsertForm.jsp";
-			}else{
-				alert("포인트가 부족합니다!(글 작성시 5point필요!)")
-			}
-		}
+			<%if(loginUser != null){%>
+				var point = <%=loginUser.getM_point()%>;
+				if(point>=5){
+					location.href="views/normal/board/boardInsertForm.jsp";
+				}else{
+					alert("포인트가 부족합니다!(글 작성시 5point필요!)")
+				}
+			<%}else{%>
+				alert("회원만 작성하실 수 있습니다!");
+			<%}%>
+		} 
 	</script>
 </body>
 </html>

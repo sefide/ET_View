@@ -376,6 +376,7 @@ public class BoardDao {
 		System.out.println(list);
 		return list;
 	}
+	
 	//댓글 달기
 	public int insertReply(Connection con, Board b) {
 		PreparedStatement pstmt = null;
@@ -475,7 +476,7 @@ public class BoardDao {
 		
 		return tno;
 	}
-
+}
 	/*public ArrayList<HashMap<String, Object>> selectMyNewsBoard3(Connection con, int mno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -505,11 +506,7 @@ public class BoardDao {
 			close(pstmt);
 		}
 		System.out.println("dao에서 새로 뽑은 리스트요 : " + list);
-		return list;*/
-	}
 
-	
-	
 	
 
 

@@ -562,9 +562,9 @@
 	<!-- Semantic UI -->
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script>
-	    /* $(".img_best_city").mouseover(function() {
-			$('.div-best-inner').dimmer('show');
-		}); */
+	    
+    		/* console.log("주소 " +window.location.href); */
+		
 	    $('.div-best-inner').dimmer({
 	    		on : 'hover'
 	    });
@@ -615,10 +615,12 @@
 		if(cityMap != null && planList != null){
 		String[] planCityArr = null;
 		System.out.println("인기 플랜 개수 : " + planList.size());
+		
 		for (int i = 0; i < planList.size(); i++){
 			planCityArr =  (planList.get(i).getpCites()).split(", "); // 이건 String
 			for(String cityNo : planCityArr){
-				%> path = {lat : <%=cityMap.get(cityNo).getCtLat()%>, lng : <%=cityMap.get(cityNo).getCtLng()%>};
+				%>
+				path = {lat : <%=cityMap.get(cityNo).getCtLat()%>, lng : <%=cityMap.get(cityNo).getCtLng()%>};				
 				flightPlanCoordinates.push(path); 
 			<% }%> 
 			flightPlanCoordinatesArr.push(flightPlanCoordinates); 
