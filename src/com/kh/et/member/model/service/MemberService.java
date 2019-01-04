@@ -28,8 +28,10 @@ public class MemberService {
 			commit(con);
 			planNum = new MemberDao().planNum(con, loginUser);
 			loginUser.setM_plan_num(planNum);
-			Member profile = new MemberDao().profileChcek(con, reqMember);
+			Member profile = new MemberDao().profileChcek(con, loginUser);
+			
 			if(profile != null) {
+				System.out.println("service profile photo" + profile.getA_change_Name());
 				loginUser.setA_change_Name("/et/profileUpload/"+profile.getA_change_Name());
 			} else {
 				loginUser.setA_change_Name("/et/image/common/logo_c.png");
@@ -154,13 +156,13 @@ public class MemberService {
 		if(deleteOldAttachment > 0 && insertNewAttachment > 0) {
 			loginUser = new MemberDao().selectLoginUser(con, m);
 			if(loginUser != null) {
-				commit(con);
 				Member profile = new MemberDao().profileChcek(con, m);
 				if(profile != null) {
 					loginUser.setA_change_Name("/et/profileUpload/"+profile.getA_change_Name());
 				} else {
 					loginUser.setA_change_Name("/et/image/common/logo_c.png");
 				}
+				commit(con);
 			}
 		}
 		
@@ -176,6 +178,21 @@ public class MemberService {
 		
 		close(con);
 		
+		return result;
+	}
+
+
+	public int insertNaverUser(String name, String email, String password) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().insertNaverUser(con, name, email, password);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
 		return result;
 	}
 
