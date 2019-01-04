@@ -154,6 +154,10 @@
 	.pagingArea{
 		margin-left: 300px;
 	}
+	
+	button {
+    		border : 1px solid white;
+    }
 </style>
 </head>
 <body>

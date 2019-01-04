@@ -566,6 +566,7 @@
 			$.ajax({
 				url : "cityDetail.pl",
 				data : {cityName : cityName, cityNum : cityNum},
+				contentType : 'application/json; charset=UTF-8',
 				type : "get",
 				success : function(data){ 
 					$("#p-tour-detail").html("");
