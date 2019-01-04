@@ -38,6 +38,12 @@ public class DeletePlanServlet extends HttpServlet {
 		
 		String page = "";
 		if(result > 0) {
+			// 회원 플랜개수 수정 
+			Member oldUser = (Member) request.getSession().getAttribute("loginUser");
+			int newPlanNum = oldUser.getM_plan_num() -1;
+			oldUser.setM_plan_num(newPlanNum);
+			request.getSession().setAttribute("loginUser", oldUser);
+			
 			page ="selectPlanList.pl?mno="+loginUser.getM_no();
 			request.setAttribute("msg", "플랜이 삭제되었습니다.");
 		}else {

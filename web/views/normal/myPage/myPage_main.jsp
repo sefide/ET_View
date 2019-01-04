@@ -259,7 +259,7 @@
         		
 	        		<i class="calendar alternate outline big icon"></i>
 	        		<div class = "div-myPage-title"> 내 플랜보기 </div>
-	        		<div class = "div-myStorage"> 플랜 저장공간 개수 : <%=loginUser.getM_storage() %>개 </div>
+	        		<div class = "div-myStorage"> 플랜 저장공간 개수 : <%=loginUser.getM_storage() %>개 &nbsp;&nbsp;/&nbsp; 현재 플랜 개수 : <%= loginUser.getM_plan_num() %>개 </div>
 	        		<br><br>
 	        		
         			<div class = "plan-list-inner" id = "plan-list-inner">
@@ -289,7 +289,7 @@
 	    	var storage = <%=loginUser.getM_storage() %>;
 	    	var point =<%=loginUser.getM_point()%>;
 	    		if(storage<6){
-	    			if(point>=50){
+	    			if(point>50){
 	    				if(window.confirm("플랜 저장 공간을 추가하시겠습니까?(추가 시 포인트 50점!!!이 차감됩니다.)"))	{
 	    					var mno = <%=loginUser.getM_no()%>;
 	    		   	 		location.href = "<%=request.getContextPath()%>/updatePlanStorage.po?&mNo="+mno;
@@ -308,12 +308,11 @@
 	    
 	    function setPrivate(num,divBtn) {
 	    /* 	$(".div-plan-private").click() */
-	     var pri = jQuery(divBtn).html().trim(); 
+	    var pri = jQuery(divBtn).html().trim(); 
 	    var point =<%=loginUser.getM_point()%>;
-	     <%-- var status = <%=planList.get(%>num<%).getpStatus();%>  --%>
 			 if(pri == "공개"){  
-			    if(point >= 100){
-			    	if(window.confirm("비공개로 설정하시겠습니까?(비공개시 포인트 100점!!!이 차감됩니다.)")){
+			    if(point > 100){
+			    		if(window.confirm("비공개로 설정하시겠습니까?(비공개시 포인트 100점!!!이 차감됩니다.)")){
 			   	 		var mno = <%=loginUser.getM_no()%>;
 			   	 		location.href = "<%=request.getContextPath()%>/planSetPrivate.po?pNo="+num+"&mNo="+mno;
 				   	 }else{
@@ -322,7 +321,7 @@
 			    }else{
 		   		 	alert("포인트가 부족합니다!!(플랜비공개:100point필요!)");
 			   	}
-		 	}else{
+		 	} else{
 		 		if(window.confirm("공개로 전환하시겠습니까?")){
 					var mno = <%=loginUser.getM_no()%>;
 				location.href = "<%=request.getContextPath()%>/UpdateSetPrivate.pl?pNo="+num+"&mNo="+mno;
@@ -330,7 +329,8 @@
 					
 				}
 		 	}
-	}
+		}
+	    
 		function goMyPointHistory() {
 			var mno = <%=loginUser.getM_no()%>;
 	    	location.href = "<%=request.getContextPath()%>/pointList.po";
