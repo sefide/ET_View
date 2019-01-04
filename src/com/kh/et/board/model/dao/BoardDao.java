@@ -508,7 +508,7 @@ public class BoardDao {
 		System.out.println("dao에서 새로 뽑은 리스트요 : " + list);
 		return list;
 	}*/
-
+} 
 	
 }
 	

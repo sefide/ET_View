@@ -215,7 +215,7 @@
     <div class="plan" style="width:350px;">
         <h3>Standard<span style="width:150px; height:150px;">15000</span>won</h3>
         
-      <a class="signup" href="" style="width:200px; height:50px; font-size:x-large; font-weight: 800;">Buy Now</a>
+      <a class="signup" href="#" onclick="payStandard();" style="width:200px; height:50px; font-size:x-large; font-weight: 800;">Buy Now</a>
         <ul>
             <li style="font-size: large; font-weight: 800;">글 유효기간 1달</li>
          <li style="font-size: large; font-weight: 800;">일반 글 게시 가능</li>         
@@ -223,7 +223,7 @@
     </div>
     <div class="plan" style="width:350px;">
         <h3>Premium<span style="width:150px; height:150px;">20000</span>won</h3>
-        <a class="signup" href="#" onclick="pay();" style="width:200px; height:50px; font-size:x-large; font-weight: 800;">Buy Now</a>   
+        <a class="signup" href="#" onclick="payPremium();" style="width:200px; height:50px; font-size:x-large; font-weight: 800;">Buy Now</a>   
         <ul>
      
             <li style="font-size: large; font-weight: 800;">글 유효기간 1달</li>
@@ -232,8 +232,11 @@
     </div>    
 </div>
 <script>
-function pay() {
-	window.open("com_pay.jsp", "쿠폰 개수 설정", "width=326, height=298, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+function payPremium() {
+	window.open("com_payPremium.jsp", "쿠폰 개수 설정", "width=326, height=298, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+}
+function payStandard() {
+	window.open("com_payStandard.jsp", "쿠폰 개수 설정", "width=326, height=298, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
 }
 </script>
 
