@@ -8,18 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.et.member.model.service.MemberService;
+import com.kh.et.member.model.vo.Member;
 
 /**
- * Servlet implementation class Member_Naver_Login_Servlet
+ * Servlet implementation class Member_TowNaver_Login_Servlet
  */
-@WebServlet("/naverLogin.me")
-public class Member_Naver_Login_Servlet extends HttpServlet {
+@WebServlet("/snsLogin.me")
+public class Member_Sns_Login_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Member_Naver_Login_Servlet() {
+    public Member_Sns_Login_Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,24 +29,23 @@ public class Member_Naver_Login_Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
-		String name = request.getParameter("name");
-		String password = request.getParameter("password");
-		System.out.println(email);
-		System.out.println(name);
-		System.out.println(password);
+		String email = (String)request.getAttribute("userId");
+		String password = (String)request.getAttribute("userPwd");
+		Member member = new Member();
+		member.setM_id(email);
+		member.setM_pwd(password);
 		
-		int result = new MemberService().insertNaverUser(name,email,password);
-		
-		if(result > 0) {
-			request.setAttribute("userId", email);
-			request.setAttribute("userPwd", password);
-			request.getRequestDispatcher("/snsLogin.me").forward(request, response);
+		Member loginUser = new MemberService().loginCheck(member);
+		String view = "";
+		if(loginUser != null) {
+			request.getSession().setAttribute("loginUser", loginUser);
+			view = "first.jsp";
+			response.sendRedirect(view);
 		}else {
-			request.setAttribute("userId", email);
-			request.setAttribute("userPwd", password);
-			request.getRequestDispatcher("/snsLogin.me").forward(request, response);
+			request.setAttribute("msg", "로그인 실패했어!!!!");
+			request.getRequestDispatcher("views/normal/member/user_login.jsp").forward(request, response);
 		}
+		
 		
 	}
 

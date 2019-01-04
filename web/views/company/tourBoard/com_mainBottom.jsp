@@ -1,7 +1,8 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.et.tourBoard.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.kh.et.tourBoard.model.vo.*, com.kh.et.common.NumberExec"%>
 <% 
 	ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
 	PageInfo pi=(PageInfo)request.getAttribute("pi");
@@ -10,7 +11,8 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-
+	
+	NumberExec Ne = new NumberExec();
 %>
 <!DOCTYPE html>
 <html>
@@ -175,8 +177,8 @@
 				    </a>
 				    <div class="card-body">
 				      <h5 class="card-title"> <%= hmap.get("title") %> </h5>
-				      <p class="card-text"> <%= hmap.get("price") %> </p>
-				      <p class="card-text"><small class="text-muted"><%= hmap.get("concept") %> </small></p>
+				      <p class="card-text"> <%= Ne.commaMoney((int)hmap.get("price")) %> </p>
+				      <p class="card-text"><small class="text-muted"><%=hmap.get("concept") %> </small></p>
 				    </div>
 				  </div>
 				 </div>

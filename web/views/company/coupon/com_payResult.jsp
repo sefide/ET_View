@@ -152,7 +152,7 @@
 	                </table>
 	                <br>
 	                <div align="center">
-					<button type="reset">결제 내역 보러가기</button>
+					<button onclick="location.href='com_payResultList.jsp'">결제 내역 보러가기</button>
 					<button type="submit">메인으로 이동</button>
 				</div>
 	            </div>

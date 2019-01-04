@@ -425,6 +425,19 @@
 	<!-- Semantic UI -->
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 	<script> 
+		function commaMoney(price) {
+			price = price + "";
+			var prlen = price.length;
+			
+			if(prlen > 4 && prlen < 7){
+				return price.slice(0, prlen-3) + "," + price.slice(prlen-3);
+			}
+			if(prlen > 6) {
+				return price.slice(0, prlen-6) + "," + price.slice(prlen-6,prlen-3) + "," + price.slice(prlen-3);
+			} else {
+				return price;
+			}
+		}
 		
 		var days = 0;
 		var travelStartDate; 
@@ -551,10 +564,16 @@
 			setTravelDate();
 		}); 
 		
+		var nightMoment = 0;
+		function focNight(obj){
+			nightMoment = $(obj).find(":selected").val();
+			
+			$(obj).blur();
+		}
+		
 		function selNight(obj){
-			/* console.log("선택된 박 수 " + $(obj).find(":selected").val()); */
 		    days = days + Number($(obj).find(":selected").val()); 
-		    days--;
+		    days = days - nightMoment;
 			setTravelDate();
 		}
 
@@ -677,7 +696,7 @@
         function addCity(i){
         		var cityblockhead = "<div id ='cityblock" +countCity+ "' class= 'cityblock'> <input type = 'hidden' name = 'cityNo' value = '"+locations[i][4] +"'> <input type = 'hidden' name = 'cityName' value = '"+locations[i][0] +"'> <div class ='bar2'></div>";
         		var citytrans = "<div width = '100%; overflow-x:hidden'> <div class = 'div-trans'> <select class='ui dropdown' id ='trans' name = 'transform'>  <option value='비행기'>비행기 </option>  <option value='기차'>기차 </option>  <option value='선박'>선박 </option>  <option value='버스'>버스 </option>  <option value='기타'>기타  </option> </select> </div> </div> <div class ='bar2'></div>";
-        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights' id = 'selectNight' name = 'selectNight' onchange = 'selNight(this)'> <option value='1'>1박 </option>  <option value='2'>2박  </option>  <option value='3'>3박  </option>  <option value='4'>4박 </option> <option value='5'>5박  </option> <option value='6'>6박 </option></select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city' id = 'why'> <i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail();'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity(this);'> </i> </div> </div>";
+        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights' id = 'selectNight' name = 'selectNight' onfocus = 'focNight(this)' onchange = 'selNight(this)'> <option value='1'>1박 </option>  <option value='2'>2박  </option>  <option value='3'>3박  </option>  <option value='4'>4박 </option> <option value='5'>5박  </option> <option value='6'>6박 </option></select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city' id = 'why'> <i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail();'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity(this);'> </i> </div> </div>";
         		var cityblockfoot = "";
         		
         		// 새로운 도시 div 추가 

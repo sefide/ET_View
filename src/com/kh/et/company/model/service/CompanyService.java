@@ -6,8 +6,12 @@ import static com.kh.et.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.et.board.model.dao.BoardDao;
 import com.kh.et.company.model.dao.CompanyDao;
 import com.kh.et.company.model.vo.Company;
+import com.kh.et.member.model.dao.MemberDao;
+import com.kh.et.member.model.vo.Member;
+import com.kh.et.point.model.dao.PointDao;
 
 
 
@@ -131,8 +135,5 @@ public class CompanyService {
 		return res;
 		
 	}
-	
-
-
 
 }
