@@ -157,12 +157,12 @@
 				</div>
 			</div>
 		
-			<!-- 댓글달기 -->
-			<!-- <script>
+			<%--  댓글달기
+	 		<script>
              $(function() {
                $("#addReply").click(function() {
             	    
-            	  var writer = <%=loginUser.getM_no() %>;
+            	  var writer = <%=loginUser.getM_no() %> ;
                   var bid = <%= b.getbNo() %>;
                   var content = $("#replyContent").val();
 
@@ -198,7 +198,7 @@
 				});
 			});
 		});
-	</script>  -->
+	</script>  --%>
 			
 			
 			

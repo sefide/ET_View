@@ -615,10 +615,12 @@
 		if(cityMap != null && planList != null){
 		String[] planCityArr = null;
 		System.out.println("인기 플랜 개수 : " + planList.size());
+		
 		for (int i = 0; i < planList.size(); i++){
 			planCityArr =  (planList.get(i).getpCites()).split(", "); // 이건 String
 			for(String cityNo : planCityArr){
-				%> path = {lat : <%=cityMap.get(cityNo).getCtLat()%>, lng : <%=cityMap.get(cityNo).getCtLng()%>};
+				%>
+				path = {lat : <%=cityMap.get(cityNo).getCtLat()%>, lng : <%=cityMap.get(cityNo).getCtLng()%>};				
 				flightPlanCoordinates.push(path); 
 			<% }%> 
 			flightPlanCoordinatesArr.push(flightPlanCoordinates); 
