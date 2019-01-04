@@ -562,9 +562,9 @@
 	<!-- Semantic UI -->
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script>
-	    /* $(".img_best_city").mouseover(function() {
-			$('.div-best-inner').dimmer('show');
-		}); */
+	    
+    		/* console.log("주소 " +window.location.href); */
+		
 	    $('.div-best-inner').dimmer({
 	    		on : 'hover'
 	    });

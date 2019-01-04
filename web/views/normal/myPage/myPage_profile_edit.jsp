@@ -82,7 +82,7 @@
 				<tr>
 					<td>
 						<div id = "fileArea">
-							<input type = "file" id = "profileImgSelect" name="profileImg" onchange = "loadImg(this)" class = "ui icon">
+							<input type = "file" id = "profileImgSelect" name="profileImg" onchange = "loadImg(this)" class = "ui icon" value = "<%=loginUser.getA_change_Name() %>">
 						</div>		
 					</td>
 				</tr>
@@ -126,10 +126,6 @@
 		close();
 	}
 	
-	
-	
-	</script>
-	<script>
 	$(function(){
 		if(<%=isclose != null && isclose.equals("Y")%>){
 			window.opener.location.href="<%=request.getContextPath()%>/selectPlanList.pl?mno=<%=loginUser.getM_no()%>";

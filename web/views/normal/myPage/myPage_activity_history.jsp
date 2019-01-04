@@ -223,34 +223,25 @@
 							</div>
 							<%
 							if (NewsList != null) {
-								System.out.println("왜 안나오냐고요 : " + NewsList.size());
 								 for (int i = 0; i < NewsList.size(); i++) { 
-									/* for(HashMap<String,Object> hmap : NewsList){ */
-							%>
-							<div class="ui relaxed divided list" id="news-content">
-								<div class="item">
-									<i class="big yellow bell icon"></i>
-									<div class="content">
-										<div class="description">
-											<b>'<%=NewsList.get(i).getName()%>'님이 회원님의 "<%=NewsList.get(i).getTitle()%>" 을(를) 
-												<%=NewsList.get(i).getType()%>하셨습니다.
-											</b> 
-											<%-- <b>
-												'<%=hmap.get("m_name") %>'님이 회원님의
-												<%=hmap.get("b_title") %>을(를)
-												<%=hmap.get("bi_type") %>하셨습니다.
-											</b> --%>
+									if(i < 3){ %>
+									<div class="ui relaxed divided list" id="news-content">
+										<div class="item">
+											<i class="big yellow bell icon"></i>
+											<div class="content">
+												<div class="description">
+													<b>'<%=NewsList.get(i).getName()%>'님이 회원님의 "<%=NewsList.get(i).getTitle()%>" 을(를) 
+														<%=NewsList.get(i).getType()%>하셨습니다.
+													</b> 
+													
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>
-							<br>
-							<%
-									/* }  */
+									<br>
+							<%		}
 								 } 
-							%>
-							<%
-								}
+							}
 							%>
 						</div>
 						<br> 

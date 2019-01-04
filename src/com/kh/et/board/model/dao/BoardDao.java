@@ -376,6 +376,7 @@ public class BoardDao {
 		System.out.println(list);
 		return list;
 	}
+	
 	//댓글 달기
 	public int insertReply(Connection con, Board b) {
 		PreparedStatement pstmt = null;
@@ -509,7 +510,7 @@ public class BoardDao {
 	}*/
 
 	
-	
+}
 	
 
 
