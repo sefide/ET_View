@@ -396,5 +396,58 @@ private Properties prop = new Properties();
 		
 		return tourList;
 	}
+
+	public ArrayList<HashMap<String, Object>> editOne(Connection con, String num) {
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		TourBoard tb=null;
+		ArrayList<HashMap<String,Object>> list=null;
+		HashMap<String, Object> hmap=null;
+		
+		String query=prop.getProperty("editOne");
+		list=new ArrayList<HashMap<String,Object>>();
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(num));
+			rset=pstmt.executeQuery();
+			hmap=new HashMap<String,Object>();
+			
+			if(rset.next()) {
+				System.out.println("rset");
+				tb=new TourBoard();
+				tb.setTcno(rset.getInt("T_C_NO"));
+				tb.setTno(rset.getInt("T_NO"));
+				tb.settTitle(rset.getString("T_TITLE"));
+				tb.settConcept(rset.getString("T_CONCEPT"));
+				tb.settInfo(rset.getString("T_INFO"));
+				tb.settPrice(rset.getInt("T_PRICE"));
+				tb.settGrade(rset.getString("T_GRADE"));
+				tb.settLink(rset.getString("T_LINK"));
+				
+				
+				Attachment a =new Attachment();
+				a.setOriginName(rset.getString("A_ORIGIN_NAME"));
+				
+				hmap.put("tb",tb);
+				hmap.put("a",a);
+				
+				list.add(hmap);
+				System.out.println(list);
+			
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
 	
 }
