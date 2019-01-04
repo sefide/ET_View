@@ -255,10 +255,10 @@
 	<div class="header">
 		<img src="/et/image/common/logo.png" class = "header-top-img" onclick = "returnMain();">
 		<div class ="div-title">
-		<font class = "txt-title">Plan 1</font>
+		<font class = "txt-title"><%=plan.getpTitle()%></font>
 		<i class="pencil alternate icon" id = "editTitle" onclick = "editTitle();"></i></div>
 		<div class="ui input" id = "input-title">
-		  <input class = "input-title" type="text" placeholder="나만의 여행제목을 정해주세요.." name = "title" value = "Plan1">
+		  <input class = "input-title" type="text" placeholder="나만의 여행제목을 정해주세요.." name = "title" value = "<%=plan.getpTitle()%>">
 		  <div id = "btn-save-title" onclick = "saveTitle();"> > </div>
 		</div> 
 		<!-- <span style=position:absolute;top:15px;left:12px;width:300px;height:48px;font-size:16px;>
