@@ -55,7 +55,7 @@ public class MemberPointListServlet extends HttpServlet {
 				}
 				
 				//한 페이지에 보여질 목록 개수
-				limit = 5;
+				limit = 10;
 				
 				PointService ps =  new PointService();
 				//전체 게시글 수 조회

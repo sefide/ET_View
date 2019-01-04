@@ -114,6 +114,19 @@ public class Member_profileUpdate_Servlet extends HttpServlet {
 			Member resultUser = new MemberService().updateProfile(m, fileList);
 			
 			if(resultUser != null) {
+				String oldFileName = ((Member)request.getSession().getAttribute("loginUser")).getA_change_Name();
+				if(!oldFileName.equals("/et/image/common/logo_c.png")) {
+					File oldFile = new File(oldFileName);
+					
+					if( oldFile.exists() ){ 
+						if(oldFile.delete()){ 
+							System.out.println("파일삭제 성공"); 
+						}else{ 
+							System.out.println("파일삭제 실패"); 
+						} 
+					}else{ System.out.println("파일이 존재하지 않습니다."); }
+
+				}
 				request.getSession().setAttribute("loginUser", resultUser);
 				request.setAttribute("isclose", "Y");
 				request.getRequestDispatcher("views/normal/myPage/myPage_profile_edit.jsp").forward(request, response);

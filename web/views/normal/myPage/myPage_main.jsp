@@ -24,6 +24,8 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	
 	<!-- googleMap -->
+ 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
+	
  	
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">
@@ -287,7 +289,7 @@
 	    	var storage = <%=loginUser.getM_storage() %>;
 	    	var point =<%=loginUser.getM_point()%>;
 	    		if(storage<6){
-	    			if(point>50){
+	    			if(point>=50){
 	    				if(window.confirm("플랜 저장 공간을 추가하시겠습니까?(추가 시 포인트 50점!!!이 차감됩니다.)"))	{
 	    					var mno = <%=loginUser.getM_no()%>;
 	    		   	 		location.href = "<%=request.getContextPath()%>/updatePlanStorage.po?&mNo="+mno;
@@ -310,7 +312,7 @@
 	    var point =<%=loginUser.getM_point()%>;
 	     <%-- var status = <%=planList.get(%>num<%).getpStatus();%>  --%>
 			 if(pri == "공개"){  
-			    if(point > 100){
+			    if(point >= 100){
 			    	if(window.confirm("비공개로 설정하시겠습니까?(비공개시 포인트 100점!!!이 차감됩니다.)")){
 			   	 		var mno = <%=loginUser.getM_no()%>;
 			   	 		location.href = "<%=request.getContextPath()%>/planSetPrivate.po?pNo="+num+"&mNo="+mno;
