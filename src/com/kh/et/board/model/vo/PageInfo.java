@@ -7,6 +7,7 @@ public class PageInfo implements java.io.Serializable{
 	private int maxPage;
 	private int startPage;
 	private int endPage;
+
 	
 	public PageInfo() {}
 
@@ -64,15 +65,22 @@ public class PageInfo implements java.io.Serializable{
 		return endPage;
 	}
 
+
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
+	
 
 	@Override
 	public String toString() {
 		return "PageInfo [currentPage=" + currentPage + ", listCount=" + listCount + ", limit=" + limit + ", maxPage="
 				+ maxPage + ", startPage=" + startPage + ", endPage=" + endPage + "]";
 	}
+	
+	
+	
+
+	
 	
 	
 }

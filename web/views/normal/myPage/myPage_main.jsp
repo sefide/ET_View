@@ -342,7 +342,7 @@
 	    
 	    function goMyActivity(){
 	    		var mno = <%=loginUser.getM_no()%>;
-	    		location.href = "<%=request.getContextPath()%>/selectQnAList.bo?mno="+mno;
+	    		location.href = "<%=request.getContextPath()%>/qnaOne.bo?mno="+mno;
 	    }
    		
 	    var planNum = <%= planList.size()%>;

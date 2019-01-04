@@ -1,5 +1,7 @@
 package com.kh.et.board.model.dao;
 
+import static com.kh.et.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,11 +15,6 @@ import java.util.Properties;
 
 import com.kh.et.board.model.vo.Board;
 import com.kh.et.member.model.vo.News;
-import com.kh.et.tourBoard.model.vo.TourBoard;
-
-
-
-import static com.kh.et.common.JDBCTemplate.*;
 
 public class BoardDao {
 	private Properties prop = new Properties();
@@ -476,37 +473,104 @@ public class BoardDao {
 		
 		return tno;
 	}
-}
-	/*public ArrayList<HashMap<String, Object>> selectMyNewsBoard3(Connection con, int mno) {
+
+	//내가 쓴 QnA 리스트 전체 불러오기
+	public int getQnaListCount(Connection con, int mno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<HashMap<String, Object>> list = null;
-		HashMap<String, Object> hmap = null;
+		int QnaListCount = 0;
 		
-		String query = prop.getProperty("selectMyNewsBoard");
+		String query = prop.getProperty("QnaListCount");
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, mno);
+			
 			rset = pstmt.executeQuery();
-			if(rset != null) {
-				list = new ArrayList<HashMap<String, Object>>();
-				while(rset.next()) {
-					hmap = new HashMap<String,Object>();
-					hmap.put("b_title",rset.getString("B_TITLE"));
-					hmap.put("m_name",rset.getString("M_NAME"));
-					hmap.put("bi_type",rset.getString("BI_TYPE"));
-					
-					list.add(hmap);
-				}
+			
+			if(rset.next()) {
+				QnaListCount = rset.getInt(1);
 			}
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			close(rset);
+		}finally {
 			close(pstmt);
+			close(rset);
 		}
-		System.out.println("dao에서 새로 뽑은 리스트요 : " + list);
+		
+		return QnaListCount;
+	}
 
+	//QnaList 페이지 처리 후
+	public ArrayList<Board> QnaList(Connection con, int currentPage, int limit, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> QnaList = null;
+		
+		String query = prop.getProperty("QnaListPaging");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			int startRow = (currentPage - 1) * limit + 1;	//각 페이징 페이지 마다 처음 페이지 번호(ex.1,11,21,31...)
+			int endRow = startRow + limit - 1;	//각 페이징 페이지 마다 마지막 페이지 번호(ex.10,20,30,40...)
+			
+			pstmt.setInt(1, mno);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			QnaList = new ArrayList<Board>();	//페이징 리스트 생성하고
+			
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	
+}
+
+}
+
+
+
+
+	
+	/*rset = pstmt.executeQuery();
+	
+	list = new ArrayList<Board>();
+	
+	
+	while(rset.next()) {
+		
+		Board b = new Board();
+		
+		b.setbNo (rset.getInt("B_NO"));
+		b.setbWriter(rset.getString("M_ID")); //작성자
+		b.setBtitle(rset.getString("B_TITLE"));
+		b.setbContent(rset.getString("B_CONTENT"));
+		b.setbDate(rset.getDate("B_DATE"));
+						
+		list.add(b);
+	}
+	
+	
+} catch (SQLException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}finally {
+	close(pstmt);
+	close(rset);
+}
+return list;
+}
+	*/
 	
 
 

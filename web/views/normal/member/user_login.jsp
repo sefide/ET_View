@@ -29,11 +29,12 @@
 
 
 <!-- 네이버 -->
-<script type="text/javascript"
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<!-- <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
 	charset="utf-8"></script>
 <script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script> -->
 
 <!-- Semantic UI -->
 <link rel="stylesheet"
@@ -161,12 +162,21 @@
 							<script type='text/javascript'>
 							  //<![CDATA[
 							    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-							    Kakao.init('KEY-VALUE');
+							    Kakao.init('15a9324659e56b04d48506cedaead3f5');
 							    function loginWithKakao() {
 							      // 로그인 창을 띄웁니다.
 							      Kakao.Auth.login({
 							        success: function(authObj) {
-							          alert(JSON.stringify(authObj));
+							          /* alert(JSON.stringify(authObj)); */
+							          	Kakao.API.request({
+							          		url:'/v1/user/me',
+							          		success:function(data){
+							          			alert(data.id);//아이디
+							          			alert(data.kaccount_email);//이메일 받아오기
+							          			
+							          			/* location.href */
+							          		}
+							          	})
 							        },
 							        fail: function(err) {
 							          alert(JSON.stringify(err));
@@ -182,12 +192,32 @@
 						<div class="userSearch" style="width: 10px; height: 20px;"></div>
 	
 						<!-- 네이버 로그인 연동 시작 -->
+						
 						<!-- 네이버아이디로로그인 버튼 노출 영역 -->
-
-						<div id="naver_id_login"> 
-						<!-- //네이버아이디로로그인 버튼 노출 영역 --> 
+						<div id="naverIdLogin"></div>
+						<!-- //네이버아이디로로그인 버튼 노출 영역 -->
+						<!-- 네이버아디디로로그인 초기화 Script -->
 						<script type="text/javascript">
-						  	var naver_id_login = new naver_id_login("KEY-VALUE", "http://127.0.0.1:8003/et/views/normal/member/user_login_callback.jsp");
+							var naverLogin = new naver.LoginWithNaverId(
+								{
+									clientId: "tcR9vwEXbbuTYhKDCt7X",
+									callbackUrl: "http://127.0.0.1:8003/et/views/normal/member/user_NaverLogin_callback.jsp",
+									isPopup: false, /* 팝업을 통한 연동처리 여부 */
+									loginButton: {color: "green", type: 3, height: 65} /* 로그인 버튼의 타입을 지정 */
+								}
+							);
+							
+							/* 설정정보를 초기화하고 연동을 준비 */
+							naverLogin.init();
+							
+						</script>
+						<!-- // 네이버아이디로로그인 초기화 Script -->
+						 <!-- 네이버아이디로로그인 버튼 노출 영역 -->
+
+						<!-- <div id="naver_id_login"> 
+						//네이버아이디로로그인 버튼 노출 영역 
+						<script type="text/javascript">
+						  	var naver_id_login = new naver_id_login("tcR9vwEXbbuTYhKDCt7X", "http://127.0.0.1:8003/et/views/normal/member/user_NaverLogin_callback.jsp");
 						  	var state = naver_id_login.getUniqState();
 						  	naver_id_login.setButton("green", 3,65);
 						  	naver_id_login.setDomain("http://127.0.0.1:8003/et/views/normal/member/user_login.jsp");
@@ -198,16 +228,15 @@
 						  	/* var naverLogin = new naver.LoginWithNaverId(
 						  			{
 						  				clientId: "{tcR9vwEXbbuTYhKDCt7X}",
-						  				callbackUrl: "{http://127.0.0.1:8003/et/views/login.jsp}",
+						  				callbackUrl: "{http://127.0.0.1:8003/et/views/normal/member/user_NaverLogin_callback.jsp}",
 						  				isPopup: true, ->팝업을 통한 연동처리 여부 
 						  				loginButton: {color: "green", type: 3, height: 48} 
 						  			}
-						  		);
-						  		
+						  		);	
 							 설정정보를 초기화하고 연동을 준비 
 						  	naverLogin.init();  */
 						  </script>
-						</div>
+						</div>  -->
 						<!-- 네이버 로그인 연동 끝 -->
 					</td>
 				</tr>
