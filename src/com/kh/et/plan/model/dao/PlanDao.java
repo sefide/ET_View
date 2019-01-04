@@ -422,84 +422,7 @@ public class PlanDao {
 	
 		return cityList;
 	}
-
-	//인기 플랜 select - 플랜 엿보기 페이지
-	public HashMap<String, Object> selectBestPlan(Connection con) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		HashMap<String, Object> pm = null;
-		ArrayList<Plan> list = null;
-		
-		String query = prop.getProperty("selectBestPlan");
-		//selectBestPlan=SELECT ROWNUM, PI_P_NO, P_TITLE, P_CITYS, CNT FROM (SELECT PI_P_NO,  P_TITLE, P_CITYS, COUNT(PI_P_NO) CNT FROM (SELECT PI.PI_P_NO, P.P_TITLE, P_CITYS FROM PLANINTEREST PI JOIN PLAN P ON (PI.PI_P_NO = P.P_NO) WHERE PI.PI_TYPE = ? AND P.P_STATUS = 'Y' AND P.P_PRIVATE = 'Y') GROUP BY PI_P_NO, P_TITLE, P_CITYS ORDER BY COUNT(PI_P_NO) DESC) WHERE ROWNUM BETWEEN 1 AND 3
-		
-		try {
-		    String pType = "좋아요";
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, pType);
-			
-			rset = pstmt.executeQuery();
-			
-			list = new ArrayList<Plan>();
-			pm = new HashMap<String, Object>();
-			while(rset.next()) {
-				Plan p = new Plan();
-				
-				p.setpNo(rset.getInt("PI_P_NO"));
-				p.setpTitle(rset.getString("P_TITLE"));
-				p.setpCites(rset.getString("P_CITYS"));
-				p.setpLike(rset.getInt("CNT"));
-				
-				list.add(p);
-			}
-			pm.put("planList", list);
-			// pm :  key - 인기 순위 order / value - 해당 플랜정보 
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-		return pm;
-	}
-
-	public HashMap<String, City> selectBestMap(Connection con) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		HashMap<String, City> resultMap = null;
-		
-		String query = prop.getProperty("selectCityList");
-		
-		try {
-			stmt = con.createStatement();
-			
-			rset = stmt.executeQuery(query);
-			
-			resultMap = new HashMap<String, City>();
-			while(rset.next()) {
-				City ct = new City();
-				
-				ct.setCtNo(rset.getInt("CT_NO"));
-				ct.setCtName(rset.getString("CT_NAME"));
-				ct.setCtCountry(rset.getString("CT_COUNTRY"));
-				ct.setCtInfo(rset.getString("CT_INFO"));
-				ct.setCtLat(rset.getFloat("CT_LAT"));
-				ct.setCtLng(rset.getFloat("CT_LNG"));
-				
-				resultMap.put(String.valueOf(ct.getCtName()), ct);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(stmt);
-			close(rset);
-		}
-		
-		return resultMap;
-	}
+	
 
 	//내소식 보기 
 	//플랜
@@ -598,6 +521,143 @@ public class PlanDao {
 		return result;
 	}
 
+	//플랜엿보기 
+	//인기 플랜 select - 플랜 엿보기 페이지
+	public HashMap<String, Object> selectBestPlan(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> pm = null;
+		ArrayList<Plan> list = null;
+
+		String query = prop.getProperty("selectBestPlan");
+		// selectBestPlan=SELECT ROWNUM, PI_P_NO, P_TITLE, P_CITYS, CNT FROM (SELECT
+		// PI_P_NO, P_TITLE, P_CITYS, COUNT(PI_P_NO) CNT FROM (SELECT PI.PI_P_NO,
+		// P.P_TITLE, P_CITYS FROM PLANINTEREST PI JOIN PLAN P ON (PI.PI_P_NO = P.P_NO)
+		// WHERE PI.PI_TYPE = ? AND P.P_STATUS = 'Y' AND P.P_PRIVATE = 'Y') GROUP BY
+		// PI_P_NO, P_TITLE, P_CITYS ORDER BY COUNT(PI_P_NO) DESC) WHERE ROWNUM BETWEEN
+		// 1 AND 3
+
+		try {
+			String pType = "좋아요";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, pType);
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<Plan>();
+			pm = new HashMap<String, Object>();
+			while (rset.next()) {
+				Plan p = new Plan();
+
+				p.setpNo(rset.getInt("PI_P_NO"));
+				p.setpTitle(rset.getString("P_TITLE"));
+				p.setpCites(rset.getString("P_CITYS"));
+				p.setpLike(rset.getInt("CNT"));
+
+				list.add(p);
+			}
+			pm.put("planList", list);
+			// pm : key - 인기 순위 order / value - 해당 플랜정보
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return pm;
+		}
+		//인기 도시 select - 플랜 엿보기 페이지
+		public HashMap<String, City> selectBestMap(Connection con) {
+			Statement stmt = null;
+			ResultSet rset = null;
+			HashMap<String, City> resultMap = null;
+			
+			String query = prop.getProperty("selectCityList");
+			
+			try {
+				stmt = con.createStatement();
+				
+				rset = stmt.executeQuery(query);
+				
+				resultMap = new HashMap<String, City>();
+				while(rset.next()) {
+					City ct = new City();
+					
+					ct.setCtNo(rset.getInt("CT_NO"));
+					ct.setCtName(rset.getString("CT_NAME"));
+					ct.setCtCountry(rset.getString("CT_COUNTRY"));
+					ct.setCtInfo(rset.getString("CT_INFO"));
+					ct.setCtLat(rset.getFloat("CT_LAT"));
+					ct.setCtLng(rset.getFloat("CT_LNG"));
+					
+					resultMap.put(String.valueOf(ct.getCtName()), ct);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(stmt);
+				close(rset);
+			}
+			
+			return resultMap;
+		}
+		
+	//모든 플랜 select - 플랜 엿보기 페이지
+	public HashMap<String, Object> selectNormalPlan(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> pm = null;
+		ArrayList<Plan> list = null;
+
+		String query = prop.getProperty("selectNormalPlan");
+		// selectBestPlan=SELECT ROWNUM, PI_P_NO, P_TITLE, P_CITYS, CNT FROM (SELECT
+		// PI_P_NO, P_TITLE, P_CITYS, COUNT(PI_P_NO) CNT FROM (SELECT PI.PI_P_NO,
+		// P.P_TITLE, P_CITYS FROM PLANINTEREST PI JOIN PLAN P ON (PI.PI_P_NO = P.P_NO)
+		// WHERE PI.PI_TYPE = ? AND P.P_STATUS = 'Y' AND P.P_PRIVATE = 'Y') GROUP BY
+		// PI_P_NO, P_TITLE, P_CITYS ORDER BY COUNT(PI_P_NO) DESC) WHERE ROWNUM BETWEEN
+		// 1 AND 3
+
+		try {
+			String pType = "좋아요";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, pType);
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<Plan>();
+			pm = new HashMap<String, Object>();
+			while (rset.next()) {
+				Plan p = new Plan();
+
+				p.setpNo(rset.getInt("PI_P_NO"));
+				p.setpTitle(rset.getString("P_TITLE"));
+				p.setpCites(rset.getString("P_CITYS"));
+				p.setpLike(rset.getInt("CNT"));
+
+				list.add(p);
+			}
+			pm.put("planList", list);
+			// pm : key - 인기 순위 order / value - 해당 플랜정보
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return pm;
+	}
+
+	public HashMap<String, City> selectNormalMap(Connection con) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
 	public int updatePlanPrivate(Connection con, int pmNo, int pFkpNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -618,6 +678,4 @@ public class PlanDao {
 		
 		return result;
 	}
-	
-
 }
