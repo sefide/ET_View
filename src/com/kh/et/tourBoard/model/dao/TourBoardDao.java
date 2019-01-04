@@ -449,5 +449,69 @@ private Properties prop = new Properties();
 		
 		return list;
 	}
+
+	public int updatetTourBoard(Connection con, TourBoard tb, Company loginUser) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateTourBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+		
+			pstmt.setString(1, tb.gettTitle());
+			pstmt.setString(2, tb.gettConcept());
+			pstmt.setString(3, tb.gettInfo());
+			pstmt.setInt(4, tb.gettPrice());
+			pstmt.setString(5, tb.gettLink());
+			pstmt.setString(6, tb.gettGrade());
+			pstmt.setInt(7, tb.getTctno());
+			pstmt.setInt(8, tb.getTno());
+			
+			
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int updateAttachment(Connection con, ArrayList<Attachment> fileList) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateAttachment");
+		
+		try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, fileList.get(0).getOriginName());
+				pstmt.setString(2, fileList.get(0).getChangeName());
+				pstmt.setString(3, fileList.get(0).getFilePath());
+				pstmt.setString(4, "투어");
+				pstmt.setInt(5, fileList.get(0).getAtno());
+				/*pstmt.setInt(1, fileList.get(i).getBid());
+				pstmt.setString(2, fileList.get(i).getOriginName());
+				pstmt.setString(3, fileList.get(i).getChangeName());
+				pstmt.setString(4, fileList.get(i).getFilePath());*/
+				
+				result = pstmt.executeUpdate();
+
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+		
+		return result;
+	}
 	
 }
