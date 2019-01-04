@@ -5,15 +5,21 @@
 <%
 	String msg = (String) request.getAttribute("msg");
 
-	HashMap<String, Object> bestplanMap = (HashMap<String, Object>) request.getAttribute("bestplanMap");
-	
-	HashMap<String, City> cityMap = null;
-	
+	HashMap<String, Object> bestplanMap = (HashMap<String, Object>) request.getAttribute("bestplanMap");	
+	HashMap<String, City> cityMap = null;	
 	ArrayList<Plan> planList = null;
-	
 	if (bestplanMap != null) {
 		cityMap = (HashMap<String, City>) bestplanMap.get("bestCityMap");
 	}
+	
+	HashMap<String, Object> normalPlanMap = (HashMap<String, Object>) request.getAttribute("normalPlanMap");	
+	HashMap<String, City> nCityMap = null;	
+	ArrayList<Plan> nPlanList = null;
+	if (bestplanMap != null) {
+		nCityMap = (HashMap<String, City>) bestplanMap.get("normalCityMap");
+	}
+	
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -113,6 +119,7 @@
 			<!-- 인기플랜이 보여지는 div -->
 			<div>
 				<div class="ui mt-20">
+				<br><br>
 					<div class="ui huge header">BEST Plan TOP 3</div>
 					<div>
 						<div class="div-plan-list" ">
@@ -249,13 +256,13 @@
 					<div class="ui huge header"> 모든 플랜 보기</div>
 					<div>
 						<div class="div-plan-list" ">
-							<% if(bestplanMap!= null){
-								System.out.println("jsp에서의 bestplanMap:"+bestplanMap);
-        					planList = (ArrayList<Plan>)bestplanMap.get("planList");
-        					System.out.println("view에서 보여지는 planList"+planList);
+							<% if(normalPlanMap!= null){
+								System.out.println("jsp에서의 normalPlanMap:"+normalPlanMap);
+								nPlanList = (ArrayList<Plan>)normalPlanMap.get("nPlanList");
+        					System.out.println("view에서 보여지는 nplanList"+nPlanList);
         					
-        					for(int i = 0; i < planList.size(); i++){        						
-        						Plan p = planList.get(i);
+        					for(int i = 0; i < nPlanList.size(); i++){        						
+        						Plan p = nPlanList.get(i);
         						%>
         						<!-- System.out.println("view에서 보여지는 p"+p); -->
 							<div class ="div-plan-map"> 
@@ -275,6 +282,75 @@
 					</div>
 				</div>
 			</div>
+			<script>
+			var map;
+			var flightPlanCoordinatesArr = [];
+			var flightPlanCoordinates = [];
+			var path = {};
+	 	    
+			 $(function(){
+		 			<% 
+		 			if(msg != null){ %>
+		 			alert("<%=msg%>");
+		 			<%} %>
+		 			
+				// 플랜 별 도시 위도 경도를 찍는다. 
+				<%
+				if(nCityMap != null && nPlanList != null){
+				String[] planCityArr = null;
+				/* System.out.println("인기 플랜 개수 : " + planList.size()); */
+				
+				for (int i = 0; i < nPlanList.size(); i++){
+					planCityArr =  (nPlanList.get(i).getpCites()).split(", "); // 이건 String
+					for(String cityNo : planCityArr){
+						%>
+						path = {lat : <%=nCityMap.get(cityNo).getCtLat()%>, lng : <%=nCityMap.get(cityNo).getCtLng()%>};				
+						flightPlanCoordinates.push(path); 
+					<% }%> 
+					flightPlanCoordinatesArr.push(flightPlanCoordinates); 
+					flightPlanCoordinates = [];
+				<% }%>
+				
+				<%for(int i = 0; i < nPlanList.size();  i++){ %>
+		    		// 해당하는 플랜의 도시 배열을 뽑아서 배열값을 나눈 다음에
+		    		// 여행하는 도시의 번호를 가져와서 도시리스트에서 위도, 경도를 구한다.
+		    		// 위도 경도 값을 해당하는 플랜의 도시 순서대로 PATH를 넣는다. 
+				    var map<%=i%> = new google.maps.Map(document.getElementById('plan-map<%=i%>'), { 
+				          zoom: 4.5,
+				          center: new google.maps.LatLng(47.778744, 7.397438),
+				          mapTypeId: google.maps.MapTypeId.ROADMAP,
+				          disableDefaultUI: true,
+				          styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.province","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.neighborhood","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"administrative.neighborhood","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"all","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.highway.controlled_access","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"transit","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"transit","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]}]
+				    });
+				    
+				    var lineSymbol = {
+				            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+				            scale: 4,
+				            strokeColor: '#EDC53A'
+			        };
+				    
+				   	poly<%=i%> = new google.maps.Polyline({
+				    		path : flightPlanCoordinatesArr[<%=i%>],
+				        strokeColor: '#2A5A85',
+				        strokeOpacity: 1.0,
+				        strokeWeight: 3
+				    });
+			        poly<%=i%>.setMap(map<%=i%>);
+			        
+			       
+			        for (var j = 0; j < flightPlanCoordinatesArr[<%=i%>].length; j++) {
+			        marker<%=i%> = new google.maps.Marker({
+			            position: flightPlanCoordinatesArr[<%=i%>][j],
+			            icon : lineSymbol,
+			            map: map<%=i%>
+			          });
+			        console.log("marker"+j);
+			        }
+			    <%}%>
+		       <%}%>
+		 		});
+			
+			</script>
 			
 			
 			

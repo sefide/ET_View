@@ -157,7 +157,7 @@
 				</div>
 			</div>
 		
-			<%--  댓글달기
+			<!-- 댓글 달기 -->
 	 		<script>
              $(function() {
                $("#addReply").click(function() {
@@ -198,7 +198,7 @@
 				});
 			});
 		});
-	</script>  --%>
+	</script>  
 			
 			
 			
