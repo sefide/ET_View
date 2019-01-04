@@ -1,7 +1,7 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.et.tourBoard.model.vo.PageInfo, com.kh.et.company.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.kh.et.tourBoard.model.vo.PageInfo, com.kh.et.company.model.vo.*, com.kh.et.common.NumberExec"%>
 <% 
 	ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
 	PageInfo pi=(PageInfo)request.getAttribute("pi");
@@ -12,9 +12,10 @@
 	int endPage = pi.getEndPage();
 
 	Company loginUser = (Company)session.getAttribute("loginCompany");
-
-
+	
+	NumberExec NE = new NumberExec();
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -150,6 +151,7 @@
 	
 	button {
     		border : 1px solid white;
+    		background : white;
     }
 	
 </style>
@@ -203,7 +205,7 @@
 						<div class = "span-tour-title"> 설명 </div> 
 						<span class = "span-tour-ex"> <%=hmap.get("info") %></span> <br>
 						<div class = "span-tour-title"> 가격 </div> 
-						<span class = "span-tour-ex"> <%=hmap.get("price") %>원</span><br>
+						<span class = "span-tour-ex"> <%=NE.commaMoney((int)hmap.get("price"))%>원</span><br>
 	                	</div>
 	                	
 	                	<div class = "div_tour_right">
@@ -281,6 +283,7 @@
 
 
 	<script>
+	
 	var jb = jQuery.noConflict();
 		function goEditTour(num) {
 			/* location.href = "/et/views/company/tourBoard/com_EditBoard.jsp"; */

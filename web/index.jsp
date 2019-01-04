@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.*, com.kh.et.board.model.vo.*, com.kh.et.plan.model.vo.*, com.kh.et.tourBoard.model.vo.*"%>
+    pageEncoding="UTF-8" import = "java.util.*, com.kh.et.board.model.vo.*, com.kh.et.plan.model.vo.*, com.kh.et.tourBoard.model.vo.*, com.kh.et.common.NumberExec"%>
 <%
 	String msg = (String)request.getAttribute("msg");	
 	HashMap<String, Object> topPlan = (HashMap<String, Object>)request.getAttribute("topPlan");
@@ -11,6 +11,8 @@
 	ArrayList<City> topCity = (ArrayList<City>)request.getAttribute("topCity");
 	ArrayList<HashMap<String, Object>> topTour = (ArrayList<HashMap<String, Object>>)request.getAttribute("topTour");
 	ArrayList<Board> topBoard = (ArrayList<Board>)request.getAttribute("topBoard");
+	
+	NumberExec Ne = new NumberExec();
 %>
 
 <!DOCTYPE html>
@@ -407,7 +409,7 @@
 			<div class="ui mt-20"> 
                 <div class="ui huge header">BEST CITY TOP 5</div>
                  
-	           	<div class = "ui div-best-city" >
+	           
 	           	<% 
 	           	City topCity1 = null; 
 	           	City topCity2 = null; 
@@ -421,8 +423,9 @@
 	           	 topCity3 = (City)topCity.get(2); 
 	           	 topCity4 = (City)topCity.get(3); 
 	           	 topCity5 = (City)topCity.get(4); 
-	           	
+	           	}
 	           	%>
+	           	<div class = "ui div-best-city">
 	           		<div class = "div-best-inner">
 		           		<img src = "<%=request.getContextPath()%>/image/city/<%=topCity1.getCtName() %>.jpg" alt = "<%=topCity1.getCtName() %>" class = "img_best_city">
 						<div class="ui inverted dimmer">
@@ -435,7 +438,6 @@
 					</div>
 	           		<h3 class ="ui header">1. &nbsp; <%=topCity1.getCtCountry() %>,&nbsp; <%=topCity1.getCtName() %> </h3>
 	           	</div>
-	           	
 	           	<div class = "ui div-best-city">
 	           		<div class = "div-best-inner">
 		           		<img src = "<%=request.getContextPath()%>/image/city/<%=topCity2.getCtName() %>.jpg" alt = "<%=topCity2.getCtName() %>" class = "img_best_city">
@@ -449,7 +451,6 @@
 					</div>
 	           		<h3 class ="ui header">2. &nbsp; <%=topCity2.getCtCountry() %>,&nbsp; <%=topCity2.getCtName() %>  </h3>
 	           	</div>
-	           	
 	           	<div class = "ui div-best-city">
 	           		<div class = "div-best-inner">
 	           			<img src = "<%=request.getContextPath()%>/image/city/<%=topCity3.getCtName() %>.jpg" alt = "<%=topCity3.getCtName() %>" class = "img_best_city">
@@ -489,13 +490,13 @@
 					</div>
 	           		<h3 class ="ui header">5. &nbsp; <%=topCity5.getCtCountry() %>,&nbsp; <%=topCity5.getCtName() %>  </h3>
 	           	</div>
+            
             </div>
-            <%}
 	           	
-	        if(topTour != null){%>
+	        <% if(topTour != null){%>
             <div class="ui mt-20"> 
                 <div class="ui huge header">파워투어 TOP 4 </div>
-                 <div class = "more-div" onclick = "location.href ='/et/views/normal/tourBoard/seeTour_main.jsp'">
+                <div class = "more-div" onclick = "location.href ='/et/views/normal/tourBoard/seeTour_main.jsp'">
 	                <i class="chevron circle right icon" id = "more-icon"></i>
 	                <font id ="more-txt">더보기 </font>
                 </div>
@@ -511,7 +512,7 @@
 				    <img class="card-img-top" src="/et/tourUpload/<%=a.getChangeName() %>" alt="Card image cap"/>
 				    <div class="card-body">
 				      <h5 class="card-title"> [<%=t.getTctName() %>]<%= t.gettTitle() %> </h5>
-				      <p class="card-text"> <%=t.gettPrice() %>원 </p>
+				      <p class="card-text"> <%=Ne.commaMoney(t.gettPrice()) %>원 </p>
 				      <p class="card-text"><small class="text-muted"><%=t.gettConcept() %> </small></p>
 				    </div>
 				  </div>
@@ -554,7 +555,8 @@
         <div width = "100%" align = "center">
         <img src = "/et/image/common/logo_ev3.png" alt = "logo" ></div>
         </div>
-        </div>
+    </div>
+        
     </div>
         <div class = "two wide column"></div>
     </div>
@@ -579,7 +581,6 @@
          
          function goPlan(){
         	 	<%
-        	 	
         	 	if(loginUser != null){
         	 		if(loginUser.getM_plan_num() == -1){%>
         	 			alert("에러발생, 다시 로그인해주세요.");

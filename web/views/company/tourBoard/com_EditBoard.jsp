@@ -180,8 +180,18 @@
 		
 		border :none;
 	}
-	
-	
+	#delPhotoBtn {
+		width:50px;
+		height:20px;
+		
+		border:1px solid black;
+		
+		display:inline-block;
+	}
+	#delPhotoBtn:hover {
+		cursor:pointer;
+		
+	}
 </style>
 
 </head>
@@ -240,15 +250,17 @@
 				<form method="post" id ="updateForm">
 				<%for(int i=0;i<list.size();i++){ 
 							HashMap<String,Object> hmap=list.get(i);
+							TourBoard tb = (TourBoard)hmap.get("tb");
+							Attachment a=(Attachment)hmap.get("a");
 							%>
 							
 					<table>
 						<tr>
-							<td class="attr1"><input type="hidden" name="tno" value="<%=hmap.get("tno")%>">제목</td>
+							<td class="attr1"><input type="hidden" name="tno" value="<%=tb.getTno()%>">제목</td>
 							
 							<td colspan="5">
 								<div class="field">
-									<input type="text" class="ui input" size="80" name="title" value="<%=hmap.get("title")%>">
+									<input type="text" class="ui input" size="80" name="title" value="<%=tb.gettTitle()%>">
 								</div>
 							</td>
 						</tr>
@@ -309,9 +321,14 @@
 						</tr>
 						<tr>
 						
-							<td class="attr1"><input type="hidden" name="picture" value="<%=hmap.get("originName")%>">대표사진 </td>
+							<td class="attr1">대표사진 </td>
 							<td class="attr2" colspan = "3">
-								<input type ="file" name = "tourPhoto"  onchange = "loadImg(this)">
+							
+								<input type ="file"  id="tourPhoto" name = "tourPhoto"  onchange = "loadImg(this)">
+								<span id="fileName"><%=a.getOriginName() %></span><div id="delPhotoBtn" onclick="delPhotoBtn();">수정</div>
+								<input type="hidden" id="delYN" name="status" value="N">
+								<input type="hidden" name="updatePhotoId" value="<%=a.getAno()%>">
+					 
 							</td>
 							
 							<!-- <td class="attr3" ></td> -->
@@ -391,16 +408,23 @@
 					<br>
 					
 					<div align="center">
-						<button onclick = "complete();" class="ui grey basic button">수정하기 </button>
+						<button onclick = "complete(); " class="ui grey basic button">수정하기 </button>
 						<button onclick = "deleteTourBoard();" class="ui grey basic button">삭제하기 </button>
 					</div>
 					
 					<script>
 						function complete() {
-							$("#updateForm").attr("action", "<%=request.getContextPath()%>/update.to");
+							if(status==N||(status==Y&&
+									$("#photoAttachment").val()!="")){
+							$("#updateForm").attr("action", "<%=request.getContextPath()%>/selectList.tbo"); 
+							}
+							else {
+								alert("사진을 띄워주세요");
+							}
+							
 						}
 						function deleteTourBoard(){
-							$("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteTourBoard.to");
+							$("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteTourBoard.tbo");
 						}
 					
 					</script>
@@ -441,6 +465,21 @@
 		}
 		
 	} 
+   	
+   	$(function(){
+   		$("#tourPhoto").hide();
+   		
+   	});
+   	
+   	 function delPhotoBtn() {
+   		 $("#delYN").val("Y");
+   		 $("#fileName").hide();
+   		 $("#delPhotoBtn").hide();
+   		 $("#tourPhoto").show();
+   		 return false;
+   		 
+   		 
+   	 }
 	  
    	</script>
    	

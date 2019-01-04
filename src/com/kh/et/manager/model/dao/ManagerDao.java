@@ -570,9 +570,9 @@ public class ManagerDao {
 			int endRow = startRow + limit - 1;	//한 페이지에서의 글 목록 끝 번호
 			
 			
-			pstmt.setString(1, "좋아요");
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			
 			list=new ArrayList<HashMap<String,Object>>();
@@ -586,8 +586,8 @@ public class ManagerDao {
 				hmap.put("mName",rset.getString("M_NAME"));
 				hmap.put("bContent",rset.getString("B_CONTENT"));
 				hmap.put("bDate",rset.getDate("B_DATE"));
-				hmap.put("like",rset.getString("CNTA"));
-				hmap.put("reply",rset.getString("CNTB"));
+				hmap.put("like",rset.getString("LIKEC"));
+				hmap.put("reply",rset.getString("REPLY"));
 				
 				list.add(hmap);
 			}
@@ -615,12 +615,11 @@ public class ManagerDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, "좋아요");
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				listCount++;
-				//listCount = rset.getInt(1); //? 총 글의개수
+			
+				listCount = rset.getInt(1); //? 총 글의개수
 				
 			}
 		

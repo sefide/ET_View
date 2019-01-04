@@ -88,17 +88,19 @@ public class MemberDao {
 		Member profile = null;
 		
 		String query = prop.getProperty("profileChcek"); 
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, reqMember.getM_no());
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
-				profile = new Member();
-		
-				profile.setA_change_Name(rset.getString("A_CHANGE_NAME"));
-				System.out.println("파일이름 : " + profile.getA_change_Name());
+			if(rset != null) {
+				while(rset.next()) {
+					profile = new Member();
+					
+					profile.setA_change_Name(rset.getString("A_CHANGE_NAME"));
+				}
 			}
 			
 		} catch (SQLException e) {
@@ -401,9 +403,12 @@ public class MemberDao {
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
-				num = rset.getInt("CNT");
+			if(rset != null) {
+				while(rset.next()) {
+					num = rset.getInt("CNT");
+				}
 			}
+			System.out.println("dao 플랜 개수 " + num);
 			
 			
 		} catch (SQLException e) {

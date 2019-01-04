@@ -540,37 +540,3 @@ public class BoardDao {
 
 
 
-
-	
-	/*rset = pstmt.executeQuery();
-	
-	list = new ArrayList<Board>();
-	
-	
-	while(rset.next()) {
-		
-		Board b = new Board();
-		
-		b.setbNo (rset.getInt("B_NO"));
-		b.setbWriter(rset.getString("M_ID")); //작성자
-		b.setBtitle(rset.getString("B_TITLE"));
-		b.setbContent(rset.getString("B_CONTENT"));
-		b.setbDate(rset.getDate("B_DATE"));
-						
-		list.add(b);
-	}
-	
-	
-} catch (SQLException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}finally {
-	close(pstmt);
-	close(rset);
-}
-return list;
-}
-	*/
-	
-
-
