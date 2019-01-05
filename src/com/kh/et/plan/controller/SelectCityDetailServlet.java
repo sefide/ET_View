@@ -51,40 +51,41 @@ public class SelectCityDetailServlet extends HttpServlet {
 		// t : tourBoar / a : attachment 
 		// 3개의 map 
 		// 6개의 object 
-		JSONObject obj = null;
-		JSONObject tourMap = new JSONObject();
-		// T_NO, T_TITLE, T_CT_NO, T_CONCEPT, CT_NAME, C_NO, T_PRICE, A_NO, A_ORIGIN_NAME, A_CHANGE_NAME, A_FILE_PATH, A_UPLOAD_DATE 
-		// , , , , , C_NO, , A_NO, A_ORIGIN_NAME, A_CHANGE_NAME, A_FILE_PATH, A_UPLOAD_DATE 
-//		if(tourList != null) {
-//			for (int i = 0; i < tourList.size(); i++) {
-//				obj = new JSONObject();
-//				obj.put("tno", ((TourBoard)tourList.get(i).get("t")).getTno());
-//				obj.put("title", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).gettTitle(),"UTF-8"));
-//				obj.put("ctno", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).gettTitle(),"UTF-8"));
-//				obj.put("ctname", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).getTctName(),"UTF-8"));
-//				obj.put("concept", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).gettConcept(),"UTF-8"));
-//				obj.put("price", ((TourBoard)tourList.get(i).get("t")).gettPrice());
-//				
-//				obj.put("ano", ((Attachment)tourList.get(i).get("a")).getAno());
-//				obj.put("originName",  URLEncoder.encode(((Attachment)tourList.get(i).get("a")).getOriginName(),"UTF-8"));
-//				obj.put("changeName",  URLEncoder.encode(((Attachment)tourList.get(i).get("a")).getChangeName(),"UTF-8"));
-//	
-//				tourMap.put("t"+i, obj);
-//			}	
-//		}
-//		response.setContentType("text/html;charset=UTF-8"); 
-//		response.setContentType("application/json");
-//		PrintWriter out = response.getWriter();
-//		out.print(tourMap.toJSONString());
-//		
-//		out.flush();
-//		out.close();
-		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(tourList, response.getWriter());
 		
 		
+		
+		///JSONObject obj = null;
+		//JSONObject tourMap = new JSONObject();
+		// T_NO, T_TITLE, T_CT_NO, T_CONCEPT, CT_NAME, C_NO, T_PRICE, A_NO, A_ORIGIN_NAME, A_CHANGE_NAME, A_FILE_PATH, A_UPLOAD_DATE 
+		// , , , , , C_NO, , A_NO, A_ORIGIN_NAME, A_CHANGE_NAME, A_FILE_PATH, A_UPLOAD_DATE 
+
+//		if(tourList != null) {
+//		for (int i = 0; i < tourList.size(); i++) {
+//			obj = new JSONObject();
+//			obj.put("tno", ((TourBoard)tourList.get(i).get("t")).getTno());
+//			obj.put("title", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).gettTitle(),"UTF-8"));
+//			obj.put("ctno", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).gettTitle(),"UTF-8"));
+//			obj.put("ctname", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).getTctName(),"UTF-8"));
+//			obj.put("concept", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).gettConcept(),"UTF-8"));
+//			obj.put("price", ((TourBoard)tourList.get(i).get("t")).gettPrice());
+//			
+//			obj.put("ano", ((Attachment)tourList.get(i).get("a")).getAno());
+//			obj.put("originName",  URLEncoder.encode(((Attachment)tourList.get(i).get("a")).getOriginName(),"UTF-8"));
+//			obj.put("changeName",  URLEncoder.encode(((Attachment)tourList.get(i).get("a")).getChangeName(),"UTF-8"));
+//
+//			tourMap.put("t"+i, obj);
+	//		}	
+	//	}
+	//	response.setContentType("text/html;charset=UTF-8"); 
+	//	response.setContentType("application/json");
+	//	PrintWriter out = response.getWriter();
+	//	out.print(tourMap.toJSONString());
+	//	
+	//	out.flush();
+	//	out.close();
 	}
 
 	/**
