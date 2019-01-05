@@ -4,7 +4,8 @@ import java.sql.Date;
 
 public class Plan implements java.io.Serializable{
 	private int pNo; 
-	private int pWriter;    //p_n_no
+	private int pWriter;   //p_n_no
+	private String pId;
 	private String pTitle;
 	private Date pDate;
 	private Date pStartDate;
@@ -16,20 +17,7 @@ public class Plan implements java.io.Serializable{
 	
 	public Plan() {}
 
-	public Plan(int pNo, int pWriter, String pTitle, Date pDate, Date pStartDate, Date pEndDate, String pCites,
-			String pPrivate, String pStatus, int pLike) {
-		super();
-		this.pNo = pNo;
-		this.pWriter = pWriter;
-		this.pTitle = pTitle;
-		this.pDate = pDate;
-		this.pStartDate = pStartDate;
-		this.pEndDate = pEndDate;
-		this.pCites = pCites;
-		this.pPrivate = pPrivate;
-		this.pStatus = pStatus;
-		this.pLike = pLike;
-	}
+	
 
 
 	public int getpNo() {
@@ -112,12 +100,50 @@ public class Plan implements java.io.Serializable{
 		this.pLike = pLike;
 	}
 
+
+
+
+	public String getpId() {
+		return pId;
+	}
+
+
+
+
+	public Plan(int pNo, int pWriter, String pId, String pTitle, Date pDate, Date pStartDate, Date pEndDate,
+			String pCites, String pPrivate, String pStatus, int pLike) {
+		super();
+		this.pNo = pNo;
+		this.pWriter = pWriter;
+		this.pId = pId;
+		this.pTitle = pTitle;
+		this.pDate = pDate;
+		this.pStartDate = pStartDate;
+		this.pEndDate = pEndDate;
+		this.pCites = pCites;
+		this.pPrivate = pPrivate;
+		this.pStatus = pStatus;
+		this.pLike = pLike;
+	}
+
+
+
+
 	@Override
 	public String toString() {
-		return "Plan [pNo=" + pNo + ", pWriter=" + pWriter + ", pTitle=" + pTitle + ", pDate=" + pDate + ", pStartDate="
-				+ pStartDate + ", pEndDate=" + pEndDate + ", pCites=" + pCites + ", pPrivate=" + pPrivate + ", pStatus="
-				+ pStatus + ", pLike=" + pLike + "]";
+		return "Plan [pNo=" + pNo + ", pWriter=" + pWriter + ", pId=" + pId + ", pTitle=" + pTitle + ", pDate=" + pDate
+				+ ", pStartDate=" + pStartDate + ", pEndDate=" + pEndDate + ", pCites=" + pCites + ", pPrivate="
+				+ pPrivate + ", pStatus=" + pStatus + ", pLike=" + pLike + "]";
 	}
+
+
+
+
+	public void setpId(String pId) {
+		this.pId = pId;
+	}
+
+	
 
 	
 }

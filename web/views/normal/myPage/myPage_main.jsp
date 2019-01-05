@@ -426,6 +426,7 @@
 	    });
 	    
 	   function goPlanDetail(planNo){//SelectPlanDetail
+		 
 		   location.href = "<%=request.getContextPath()%>/selectPlanDetail.pl?pno="+planNo;
 	   }
 	    

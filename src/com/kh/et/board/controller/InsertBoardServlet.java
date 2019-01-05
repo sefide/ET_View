@@ -49,8 +49,10 @@ public class InsertBoardServlet extends HttpServlet {
 		
 		//포인트 작성 부분 m 추가 헀습니다. int 형을 Member형으로 바꿈.
 		Member result = new BoardService().insertBoard(b,m);
+		
 		//포인트 작성 부분 입니다.
 		String page = "";
+		
 		//result 조건 변경, 세션 추가
 		if(result != null) {
 			request.getSession().setAttribute("loginUser", result);

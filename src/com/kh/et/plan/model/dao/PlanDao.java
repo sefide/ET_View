@@ -636,14 +636,16 @@ public class PlanDao {
 			while (rset.next()) {
 				Plan p = new Plan();
 
-				p.setpNo(rset.getInt("PI_P_NO"));
+				p.setpNo(rset.getInt("P_NO"));
 				p.setpTitle(rset.getString("P_TITLE"));
 				p.setpCites(rset.getString("P_CITYS"));
-				p.setpLike(rset.getInt("CNT"));
+				p.setpId(rset.getString("M_ID"));
+				p.setpLike(rset.getInt("LIKEC"));
 
 				list.add(p);
+				System.out.println("얍" );
 			}
-			pm.put("planList", list);
+			pm.put("nPlanList", list);
 			// pm : key - 인기 순위 order / value - 해당 플랜정보
 
 		} catch (SQLException e) {
