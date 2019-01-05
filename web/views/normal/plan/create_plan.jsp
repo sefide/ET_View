@@ -588,27 +588,28 @@
 					$("#p-tour-detail").html("");
 					
 					var resultStr; 
-					/* for(var key in data){
-						console.log("키 : " +key);
-						var tour = data[key];
-						
-						var tourName = decodeURIComponent(tour.title).replace("+"," ");
-						var tourConcept = decodeURIComponent(tour.concept);
-						var tourPrice = tour.price;
-						tourPrice = commaMoney(tourPrice);
-						var tourPhoto =  decodeURIComponent(tour.changeName);
-					 	resultStr = "<div class ='p-t'><div><img class ='p-t-img' src = '/et/tourUpload/"+tourPhoto+"' alt = 'tour'></div><label class ='p-t-name'>["+ tourName+ "] </label><div class ='p-t-price'><label >"+ tourPrice+ "원</label></div></div>";
-						
-						$("#p-tour-detail").append(resultStr);
-					} */
-					/* if(data.length == 0){
-						resultStr = "<div>관련 투어가 없습니다.</div>"
-						$("#p-tour-detail").append(resultStr);
-					} */
+					var tourOne;
 					
 					for(var key in data){
 						/* var tourName = (data[key])[t]. */
-						
+						tourOne = data[key];
+						var tourName;
+						var tourConcept;
+						var tourPrice;
+						var tourPhoto;
+						for(var i in tourOne){
+							console.log(i);
+							if(i == 't'){
+								tourName = tourOne[i].tTitle;
+								tourConcept = tourOne[i].tConcept;
+								tourPrice = tourOne[i].tPrice;
+							} else {
+								tourPhoto = tourOne[i].changeName;
+							}
+						}
+						tourPrice = commaMoney(tourPrice);
+						resultStr = "<div class ='p-t'><div><img class ='p-t-img' src = '/et/tourUpload/"+tourPhoto+"' alt = 'tour'></div><label class ='p-t-name'>["+ tourName+ "] </label><div class ='p-t-price'><label >"+ tourPrice+ "원</label></div></div>";
+						$("#p-tour-detail").append(resultStr);
 					}
 					var topStr = " 여행을 가기 전 알아둬야 할 점 ! ";
 					$(".p-city-name").html(locations[city][0] + topStr);
