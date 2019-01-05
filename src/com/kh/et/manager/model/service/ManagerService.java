@@ -1,12 +1,14 @@
 package com.kh.et.manager.model.service;
 
 import static com.kh.et.common.JDBCTemplate.close;
+import static com.kh.et.common.JDBCTemplate.commit;
 import static com.kh.et.common.JDBCTemplate.getConnection;
-import static com.kh.et.common.JDBCTemplate.*;
+import static com.kh.et.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.kh.et.manager.model.dao.ManagerDao;
 import com.kh.et.manager.model.vo.Manager;
@@ -514,6 +516,37 @@ public class ManagerService {
 		
 		return list2;
 	}
+
+	public int deleteBoard(int no) {
+		
+		Connection con=getConnection();
+		int result=new ManagerDao().deleteBoard(con,no);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return result;
+	}
+	
+	public int deleteBoards(List<Integer> list) {
+		for(Integer num : list) {
+			Connection con=getConnection();
+			int result=new ManagerDao().deleteBoard(con,num);
+			
+			if(result>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+			return result;
+		}
+		return 0;
+	}
+
 
 
 

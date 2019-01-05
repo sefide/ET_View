@@ -39,16 +39,27 @@ public class UpdateTourBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		System.out.println("update.tbo");
 		
 		Company loginUser = (Company)request.getSession().getAttribute("loginCompany");
 		
+		  System.out.println("request getContentType : " + request.getContentType());
+
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			//전송 파일 용량 제한: 10MB로 제한
 			int maxSize = 1024 * 1024 * 10;
 			
 			String root = request.getSession().getServletContext().getRealPath("/");
-			
+				
 			System.out.println(root);
 			
 			String filePath = root + "tourUpload/";
@@ -135,19 +146,14 @@ public class UpdateTourBoardServlet extends HttpServlet {
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}
+		else {
+			
+		}
 		
 		
 		
 		
 		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

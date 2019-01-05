@@ -1166,5 +1166,26 @@ public class ManagerDao {
 		return list2;
 	}
 
+	public int deleteBoard(Connection con, int no) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		String query=prop.getProperty("deleteBoard");
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1,no);
+			result=pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 }

@@ -129,7 +129,7 @@ table{
 		</div>
 
     	<br>
-    	<button style=float:right onclick="deleteBtn();">삭제하기</button>
+    	<button style=float:right id="deleteBtn" onclick="deleteBtn();">삭제하기</button>
     </div>
 	
 	<div class = "two wide column"></div>

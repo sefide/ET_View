@@ -468,10 +468,12 @@ private Properties prop = new Properties();
 			pstmt.setInt(7, tb.getTctno());
 			pstmt.setInt(8, tb.getTno());
 			
+			System.out.println("dao 갖고오나"+result);
+
 			
 			
 			result = pstmt.executeUpdate();
-			
+			System.out.println("query result"+result);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

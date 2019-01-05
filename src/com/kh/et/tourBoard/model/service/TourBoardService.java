@@ -154,6 +154,7 @@ public class TourBoardService {
 
 			result2 = new TourBoardDao().updateAttachment(con, fileList);
 		} else {
+			System.out.println("service Result2"+result2);
 			result2 = 1;
 		}
 
