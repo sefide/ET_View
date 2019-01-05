@@ -88,26 +88,26 @@
     		<table>
     			<tr>
     				<th>정지목록</th>
+    				<th>정지 시작일</th>
+    				<th>정지 종료일</th>
     				<th>회원번호</th>
     				<th>아이디</th>
     				<th>이메일</th>
     				<th>가입일</th>
     				<th>이름</th>
-    				<th>정지 시작일</th>
-    				<th>정지 종료일</th>
     			</tr>
     			<%for(int i=0;i<StopList.size();i++) {
     		HashMap<String,Object>hmap=StopList.get(i);
     		%>
     		<tr>
     			<td><input id = "check" type="checkbox" value=<%= hmap.get("m_no") %>></td>
+    			<td><%=hmap.get("s_start_date") %></td>
+    			<td><%=hmap.get("s_end_date") %></td>
     			<td><%=hmap.get("m_no") %></td>
     			<td><%=hmap.get("m_id") %></td>
     			<td><%=hmap.get("m_email") %></td>
     			<td><%=hmap.get("m_date") %></td>
     			<td><%=hmap.get("m_name") %></td>
-    			<td><%=hmap.get("s_start_date") %></td>
-    			<td><%=hmap.get("s_end_date") %></td>
     		</tr>
     		<%} %>
     		</table>
