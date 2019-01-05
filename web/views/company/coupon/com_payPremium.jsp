@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "com.kh.et.company.model.vo.*"%>
+<%
+	Company loginUser = (Company)session.getAttribute("loginCompany");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -78,31 +81,34 @@
 		
 		$("#price").text(price);
 	});
-	
+		name = "<%=loginUser.getC_name()%>";
+	 	email = "<%=loginUser.getC_email()%>";
+	 	cno = <%=loginUser.getC_no()%>;
 	
 	function pay() {
 		var IMP = window.IMP;
 		IMP.init('imp87909065');
 		
 		IMP.request_pay({
-		    pg : 'inicis', // version 1.1.0부터 지원.
+			pg : 'inicis', // version 1.1.0부터 지원.
 		    pay_method : 'card',
 		    merchant_uid : 'merchant_' + new Date().getTime(),
-		    name : '주문명:Premium',
+		    name : 'premium',
 		    amount : 10,
-		    buyer_email : 'iamport@siot.do',
-		    buyer_name : '구매자이름',
-		    buyer_tel : '010-1234-5678',
-		    buyer_addr : '서울특별시 강남구 삼성동',
-		    buyer_postcode : '123-456',
-		    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+		    buyer_email :email,
+		    buyer_name :name
 		}, function(rsp) {
 		    if ( rsp.success ) {
-		        var msg = '결제가 완료되었습니다.';
-		        msg += '고유ID : ' + rsp.imp_uid;
-		        msg += '상점 거래ID : ' + rsp.merchant_uid;
-		        msg += '결제 금액 : ' + rsp.paid_amount;
-		        msg += '카드 승인번호 : ' + rsp.apply_num;
+		    	 var msg = '결제가 완료되었습니다.';
+			        msg += '고유ID : ' + rsp.imp_uid;
+			        msg += '상점 거래ID : ' + rsp.merchant_uid;
+			        msg += '결제 금액 : ' + rsp.paid_amount;
+			        msg += '카드 승인번호 : ' + rsp.apply_num;
+			        
+			        var muid = rsp.merchant_uid;
+			        var price = rsp.paid_amount;
+			        var applyNum = rsp.apply_num;	
+			        location.href="<%=request.getContextPath()%>/paymentPremiumCouponCompany.pco?price="+price+"&apply="+applyNum+"&cno="+cno;
 		    } else {
 		        var msg = '결제에 실패하였습니다.';
 		        msg += '에러내용 : ' + rsp.error_msg;

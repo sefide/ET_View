@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.et.company.model.vo.*"%>
+<%
+	Company loginUser = (Company)session.getAttribute("loginCompany");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -205,12 +208,12 @@
 			    	<table class="ui called small table" id ="table1">
 			    		<tr>
 			    			<td class ="coupon-type"><i class="star outline icon"></i> Standard <font>쿠폰</font> </td>
-			    			<td><label class = "txt-coupon"> 10 </label><td>
+			    			<td><label class = "txt-coupon"> <%=loginUser.getcStandard() %> </label><td>
 			    		</tr>
 			    		
 			    		<tr>
 			    			<td class ="coupon-type"><i class="star icon"></i> Premium <font>쿠폰</font> </td>
-			    			<td><label class = "txt-coupon"> 10 </label><td>
+			    			<td><label class = "txt-coupon"> <%=loginUser.getcPremium() %> </label><td>
 			    		</tr>
 			    		
 			    		<tr>
@@ -369,7 +372,8 @@
 					
 					<div align="center">
 						<button type="reset" class="ui grey basic button">취소하기</button>
-						<button type="submit" class="ui grey basic button">등록하기</button>
+						<!-- <button type="submit" class="ui grey basic button">등록하기</button> -->
+						<button class="ui grey basic button" onclick="insertBoard();">등록하기</button>
 					</div>
 				</form>
 				
@@ -397,7 +401,23 @@
    	});
    	</script>
    	<script>
-   		function name() {
+   		function insertBoard() {
+   			var link = document.getElementByName("powerLink").val();
+   			var premiumC = <%=loginUser.getcPremium()%>;
+   			var Standard = <%=loginUser.getcStandard()%>;
+   			if(link == "premium")){
+   				if(premiumC>0){
+   					location.href="<%=request.getContextPath()%>/insert.tbo";
+   				}else{
+   					alert("프리미엄 쿠폰이 부족합니다!!(충전해주세요!)");
+   				}
+			}else{
+				if(Standard>0){
+					location.href="<%=request.getContextPath()%>/insert.tbo";
+				}else{
+					alert("스탠다드 쿠폰이 부족합니다!!(충전해주세요!!)");
+				}
+			}
 			
 		}
    	
