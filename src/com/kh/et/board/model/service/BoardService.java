@@ -252,10 +252,10 @@ public class BoardService {
 	}
 
 	//내가 쓴 Qna리스트 페이징 처리 후 조회
-	public ArrayList<Board> QnaList(int currentPage, int limit, int mno) {
+	public ArrayList<Board> QnaList(int currentPage, int limit, int mno, int num) {
 		Connection con = getConnection();
-		ArrayList<Board> QnaList = new BoardDao().QnaList(con, currentPage, limit, mno);
-
+		ArrayList<Board> QnaList = new BoardDao().QnaList(con, currentPage, limit, mno, num);
+		
 		if (QnaList != null) {
 			commit(con);
 		} else {

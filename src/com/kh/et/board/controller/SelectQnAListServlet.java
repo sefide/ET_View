@@ -2,6 +2,7 @@ package com.kh.et.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.et.board.model.service.BoardService;
 import com.kh.et.board.model.vo.Board;
 import com.kh.et.board.model.vo.PageInfo;
@@ -32,7 +34,9 @@ public class SelectQnAListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int mno = Integer.parseInt(request.getParameter("mno"));	//세션에 담긴 로그인 정보에서 회원번호 빼오기
+		int num = Integer.parseInt(request.getParameter("num"));
 		
 		// ---------------- 페이징처리 추가 -------------------
 		int currentPage; // 현재 페이지를 표시할 변수
@@ -69,12 +73,22 @@ public class SelectQnAListServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
+		PageInfo Qnapi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<Board> QnaList = new BoardService().QnaList(currentPage, limit, mno);
+		ArrayList<Board> QnaList = new BoardService().QnaList(currentPage, limit, mno, num);
 		
+		//가져온 객체 담기
+		HashMap<String, Object> result = null;
+		if(QnaList !=null && Qnapi != null) {
+			result = new HashMap<String,Object>();
+			result.put("QnaList", QnaList);
+			result.put("Qnapi", Qnapi);
+		}
 		
-		
+		//담은것 gson으로 처리
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(result,response.getWriter());
 		
 		
 		
