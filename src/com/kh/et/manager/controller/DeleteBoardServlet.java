@@ -44,6 +44,7 @@ public class DeleteBoardServlet extends HttpServlet {
 				String s_number = token.nextToken();
 				int number = Integer.parseInt(s_number);
 				list.add(number);
+				System.out.println(list);
 			}
 		}
 		
@@ -57,7 +58,7 @@ public class DeleteBoardServlet extends HttpServlet {
 		
 		if(result>0) {
 			
-			page="et/views/manager/board/manager_board.jsp";
+			page="/et/boardList.mng";
 			response.sendRedirect(page);
 		}else {
 			page="views/common/errorPage.jsp";
@@ -65,8 +66,8 @@ public class DeleteBoardServlet extends HttpServlet {
 			RequestDispatcher view=request.getRequestDispatcher(page);
 			view.forward(request, response);
 			
+			
 		}
-		
 		
 		
 	}

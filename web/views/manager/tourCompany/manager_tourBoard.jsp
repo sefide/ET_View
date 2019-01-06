@@ -76,6 +76,7 @@ table{
     	<table id="tb1">
     		<tr>
     			<th></th>
+    			<th>번호</th>
     			<th>투어명</th>
     			<th>제휴사명</th>
     			<th>나라/도시</th>
@@ -89,7 +90,9 @@ table{
     			HashMap<String,Object>hmap=list.get(i);
     		%>
     		<tr>
-    			<td class="num"><input type="checkbox" name="checkbox"></td>
+    			
+    			<td class="num"><input type="checkbox" name="checkbox" class="chkCheckBox" value=<%=hmap.get("tNo") %>></td>
+    			<td><%=hmap.get("tNo")%></td>
     			<td><%=hmap.get("tTitle") %></td>
     			<td><%=hmap.get("cName") %></td>
     			<td><%=hmap.get("ctCountry") %>/<%=hmap.get("ctName")%></td>
@@ -135,11 +138,28 @@ table{
     	<br>
     	
     	
-    	<button style=float:right;>삭제하기</button>
+    	<button style=float:right id="deleteBtn" onclick="deleteBtn();">삭제하기</button>
     </div>
 	
  <div class = "two wide column"></div> 
 		
 	<%@ include file = "/views/common/company/footer_com.jsp" %>
+	
+	<script>
+	$(function(){
+ 		$("#deleteBtn").click(function(){
+ 			var items = [];
+ 			$(".chkCheckBox:checked").each(function(){
+ 				items.push($(this).val());
+ 				console.log(items);
+ 			});
+ 			location.href = '<%=request.getContextPath()%>/deleteTourBoard.mng?chkValue='+items;
+ 			
+ 		});
+ 	});
+	
+	
+	
+	</script>
 </body>
 </html>
