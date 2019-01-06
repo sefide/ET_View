@@ -178,7 +178,7 @@
 		      			</tr>
 		      			<tr> 
 		      				<td> <label> <%=loginUser.getcStandard()%>장</label>  </td>
-		      				<td> <label> 3장  </label>  </td>
+		      				<td> <label> <%=loginUser.getcPremium()%>장  </label>  </td>
 		      			</tr>
 		      		</table>
 	      		</div>

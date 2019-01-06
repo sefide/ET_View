@@ -76,4 +76,35 @@ public int insertPayment(Payment p, Coupon c) {
 	
 	return result;
 }
+
+
+public int insertPremiumPayment(Payment p, Coupon c) {
+	Connection con = getConnection();
+	
+	int result=0;
+	
+
+	int result1 = new PaymentDao().insertPremiumPayment(con,p);
+	System.out.println("service1");
+	
+	if(result1>0) {
+		int tno  = new PaymentDao().selectCurrval(con,p);
+		p.setPayNo(tno);
+	}
+	int result2 = new PaymentDao().insertPremiumCoupon(con,c,p);
+	System.out.println("service2");
+
+	int result3 = new PaymentDao().updateCompanyPremiumCoupon(con,p);
+	System.out.println("service3");
+	
+	if(result1>0 && result2>0 && result3>0) {
+		commit(con);
+		result =1;
+	}else {
+		rollback(con);
+	}
+	close(con);
+	
+	return result;
+}
 }

@@ -60,8 +60,8 @@ public class CompanyDao {
 				loginCompany.setC_date(rset.getDate("C_DATE"));
 				loginCompany.setC_end_date(rset.getDate("C_END_DATE"));
 				loginCompany.setC_status(rset.getString("C_STATUS"));
-				loginCompany.setcStandard(rset.getInt("C_STANDARD"));
 				loginCompany.setcStandard(rset.getInt("C_PREMIUM"));
+				loginCompany.setcStandard(rset.getInt("C_STANDARD"));
 			}
 
 		} catch (SQLException e) {
