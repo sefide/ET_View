@@ -87,10 +87,12 @@ public class SelectAllPlanServlet extends HttpServlet {
 		
 		
 		String page = "";
-		if(bestPlanMap != null) {
+		if(bestPlanMap != null && normalPlanMap != null) {
 			page = "views/normal/plan/seePlan_main.jsp";
 			request.setAttribute("bestplanMap", bestPlanMap);
 			request.setAttribute("normalPlanMap", normalPlanMap);
+			System.out.println("돌아오기전 bestPlanMap:"+bestPlanMap);
+			System.out.println("돌아오기전 normalPlanMap:"+normalPlanMap);
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 조회 실패!");

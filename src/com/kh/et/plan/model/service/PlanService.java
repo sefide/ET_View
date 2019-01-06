@@ -197,6 +197,7 @@ public class PlanService {
 		Connection con = getConnection();
 		
 		HashMap<String, Object> bestPlanMap = new PlanDao().selectBestPlan(con);
+		System.out.println("다오는 잘 실행되었다궁ㅇ!");
 		
 		HashMap<String, City> bestCityMap = new PlanDao().selectBestMap(con);
 		
