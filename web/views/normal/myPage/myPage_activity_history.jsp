@@ -3,7 +3,8 @@
 	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.Board, java.util.*, com.kh.et.member.model.vo.News"%>
 <% 
 	HashMap<String, Board> QnAlist = (HashMap<String, Board>)request.getAttribute("QnAlist"); 
-	 ArrayList<News> NewsList = (ArrayList<News>)request.getAttribute("NewsList");
+	ArrayList<News> NewsList = (ArrayList<News>)request.getAttribute("NewsList");
+	Board board = (Board)request.getAttribute("board"); 
 	
 	/* ArrayList<HashMap<String,Object>> NewsList = (ArrayList<HashMap<String,Object>>)request.getAttribute("NewsList"); */
 %>	
@@ -318,7 +319,8 @@
 		
 		function myQnAPlus(){
 			var mno = <%=loginUser.getM_no()%>;
-			location.href = "<%=request.getContextPath()%>/selectMyQnAList.bo?mno="+mno;
+			var num = <%=board.getbNo()%>
+			location.href = "<%=request.getContextPath()%>/selectMyQnAList.bo?mno="+mno+"&num="+num;
 		}
 	</script>
 

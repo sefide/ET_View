@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, com.kh.et.board.model.vo.*"%>
-<%
-ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
-PageInfo pi = (PageInfo)request.getAttribute("pi");
-int listCount = pi.getListCount();
-int currentPage = pi.getCurrentPage();
-int maxPage = pi.getMaxPage();
-int startPage = pi.getStartPage();
-int endPage = pi.getEndPage();
-%>
+	pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,15 +17,12 @@ int endPage = pi.getEndPage();
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:700" rel="stylesheet">
 
 
-	<!-- Semantic UI -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-	
+<!-- Semantic UI -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<!-- jQuery Custom Scroller CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
 <style>
 	.container1 {
@@ -170,126 +159,151 @@ int endPage = pi.getEndPage();
 
 	<div class="ui grid">
 		<div class="two wide column"></div>
-		<div class="twelve wide column" style="margin:120px 0;">
-			 <div class = "container1"> <!-- 위에 자기내용  -->
-    				<div class = "div-img-profile">
-    					<img src = "<%=loginUser.getA_change_Name() %>" class = "img-profile">
-    				</div>
-    				<div class = "div-txt-profile">
-    					<div class = "div-name"><%=loginUser.getM_name() %></div>
-    					<div class = "div-point"><%=loginUser.getM_point() %> <i class="euro sign icon"></i></div>
-    					<div class = "div-profileTxt"><%=loginUser.getM_profile() %> </div>
-    					<button class = "btn-profile" onclick = "editProfile();"> 프로필 수정 </button>
-    				</div>
-    				<div class = "div-menu">
-    					<ul>
-    						<li><a onclick = "goMyPlan();" > > 내 플랜보기 </a> </li>
-    						<li><a href = "/et/views/normal/myPage/myPage_activity_history.jsp"  class = "this-page"> > 나의 활동내역 </a></li>
-    						<li><a href = "/et/views/normal/myPage/myPage_pointHistory.jsp"> > 포인트 히스토리 </a></li>
-    						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
-    					</ul>
-    				</div>
-    			</div>
-    			<br>
-     		<br clear = "both">
-        	<!-- QnA리스트 테이블 -->
-			<table class="ui celled padded table" id="listArea">
-				<thead>
-					<tr>
-						<th class="single line">글 번호</th>
-						<th>제목</th>
-						<th>좋아요,스크랩,신고 수</th>
-						<th>작성일</th>
-					</tr>
-				</thead>
-				<!-- 리스트 목록 -->
-				<tbody>
-					<% for(Board b : list){ %>
-					<tr>
-						<input type="hidden" value="<%= b.getbNo()%>">
-						<td><%= b.getbNo() %></td>
-						<td><%= b.getBtitle() %></td>
-						<td><%= b.getbWriter() %></td>
-						<td><%= b.getbNo() %></td>
-						<td><%= b.getbDate() %></td>
-					</tr>
-					<% } %>
-				</tbody>
-				<!-- 페이징버튼 -->
-				<tfoot>
-				<tr>
-				<th colspan="5">
-					<div class="ui right floated pagination menu">
-						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=1'"> << </a>
-
-						<%if (currentPage <= 1) {%>
-						<button disabled> < </button>
-						<%} else {%>
-						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage - 1%>'"> < </a>
-						<%}%>
-						
-						
-						<%
-							for (int p = startPage; p <= endPage; p++) {
-								if (p == currentPage) {
-						%>
-								<a class="item" disabled><%=p%></a>
-						<%} else {%>
-								<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=p%>'"> <%=p%> </a>
-						<%}%>
-
-						<%}%>
-
-
-						<%if (currentPage >= maxPage) {%>
-							<a class="item" disabled>></a>
-						<%} else {%>
-						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage + 1%>'">></a>
-						<%}%>
-
-						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=maxPage%>'">>></a>
-							
-						</div>
-					</th>
-				</tr>
-				
-				</tfoot>
-			</table>	
+		<div class="twelve wide column" style="margin-top: 120px;">
+			<div class="container1">
+				<!-- 위에 자기내용  -->
+				<div class="div-img-profile">
+					<img src="<%=loginUser.getA_change_Name()%>" class="img-profile">
+				</div>
+				<div class="div-txt-profile">
+					<div class="div-name"><%=loginUser.getM_name()%></div>
+					<div class="div-point"><%=loginUser.getM_point()%>
+						<i class="euro sign icon"></i>
+					</div>
+					<div class="div-profileTxt"><%=loginUser.getM_profile()%></div>
+					<button class="btn-profile" onclick="editProfile();">프로필 수정</button>
+				</div>
+				<div class="div-menu">
+					<ul>
+						<li><a onclick="goMyPlan();"> > 내 플랜보기 </a></li>
+						<li><a href="/et/views/normal/myPage/myPage_activity_history.jsp" class="this-page"> > 나의 활동내역 </a></li>
+						<li><a href="<%=request.getContextPath()%>/pointList.po" > > 포인트 히스토리 </a></li>
+						<li><a href="/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
+					</ul>
+				</div>
+			</div>
+			<br> 
+			<br clear="both">
 			
-		<script>
-			$(function(){
-			$("#listArea td").mouseenter(function(){
-				$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
-			}).mouseout(function(){
-				$(this).parent().css({"background":"none"});
-			}).click(function(){
-				var num = parseInt( $(this).parent().children("input").val() );
-				
-				location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num ;
-			});
-		});
-		</script>
-        	
-        	
-        	
-        		
+			<%if(loginUser != null) {%>
+			
+			<div class="container2">
+				<div class="cont2-flex">
+					<!-- 좌측 -->
+					<div class="con2-left">
+						<div class="con2-left-inner ">
+							<table class="ui single line table">
+								<thead>
+									<tr>
+										<th><input type="checkbox" id="qnaCheckBoxReader"></th>
+										<th>제목</th>
+										<th>내용</th>
+										<th>좋아요수</th>
+										<th>스크랩수</th>
+										<th>작성일</th>
+									</tr>
+								</thead>
+								<tbody id="myQnaTbody">
+								</tbody>
+								<tfoot>
+									<th colspan="6">
+										<div align="right">
+										<button class="ui brown basic mini button">삭제하기</button>
+									</div>
+									</th>
+								</tfoot>
+							</table>
+						</div>
+						<br> 
+						<br>
+					</div>
+					
+
+					<!-- 우측  -->
+					<div class="con2-right">
+						<div class="con2-qna">
+							<table class="ui single line table">
+								<thead>
+									<tr>
+										<th><input type="checkbox" id="qnaCheckBoxReader"></th>
+										<th>제목</th>
+										<th>내용</th>
+										<th>좋아요수</th>
+										<th>스크랩수</th>
+										<th>작성일</th>
+									</tr>
+								</thead>
+								<tbody id="myQnaTbody">
+								</tbody>
+								<tfoot>
+									<th colspan="6">
+										<div align="right">
+										<button class="ui brown basic mini button">삭제하기</button>
+									</div>
+									</th>
+								</tfoot>
+							</table>
+						</div>
+	
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<div style="height: 50px;"></div>
-	<br><br>
-	
+	<br>
+	<br>
+	<br>
+	<br>
+	<%}else{
+		request.setAttribute("msg", "잘못된 접근입니다. 다시 로그인해주세요");//활동내역 페이지에서 띄우자
+		request.getRequestDispatcher("views/normal/member/user_login.jsp").forward(request, response);	
+	}
+	%>
 	<script>
-	    function goMyPlan(){
-		    	var mno = <%=loginUser.getM_no()%>;
-		    	location.href = "<%=request.getContextPath()%>/selectPlanList.pl?mno="+mno;
-	    }
-		function editProfile() {
-			window.open("views/normal/myPage/myPage_profile_edit.jsp", "프로필 수정", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+		
+		var currentPage = 1;
+		function ajax(data){
+			currentPage = data;
+			
+			$.ajax({
+				url:"<%=request.getContextPath()%>/qnalist.bo",
+				data:{currentPage:currentPage},
+				type:"get",
+				success:function(data){
+					console.log(data);
+					console.log(data.QnaList);
+					console.log(data.Qnapi);
+					
+					$tableBody = $("#myQnaTbody");
+					$tableBody.html('');
+					
+					//테이블 리스트 구현
+					for(var key in data.QnaList){
+						$tr = $("<tr onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">");
+						var $checkTd = $("<td>");
+						var $check = $("<input type='checkbox' class='qnaCheck'>");
+						var $titleTd = $("<td>").text(data.QnaList[key].btitle);
+						var $contentTd = $("<td>").text(data.QnaList[key].bContent);
+						var $likeTd = $("<td>").text(data.QnaList[key].bLike);
+						var $scrapTd = $("<td>").text(data.QnaList[key].bScrap);
+						var $dateTd = $("<td>").text(data.QnaList[key].bDate);
+						$checkTd.append($check);
+						$tr.append($checkTd);
+						$tr.append($titleTd);
+						$tr.append($contentTd);
+						$tr.append($likeTd);
+						$tr.append($scrapTd);
+						$tr.append($dateTd);
+						$tableBody.append($tr);
+					}
+					
+					//페이징 처리
+					$trPage = $("<tr>");
+					$tdPage = $("<td colspan='5'>");
+					$centerDiv = $("<div align='center'>");
+					$paginationDiv = $("<div class='ui pagination menu'>");
+				}
+			});
 		}
 	</script>
 

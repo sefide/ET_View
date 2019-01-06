@@ -503,10 +503,12 @@ public class BoardDao {
 	}
 
 	//QnaList 페이지 처리 후
-	public ArrayList<Board> QnaList(Connection con, int currentPage, int limit, int mno) {
+	public ArrayList<Board> QnaList(Connection con, int currentPage, int limit, int mno, int num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> QnaList = null;
+		String bitype1 = "좋아요";
+		String bitype2 = "스크랩";
 		
 		String query = prop.getProperty("QnaListPaging");
 		
@@ -516,23 +518,48 @@ public class BoardDao {
 			int startRow = (currentPage - 1) * limit + 1;	//각 페이징 페이지 마다 처음 페이지 번호(ex.1,11,21,31...)
 			int endRow = startRow + limit - 1;	//각 페이징 페이지 마다 마지막 페이지 번호(ex.10,20,30,40...)
 			
-			pstmt.setInt(1, mno);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+			pstmt.setString(1, bitype1);
+			pstmt.setInt(2, mno);
+			pstmt.setInt(3, num);
+			pstmt.setString(4, bitype2);
+			pstmt.setInt(5, mno);
+			pstmt.setInt(6, num);
+			pstmt.setInt(7, mno);
+			pstmt.setInt(8, num);
+			pstmt.setInt(9, startRow);
+			pstmt.setInt(10, endRow);
 			
 			rset = pstmt.executeQuery();
 			
-			QnaList = new ArrayList<Board>();	//페이징 리스트 생성하고
 			
-			
+			if(rset != null) {
+				QnaList = new ArrayList<Board>();	//페이징 리스트 생성하고
+				while(rset.next()) {
+					Board b = new Board();
+					
+					b.setbNo(rset.getInt("B_NO"));
+					b.setbLike(rset.getInt("LIKES"));
+					b.setbScrap(rset.getInt("SCRAPS"));
+					b.setBtitle(rset.getString("B_TITLE"));
+					b.setbContent(rset.getString("B_CONTENT"));
+					b.setbDate(rset.getDate("B_DATE"));
+					
+					
+					QnaList.add(b);
+				}
+				
+			}
 			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
 		}
 		
 		
-		return null;
+		return QnaList;
 	
 }
 
