@@ -1,8 +1,6 @@
 package com.kh.et.manager.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,22 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.et.manager.model.service.ManagerService;
-import com.kh.et.manager.model.vo.Manager;
 import com.kh.et.plan.model.vo.City;
 
-
-
 /**
- * Servlet implementation class ManagerTravelUpdateOneServlet
+ * Servlet implementation class ManagerUpdateTravelServlet
  */
-@WebServlet("/updateOne.mng")
-public class ManagerTravelUpdateOneServlet extends HttpServlet {
+@WebServlet("/updateCity.mng")
+public class ManagerUpdateTravelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ManagerTravelUpdateOneServlet() {
+    public ManagerUpdateTravelServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,29 +32,29 @@ public class ManagerTravelUpdateOneServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String[] testChk = request.getParameterValues("chkValue");
-		int comNo = 0;
-		for(String msg : testChk) {
-			System.out.println("테스트 체크!!! :" + msg);
-			comNo = Integer.parseInt(msg);
-		}
+		String info=request.getParameter("content");
+		int cno=Integer.parseInt(request.getParameter("comNo"));
 		
-		City city=new ManagerService().updateOne(testChk);
+		City reqCity=new City();
+		
+		reqCity.setCtInfo(info);
+		reqCity.setCtNo(cno);
+		
+		int result=new ManagerService().updatetc(reqCity);
 		
 		String page="";
-		
-		if(city!=null) {
-			page="views/manager/plan/cityUpdateForm.jsp";
-			request.setAttribute("ct", city);
-			request.setAttribute("comNo", comNo);
-			
+		if(result>0) {
+			page="/et/selectCity.mng";
+			response.sendRedirect(page);
 		}else {
 			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시글 상세보기 실패!");
+			request.setAttribute("msg", "수정하기실패!");
+			RequestDispatcher view=request.getRequestDispatcher(page);
+			view.forward(request, response);
 		}
 		
-		RequestDispatcher view=request.getRequestDispatcher(page);
-		view.forward(request, response);
+		
+		
 		
 	}
 

@@ -486,9 +486,9 @@ public class ManagerDao {
 			int startRow=(currentPage-1)*limit+1;
 			int endRow = startRow + limit - 1;	//한 페이지에서의 글 목록 끝 번호
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setString(3, "좋아요");
+			pstmt.setString(1,"좋아요");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			
 			list=new ArrayList<HashMap<String,Object>>();
@@ -501,7 +501,7 @@ public class ManagerDao {
 				hmap.put("pTitle",rset.getString("P_TITLE"));
 				hmap.put("m_name",rset.getString("M_NAME"));
 				hmap.put("pPrivate",rset.getString("P_PRIVATE"));
-				hmap.put("PI_type",rset.getString("CNT"));//뽑아오는 것은 숫자
+				hmap.put("PI_type",rset.getString("LIKEC"));//뽑아오는 것은 숫자
 				list.add(hmap);
 			}
 		} catch (SQLException e) {
@@ -570,9 +570,9 @@ public class ManagerDao {
 			int endRow = startRow + limit - 1;	//한 페이지에서의 글 목록 끝 번호
 			
 			
-			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(1,"좋아요");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			
 			list=new ArrayList<HashMap<String,Object>>();
@@ -792,6 +792,7 @@ public class ManagerDao {
 				
 				
 				hmap=new HashMap<String,Object>();
+				hmap.put("tNo", rset.getString("T_NO"));
 				hmap.put("tTitle",rset.getString("T_TITLE"));
 				hmap.put("cName",rset.getString("C_NAME"));
 				hmap.put("ctCountry",rset.getString("CT_COUNTRY"));
@@ -1082,11 +1083,10 @@ public class ManagerDao {
 	}
 
 
-	public ArrayList<HashMap<String, Object>> updateOne(Connection con, String item) {
+	public City updateOne(Connection con, String item) {
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
-		ArrayList<HashMap<String,Object>> list=null;
-		HashMap<String, Object> hmap=null;
+		City ct=null;
 		System.out.println("service"+item);
 		
 		String query=prop.getProperty("updateOne");
@@ -1097,15 +1097,12 @@ public class ManagerDao {
 			pstmt.setInt(1, Integer.parseInt(item));
 			rset=pstmt.executeQuery();
 			
-			list=new ArrayList<HashMap<String,Object>>();
 			while(rset.next()) {
-				
-				hmap=new HashMap<String,Object>();
-				hmap.put("ctNo",rset.getInt("PD_NO"));
-				hmap.put("ctName",rset.getString("CT_NAME"));
-				hmap.put("ctCountry", rset.getString("CT_COUNTRY"));
-				hmap.put("rank", rset.getInt("RK"));
-				list.add(hmap);
+			    ct=new City();
+				ct.setCtNo(rset.getInt("RNUM"));
+				ct.setCtName(rset.getString("CT_NAME"));
+				ct.setCtCountry(rset.getString("CT_COUNTRY"));
+				ct.setCtInfo(rset.getString("CT_INFO"));
 			}
 			
 			
@@ -1118,7 +1115,7 @@ public class ManagerDao {
 		}
 		
 		
-		return list;
+		return ct;
 	}
 
 	public ArrayList<City> cityList2(Connection con, int currentPage, int limit) {
@@ -1149,7 +1146,7 @@ public class ManagerDao {
 				City city = new City();
 				
 				
-				city.setCtNo(rset.getInt("CT_NO"));
+				city.setCtNo(rset.getInt("RNUM"));
 				city.setCtName(rset.getString("CT_NAME"));
 				city.setCtCountry(rset.getString("CT_COUNTRY"));
 				city.setCtInfo(rset.getString("CT_INFO"));
@@ -1166,14 +1163,14 @@ public class ManagerDao {
 		return list2;
 	}
 
-	public int deleteBoard(Connection con, int no) {
+	public int deleteBoard(Connection con, int num) {
 		PreparedStatement pstmt=null;
 		int result=0;
 		
 		String query=prop.getProperty("deleteBoard");
 		try {
 			pstmt=con.prepareStatement(query);
-			pstmt.setInt(1,no);
+			pstmt.setInt(1,num);
 			result=pstmt.executeUpdate();
 			
 			
@@ -1184,6 +1181,70 @@ public class ManagerDao {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int updatetc(Connection con, City reqCity) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateTcity");
+		
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setString(1, reqCity.getCtInfo());
+			pstmt.setInt(2, reqCity.getCtNo());
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int deleteTravel(Connection con, Integer num) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		String query=prop.getProperty("deleteTravel");
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1,num);
+			result=pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteTourBoards(Connection con, Integer num) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		String query=prop.getProperty("deleteTourBoard");
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1,num);
+			result=pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("다오"+result);
 		return result;
 	}
 

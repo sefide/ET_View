@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.kh.et.company.model.dao.CompanyDao;
 import com.kh.et.manager.model.dao.ManagerDao;
 import com.kh.et.manager.model.vo.Manager;
 import com.kh.et.member.model.vo.Member;
@@ -490,16 +491,16 @@ public class ManagerService {
 		return res;
 	}
 
-	public ArrayList<HashMap<String, Object>> updateOne(String[] testChk) {
+	public City updateOne(String[] testChk) {
 		Connection con=getConnection();
-		ArrayList<HashMap<String,Object>> list= null;
+		City ct=null;
 		for(String item : testChk) {
 			System.out.println("service"+item);
-			list=new ManagerDao().updateOne(con,item);
+			ct=new ManagerDao().updateOne(con,item);
 	
 		}		
 		close(con);
-		return list;
+		return ct;
 	}
 
 	public ArrayList<City> cityList2(int currentPage, int limit) {
@@ -517,24 +518,13 @@ public class ManagerService {
 		return list2;
 	}
 
-	public int deleteBoard(int no) {
-		
-		Connection con=getConnection();
-		int result=new ManagerDao().deleteBoard(con,no);
-		
-		if(result>0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		
-		return result;
-	}
+
 	
 	public int deleteBoards(List<Integer> list) {
+		int result=0;
 		for(Integer num : list) {
 			Connection con=getConnection();
-			int result=new ManagerDao().deleteBoard(con,num);
+			result=new ManagerDao().deleteBoard(con,num);
 			
 			if(result>0) {
 				commit(con);
@@ -542,9 +532,58 @@ public class ManagerService {
 				rollback(con);
 			}
 			
-			return result;
+			
 		}
-		return 0;
+		System.out.println("서비스 "+result);
+		return result;
+	}
+
+	public int updatetc(City reqCity) {
+		Connection con=getConnection();
+		int result=new ManagerDao().updatetc(con,reqCity);
+		if(result>0) {
+			commit(con);
+
+		} else {
+			rollback(con);
+		}
+		return result;
+	}
+
+	public int deleteTravel(ArrayList<Integer> list) {
+		int result=0;
+		for(Integer num : list) {
+			Connection con=getConnection();
+			result=new ManagerDao().deleteTravel(con,num);
+			
+			if(result>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+			
+		}
+		System.out.println("서비스 "+result);
+		return result;
+	}
+
+	public int deleteTourBoards(List<Integer> list) {
+		int result=0;
+		for(Integer num : list) {
+			Connection con=getConnection();
+			result=new ManagerDao().deleteTourBoards(con,num);
+			
+			if(result>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+			
+		}
+		System.out.println("서비스 "+result);
+		return result;
 	}
 
 
