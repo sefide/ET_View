@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import com.google.gson.Gson;
 import com.kh.et.tourBoard.model.service.TourBoardService;
@@ -37,55 +41,66 @@ public class SelectCityDetailServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8"); 
 		String cityName = request.getParameter("cityName");
 		int cityNum = Integer.parseInt(request.getParameter("cityNum"));
-		
-		// 도시 정보, 음 날씨 뽑아오고
 		System.out.println("cityName : " + cityName);
 		System.out.println("cityNum : " + cityNum);
-		// 관련 투어 정보 뽑아오자 
+		
+
+		
+//		관련 투어 정보 뽑아오기 ~~~ !
 		ArrayList<HashMap<String, Object>> tourList = new TourBoardService().selectCityTourList(cityNum);
 		// t : tourBoar / a : attachment 
 		// 3개의 map 
 		// 6개의 object 
+		
+//		날씨 정보 뽑아오기 ~!!
+		String weatherURL = "";
+		switch(cityName) {
+			case "파리" : { weatherURL = "http://www.weather.go.kr/repositary/sfc/climate/world/w_07150.html"; break;}
+			case "런던" : { weatherURL= "http://www.weather.go.kr/repositary/sfc/climate/world/w_03776.html"; break;}
+			case "앙카라" : { weatherURL = "http://www.weather.go.kr/repositary/sfc/climate/world/w_17130.html"; break;}
+			case "리스본" : { weatherURL = "http://www.weather.go.kr/repositary/sfc/climate/world/w_08536.html"; break;}
+			case "아테네" : { weatherURL = "http://www.weather.go.kr/repositary/sfc/climate/world/w_16714.html"; break;}
+			case "프라하" : { weatherURL = "http://www.weather.go.kr/repositary/sfc/climate/world/w_11518.html"; break;	}
+			case "베를린" : {	weatherURL = "http://www.weather.go.kr/repositary/sfc/climate/world/w_10384.html"; break; }
+			case "마드리드" : { weatherURL = "http://www.weather.go.kr/repositary/sfc/climate/world/w_08222.html";break; }
+			case "로마" : { weatherURL = "http://www.weather.go.kr/repositary/sfc/climate/world/w_16242.html"; break; }
+			case "빈" : { weatherURL = "http://www.weather.go.kr/repositary/sfc/climate/world/w_11035.html"; break; }
+			default : { System.out.println("알수 없는 정보입니다. "); 	break; }
+		}
+		
+		if(weatherURL!= "") {
+			Document doc = null;
+			try {
+				doc = Jsoup.connect(weatherURL).get();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			Elements titles = doc.select(".table_midterm");
+			String wContents = "";
+			//print all titles in main page
+			for(Element e: titles){
+	//			System.out.println("text: " +e.text());
+	//			System.out.println("html: "+ e.html());
+				wContents += e.html();
+			}	
+			//System.out.println(wContents);
+			//print all available links on page
+	//		Elements links = doc.select("a[href]");
+	//		for(Element l: links){
+	//			System.out.println("link: " +l.attr("abs:href"));
+	//		}
+			HashMap<String, Object> weatherStr  = new HashMap<String, Object>();
+			weatherStr.put("w", wContents);
+			tourList.add(weatherStr);
+		}
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(tourList, response.getWriter());
 		
-		
-		
-		///JSONObject obj = null;
-		//JSONObject tourMap = new JSONObject();
-		// T_NO, T_TITLE, T_CT_NO, T_CONCEPT, CT_NAME, C_NO, T_PRICE, A_NO, A_ORIGIN_NAME, A_CHANGE_NAME, A_FILE_PATH, A_UPLOAD_DATE 
-		// , , , , , C_NO, , A_NO, A_ORIGIN_NAME, A_CHANGE_NAME, A_FILE_PATH, A_UPLOAD_DATE 
-
-//		if(tourList != null) {
-//		for (int i = 0; i < tourList.size(); i++) {
-//			obj = new JSONObject();
-//			obj.put("tno", ((TourBoard)tourList.get(i).get("t")).getTno());
-//			obj.put("title", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).gettTitle(),"UTF-8"));
-//			obj.put("ctno", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).gettTitle(),"UTF-8"));
-//			obj.put("ctname", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).getTctName(),"UTF-8"));
-//			obj.put("concept", URLEncoder.encode(((TourBoard)tourList.get(i).get("t")).gettConcept(),"UTF-8"));
-//			obj.put("price", ((TourBoard)tourList.get(i).get("t")).gettPrice());
-//			
-//			obj.put("ano", ((Attachment)tourList.get(i).get("a")).getAno());
-//			obj.put("originName",  URLEncoder.encode(((Attachment)tourList.get(i).get("a")).getOriginName(),"UTF-8"));
-//			obj.put("changeName",  URLEncoder.encode(((Attachment)tourList.get(i).get("a")).getChangeName(),"UTF-8"));
-//
-//			tourMap.put("t"+i, obj);
-	//		}	
-	//	}
-	//	response.setContentType("text/html;charset=UTF-8"); 
-	//	response.setContentType("application/json");
-	//	PrintWriter out = response.getWriter();
-	//	out.print(tourMap.toJSONString());
-	//	
-	//	out.flush();
-	//	out.close();
 	}
 
 	/**
