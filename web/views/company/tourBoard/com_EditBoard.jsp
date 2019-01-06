@@ -4,6 +4,7 @@
     
   <% 
   ArrayList<HashMap<String,Object>> list=(ArrayList<HashMap<String,Object>>)request.getAttribute("list");
+  
   %>  
 <!DOCTYPE html>
 <html>
@@ -247,7 +248,8 @@
 	        <span class ="txt-insertTour">투어글 수정하기 </span>
 			<div class = "bar-insertTour"></div>
 			<div class="tableArea  ui form">
-				<form method="post" id ="updateForm">
+	
+				<form id ="updateForm" action="<%=request.getContextPath()%>/update.tbo" method="post" enctype="multipart/form-data">
 				<%for(int i=0;i<list.size();i++){ 
 							HashMap<String,Object> hmap=list.get(i);
 							TourBoard tb = (TourBoard)hmap.get("tb");
@@ -389,7 +391,7 @@
 							<td class="attr1">설명</td>
 							<td colspan="5">
 							    <div class="field">
-								    <textarea name = "tourContent" placeholder = "투어에 대해 설명해주세요. "></textarea>
+								    <textarea name = "tourContent" id = " testText" placeholder = "투어에 대해 설명해주세요. "></textarea>
 							    </div>
 							</td>
 						
@@ -408,20 +410,23 @@
 					<br>
 					
 					<div align="center">
-						<button onclick = "complete(); " class="ui grey basic button">수정하기 </button>
+						<button onclick = "complete(); return false; " class="ui grey basic button">수정하기 </button>
 						<button onclick = "deleteTourBoard();" class="ui grey basic button">삭제하기 </button>
 					</div>
 					
 					<script>
 						function complete() {
-							if(status==N||(status==Y&&
-									$("#photoAttachment").val()!="")){
-							$("#updateForm").attr("action", "<%=request.getContextPath()%>/selectList.tbo"); 
-							}
-							else {
-								alert("사진을 띄워주세요");
-							}
-							
+							//console.log("complete invocation.")
+							//if(status=="N"||(status=="Y"&&
+							//		$("#photoAttachment").val()!="")){
+								 console.log("http://127.0.0.1:8010/et/update.tbo");
+							 	 $("#updateForm").submit();
+								//console.log($("#testText").text())
+							//}
+							//else {
+							//	alert("사진을 띄워주세요");
+							//	console.log("클릭")
+							//}
 						}
 						function deleteTourBoard(){
 							$("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteTourBoard.tbo");
@@ -476,7 +481,7 @@
    		 $("#fileName").hide();
    		 $("#delPhotoBtn").hide();
    		 $("#tourPhoto").show();
-   		 return false;
+   		  return false; 
    		 
    		 
    	 }

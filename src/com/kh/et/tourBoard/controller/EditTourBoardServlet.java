@@ -44,6 +44,7 @@ public class EditTourBoardServlet extends HttpServlet {
 			
 			page="views/company/tourBoard/com_EditBoard.jsp";
 			request.setAttribute("list",list);
+			
 		
 		}else {
 			
