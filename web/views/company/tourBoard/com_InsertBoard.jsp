@@ -178,7 +178,9 @@
 		
 		border :none;
 	}
-	
+	.warn{
+		color:red;	
+	}
 	
 </style>
 
@@ -300,6 +302,7 @@
 							</select>
 							</td>	
 						</tr>
+						<%if(loginUser.getcStandard()>0 && loginUser.getcPremium()>0){ %>
 						<tr>
 							<td class="attr1">대표사진 </td>
 							<td class="attr2" colspan = "3">
@@ -317,8 +320,62 @@
 								<input type="radio" name = "powerLink" id = "powerNo" value="standard"><label for = "powerNo">standard</label>
 								</div>
 							</td>
-		
 						</tr>
+						<%}else if(loginUser.getcStandard()<1 && loginUser.getcPremium()>0){ %>
+						<tr>
+							<td class="attr1">대표사진 </td>
+							<td class="attr2" colspan = "3">
+								<input type ="file" name = "tourPhoto"  onchange = "loadImg(this, 1)">
+							</td>
+							
+							<!-- <td class="attr3" ></td> -->
+							<td class="attr1"  id = "attr3" align="center">파워링크 여부</td>
+							<td>
+								<div class ="ui radio checkbox">
+									<input type="radio" name = "powerLink" id = "powerYes" value="premium"><label for = "powerYes">premium</label>
+								</div>
+								
+								<div class ="ui radio checkbox">
+								<span class="warn">스탠다드 쿠폰부족! 프리미엄 게시물만 등록가능!</span>
+								</div>
+							</td>
+						</tr>
+						
+						
+						<%}else if(loginUser.getcPremium()<1 && loginUser.getcStandard()>0){ %>
+						<tr>
+							<td class="attr1">대표사진 </td>
+							<td class="attr2" colspan = "3">
+								<input type ="file" name = "tourPhoto"  onchange = "loadImg(this, 1)">
+							</td>
+							
+							<!-- <td class="attr3" ></td> -->
+							<td class="attr1"  id = "attr3" align="center">파워링크 여부</td>
+							<td>
+							<div class ="ui radio checkbox">
+								<input type="radio" name = "powerLink" id = "powerNo" value="standard"><label for = "powerNo">standard</label>
+							</div>
+							<div class ="ui radio checkbox">
+							<span class="warn">프리미엄 쿠폰부족! 스탠다드 게시물만 등록가능!</span>
+							</div>					
+								
+							</td>
+						</tr>
+						<%}else if(loginUser.getcStandard()<1 && loginUser.getcPremium()<1){%>
+						<tr>
+							<td class="attr1">대표사진 </td>
+							<td class="attr2" colspan = "3">
+								<input type ="file" name = "tourPhoto"  onchange = "loadImg(this, 1)">
+							</td>
+							
+							<!-- <td class="attr3" ></td> -->
+							<td class="attr1"  id = "attr3" align="center">파워링크 여부</td>
+							<td>
+								<span class="warn">게시물 등록에 사용할 쿠폰이 없습니다. 게시물을 등록하시려면 쿠폰을 결제해주세요!</span>
+							</td>
+						</tr>
+						<%} %>
+						<!-- ====파워링크==== -->
 						<tr>
 							<td></td>
 							<td colspan = "5">
@@ -370,12 +427,17 @@
 					</table>
 					<br>
 					
-					<div align="center">
+					 <div align="center">
 						<button type="reset" class="ui grey basic button">취소하기</button>
-						<!-- <button type="submit" class="ui grey basic button">등록하기</button> -->
-						<button class="ui grey basic button" onclick="insertBoard();">등록하기</button>
-					</div>
+						<button type="submit" class="ui grey basic button">등록하기</button>
+						<!-- <button class="ui grey basic button" onclick="insertBoard();">등록하기</button> -->
+					</div> 
 				</form>
+				<!-- <div align="center">
+						<button type="reset" class="ui grey basic button">취소하기</button>
+						<button type="submit" class="ui grey basic button">등록하기</button>
+						<button class="ui grey basic button" onclick="insertBoard();">등록하기</button>
+					</div> -->
 				
 			</div>
 				
@@ -400,14 +462,21 @@
   		 ;
    	});
    	</script>
-   	<script>
+   	<%-- <script>
    		function insertBoard() {
-   			var link = document.getElementByName("powerLink").val();
-   			var premiumC = <%=loginUser.getcPremium()%>;
-   			var Standard = <%=loginUser.getcStandard()%>;
-   			if(link == "premium")){
+   			/* $("input[type = radio]").click(function(){
+   				grade = $(this).val();
+   			}); */
+   			grade = $('input[name="powerLink"]:checked').val();
+   			premiumC = <%=loginUser.getcPremium()%>;
+   			Standard = <%=loginUser.getcStandard()%>;
+   			console.log(grade);
+   			console.log(premiumC);
+   			console.log(Standard);
+
+   			if(grade == "premium"){
    				if(premiumC>0){
-   					location.href="<%=request.getContextPath()%>/insert.tbo";
+   					 location.href="<%=request.getContextPath()%>/insert.tbo"; 
    				}else{
    					alert("프리미엄 쿠폰이 부족합니다!!(충전해주세요!)");
    				}
@@ -421,7 +490,7 @@
 			
 		}
    	
-   	</script>
+   	</script> --%>
    	<script>
    	function loadImg(value,num) {
 		if(value.files && value.files[0]) { // value는 요소 파일이 있는 상태에 동작한다. 
