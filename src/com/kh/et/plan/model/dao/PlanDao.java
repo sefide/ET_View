@@ -14,6 +14,7 @@ import java.util.Properties;
 import com.kh.et.plan.model.vo.City;
 import com.kh.et.plan.model.vo.Plan;
 import com.kh.et.plan.model.vo.PlanDetail;
+import com.kh.et.plan.model.vo.PlanInterest;
 import com.kh.et.member.model.vo.News;
 import com.kh.et.plan.model.dao.PlanDao;
 
@@ -568,6 +569,7 @@ public class PlanDao {
 
 		return pm;
 		}
+	
 		//인기 도시 select - 플랜 엿보기 페이지
 		public HashMap<String, City> selectBestMap(Connection con) {
 			Statement stmt = null;
@@ -739,5 +741,55 @@ public class PlanDao {
 			close(rset);
 		}	
 		return listCount;
+	}
+	//좋아요 눌렀을때
+	public int clickLike(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("clickLike");
+		//clickLike=INSERT INTO PLANINTEREST VALUES (SEQ_PI_NO.NEXTVAL,?,?,?,?)
+		try {
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pl.getWriter());
+			pstmt.setInt(2, pl.getPno());
+			pstmt.setInt(3, pl.getUser());
+			pstmt.setString(4, type);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	//플랜 좋아요 취소
+	public int clickUnLike(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("clickUnLike");
+		//clickUnLike=
+		try {
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pl.getWriter());
+			pstmt.setInt(2, pl.getPno());
+			pstmt.setInt(3, pl.getUser());
+			pstmt.setString(4, type);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

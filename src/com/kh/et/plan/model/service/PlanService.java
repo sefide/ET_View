@@ -10,6 +10,7 @@ import com.kh.et.plan.model.dao.PlanDao;
 import com.kh.et.plan.model.vo.City;
 import com.kh.et.plan.model.vo.Plan;
 import com.kh.et.plan.model.vo.PlanDetail;
+import com.kh.et.plan.model.vo.PlanInterest;
 
 public class PlanService {
 
@@ -196,11 +197,13 @@ public class PlanService {
 	public HashMap<String, Object> selectBestPlan() {
 		Connection con = getConnection();
 		
+		System.out.println("selectBestPlan의 Service인걸?");
+		
 		HashMap<String, Object> bestPlanMap = new PlanDao().selectBestPlan(con);
-		System.out.println("다오는 잘 실행되었다궁ㅇ!");
+		System.out.println("service 의 bestPlanMap"+bestPlanMap);
 		
 		HashMap<String, City> bestCityMap = new PlanDao().selectBestMap(con);
-		
+		System.out.println("service 의 bestCityMap"+bestCityMap);
 		
 		if(bestPlanMap != null && bestCityMap != null) {
 			bestPlanMap.put("bestCityMap", bestCityMap); 
@@ -221,13 +224,15 @@ public class PlanService {
 		Connection con = getConnection();
 		
 		System.out.println("normalPlan의 Service인걸?");
+		
 		HashMap<String, Object> normalPlanMap = new PlanDao().selectNormalPlan(con);
+		System.out.println("service 의 normalPlanMap"+normalPlanMap);
 		
 		HashMap<String, City> normalCityMap = new PlanDao().selectNormalMap(con);
-		
+		System.out.println("service 의 normalCityMap"+normalCityMap);
 		
 		if(normalPlanMap != null && normalCityMap != null) {
-			normalPlanMap.put("normalCityMap", normalCityMap); 
+			normalPlanMap.put("normalCityMap", normalCityMap); 		
 			commit(con);
 			
 		} else {
@@ -268,6 +273,55 @@ public class PlanService {
 		close(con);
 		return listCount;
 	}
+	
+	//좋아요 눌렀을때
+	public int clickLike(PlanInterest pl) {
+		Connection con = getConnection();
+		
+		int result = new PlanDao().clickLike(con,pl);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+	
+	//좋아요 갯수 구하기
+	public int countLike(int pno) {
+		Connection con = getConnection();
+		
+		int like = new PlanDao().getLikeNum(con, pno);
+		
+		if(like>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return like;
+	}
+	//플랜 좋아요 취소
+	public int clickUnLike(PlanInterest pl) {
+		Connection con = getConnection();
+		
+		int result = new PlanDao().clickUnLike(con,pl);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+	
+	
 
 	
 

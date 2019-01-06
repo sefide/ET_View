@@ -16,7 +16,7 @@
 	HashMap<String, City> nCityMap = null;	
 	ArrayList<Plan> nPlanList = null;
 	if (normalPlanMap != null) {
-		nCityMap = (HashMap<String, City>) bestplanMap.get("normalCityMap");
+		nCityMap = (HashMap<String, City>) normalPlanMap.get("normalCityMap");
 	}
 	
 	
@@ -86,10 +86,13 @@
 
 .div-plan-title {
 	font-size: 20px;
-	font-weight: 500;
+	font-weight: 600;
 	font-family: 'Ubuntu', sans-serif;
+	color : #2A5A85 ;
 	display: inline-block;
+	cursor: pointer;
 }
+
 
 .div-plan-like {
 	width: 80px;
@@ -99,19 +102,9 @@
 	font-family: 'Ubuntu', sans-serif;
 	text-align: center;
 	float: left;
-	cursor: pointer;
+	
 }
-.div-plan-detail-go{
-	width: 80px;
-	height: 30px;
-	color: red;
-	font-size: 15px;
-	font-family: 'Ubuntu', sans-serif;
-	border-radius: 5px;
-	text-align: center;
-	float: right;
-	cursor: pointer;
-}
+
 </style>
 </head>
 <body>
@@ -129,14 +122,11 @@
 			<div >
 				<div class="ui mt-20">
 
-					<div class="ui huge header">BEST Plan TOP 3</div>
+					<div class="ui huge header" style="margin-top: 15px;">인기 플랜 보기</div>
 					<div>
 						<div class="div-plan-list" >
-							<% if(bestplanMap!= null){
-								System.out.println("jsp에서의 bestplanMap:"+bestplanMap);
-        					planList = (ArrayList<Plan>)bestplanMap.get("planList");
-        					System.out.println("view에서 보여지는 planList"+planList);
-        					
+							<% if(bestplanMap!= null){								
+        					planList = (ArrayList<Plan>)bestplanMap.get("planList");       					
         					for(int i = 0; i < planList.size(); i++){        						
         						Plan p = planList.get(i);
 
@@ -147,15 +137,12 @@
         						
         						<div class = "div-plan-title" onclick = "goPlanDetail(<%=planList.get(i).getpNo()%>);"> <%=p.getpTitle()%> </div>
         						<br>
-								<div class="ui labeled button" tabindex="0">
+								<div class="ui labeled button" tabindex="0" >
 									<div class="ui yellow button">
 										<i class="heart icon"></i> 좋아요
 									</div>
 									<a class="ui basic yellow left pointing label"> <%=p.getpLike() %> </a>
 								</div>
-        						<div  class = "div-plan-detail-go">
-        							<button class="ui yellow basic button">GO!</button>
-        						</div>
         					</div>
         					<%}
         				}%>
@@ -180,7 +167,7 @@
 					<%
 					if(cityMap != null && planList != null){
 					String[] planCityArr = null;
-					System.out.println("인기 플랜 개수 : " + planList.size()); 
+					
 					
 					for (int i = 0; i < planList.size(); i++){
 						planCityArr =  (planList.get(i).getpCites()).split(", "); // 이건 String
@@ -272,50 +259,43 @@
 			<!-- 모든 플랜 보기 -->
 			<div>
 				<div class="ui mt-20">
-					<div class="ui huge header"> 모든 플랜 보기</div>
+					<div class="ui huge header" > 모든 플랜 보기</div>
 					<div>
 						<div class="div-plan-list" ">
-							<% if(normalPlanMap!= null){
-								System.out.println("jsp에서의 normalPlanMap:"+normalPlanMap);
-								nPlanList = (ArrayList<Plan>)normalPlanMap.get("nPlanList");
-        						System.out.println("view에서 보여지는 nplanList"+nPlanList);
+							<% if(normalPlanMap!= null){								
+								nPlanList = (ArrayList<Plan>)normalPlanMap.get("nPlanList");        						
         					
         					for(int i = 0; i < nPlanList.size(); i++){        						
         						Plan p = nPlanList.get(i);
         						%>
         						<!-- System.out.println("view에서 보여지는 p"+p); -->
 							<div class ="div-plan-map"> 
-        					    <div id ="plan-map1<%=i%>" class ="plan-map"></div>
-        						<% System.out.println(); %>    
+        					    <div id ="plan-map1<%=i%>" class ="plan-map"></div>  
         						<div class = "div-plan-title"><%=p.getpTitle() %></div>
         						<br>
         						<div class = "div-plan-like"> 
         							<i class = "icon heart"><%=p.getpLike() %></i>
         						</div>
+        					
         					</div>
-        					<button onclick="click();">click Me</button>
         					<%}
-        				}%>
-        				 
-							
-						</div>
-						
+        				}%>							
+						</div>					
 					</div>
 				</div>
-			</div>
+			</div>	
+			
 			<script>
 			var map;
 			var flightPlanCoordinatesArr = [];
 			var flightPlanCoordinates = [];
 			var path = {};
 			
-			$(function(){
-				// 2번째 꼬다	
-				// 플랜 별 도시 위도 경도를 찍는다. 
-				<%
+			$(function () {
+				<%				
 				if(nCityMap != null && nPlanList != null){
 				String[] planCityArr1 = null;
-				System.out.println("모든 플랜 개수 : " + nPlanList.size()); 
+				
 				
 				for (int i = 0; i < nPlanList.size(); i++){
 					planCityArr1 =  (nPlanList.get(i).getpCites()).split(", "); // 이건 String
@@ -364,12 +344,19 @@
 			        console.log("marker"+j);
 			        }
 			    <%}%>
-		       <%}%>
-		 		
+		       <%}else{
+		    	   System.out.println("else다!!!" ); 
+		       }%>
+			});
+			
+			
+			
+			
+			
+				
 			
 			
 			</script>
-			
 			
 			
 

@@ -91,6 +91,7 @@ public class SelectAllPlanServlet extends HttpServlet {
 			page = "views/normal/plan/seePlan_main.jsp";
 			request.setAttribute("bestplanMap", bestPlanMap);
 			request.setAttribute("normalPlanMap", normalPlanMap);
+			
 			System.out.println("돌아오기전 bestPlanMap:"+bestPlanMap);
 			System.out.println("돌아오기전 normalPlanMap:"+normalPlanMap);
 		}else {
