@@ -181,7 +181,7 @@ public class MemberService {
 		return result;
 	}
 
-
+	//네이버로 로그인시 자동회원가입 되게 해주기
 	public int insertNaverUser(String name, String email, String password) {
 		Connection con = getConnection();
 		
@@ -194,6 +194,18 @@ public class MemberService {
 		}
 		close(con);
 		return result;
+	}
+
+	//아이디 찾기 시 이메일 유효성 검사
+	public Member memberIdSearchEmailCheck(Member reqMember) {
+		Connection con = getConnection();
+		
+		Member loginUser = new MemberDao().memberIdSearchEmailCheck(con, reqMember);
+		
+		close(con);
+		
+		
+		return loginUser;
 	}
 
 

@@ -292,6 +292,33 @@
 			
 	}	 
 	
+	//아이디 찾기 시 이메일 유효성 검사
+	$("#userEmail").change(function(){
+		var userQuestion = $("#userQuestion").val();
+		var userAnwser = $("#userAnwser").val();
+		var userEmail =  $("#userEmail").val();
+		
+		$.ajax({
+			url:"/et/emailCheck.me",
+			type:"get",
+			data:{userQuestion:userQuestion, userAnwser:userAnwser},
+			success:function(data){
+				if(data != userEmail){
+					alert("회원 가입시 입력한 이메일을 입력해주세요");
+					$("#userEmail").html("");
+					console.log("이메일 입력란을 공백처리 했습니다.");
+				}else{
+					console.log(data);
+					return false;
+				}
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+			
+	});
+	
 	
 	//임시비밀번호 발급
 	function pwdSearch(){
