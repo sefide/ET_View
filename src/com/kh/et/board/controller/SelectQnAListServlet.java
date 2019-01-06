@@ -36,7 +36,6 @@ public class SelectQnAListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int mno = Integer.parseInt(request.getParameter("mno"));	//세션에 담긴 로그인 정보에서 회원번호 빼오기
-		int num = Integer.parseInt(request.getParameter("num"));
 		
 		// ---------------- 페이징처리 추가 -------------------
 		int currentPage; // 현재 페이지를 표시할 변수
@@ -75,7 +74,7 @@ public class SelectQnAListServlet extends HttpServlet {
 		
 		PageInfo Qnapi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<Board> QnaList = new BoardService().QnaList(currentPage, limit, mno, num);
+		ArrayList<HashMap<String, Object>> QnaList = new BoardService().QnaList(currentPage, limit, mno);
 		
 		//가져온 객체 담기
 		HashMap<String, Object> result = null;
@@ -90,9 +89,7 @@ public class SelectQnAListServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(result,response.getWriter());
 		
-		
-		
-		
+	
 		
 	}
 

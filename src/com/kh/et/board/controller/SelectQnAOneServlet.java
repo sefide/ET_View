@@ -49,6 +49,7 @@ public class SelectQnAOneServlet extends HttpServlet {
 			request.setAttribute("QnAlist", QnAlist);
 			request.setAttribute("NewsList", NewsList);
 			newspage = "views/normal/myPage/myPage_activity_history.jsp";
+			System.out.println("성공한거 아니에요..?");
 		}else {
 			request.setAttribute("newsmsg", "내 소식 보기 조회 실패");
 			newspage = "views/normal/myPage/myPage_main.jsp";
