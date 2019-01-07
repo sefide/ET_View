@@ -1,5 +1,19 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.et.tourBoard.model.vo.*, com.kh.et.common.NumberExec"%>
+<% 
+ 	ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
+	PageInfo pi=(PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	
+	NumberExec Ne = new NumberExec(); 
+%>
 
 <!DOCTYPE html>
 <html>
@@ -107,6 +121,32 @@
 	font-family: 'Ubuntu', sans-serif;
 	display: block;
 }
+
+.card{
+	width:210px;
+	height: 330px;
+	display: inline-block;
+	margin-bottom: 20px;
+}
+.card-deck{
+	display: flex;
+}
+.div-card-tour{
+	display: inline-block;
+}
+#cardOne{
+	display:inline-block;
+	margin-bottom: 20px;
+	margin-left : 50px;
+}
+
+.pagingArea > button{
+	border : 1px solid white;
+    background : white;
+}
+.card:hover{
+	cursor:pointer;
+}
 </style>
 
 </head>
@@ -191,143 +231,67 @@
 			<!-- 하단 투어 리스트  -->
 			<br> <br>
 			<div class="ui mt-20">
-				<div class="ui huge header">BEST 투어!</div>
 
+				<div class="card-deck">
 				<div class="div-card-tour">
-
-					<div class="card-deck">
-						<div class="card" id="card-size">
-							<img class="card-img-top" src="/et/image/city/bar.jpg"
-								alt="Card image cap" onclick="goTourDetail();" >
+			<div class="ui huge header">TourList</div>
+			<hr>
+				<%for(int i=0; i <list.size(); i++){ 
+          			HashMap<String,Object> hmap = list.get(i);
+              	%>
+						<div class="card" width="200px" height="330px" id="cardOne" onclick="seeDetail(<%=hmap.get("tno")%>);">
+						 <input type="hidden" value="<%=hmap.get("tno")%>">
+							<img class="card-img-top" src="/et/tourUpload/<%=hmap.get("changeName")%>" 
+							 width="200px" height="200px">
 							<div class="card-body">
-								<h5 class="card-title">[도시이름]투어명</h5>
-								<p class="card-text">69,900원</p>
+								<h5 class="card-title"> <%= hmap.get("title") %></h5>
+								<p class="card-text"><%= Ne.commaMoney((int)hmap.get("price")) %></p>
 								<p class="card-text">
-									<small class="text-muted">투어컨셉 </small>
+									<small class="text-muted"><%=hmap.get("concept") %> </small>
 								</p>
 							</div>
 						</div>
-						<div class="card" id="card-size">
-							<img class="card-img-top" src="/et/image/city/bar.jpg"
-								alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">[도시이름]투어명</h5>
-								<p class="card-text">69,900원</p>
-								<p class="card-text">
-									<small class="text-muted">투어컨셉 </small>
-								</p>
-							</div>
-						</div>
-						<div class="card">
-							<img class="card-img-top" src="/et/image/city/bar.jpg"
-								alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">[도시이름]투어명</h5>
-								<p class="card-text">69,900원</p>
-								<p class="card-text">
-									<small class="text-muted">투어컨셉 </small>
-								</p>
-							</div>
-						</div>
-						<div class="card">
-							<img class="card-img-top" src="/et/image/city/bar.jpg"
-								alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">[도시이름]투어명</h5>
-								<p class="card-text">69,900원</p>
-								<p class="card-text">
-									<small class="text-muted">투어컨셉 </small>
-								</p>
-							</div>
-						</div>
+						<%} %>
 					</div>
 				</div>
+				<br><br>
+             <div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/memberSeeTour.tbo?currentPage=1'"><<</button>
+			<%if(currentPage <= 1){%>
+			<button disabled><</button>
+			<% }else{%>
+			<button onclick="location.href='<%=request.getContextPath()%>/memberSeeTour.tbo?currentPage=<%=currentPage -1%>'"><</button>
+			<%} %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+					if(p == currentPage){
+			%>
+					<button disabled><%= p %></button>
+			<%		}else{ %>
+					<button onclick="location.href='<%= request.getContextPath()%>/memberSeeTour.tbo?currentPage=<%= p %>'"><%= p %></button>
+			<%		}%>
+				
+			<% } %>
+			
+			
+			<%if(currentPage >= maxPage){ %>
+			<button disable>></button>
+			<%}else{ %>
+			<button onclick="location.href='<%= request.getContextPath()%>/memberSeeTour.tbo?currentPage=<%=currentPage + 1%>'">></button>
+			<%} %>
+			
+			<button onclick="location.href='<%=request.getContextPath()%>/memberSeeTour.tbo?currentPage=<%=maxPage%>'">>></button>
+            </div>
 			</div>
 			<br>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			<hr>
-			<div class="ui mt-20">
-				<div class="ui huge header">투어 엿보기</div>
-
-				<div class="div-card-tour">
-
-					<div class="card-deck">
-						<div class="card" id="card-size">
-							<img class="card-img-top" src="/et/image/city/bar.jpg"
-								alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">[도시이름]투어명</h5>
-								<p class="card-text">69,900원</p>
-								<p class="card-text">
-									<small class="text-muted">투어컨셉 </small>
-								</p>
-							</div>
-						</div>
-						<div class="card" id="card-size">
-							<img class="card-img-top" src="/et/image/city/bar.jpg"
-								alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">[도시이름]투어명</h5>
-								<p class="card-text">69,900원</p>
-								<p class="card-text">
-									<small class="text-muted">투어컨셉 </small>
-								</p>
-							</div>
-						</div>
-						<div class="card">
-							<img class="card-img-top" src="/et/image/city/bar.jpg"
-								alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">[도시이름]투어명</h5>
-								<p class="card-text">69,900원</p>
-								<p class="card-text">
-									<small class="text-muted">투어컨셉 </small>
-								</p>
-							</div>
-						</div>
-						<div class="card">
-							<img class="card-img-top" src="/et/image/city/bar.jpg"
-								alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">[도시이름]투어명</h5>
-								<p class="card-text">69,900원</p>
-								<p class="card-text">
-									<small class="text-muted">투어컨셉 </small>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
 	<script>
 		function goTourDetail() {
 			window.open("seeTour_detail.jsp", "상세 여행 정보 ", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+		}
+		
+		function seeDetail(num) {
+			location.href="<%=request.getContextPath()%>/detailSeeTour.tbo?num="+num;
 		}
 	</script>
 

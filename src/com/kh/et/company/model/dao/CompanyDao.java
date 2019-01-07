@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.et.company.model.vo.Company;
+import com.kh.et.member.model.vo.Member;
 import com.kh.et.tourBoard.model.vo.TourBoard;
 
 
@@ -388,6 +389,49 @@ public class CompanyDao {
 		}
 
 		return listCount;
+	}
+
+	public Company selectLoginCompany(Connection con, Company loginUser) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Company resultM = null;
+		
+		String query = prop.getProperty("selectCompanyLoginUser");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginUser.getC_no());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				resultM = new Company();
+				
+				resultM.setC_no(rset.getInt("C_NO"));
+				resultM.setC_name(rset.getString("C_NAME"));
+				resultM.setC_biss_num(rset.getString("C_BISS_NUM"));
+				resultM.setC_id(rset.getString("C_ID"));
+				resultM.setC_pwd(rset.getString("C_PWD"));
+				resultM.setC_phone(rset.getString("C_PHONE"));
+				resultM.setC_email(rset.getString("C_EMAIL"));
+				resultM.setC_category(rset.getString("C_CATEGORY"));
+				resultM.setC_biss_address(rset.getString("C_BISS_ADDRESS"));
+				resultM.setC_date(rset.getDate("C_DATE"));
+				resultM.setC_end_date(rset.getDate("C_END_DATE"));
+				resultM.setC_status(rset.getString("C_STATUS"));
+				resultM.setcPremium(rset.getInt("C_PREMIUM"));
+				resultM.setcStandard(rset.getInt("C_STANDARD"));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return resultM;
 	}
 
 
