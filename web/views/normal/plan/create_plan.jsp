@@ -22,7 +22,7 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
-	
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
  	<!-- css 불러오기  -->
  	<link href = "/et/views/css/create_plan.css" rel='stylesheet' type='text/css'>
 

@@ -471,6 +471,7 @@ public class PlanDao {
 		 
 		String query = prop.getProperty("getLikeNum");
 		
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, pno);
