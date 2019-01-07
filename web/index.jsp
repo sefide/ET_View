@@ -272,6 +272,7 @@
 			height : 230px;
 		} 
 		#card-size{
+			width : 24%;
 			cursor : pointer;
 		}
        

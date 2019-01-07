@@ -152,7 +152,12 @@
 	#redBlue-avel{
 		font-size: 15px;
 	}
-
+	/* #contentboard{
+		overflow: "hidden";
+		text-overflow: "ellipsis";
+		white-space : "nowrap";
+	}
+ */
 </style>
 </head>
 <body>
@@ -192,10 +197,10 @@
 			
 			<div class="container2">
 				<div class="cont2-flex">
-					<!-- 좌측 -->
+					<!-- 상단 -->
 					<div class="con2-left">
 						<div class="con2-left-inner ">
-							<table class="ui single line table">
+							<table class="ui single line table one" >
 								<thead>
 									<tr>
 										<th><input type="checkbox" id="qnaCheckBoxReader"></th>
@@ -211,7 +216,7 @@
 									<th colspan="6">
 										<div align="right">
 										<!-- <button class="ui brown basic mini button">삭제하기</button> -->
-									</div>
+										</div>
 									</th>
 								</tfoot>
 							</table>
@@ -221,10 +226,10 @@
 					</div>
 					
 
-					<!-- 우측  -->
+					<!-- 하단  -->
 					<div class="con2-right">
 						<div class="con2-qna">
-							<table class="ui single line table">
+							<table class="ui single line table two ">
 								<thead>
 									<tr>
 										<th><input type="checkbox" id="qnaCheckBoxReader"></th>
@@ -249,18 +254,23 @@
 					</div>
 				</div>
 			</div>
+		<%}else{
+		request.setAttribute("msg", "잘못된 접근입니다. 다시 로그인해주세요");//활동내역 페이지에서 띄우자
+		request.getRequestDispatcher("views/normal/member/user_login.jsp").forward(request, response);	
+		}
+		%>
 		</div>
 	</div>
 	<br>
 	<br>
 	<br>
 	<br>
-	<%}else{
-		request.setAttribute("msg", "잘못된 접근입니다. 다시 로그인해주세요");//활동내역 페이지에서 띄우자
-		request.getRequestDispatcher("views/normal/member/user_login.jsp").forward(request, response);	
-	}
-	%>
+	
 	<script>
+	  	/* $(function(){
+	  		$("table.one th").eq(3).css("width", "20px");
+	  		$("#contentboard").css({"width": "20px", "overflow": "hidden", "text-overflow": "ellipsis", "white-space" : "nowrap"});
+	  	}); */
 	
 		var currentPage = 1;
 		function ajax(data){
@@ -286,7 +296,7 @@
 						var $check = $("<input type='checkbox' class='qnaCheck'>");
 						var $bnoTd = $("<td>").text(data.QnaList[key].bNo);
 						var $titleTd = $("<td onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">").text(data.QnaList[key].bTitle);
-						var $contentTd = $("<td>").text(data.QnaList[key].bContent);
+						var $contentTd = $("<td id = 'contentboard'>").text(data.QnaList[key].bContent);
 						/* var $likeTd = $("<td>").text(data.QnaList[key].bLike);
 						var $scrapTd = $("<td>").text(data.QnaList[key].bScraps); */
 						var $dateTd = $("<td>").text(data.QnaList[key].bDate);

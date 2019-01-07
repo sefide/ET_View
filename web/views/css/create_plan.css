@@ -152,13 +152,18 @@
 		border : 1px solid white;
 	}
 	.p-info-txt{
-		font-weight : 500;
-		font-size : 18px;
+		margin-top : 7px;
+		font-weight : 700;
+		font-size : 20px;
 		color : black;
 		font-family: 'Nanum Gothic', sans-serif;
 	}
 	
 	/* 날씨  */
+	#weather-div{
+		text-align : center;
+	}
+	
 	.p-flex{
 		display : flex;
 		flex-wrap : wrap;

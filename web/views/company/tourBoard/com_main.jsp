@@ -266,7 +266,7 @@
     		 	
       		<div class="ui mt-20"> 
       			<i class="certificate icon"></i>
-                <div class="ui header title" id ="title">다른 투어보기 </div>
+                <div class="ui header title" id ="title">모든 투어보기 </div>
                 
 	            <div class = "div-card-tour">
 	    			<iframe src="<%=request.getContextPath() %>/selectList2.tbo" width="1200" height="400" style="border:0" scrolling="no"></iframe>
