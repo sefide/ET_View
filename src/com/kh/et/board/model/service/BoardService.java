@@ -327,6 +327,25 @@ public class BoardService {
 		
 		return result;
 	}
+
+	public int insertClaim(String reason, int userNo, int boardNo, String boardwriter) {
+		Connection con = getConnection();
+		int boardwriterNo = new BoardDao().getNo(con, boardwriter);
+		int result = 0;
+		
+		if(boardwriterNo != 0) {
+			result = new BoardDao().insertClaim(con, reason, userNo, boardNo, boardwriterNo);
+		}
+			
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
 	
 	
 
