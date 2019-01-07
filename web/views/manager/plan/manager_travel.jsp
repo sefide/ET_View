@@ -52,14 +52,13 @@ table{
  	text-align:center;
  }
  table,tr,td{
- 	border:1px solid black;
+ 	
  }
  td{
- 	width:300px;
+ 	width:150px;
  } 
  th{
- 	background-color:lightgray;
- 	border:1px solid black;
+ 
  }
  .num{
  	width:116px;
@@ -78,7 +77,7 @@ table{
     <div class="main_01">
     	<div class="ui header title">▶여행지 관리</div>
     	- 여행지 조회 <br><br>
-    	<table id="tb1">
+    	<table class="table" id="tb1">
     		<tr>
     		
     			<th style=width:60px;>번호</th>
@@ -102,7 +101,7 @@ table{
   
     	</table>
     	<br>
-     <table id="table1">
+     <table class="table" id="table1">
     	<tr>
     	
     		<th></th>
@@ -126,36 +125,35 @@ table{
     	
     	<br>
     	<div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage = 1'"> << </button>
+			<button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage = 1'"> << </button>
 			
 			<% if(currentPage <= 1){ %>
-			<button disabled> < </button>
+			<button class="ui black basic button" disabled> < </button>
 			<% }else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage=<%=currentPage - 1%>'"> < </button>
+			<button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage=<%=currentPage - 1%>'"> < </button>
 			<% } %>
 			
 			<% for(int p = startPage; p <= endPage; p++){ 
 					if(p == currentPage){
 			%>
-					<button disabled><%= p %></button>
+					<button class="ui black basic button" disabled><%= p %></button>
 			<%      }else{ %>
-					<button onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage=<%= p %>'"><%= p %></button>
+					<button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage=<%= p %>'"><%= p %></button>
 			<%      } %>
 	
 			<% } %>
 			
 			
 			<% if(currentPage >= maxPage){ %> <!-- 마지막 페이지일 경우 -->
-			<button disabled> > </button>
+			<button class="ui black basic button" disabled> > </button>
 			<% }else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage=<%=currentPage + 1%>'"> > </button>
+			<button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage=<%=currentPage + 1%>'"> > </button>
 			<% } %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage=<%=maxPage%>'"> >> </button> 
+			<button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectCity.mng?currentPage=<%=maxPage%>'"> >> </button> 
 			
 		</div>
     	
-    	<button style=float:right id="deleteBtn">삭제하기</button>
-    	<button style=float:right;margin-right:30px; id="updateBtn">수정하기</button>
+    	<button class="ui black basic button" style=float:right;margin-right:30px; id="updateBtn">수정하기</button>
     
  
 	<script>

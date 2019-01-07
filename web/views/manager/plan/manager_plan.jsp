@@ -51,14 +51,14 @@ table{
  	text-align:center;
  }
  table,tr,td{
- 	border:1px solid black;
+ 	
  }
  td{
- 	width:300px;
+ 	width:150px;
  } 
  th{
- 	background-color:lightgray;
- 	border:1px solid black;
+ 	
+ 	
  }
  .num{
  	width:116px;
@@ -72,7 +72,7 @@ table{
     <div class="main_01">
     	<div class="ui header title">▶여행플랜 조회</div>
     	- 여행플랜 <br><br>
-    	<table id="tb1">
+    	<table class="table" id="tb1">
     		<tr>
     			<th>플랜관리</th>
     			<th>번호</th>
@@ -99,35 +99,35 @@ table{
     	
     	<br>
     	<div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage = 1'"> << </button>
+			<button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage = 1'"> << </button>
 			
 			<% if(currentPage <= 1){ %>
-			<button disabled> < </button>
+			<button class="ui black basic button" disabled> < </button>
 			<% }else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%=currentPage - 1%>'"> < </button>
+			<button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%=currentPage - 1%>'"> < </button>
 			<% } %>
 			
 			<% for(int p = startPage; p <= endPage; p++){ 
 					if(p == currentPage){
 			%>
-					<button disabled><%= p %></button>
+					<button class="ui black basic button" disabled><%= p %></button>
 			<%      }else{ %>
-					<button onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%= p %>'"><%= p %></button>
+					<button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%= p %>'"><%= p %></button>
 			<%      } %>
 	
 			<% } %>
 			
 			
 			<% if(currentPage >= maxPage){ %> <!-- 마지막 페이지일 경우 -->
-			<button disabled> > </button>
+			<button class="ui black basic button" disabled> > </button>
 			<% }else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%=currentPage + 1%>'"> > </button>
+			<button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%=currentPage + 1%>'"> > </button>
 			<% } %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%=maxPage%>'"> >> </button> 
+			<button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage=<%=maxPage%>'"> >> </button> 
 		</div>
 		
 		<div class="btn">
-    			<button id="planDelete">플랜 삭제</button>
+    			<button class="ui black basic button" id="planDelete">플랜 삭제</button>
     	</div>
 		
    

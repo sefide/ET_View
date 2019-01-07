@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.kh.et.board.model.dao.BoardDao;
 import com.kh.et.company.model.dao.CompanyDao;
 import com.kh.et.company.model.vo.Company;
+import com.kh.et.manager.model.dao.ManagerDao;
 import com.kh.et.member.model.dao.MemberDao;
 import com.kh.et.member.model.vo.Member;
 import com.kh.et.point.model.dao.PointDao;
@@ -162,5 +163,24 @@ public class CompanyService {
 
 
 	
+
+
+
+	public int nameCheck(String companyName) {
+			Connection con=getConnection();
+			
+			int result=new CompanyDao().nameCheck(con,companyName);
+			
+			if(result>0) {
+				commit(con);
+				
+			}else {
+				rollback(con);
+			}
+			System.out.println("서비스"+result);
+			return result;
+
+		
+	}
 
 }
