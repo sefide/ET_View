@@ -273,14 +273,14 @@
 		//console.log("확인");
 		
 		$.ajax({
-			url:"/et/idsearch.me",
+			url:"/et/idSearch.me",
 			type:"get",
 			data:{userQuestion:userQuestion, userAnwser:userAnwser, userEmail:userEmail},	//아이디를 찾기 위해 보내주어야 할 데이터
 			success:function(data){
 				if(data == "FAIL"){
-					alert("찾으시는 아이디가 없습니다");
+					alert("아이디 찾기 메일 발송 실패!");
 				}else{
-					alert("찾으시는 아이디는 " + "[ " + data  + " ]" + " 입니다.");
+					alert("찾으시는 아이디가 메일로 발송되었습니다. 확인해주세요");
 					$(".pTag1").show();
 				}
 			},
@@ -291,33 +291,6 @@
 		return false; 
 			
 	}	 
-	
-	//아이디 찾기 시 이메일 유효성 검사
-	$("#userEmail").change(function(){
-		var userQuestion = $("#userQuestion").val();
-		var userAnwser = $("#userAnwser").val();
-		var userEmail =  $("#userEmail").val();
-		
-		$.ajax({
-			url:"/et/emailCheck.me",
-			type:"get",
-			data:{userQuestion:userQuestion, userAnwser:userAnwser},
-			success:function(data){
-				if(data != userEmail){
-					alert("회원 가입시 입력한 이메일을 입력해주세요");
-					$("#userEmail").html("");
-					console.log("이메일 입력란을 공백처리 했습니다.");
-				}else{
-					console.log(data);
-					return false;
-				}
-			},
-			error:function(){
-				console.log("실패!");
-			}
-		});
-			
-	});
 	
 	
 	//임시비밀번호 발급

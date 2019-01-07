@@ -196,17 +196,19 @@ public class MemberService {
 		return result;
 	}
 
-	//아이디 찾기 시 이메일 유효성 검사
-	public Member memberIdSearchEmailCheck(Member reqMember) {
+	//비밀번호 찾을 시 이메일 유효성 검사
+	public Member memberPwdSearchEmailCheck(String userId) {
 		Connection con = getConnection();
 		
-		Member loginUser = new MemberDao().memberIdSearchEmailCheck(con, reqMember);
+		Member loginUser = new MemberDao().memberPwdSearchEmailCheck(con, userId);
 		
 		close(con);
 		
 		
 		return loginUser;
 	}
+
+
 
 
 

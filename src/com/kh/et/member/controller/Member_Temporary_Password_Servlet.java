@@ -44,6 +44,7 @@ public class Member_Temporary_Password_Servlet extends HttpServlet {
 		String userEmailPass = request.getParameter("userEmailPass");
 		String randomCode = request.getParameter("randomCode");
 		
+		
 		Properties p = new Properties();// 정보를 담을 객체
 		p.put("mail.smtp.user", "etplanner0111@gmail.com");//본인 아이디
 		p.put("mail.smtp.host", "smtp.gmail.com"); 
@@ -81,6 +82,7 @@ public class Member_Temporary_Password_Servlet extends HttpServlet {
             // 이메일 헤더
             msg.setHeader("content-Type", "text/html");
              
+       
             //DB에 있는 비밀번호 임시비밀번호로 변경하기
             int result = new MemberService().newpass(randomCode, userId, userEmailPass);
             
