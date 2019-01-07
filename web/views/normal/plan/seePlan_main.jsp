@@ -60,7 +60,7 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <!-- googleMap -->
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
 
 <title>ET_Planner</title>
 <link rel="icon" href="/views/image/common/logo.png">
@@ -215,10 +215,18 @@
 				    <%}%>
 			       <%}%>
 					 });
-		 			
-			 function goPlanDetail(pno){
+			
+		 	// 
+			function goPlanDetail(pno){
 				 
-				 location.href = "<%=request.getContextPath()%>/selectPlanDetail.pl?pno="+pno ;
+				<% if(loginUser != null ){%>
+					 
+				 	location.href = "<%=request.getContextPath()%>/seePlanDetail.pl?pno="+pno ;
+				 
+				<% }else{%>
+					 alert("회원만 볼수 있습니당");
+				<% }%>
+				 
 			   }
 			
 			</script>
