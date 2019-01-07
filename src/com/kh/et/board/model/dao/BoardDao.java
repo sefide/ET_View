@@ -708,7 +708,7 @@ public class BoardDao {
 		int result = 0;
 		
 		String query = prop.getProperty("clickUnLike");
-		System.out.println("좋아요 다오전이야");
+		System.out.println("좋아요취소 다오전이야");
 		//clickUnLike=DELETE FROM BOARDINTEREST WHERE  BI_B_NO = ? AND BI_GIVE_NO = ? AND BI_TYPE = ?
 		try {
 			String type = "좋아요";
@@ -725,6 +725,7 @@ public class BoardDao {
 			close(pstmt);
 		}
 		System.out.println("서비스 다오 후야");
+		System.out.println(result);
 		return result;
 	}
 	
@@ -732,7 +733,6 @@ public class BoardDao {
 		
 	//넘버가져오기
 	public int getNo(Connection con, String writer) {
-		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
@@ -759,6 +759,32 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+
+	public int insertClaim(Connection con, String reason, int userNo, int boardNo, int boardwriterNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		 
+		String query = prop.getProperty("insertClaim");
+		//getWriterNo=SELECT M_NO FROM  MEMBER  WHERE M_ID = ? 
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, boardwriterNo);
+			pstmt.setInt(2, boardNo);
+			pstmt.setInt(3, userNo);
+			pstmt.setString(4,reason);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 		
 

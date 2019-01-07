@@ -119,13 +119,15 @@ public class BoardService {
 	public Board selectOne(int num) {
 		Connection con = getConnection();
 		
-		Board b = null;
-		
+		Board b = null;	
 		
 			
 		b = new BoardDao().selectOne(con, num);
-		 int like = new BoardDao().getLikeNum(con, num);
-		 b.setbLike(like);
+		
+		int like = new BoardDao().getLikeNum(con, num);
+		b.setbLike(like);
+
+		 
 		close(con);
 		return b;
 	}
@@ -355,5 +357,42 @@ public class BoardService {
 		
 		return result;
 	}
+<<<<<<< aerin-20190107-2
+=======
+
+	public int insertClaim(String reason, int userNo, int boardNo, String boardwriter) {
+		Connection con = getConnection();
+		int boardwriterNo = new BoardDao().getNo(con, boardwriter);
+		int result = 0;
+		
+		if(boardwriterNo != 0) {
+			result = new BoardDao().insertClaim(con, reason, userNo, boardNo, boardwriterNo);
+		}
+			
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+	
+	
+	//댓글 가져오깅
+	public ArrayList<Board> selectReply(int getbNo) {
+		Connection con = getConnection();
+		ArrayList<Board> replyList = null;
+		
+		replyList = new BoardDao().selectReplyList(con, getbNo);
+
+		close(con);
+		
+		return replyList;
+	}
+	
+	
+>>>>>>> master
 
 }

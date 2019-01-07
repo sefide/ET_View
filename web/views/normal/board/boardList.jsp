@@ -95,7 +95,7 @@
 						<th class="single line">글 번호</th>
 						<th>제목</th>
 						<th>작성자</th>
-						<th>좋아요,스크랩,신고 수</th>
+						<th>좋아요 수</th>
 						<th>작성일</th>
 
 					</tr>
@@ -108,7 +108,7 @@
 						<td><%= b.getbNo() %></td>
 						<td><%= b.getBtitle() %></td>
 						<td><%= b.getbWriter() %></td>
-						<td><%= b.getbNo() %></td>
+						<td><%= b.getbLike() %></td>
 						<td><%= b.getbDate() %></td>
 					</tr>
 					<% } %>
