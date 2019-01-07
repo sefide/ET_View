@@ -165,25 +165,136 @@
 			        	<div class = "txt"> 공개/비공개 : <% if(plan.getpPrivate().equals("Y")) { %> 공개 <%} else { %> 비공개 <%} %></div>
 			        	<div class = "txt"> 여행도시 개수 : <%=plan.getpCites().split(", ").length %>개 도시 </div>
 			    </div>
-		        <div class = "div-plan-info">
-		        		<div class="ui labeled button" tabindex="0">
-					  <div class="ui red button">
-					    <i class="heart icon"></i> Like
-					  </div>
-					  <a class="ui basic red left pointing label">
-					    <%= planMap.get("like") %>
-					  </a>
+					<div class="div-plan-info">
+						<!-- 좋아요 -->
+						<div class="ui labeled button" tabindex="0">
+							<div class="ui red button" id="likePlan">
+								<i class="heart icon"></i> 좋아요!
+							</div>
+							<a class="ui basic red left pointing label" id="likeCnt"> <%=planMap.get("like")%>
+							</a>
+							<div class="ui red button" id="unlikePlan" style="display: none;" >
+								<i class="empty heart icon"></i> 좋아요 취소
+							</div>
+							<a class="ui basic red left pointing label" id="unlikeCnt" style="display: none;" > <%=planMap.get("like")%>
+							</a>
+						</div>
+						
+						<script>
+						
+							/* 좋아요  클릭시 */
+							$("#likePlan").click(function() {
+							
+									var pno = '<%= plan.getpNo()%>' ;														
+									var user = '<%= loginUser.getM_no() %>' ; 
+									var writer = '<%= plan.getpWriter()%>' ; 
+									
+									jQuery.ajax({
+										url:"/et/clickLikePlan.pl",
+										data:{pno:pno, user:user, writer:writer},
+										type:"post",
+										success:function(data){
+											console.log(data);
+											
+											$("#likePlan").css("display", "none");
+											$("#likeCnt").css("display", "none");
+											$("#unlikePlan").css("display", "block");	
+											$("#unlikeCnt").css("display", "block");	
+											jQuery.ajax({
+												url:"/et/countLike.pl",
+												data:{pno:pno},
+												type:"post",
+												success:function(data){
+													
+													$("#unlikeCnt").text(like);
+												},
+												error:function(){}
+												
+											});
+											
+											
+										},
+										error:function(){
+											console.log('실패');
+										}
+									});
+	
+								}); //planlike func 닫기임
+								
+						
+							
+							
+							/* 좋아요 취소시 */
+							$("#unlikePlan").click(function() {
+								
+								
+								var pno = '<%= plan.getpNo()%>' ;														
+								var user = '<%= loginUser.getM_no() %>' ; 
+								var writer = '<%= plan.getpWriter()%>' ; 
+								
+								
+								jQuery.ajax({
+									url:"/et/clickUnLikePlan.pl",
+									data:{pno:pno, user:user, writer:writer},
+									type:"post",
+									success:function(data){
+										console.log(data);
+										
+										$("#unlikePlan").css("display", "none");
+										$("#unlikeCnt").css("display", "none");
+										$("#likeCnt").css("display", "block");
+										$("#likePlan").css("display", "block");
+										
+										
+										
+									},
+									error:function(){
+										console.log('실패');
+									}
+								});
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+							
+								
+							});
+							
+							
+							
+							
+							
+								
+		
+						
+						
+						
+							
+							
+							
+						
+						</script>
+						<br>
+						<!-- 스크랩 -->
+						<div class="ui labeled button" tabindex="0"
+							style="margin-top: 10px;">
+							<div class="ui basic blue button">
+								<i class="fork icon"></i> Scrap
+							</div>
+							<a class="ui basic left pointing blue label"> <%=planMap.get("scrap")%>
+							</a>
+						</div>
 					</div>
-					<div class="ui labeled button" tabindex="0">
-					  <div class="ui basic blue button">
-					    <i class="fork icon"></i> Scrap
-					  </div>
-					  <a class="ui basic left pointing blue label">
-					    <%= planMap.get("scrap") %>
-					  </a>
-					</div>
-		        </div>
-	        </div>
+
+				</div>
         </div>
         
         

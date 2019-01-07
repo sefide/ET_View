@@ -352,6 +352,7 @@ public class MemberDao {
 		
 		String query = prop.getProperty("selectLoginUser");
 		
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, m.getM_no());
