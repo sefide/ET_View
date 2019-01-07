@@ -1,5 +1,19 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.et.tourBoard.model.vo.*, com.kh.et.company.model.vo.Company"%>
+<% 
+
+	ArrayList<TourBoard> list = (ArrayList<TourBoard>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	
+	Company loginUser = (Company)session.getAttribute("loginCompany");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,6 +122,9 @@
 	.couponArea th {
 		background-color: gray;
 	}
+	button {
+    		border : 1px solid white;
+    }
 	
 	
 </style>
@@ -132,8 +149,8 @@
 		      				<th> <i class="star icon"></i> Premium </th>
 		      			</tr>
 		      			<tr> 
-		      				<td> <label> 10장 </label>  </td>
-		      				<td> <label> 3장  </label>  </td>
+		      				<td> <label> <%=loginUser.getcStandard() %>장 </label>  </td>
+		      				<td> <label> <%=loginUser.getcPremium() %>장 </label>  </td>
 		      			</tr>
 		      		</table>
 	      		</div>
@@ -152,36 +169,45 @@
 	                		<th>등록게시글</th>
 	                		<th>사용날짜</th>
 	                	</tr>
-	                	<tr>
-	                		<td>1</td>
-	                		<td>Premium</td>
-	                		<td>파리 에펠탑 번지점프</td>
-	                		<td>2018-12-19</td>
-	                	</tr>
+	                	<%for (TourBoard tb : list){ %>
+						<tr>
+							<td class="td-1"><%= tb.getTno() %></td>
+							<td class="td-1"><%= tb.gettGrade() %></td>
+							<td class="td-2"><%= tb.gettTitle() %></td>
+							<td class="td-3"><%= tb.gettDate() %></td>
+											
+						</tr>
+					<%} %>
 	                </table>
 	            </div>
 	                
-                <div class = "div-tour-paging">
-                		<nav aria-label="Page navigation">
-					  <ul class="pagination pagination-sm">
-					    <li class="page-item">
-					      <a class="page-link" href="#" aria-label="Previous"  id = "page-link" >
-					        <span aria-hidden="true">&laquo;</span>
-					        <span class="sr-only">Previous</span>
-					      </a>
-					    </li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">1</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">2</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">3</a></li>
-					    <li class="page-item">
-					      <a class="page-link" href="#" aria-label="Next"  id = "page-link" >
-					        <span aria-hidden="true">&raquo;</span>
-					        <span class="sr-only">Next</span>
-					      </a>
-					    </li>
-					  </ul>
-					</nav>
-                </div>
+                <div class="pagingArea" align="center">
+						<button onclick="location.href='<%=request.getContextPath()%>/companyCouponHistory.co?currentPage=1'"><<</button>
+						<%if(currentPage <= 1){%>
+						<button disabled><</button>
+						<% }else{%>
+						<button onclick="location.href='<%=request.getContextPath()%>/companyCouponHistory.co?currentPage=<%=currentPage -1%>'"><</button>
+						<%} %>
+						
+						<% for(int p = startPage; p <= endPage; p++){ 
+								if(p == currentPage){
+						%>
+								<button disabled><%= p %></button>
+						<%		}else{ %>
+								<button onclick="location.href='<%= request.getContextPath()%>/companyCouponHistory.co?currentPage=<%= p %>'"><%= p %></button>
+						<%		}%>
+							
+						<% } %>
+	
+	
+						<%if(currentPage >= maxPage){ %>
+						<button disable>></button>
+						<%}else{ %>
+						<button onclick="location.href='<%= request.getContextPath()%>/companyCouponHistory.co?currentPage=<%=currentPage + 1%>'">></button>
+						<%} %>
+						
+						<button onclick="location.href='<%=request.getContextPath()%>/companyCouponHistory.co?currentPage=<%=maxPage%>'">>></button>
+					</div>
 
             </div>
             

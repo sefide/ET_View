@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.et.company.model.vo.*"%>
+ <% 
+	Company loginUser = (Company)session.getAttribute("loginCompany");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
 	
 	<!-- Semantic UI -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
@@ -167,6 +171,9 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
+	#payResultListGo:hover{
+	 cursor:pointer;
+	}
 	
 </style>
 
@@ -179,22 +186,6 @@
     <div class="ui grid">
         <div class = "two wide column"></div>
         <div class = "twelve wide column" style="margin-top:50px;">
-        
-        <!-- <div class = "div-img-profile">
-    		<img src = "/et/image/common/logo_c.png" class = "img-profile">
-    		<div class="div-com-activity">
-	    		<h3>내 활동내역</h3>
-	    		<br>
-	    		<h4>Standard 쿠폰개수 : 5개</h4>
-	    		<h4>Premium 쿠폰개수 : 5개</h4>
-	    		<h4>내 글 개수: 6개</h4>
-    		</div>
-    	</div>
-    	<div class="div-com-id">
-    	<br>
-    	<br>
-    	<h2>아이디</h2>
-    	</div> -->
     	
     		<div class = "div-outer">
         	<div class = "div-profile">
@@ -213,24 +204,25 @@
 			    	<table class="ui called small table" id ="table1">
 			    		<tr>
 			    			<td class ="coupon-type"><i class="star outline icon"></i> Standard <font>쿠폰</font> </td>
-			    			<td><label class = "txt-coupon"> 10 </label><td>
+			    			<td><label class = "txt-coupon"> <%=loginUser.getcStandard()%>장 </label><td>
 			    		</tr>
 			    		
 			    		<tr>
 			    			<td class ="coupon-type"><i class="star icon"></i> Premium <font>쿠폰</font> </td>
-			    			<td><label class = "txt-coupon"> 10 </label><td>
+			    			<td><label class = "txt-coupon"> <%=loginUser.getcPremium()%>장 </label><td>
 			    		</tr>
 			    		
 			    		<tr>
 			    			<td class = "coupon-type"> <i class="star outline icon"></i><font>글 개수</font></td>
-			    			<td> <label class = "txt-coupon"> 10 </label> </td>
+			    			<td> <label class = "txt-coupon" id="standard"></label> </td>
 			    		</tr>
 			    		<tr>
 			    			<td class = "coupon-type"> <i class="star icon"></i><font>글 개수</font></td>
-			    			<td> <label class = "txt-coupon"> 10 </label> </td>
+			    			<td> <label class = "txt-coupon" id="premium"></label> </td>
 			    		</tr>
 					</table>
 					<br>
+					<div class = "txt-activity" onclick="payResultList();" id="payResultListGo">결제내역 보러가기</div>
 		    	</div>
 		    	
 	        </div>
@@ -251,5 +243,36 @@
    	
    	<!-- footer -->
 	<%@ include file = "/views/common/company/footer_com.jsp" %>
+	<script>
+		$(function() {
+			$.ajax({
+				url:"<%=request.getContextPath()%>/companyPostCountPre.tbo",
+				type:"get",
+				success:function(data){
+					$("#standard").text(data+"개");
+				},
+				error:function(data){
+					console.log("에러!!");
+				}
+			});
+		});
+		
+		$(function() {
+			$.ajax({
+				url:"<%=request.getContextPath()%>/companyPostCountStd.tbo",
+				type:"get",
+				success:function(data){
+					$("#premium").text(data+"개");
+				},
+				error:function(data){
+					console.log("에러!!");
+				}
+			});
+		});
+		
+		function payResultList() {
+			location.href="<%=request.getContextPath()%>/companyPayList.pm";
+		}
+	</script>
 </body>
 </html>

@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,com.kh.et.tourBoard.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.et.tourBoard.model.vo.* , com.kh.et.company.model.vo.*"%>
   
     
   <% 
   ArrayList<HashMap<String,Object>> list=(ArrayList<HashMap<String,Object>>)request.getAttribute("list");
+  Company loginUser = (Company)session.getAttribute("loginCompany");
   
   %>  
 <!DOCTYPE html>
@@ -221,21 +222,21 @@
 			    	<table class="ui called small table" id ="table1">
 			    		<tr>
 			    			<td class ="coupon-type"><i class="star outline icon"></i> Standard <font>쿠폰</font> </td>
-			    			<td><label class = "txt-coupon"> 10 </label><td>
+			    			<td><label class = "txt-coupon"> <%=loginUser.getcStandard()%>장 </label><td>
 			    		</tr>
 			    		
 			    		<tr>
 			    			<td class ="coupon-type"><i class="star icon"></i> Premium <font>쿠폰</font> </td>
-			    			<td><label class = "txt-coupon"> 10 </label><td>
+			    			<td><label class = "txt-coupon"> <%=loginUser.getcPremium()%>장 </label><td>
 			    		</tr>
 			    		
 			    		<tr>
 			    			<td class = "coupon-type"> <i class="star outline icon"></i><font>글 개수</font></td>
-			    			<td> <label class = "txt-coupon"> 10 </label> </td>
+			    			<td> <label class = "txt-coupon" id="standard"></label> </td>
 			    		</tr>
 			    		<tr>
 			    			<td class = "coupon-type"> <i class="star icon"></i><font>글 개수</font></td>
-			    			<td> <label class = "txt-coupon"> 10 </label> </td>
+			    			<td> <label class = "txt-coupon" id="premium"></label> </td>
 			    		</tr>
 					</table>
 					<br>
@@ -485,7 +486,33 @@
    		 
    		 
    	 }
-	  
+	 
+   	 
+   	$(function() {
+		$.ajax({
+			url:"<%=request.getContextPath()%>/companyPostCountPre.tbo",
+			type:"get",
+			success:function(data){
+				$("#standard").text(data+"개");
+			},
+			error:function(data){
+				console.log("에러!!");
+			}
+		});
+	});
+	
+	$(function() {
+		$.ajax({
+			url:"<%=request.getContextPath()%>/companyPostCountStd.tbo",
+			type:"get",
+			success:function(data){
+				$("#premium").text(data+"개");
+			},
+			error:function(data){
+				console.log("에러!!");
+			}
+		});
+	});
    	</script>
    	
    	<!-- footer -->
