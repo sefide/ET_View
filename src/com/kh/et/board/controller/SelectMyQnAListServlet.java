@@ -1,0 +1,104 @@
+package com.kh.et.board.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.kh.et.board.model.service.BoardService;
+import com.kh.et.board.model.vo.Board;
+import com.kh.et.board.model.vo.PageInfo;
+
+/**
+ * Servlet implementation class SelectQnAListServlet
+ */
+@WebServlet("/myqnalist.bo")
+public class SelectMyQnAListServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SelectMyQnAListServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int mno = Integer.parseInt(request.getParameter("mno"));	//세션에 담긴 로그인 정보에서 회원번호 빼오기
+		
+		// ---------------- 페이징처리 추가 -------------------
+		int currentPage; // 현재 페이지를 표시할 변수
+		int limit; // 한 페이지에 게시글이 몇 개가 보여질 것인지 표시
+		int maxPage; // 전체 페이지에서 가장 마지막 페이지
+		int startPage; // 한번에 표시될 페이지가 시작할 페이지
+		int endPage; // 한번에 표시될 페이지가 끝나는 페이지
+		
+		//현재 페이지 처리
+		currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		//한 페이지에 보여질 목록 갯수
+		limit = 10;
+		
+		//전체 게시글 수 조회
+		int listCount = new BoardService().getQnaListCount(mno);
+		
+		//총 페이지 수 계산
+		//예를 들어, 목록 수가 123개면 페이지수는 13페이지가 필요하다.
+		maxPage = (int)((double)listCount / limit + 0.9);
+		
+		// 현재 페이지에 보여줄 시작페이지 수
+		// 1, 11, 21, 31,...
+		startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * limit + 1;
+
+		// 목록 아래쪽에 보여질 마지막 페이지 수(10, 20, 30, ...)
+		endPage = startPage + 10 - 1;
+
+		if (maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo Qnapi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
+		
+		ArrayList<HashMap<String, Object>> QnaList = new BoardService().QnaList(currentPage, limit, mno);
+		
+		//가져온 객체 담기
+		HashMap<String, Object> result = null;
+		if(QnaList !=null && Qnapi != null) {
+			result = new HashMap<String,Object>();
+			result.put("QnaList", QnaList);
+			result.put("Qnapi", Qnapi);
+		}
+		
+		//담은것 gson으로 처리
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(result,response.getWriter());
+		
+	
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

@@ -285,11 +285,6 @@ public class PlanService {
 		}else {
 			rollback(con);
 		}
-
-		
-		
-		
-		
 		close(con);
 		
 		return result;
@@ -327,6 +322,27 @@ public class PlanService {
 		return result;
 	}
 
+	//내가 스크랩한 플랜 가져오기
+	public HashMap<String, Object> scrapPlan(int mno) {
+		Connection con = getConnection();
+		
+		//내가 스크랩한 플랜뽑기
+		HashMap<String, Object> scrapPlan = new PlanDao().scrapPlan(con, mno);
+		
+		//플랜에 뿌려줄 도시 뽑기
+		HashMap<String, City> scrapPlanCity = new PlanDao().scrapPlanCity(con);
+		
+		if(scrapPlan != null && scrapPlanCity != null) {
+			scrapPlan.put("scrapPlanCity", scrapPlanCity);
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return scrapPlan;
+	}
+
+	
 	
 
 	
