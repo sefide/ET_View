@@ -202,6 +202,7 @@ public class TourBoardService {
 		return CouponCount;
 	}
 
+
 	public ArrayList<HashMap<String, Object>> seeTourList(int currentPage, int limit) {
 		Connection con = getConnection();
 
@@ -229,6 +230,21 @@ public class TourBoardService {
 		close(con);
 
 		return list;
+  }
+  
+	public int deleteTourBoard(TourBoard reqTour) {
+		Connection con=getConnection();
+		
+		int result=new TourBoardDao().deleteTourBoard(con,reqTour);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		System.out.println("service"+result);
+		return result;
 	}
 
 }

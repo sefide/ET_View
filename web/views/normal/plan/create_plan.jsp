@@ -22,7 +22,7 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
-	
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
  	<!-- css 불러오기  -->
  	<link href = "/et/views/css/create_plan.css" rel='stylesheet' type='text/css'>
 
@@ -198,6 +198,11 @@
 	}
 		
 	/* 여행지 정보 팝업  */
+	.p-pop-top{
+		text-align : center;
+		border-bottom : 1px solid lightgray;
+		margin-top : 10px;
+	}
 	.p-t-name{
 		font-weight : 700;
 		font-size : 20px;
@@ -252,6 +257,7 @@
 	.top10img {
 		width : 200px;
 		height : 200px;
+		border-radius : 5px;
 	}
 	
 	.top10ol li{
@@ -346,16 +352,16 @@
 		<div id ="detailPop">
 			 <i class="window close outline icon" id = "closePop" onclick = "closePop();"></i>
 			<div id = "borderPop">
-			 
-			 <div class = "p-city-name"> </div> <br>
-			 <div class = "p-info-div"> 
-		     	<img class = "p-info-img" src = "" alt = "city" id = "img-city-detail">
-		     	<br><label class ="p-info-txt"> 도시 소개  </label>
-		     	
+			 <div class = "p-pop-top">
+				 <div class = "p-city-name"> </div> <br>
+				 <div class = "p-info-div"> 
+			     	<img class = "p-info-img" src = "" alt = "city" id = "img-city-detail">
+			     	<br><label class ="p-info-txt"> 도시 소개  </label>
+			 	</div>
+			 	<br><br>
 			 </div>
-			 <br>
 			 <div class ="p-weather-div"> 
-			 	<div class ="p-title"> 월 평균 기온 </div>
+			 	<div class ="p-title"><i class="angle right icon"></i> 월 평균 기온 </div>
 			 	<div class ="p-flex" id ="weather-div"> 
 			 		<!-- <div class ="p-w">1월 </div>
 			 		<div class ="p-w">2월 </div>
@@ -373,14 +379,14 @@
 			 </div>
 			 
 			 <div class ="p-tour-div">
-			 	<div class ="p-title"> 관련 투어  </div>
+			 	<div class ="p-title"><i class="angle right icon"></i> 관련 투어  </div>
 				<div class ="p-flex" id = "p-tour-detail"> 
 			 		
 			 	</div>
 			 </div>
 			 
 			 <div class = "p-place-div">
-			 <div class ="p-title"> 관광명소  </div>
+			 <div class ="p-title"><i class="angle right icon"></i> 관광명소  </div>
 			 	<div class ="p-flex p-place"> 
 			 	
 			 	</div>
@@ -627,6 +633,10 @@
 								tourName = tourOne[i].tTitle;
 								tourConcept = tourOne[i].tConcept;
 								tourPrice = tourOne[i].tPrice;
+								tourPrice = commaMoney(tourPrice);
+								console.log("뭐지 ");
+								resultStr = "<div class ='p-t'><div><img class ='p-t-img' src = '/et/tourUpload/"+tourPhoto+"' alt = 'tour'></div><label class ='p-t-name'>["+ tourName+ "] </label><div class ='p-t-price'><label >"+ tourPrice+ "원</label></div></div>";
+								$("#p-tour-detail").append(resultStr);
 							} else if(i == 'a'){
 								tourPhoto = tourOne[i].changeName;
 							} else if(i == 'w'){
@@ -635,9 +645,8 @@
 								tourPlace = "<ol class = 'top10ol'>" + tourOne[i] + "</ol>";
 							}
 						}
-						tourPrice = commaMoney(tourPrice);
-						resultStr = "<div class ='p-t'><div><img class ='p-t-img' src = '/et/tourUpload/"+tourPhoto+"' alt = 'tour'></div><label class ='p-t-name'>["+ tourName+ "] </label><div class ='p-t-price'><label >"+ tourPrice+ "원</label></div></div>";
-						$("#p-tour-detail").append(resultStr);
+						
+						console.log("resultStr : " + resultStr);
 					}
 					
 					$("#weather-div").append(tourWeather);
@@ -646,7 +655,7 @@
 					var topStr = " 여행을 가기 전 알아둬야 할 점 ! ";
 					$(".p-city-name").html("<i class='plane icon'></i>" + locations[city][0] + topStr);
 					$("#img-city-detail").attr("src", "image/city/"+ cityName	+".jpg");
-					$(".p-info-txt").html(locations[city][1]);
+					$(".p-info-txt").html("&quot;  " + locations[city][1]  + "  &quot;");
 					$("thead th").eq(0).html("");
 					
 				},

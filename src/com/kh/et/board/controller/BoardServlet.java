@@ -38,4 +38,6 @@ public class BoardServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
+	
+
 }

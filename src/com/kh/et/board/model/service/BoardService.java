@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import com.kh.et.board.model.dao.BoardDao;
 import com.kh.et.board.model.vo.Board;
+import com.kh.et.board.model.vo.BoardInterest;
 import com.kh.et.member.model.dao.MemberDao;
 import com.kh.et.member.model.vo.Member;
 import com.kh.et.member.model.vo.News;
@@ -120,9 +121,11 @@ public class BoardService {
 		
 		Board b = null;
 		
+		
 			
 		b = new BoardDao().selectOne(con, num);
-	
+		 int like = new BoardDao().getLikeNum(con, num);
+		 b.setbLike(like);
 		close(con);
 		return b;
 	}
@@ -270,6 +273,59 @@ public class BoardService {
 		close(con);
 
 		return QnaList;
+	}
+	
+	//좋아요 수 뽑기
+	public int countLike(int bno) {
+		Connection con = getConnection();
+		
+		int like = new BoardDao().getLikeNum(con, bno);
+		
+		if(like>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return like;
+	}
+	
+	
+	//글 좋아요
+	public int clickLike(BoardInterest bi) {
+		Connection con = getConnection();
+		System.out.println("좋아요 서비스전이야");
+		
+		int getNo = new BoardDao().getNo(con,bi.getWriter());
+		
+		int result = new BoardDao().clickLike(con,bi,getNo);
+		System.out.println("좋아요 서비스양");
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+	//글 좋아요 취소
+	public int clickUnLike(BoardInterest bi) {
+		Connection con = getConnection();
+		
+		int getNo = new BoardDao().getNo(con,bi.getWriter());
+		
+		int result = new BoardDao().clickUnLike(con,bi,getNo);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
 	}
 	
 	

@@ -74,10 +74,101 @@
 			<!-- 내용 넣기 -->
 			
 			
-  			<h1 class="ui header"><br>
+  			<h1 class="ui header" style="margin-top: 15px;">
 				게시글 상세보기
+				&nbsp;&nbsp;
+				<div class="ui labeled button" tabindex="0">
+							<div class="ui red button" id="likePlan">
+								<i class="heart icon"></i> 좋아요!
+							</div>
+							<a class="ui basic red left pointing label" id="likeCnt"> <%=b.getbLike() %>
+							</a>
+							<div class="ui red button" id="unlikePlan" style="display: none;" >
+								<i class="empty heart icon"></i> 좋아요!
+							</div>
+							<a class="ui basic red left pointing label" id="unlikeCnt" style="display: none;" ><%=b.getbLike() %> 
+							</a>
+			</div>		
 			</h1>
+			<!-- 좋아요 스크립트부분 -->
+			<script>
+							/* 좋아요  클릭시 */
+							$("#likePlan").click(function() {							
+									var bno = '<%= b.getbNo()%>' ;														
+									var user = '<%= loginUser.getM_no() %>' ; 
+									var writer = '<%= b.getbWriter()%>' ; 								
+									jQuery.ajax({
+										url:"/et/clickLikeBoard.bo",
+										data:{bno:bno, user:user, writer:writer},
+										type:"post",
+										success:function(data){											
+											$("#likePlan").css("display", "none");
+											$("#likeCnt").css("display", "none");
+											$("#unlikePlan").css("display", "block");	
+											$("#unlikeCnt").css("display", "block");	
+											
+											 //좋아요 갯수를 가져오는 ajax
+											$.ajax({
+												url:"/et/countBoardLike.bo",
+												data:{bno:bno, user:user, writer:writer},
+												type:"post",
+												success:function(data){
+													console.log(data);	
+													 $("#unlikeCnt").text(data.like);
+													},
+												error:function(){
+														console.log('실패');
+													}
+												}); 
+												
+										},
+										error:function(){
+											console.log('실패');
+										}
+									});
+	
+							});
+							
+											
+							/* 좋아요 취소시*/
+							$("#unlikePlan").click(function() {	
+								var bno = '<%= b.getbNo()%>' ;														
+								var user = '<%= loginUser.getM_no() %>' ; 
+								var writer = '<%= b.getbWriter()%>' ; 
+									jQuery.ajax({
+									url:"/et/clickUnLikeBoard.bo",
+									data:{bno:bno, user:user, writer:writer},
+									type:"post",
+									success:function(data){																
+										$("#unlikePlan").css("display", "none");
+										$("#unlikeCnt").css("display", "none");
+										$("#likeCnt").css("display", "block");
+										$("#likePlan").css("display", "block");
+										
+										jQuery.ajax({
+											url:"/et/countBoardLike.bo",
+											data:{bno:bno, user:user, writer:writer},
+											type:"post",
+											success:function(data){												
+												 $("#likeCnt").text(data.like);
+												},
+											error:function(){
+													console.log('실패');
+												}
+											});
+									},
+									error:function(){
+										console.log('실패');
+									}
+								});
+							});				 												
+						</script>
+				
+			
+			
+			
 			<div class="ui segment">
+			
 				<div id="container">
 					<div id='box-left'>
 						<img class="ui small circular image"
@@ -89,7 +180,7 @@
 						<div align="left" >
 							제목
 						<input type="text" size="50" 
-									name="title" value="<%=b.getBtitle()%>" readonly>
+									name="title" value="<%=b.getBtitle()%>" readonly>		
 						</div>
 						<div align="left">
 							작성일
@@ -117,6 +208,8 @@
 			<div class="ui form">
 			<div class="field">
 			<div class="ui list" style="text-align: right;">
+			
+			
 			<button class="ui right yellow button" onclick="location.href='<%=request.getContextPath()%>/selectList.bo'">목록으로 되돌아가기</button>
 			<% if( loginUser != null && loginUser.getM_id().equals(b.getbWriter()) ){%>		
 			<% int num = b.getbNo();  %>			
@@ -160,6 +253,7 @@
 			<!-- 댓글 달기 -->
 	 		<script>
              $(function() {
+
                $("#addReply").click(function() {
             	    
             	  var writer = <%=loginUser.getM_no() %> ;

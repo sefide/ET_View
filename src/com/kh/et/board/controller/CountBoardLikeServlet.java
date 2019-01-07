@@ -1,7 +1,7 @@
 package com.kh.et.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.et.board.model.dao.BoardDao;
+import org.json.simple.JSONObject;
+
 import com.kh.et.board.model.service.BoardService;
-import com.kh.et.board.model.vo.Board;
+import com.kh.et.plan.model.service.PlanService;
 
 /**
- * Servlet implementation class SelectReplyServlet
+ * Servlet implementation class CountBoardLikeServlet
  */
-@WebServlet("/selectRe.bo")
-public class SelectReplyServlet extends HttpServlet {
+@WebServlet("/countBoardLike.bo")
+public class CountBoardLikeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectReplyServlet() {
+    public CountBoardLikeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +33,25 @@ public class SelectReplyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		
 		
+		int like = new BoardService().countLike(bno);
 		
-		Board b = new Board();
+		
+		response.setContentType("application/json");
+		
+		JSONObject json = new JSONObject();
+		
+		json.put("like", like);
+		
+		System.out.println("servlet에서 오기전의 좋아요 수야! : "+like);
+		
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();
+		out.print(json.toJSONString());
 	
-		
-		/*ArrayList<Board> replyList = new BoardService().insertReply();*/
-		
-		
-		
+		request.setAttribute("like", like);
 	}
 
 	/**

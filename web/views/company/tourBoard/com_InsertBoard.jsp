@@ -249,27 +249,28 @@
 						</tr>
 						<tr>
 							<td class="attr1"><label>나라 선택</label></td>
-							<td colspan="2"><select class="ui fluid dropdown" name="nation">
-								<option value="프랑스">프랑스</option>
-								<option value="독일">독일</option>
-								<option value="영국">영국</option>
-								<option value="네덜란드">네덜란드</option>
-								<option value="이탈리아">이탈리아</option>
-								<option value="체코">체코</option>
-								<option value="그리스">그리스</option>
-								<option value="헝가리">헝가리</option>
-								<option value="오스트리아">오스트리아</option>
-								<option value="크로아티아">크로아티아</option>
-								<option value="덴마크">덴마크</option>
-								<option value="스위스">스위스</option>
-								<option value="터키">터키</option>
-								<option value="포르투갈">포르투갈</option>
-								<option value="스페인">스페인</option>
-							</select>
+							<td colspan="2">
+								<select class="ui fluid dropdown" name="nation" id = "sel-nation">
+									<option value="프랑스">프랑스</option>
+									<option value="독일">독일</option>
+									<option value="영국">영국</option>
+									<option value="네덜란드">네덜란드</option>
+									<option value="이탈리아">이탈리아</option>
+									<option value="체코">체코</option>
+									<option value="그리스">그리스</option>
+									<option value="헝가리">헝가리</option>
+									<option value="오스트리아">오스트리아</option>
+									<option value="크로아티아">크로아티아</option>
+									<option value="덴마크">덴마크</option>
+									<option value="스위스">스위스</option>
+									<option value="터키">터키</option>
+									<option value="포르투갈">포르투갈</option>
+									<option value="스페인">스페인</option>
+								</select>
 							</td>
 							<td class="attr1" align="center"><label>도시 선택</label></td>
 							<td colspan="2">
-							 <select class="ui fluid dropdown" name="city">
+							 <select class="ui fluid dropdown" name="city" id = "sel-city">
 								<option value="1">파리</option>
 								<option value="2">리옹</option>
 								<option value="3">니스</option>
@@ -450,8 +451,67 @@
     	
    	</div>
    	
+   	<script>
+   	
+   	$("#sel-nation").change(function(){
+		var selNation = $("#sel-nation").find(":selected").val();
+		$("#sel-city").html("");
+		switch(selNation) {
+		  case '프랑스':
+			$("#sel-city").html("<option value='1'>파리</option><option value='2'>리옹</option><option value='3'>니스</option>");
+		    break;
+		  case '영국':
+			$("#sel-city").html("<option value='8'>런던</option><option value='9'>옥스포드</option>");
+		    break;
+		  case '독일':
+			  $("#sel-city").html("<option value='4'>뮌헨</option><option value='5'>베를린</option><option value='6'>뉘른베르크</option><option value='7'>프랑크푸르트</option>");
+			    break;
+		  case '이탈리아':
+			  $("#sel-city").html("<option value='10'>밀라노</option><option value='11'>베네치아</option><option value='12'>피렌체</option><option value='13'>로마</option>");
+			    break;
+		  case '체코':
+			  $("#sel-city").html("<option value='14'>프라하</option>");
+			    break;
+		  case '그리스':
+			  $("#sel-city").html("<option value='15'>아테네</option>");
+			    break;
+		  case '헝가리':
+			  $("#sel-city").html("<option value='16'>부다페스트</option>");
+			    break;
+		  case '오스트리아':
+			  $("#sel-city").html("<option value='17'>빈</option><option value='18'>잘츠부르크</option>");
+			    break;
+		  case '크로아티아':
+			  $("#sel-city").html("<option value='19'>자그레브</option>");
+			    break;
+		  case '덴마크':
+			  $("#sel-city").html("<option value='20'>코펜하겐</option><option value='21'>오덴세</option>");
+			    break;
+		  case '스위스':
+			  $("#sel-city").html("<option value='22'>베른/인터라켄</option><option value='23'>취리히</option>");
+			    break;
+		  case '터키':
+			  $("#sel-city").html("<option value='24'>이스탄불</option><option value='25'>앙카라</option>");
+			    break;
+		  case '포르투갈':
+			  $("#sel-city").html("<option value='26'>리스본</option>");
+			    break;
+		  case '스페인':
+			  $("#sel-city").html("<option value='27'>바르셀로나</option><option value='28'>마드리드</option>");
+			    break;
+		  case '네덜란드':
+			  $("#sel-city").html("<option value='29'>암스테르담</option>");
+			    break;
+		  default:
+		    // code block
+		}
+	});
+   	</script>
+   	
    	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
    	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js">
+    
+   	
    	$(function() {
    	 	$('.ui.radio.checkbox')
 	   		.checkbox()
@@ -460,6 +520,8 @@
    	 	$('select.dropdown')
      		.dropdown()
   		 ;
+   	 	
+	   	
    	});
    	</script>
    	<%-- <script>

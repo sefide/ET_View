@@ -52,9 +52,9 @@
 		text-align : center;
 	}
 	.img-profile {
-		width : 190px;
-		height : 190px;
-		margin : 15% 0;
+		width : 240px;
+		height : 240px;
+		border-radius : 50%;
 	}
 	
 	.div-txt-profile{

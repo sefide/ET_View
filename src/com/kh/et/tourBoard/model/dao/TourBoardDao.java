@@ -634,6 +634,7 @@ private Properties prop = new Properties();
 		return CouponCount;
 	}
 
+
 	public ArrayList<HashMap<String, Object>> seeTourList(Connection con, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		/*Statement stmt = null;*/
@@ -746,17 +747,39 @@ private Properties prop = new Properties();
 				
 				list.add(hmap);
 			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+    }catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 			close(rset);
 		}
 		
-		
 		return list;
+		}
+
+	public int deleteTourBoard(Connection con, TourBoard reqTour) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		System.out.println(reqTour.getTno());
+		String query=prop.getProperty("deleteCompanyTourBoard");
+		System.out.println("다오까지 오나");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reqTour.getTno());
+			
+			result=pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+
+		}
+		
+
+		return result;
+
 	}
 	
 }

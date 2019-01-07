@@ -101,6 +101,7 @@ public class InsertCompanyServlet extends HttpServlet {
 		reqCompany.setC_date(day);
 		reqCompany.setC_end_date(day2);
 		
+ 
 		
 		
 		int result=new CompanyService().insertCompany(reqCompany);
@@ -109,10 +110,11 @@ public class InsertCompanyServlet extends HttpServlet {
 			page="/et/selectList.co";
 			response.sendRedirect(page);
 		}else {
-			request.setAttribute("msg", "실패");
-			RequestDispatcher view=request.getRequestDispatcher(page);
-			view.forward(request, response);
+			
+			page="views/manager/tourCompany/companyInsert.jsp";
 		}
+		RequestDispatcher view=request.getRequestDispatcher(page);
+		view.forward(request, response);
 		
 	}
 

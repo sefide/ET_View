@@ -6,6 +6,7 @@ public class Board implements java.io.Serializable {
 	private int bNo; // 글번호
 	private String btitle; // 글제목
 	private String bWriter; // 글작성자
+	private int bWriterNo; //글작성자 번호
 	private String bContent; // 글 내용
 	private Date bDate; // 글 작성일
 	private String bCheckBest; // 베스트 댓글 여부
@@ -18,12 +19,40 @@ public class Board implements java.io.Serializable {
 	public Board() {
 	}
 
-	public Board(int bNo, String btitle, String bWriter, String bContent, Date bDate, String bCheckBest, String bStatus,
-			int bType, int bRefNo, int bLike, int bScrap) {
+	
+	
+
+	public int getbWriterNo() {
+		return bWriterNo;
+	}
+
+
+
+
+	public void setbWriterNo(int bWriterNo) {
+		this.bWriterNo = bWriterNo;
+	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "Board [bNo=" + bNo + ", btitle=" + btitle + ", bWriter=" + bWriter + ", bWriterNo=" + bWriterNo
+				+ ", bContent=" + bContent + ", bDate=" + bDate + ", bCheckBest=" + bCheckBest + ", bStatus=" + bStatus
+				+ ", bType=" + bType + ", bRefNo=" + bRefNo + ", bLike=" + bLike + ", bScrap=" + bScrap + "]";
+	}
+
+
+
+
+	public Board(int bNo, String btitle, String bWriter, int bWriterNo, String bContent, Date bDate, String bCheckBest,
+			String bStatus, int bType, int bRefNo, int bLike, int bScrap) {
 		super();
 		this.bNo = bNo;
 		this.btitle = btitle;
 		this.bWriter = bWriter;
+		this.bWriterNo = bWriterNo;
 		this.bContent = bContent;
 		this.bDate = bDate;
 		this.bCheckBest = bCheckBest;
@@ -34,12 +63,8 @@ public class Board implements java.io.Serializable {
 		this.bScrap = bScrap;
 	}
 
-	@Override
-	public String toString() {
-		return "Board [bNo=" + bNo + ", btitle=" + btitle + ", bWriter=" + bWriter + ", bContent=" + bContent
-				+ ", bDate=" + bDate + ", bCheckBest=" + bCheckBest + ", bStatus=" + bStatus + ", bType=" + bType
-				+ ", bRefNo=" + bRefNo + ", bLike=" + bLike + bScrap + "]";
-	}
+
+
 
 	public int getbNo() {
 		return bNo;
