@@ -798,5 +798,87 @@ public class PlanDao {
 		return result;
 	}
 	
+	
+	// 내가 스크랩한 플랜뽑기
+	public HashMap<String, Object> scrapPlan(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> planmap = null;
+		ArrayList<Plan> list = null;
+		String scrap = "스크랩";
+
+		String query = prop.getProperty("scrapPlan");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			pstmt.setString(2, scrap);
+
+			rset = pstmt.executeQuery();
+
+			planmap = new HashMap<String, Object>();
+			list = new ArrayList<Plan>();
+
+			while (rset.next()) {
+				Plan p = new Plan();
+
+				p.setpNo(rset.getInt("P_NO"));
+				p.setpTitle(rset.getString("P_TITLE"));
+				p.setpCites(rset.getString("P_CITYS"));
+				p.setpDate(rset.getDate("P_DATE"));
+
+				list.add(p);
+			}
+			planmap.put("scrapPlan", list);
+			// 키 - 최근 스크랩한 플랜 : 값 - 스크랩한 플랜들의 정보
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return planmap;
+	}
+
+	// 내가 스크랩한 플랜위에 뿌릴 지도 뽑기
+	public HashMap<String, City> scrapPlanCity(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		HashMap<String, City> resultMap = null;
+
+		String query = prop.getProperty("selectCityList");
+
+		try {
+			stmt = con.createStatement();
+
+			rset = stmt.executeQuery(query);
+
+			resultMap = new HashMap<String, City>();
+			while (rset.next()) {
+				City ct = new City();
+
+				ct.setCtNo(rset.getInt("CT_NO"));
+				ct.setCtName(rset.getString("CT_NAME"));
+				ct.setCtCountry(rset.getString("CT_COUNTRY"));
+				ct.setCtInfo(rset.getString("CT_INFO"));
+				ct.setCtLat(rset.getFloat("CT_LAT"));
+				ct.setCtLng(rset.getFloat("CT_LNG"));
+
+				resultMap.put(String.valueOf(ct.getCtName()), ct);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+
+		return resultMap;
+	}
+	
+	
+	
 
 }

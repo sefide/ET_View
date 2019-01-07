@@ -1,10 +1,20 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.Board, java.util.*, com.kh.et.member.model.vo.News"%>
+	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.Board, java.util.*, com.kh.et.member.model.vo.News, com.kh.et.plan.model.vo.*"%>
 <% 
+	String msg = (String) request.getAttribute("msg");
+
 	HashMap<String, Board> QnAlist = (HashMap<String, Board>)request.getAttribute("QnAlist"); 
 	ArrayList<News> NewsList = (ArrayList<News>)request.getAttribute("NewsList");
 	Board board = (Board)request.getAttribute("board"); 
+	
+	HashMap<String, Object> scrapPlan = (HashMap<String, Object>)request.getAttribute("scrapPlan");
+	HashMap<String, City> scrapPlanCityMap = null;	
+	ArrayList<Plan> scrapPlanList = null;
+	if(scrapPlan != null){
+		scrapPlanCityMap = (HashMap<String, City>)scrapPlan.get("scrapPlanCity");
+	}
+	
 	
 	/* ArrayList<HashMap<String,Object>> NewsList = (ArrayList<HashMap<String,Object>>)request.getAttribute("NewsList"); */
 %>	
@@ -52,9 +62,9 @@
 		text-align : center;
 	}
 	.img-profile {
-		width : 240px;
-		height : 240px;
-		border-radius : 50%;
+		width : 190px;
+		height : 190px;
+		margin : 15% 0;
 	}
 	
 	.div-txt-profile{
@@ -119,7 +129,7 @@
 	/* 하단 활동내역 보기  */
 	.container2{
 		width : 93%;
-		margin-left : 40px;
+		margin-left : 80px;
 	}
 	/* 틀 잡기  */	
 	.cont2-flex{
@@ -183,6 +193,119 @@
 		cursor: pointer;
 	}
 	
+	/* 내가 스크랩한 플랜 보기  */
+	.container3{
+		width : 93%;
+		margin-left : 80px;
+	}
+	
+	/* 스크랩한 플랜보기  */
+	.div-myPage-title{
+		margin-top : 20px;
+		font-size : 30px;
+		font-weight : 600;
+		font-family: 'Nanum Gothic', sans-serif;
+		display : inline-block;
+		width : 250px;
+	}
+	
+	.plan-list-inner {
+		width : 100%;
+		display : flex;
+		flex-wrap: wrap;
+	}
+	
+	.planBox{
+		width : 30%;
+		margin : 4% 1.5%;
+		height : 480px;
+		display : flex;
+		flex-wrap : wrap;
+	}
+	
+	.planMap{
+		width : 100%;
+		height : 380px;
+		display :inline-block;
+		border : 1px solid gray;
+	}
+	
+	.div-plan-title{
+		font-size : 30px;
+		font-weight : 700;
+		font-family: 'Nanum Gothic', sans-serif;
+		display : inline-block;
+		cursor : pointer;
+		margin : 3px 0;
+	}
+
+	.div-plan-title:hover{
+		color : rgb(237,197,58);
+	}
+	
+	.div-plan-cities{
+		margin-top : 5px;
+		font-size : 19px;
+		font-weight : 500;
+		font-family: 'Nanum Gothic', sans-serif;
+		color : rgb(60,60,60);
+	}
+	
+	.div-plan-writer{
+		width : 24%;
+		height : 30px;
+		color : rgba(255,255,255,0.8);
+		font-size : 18px;
+		font-family: 'Nanum Gothic', sans-serif;
+		background : rgba(42,90,133,0.5);
+		border-radius : 5px;
+		text-align : center;
+	}
+	
+	.div-writer{
+		width : 70%;
+		margin-left : 1%;
+		font-size : 19px;
+		font-weight : 500;
+		font-family: 'Nanum Gothic', sans-serif;
+		color : rgb(60,60,60);
+	}
+	.div-plan-list {
+	margin-left: 10px;
+}
+
+.div-plan-map {
+	width: 240px;
+	height: 280px;
+	display: inline-block;
+	margin: 5px 12px 30px 10px;
+}
+
+.plan-map {
+	width: 240px;
+	height: 240px;
+}
+
+.div-plan-title {
+	font-size: 20px;
+	font-weight: 600;
+	font-family: 'Ubuntu', sans-serif;
+	color : #2A5A85 ;
+	display: inline-block;
+	cursor: pointer;
+}
+
+
+.div-plan-like {
+	width: 80px;
+	height: 30px;
+	color: red;
+	font-size: 15px;
+	font-family: 'Ubuntu', sans-serif;
+	text-align: center;
+	float: left;
+	
+}
 </style>
 </head>
 <body>
@@ -305,6 +428,43 @@
 					</div>
 				</div>
 			</div>
+			<br clear = "both">
+			<div class="container3">
+			<i class="calendar alternate outline big icon"></i>
+	        		<div class = "div-myPage-title"> 내가 스크랩한 플랜 </div>
+        			<div class = "plan-list-inner" id = "plan-list-inner">
+        				<div class ="planBox map">
+    						<div class = "div-plan-writer" > 작성자 </div > <div class ="div-writer"> 아이디 얍얍 </div>
+    						<div class = "div-plan-title"> 플랜 제목입니다. </div>
+        					<div id = "planMap0" class ="planMap" readonly>
+        					
+        					<div class="div-plan-list" >
+							<% if(scrapPlan != null){						
+								scrapPlanList = (ArrayList<Plan>)scrapPlan.get("scrapPlan"); //planDao에서 플랜정보를 담은 리스트				
+        					for(int i = 0; i < scrapPlanList.size(); i++){        						
+        						Plan p = scrapPlanList.get(i);
+
+        						%>
+        						<!-- System.out.println("view에서 보여지는 p"+p); -->
+							<div class ="div-plan-map"> 
+        					    <div id ="plan-map<%=i%>" class ="plan-map"></div>
+        						
+        						<div class = "div-plan-title" onclick = "goPlanDetail(<%=scrapPlanList.get(i).getpNo()%>);"> <%=p.getpTitle()%> </div>
+        						<br>
+								<div class="ui labeled button" tabindex="0" >
+									<div class="ui yellow button">
+										<i class="heart icon"></i> 좋아요
+									</div>
+									<a class="ui basic yellow left pointing label"> <%=p.getpLike() %> </a>
+								</div>
+        					</div>
+        						<%}
+        					}%>
+							</div>
+        					</div>
+   						</div>
+        			</div>
+			</div>
 		</div>
 	</div>
 	<br>
@@ -323,6 +483,73 @@
 		function QnAPlus(){
 			location.href = "/et/views/normal/myPage/myPage_activity_qna.jsp?mno="+<%=loginUser.getM_no()%>;
 		}
+		
+		var map;
+		var flightPlanCoordinatesArr = [];
+		var flightPlanCoordinates = [];
+		var path = {};
+ 	    
+		$(function(){
+	 			<% 
+	 			if(msg != null){ %>
+	 			alert("<%=msg%>");
+	 			<%} %>
+	 		
+				<%
+				if(scrapPlanCityMap != null && scrapPlanList != null){
+				String[] planCityArr = null;
+				
+				
+				for (int i = 0; i < scrapPlanList.size(); i++){
+					planCityArr =  (scrapPlanList.get(i).getpCites()).split(", "); // 이건 String
+					for(String cityNo : planCityArr){
+						%>
+						path = {lat : <%=scrapPlanCityMap.get(cityNo).getCtLat()%>, lng : <%=scrapPlanCityMap.get(cityNo).getCtLng()%>};				
+						flightPlanCoordinates.push(path); 
+					<% }%> 
+					flightPlanCoordinatesArr.push(flightPlanCoordinates); 
+					flightPlanCoordinates = [];
+				<% }%>
+				
+				<%for(int i = 0; i < scrapPlanList.size();  i++){ %>
+		    		
+				    var map<%=i%> = new google.maps.Map(document.getElementById('plan-map<%=i%>'), { 
+				          zoom: 4.5,
+				          center: new google.maps.LatLng(47.778744, 7.397438),
+				          mapTypeId: google.maps.MapTypeId.ROADMAP,
+				          disableDefaultUI: true,
+				          styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.province","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.neighborhood","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"administrative.neighborhood","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"all","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.highway.controlled_access","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"transit","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"transit","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]}]
+				    });
+				    
+				    var lineSymbol = {
+				            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+				            scale: 4,
+				            strokeColor: '#EDC53A'
+			        };
+				    
+				   	poly<%=i%> = new google.maps.Polyline({
+				    		path : flightPlanCoordinatesArr[<%=i%>],
+				        strokeColor: '#2A5A85',
+				        strokeOpacity: 1.0,
+				        strokeWeight: 3
+				    });
+			        poly<%=i%>.setMap(map<%=i%>);
+			        
+			       
+			        for (var j = 0; j < flightPlanCoordinatesArr[<%=i%>].length; j++) {
+			        marker<%=i%> = new google.maps.Marker({
+			            position: flightPlanCoordinatesArr[<%=i%>][j],
+			            icon : lineSymbol,
+			            map: map<%=i%>
+			          });
+			        console.log("marker"+j);
+			        }
+			    <%}%>
+		       <%}else{
+		    	   System.out.println("else다!!!" ); 
+		       }%>
+		       });
+		
 	</script>
 
 	<!-- footer -->

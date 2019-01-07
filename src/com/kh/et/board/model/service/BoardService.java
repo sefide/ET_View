@@ -241,7 +241,7 @@ public class BoardService {
 		return replyList;
 	}
 
-	//내가 쓴 QnA 리스트 전체 불러오기
+	// 내가 쓴 QnA 리스트 전체 불러오기
 	public int getQnaListCount(int mno) {
 		Connection con = getConnection();
 		int QnaListCount = new BoardDao().getQnaListCount(con, mno);
@@ -256,22 +256,50 @@ public class BoardService {
 		return QnaListCount;
 	}
 
-	//내가 쓴 Qna리스트 페이징 처리 후 조회
+	// 내가 쓴 Qna리스트 페이징 처리 후 조회
 	public ArrayList<HashMap<String, Object>> QnaList(int currentPage, int limit, int mno) {
 		Connection con = getConnection();
-		
-		/*//글번호 가져오기
-		int bno = new BoardDao().selectBoardNum(con, mno);*/
-		
-		
+
 		ArrayList<HashMap<String, Object>> QnaList = new BoardDao().QnaList(con, currentPage, limit, mno);
-		
+
 		if (QnaList != null) {
 			commit(con);
 		} else {
 			rollback(con);
 		}
-		
+
+		close(con);
+
+		return QnaList;
+	}
+
+	// 내가 스크랩한 QnA 리스트 전체 불러오기
+	public int getYourQnaListCount(int mno) {
+		Connection con = getConnection();
+		int QnaListCount = new BoardDao().getYourQnaListCount(con, mno);
+
+		if (QnaListCount > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+
+		return QnaListCount;
+	}
+
+	// 내가 스크랩한 Qna리스트 페이징 처리 후 조회
+	public ArrayList<HashMap<String, Object>> YourQnaList(int currentPage, int limit, int mno) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String, Object>> QnaList = new BoardDao().YourQnaList(con, currentPage, limit, mno);
+
+		if (QnaList != null) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+
 		close(con);
 
 		return QnaList;
@@ -329,6 +357,8 @@ public class BoardService {
 		
 		return result;
 	}
+<<<<<<< aerin-20190107-2
+=======
 
 	public int insertClaim(String reason, int userNo, int boardNo, String boardwriter) {
 		Connection con = getConnection();
@@ -363,5 +393,6 @@ public class BoardService {
 	}
 	
 	
+>>>>>>> master
 
 }

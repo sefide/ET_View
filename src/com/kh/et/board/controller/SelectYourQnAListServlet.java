@@ -12,20 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.et.board.model.service.BoardService;
-import com.kh.et.board.model.vo.Board;
 import com.kh.et.board.model.vo.PageInfo;
 
 /**
- * Servlet implementation class SelectQnAListServlet
+ * Servlet implementation class SelectYourQnAListServlet
  */
-@WebServlet("/qnalist.bo")
-public class SelectQnAListServlet extends HttpServlet {
+@WebServlet("/yourqnalist.bo")
+public class SelectYourQnAListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectQnAListServlet() {
+    public SelectYourQnAListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,7 +34,7 @@ public class SelectQnAListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int mno = Integer.parseInt(request.getParameter("mno"));	//세션에 담긴 로그인 정보에서 회원번호 빼오기
+int mno = Integer.parseInt(request.getParameter("mno"));	//세션에 담긴 로그인 정보에서 회원번호 빼오기
 		
 		// ---------------- 페이징처리 추가 -------------------
 		int currentPage; // 현재 페이지를 표시할 변수
@@ -55,7 +54,7 @@ public class SelectQnAListServlet extends HttpServlet {
 		limit = 10;
 		
 		//전체 게시글 수 조회
-		int listCount = new BoardService().getQnaListCount(mno);
+		int listCount = new BoardService().getYourQnaListCount(mno);
 		
 		//총 페이지 수 계산
 		//예를 들어, 목록 수가 123개면 페이지수는 13페이지가 필요하다.
@@ -74,7 +73,7 @@ public class SelectQnAListServlet extends HttpServlet {
 		
 		PageInfo Qnapi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<HashMap<String, Object>> QnaList = new BoardService().QnaList(currentPage, limit, mno);
+		ArrayList<HashMap<String, Object>> QnaList = new BoardService().YourQnaList(currentPage, limit, mno);
 		
 		//가져온 객체 담기
 		HashMap<String, Object> result = null;
@@ -88,9 +87,6 @@ public class SelectQnAListServlet extends HttpServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(result,response.getWriter());
-		
-	
-		
 	}
 
 	/**

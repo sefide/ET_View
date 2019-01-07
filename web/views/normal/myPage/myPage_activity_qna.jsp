@@ -152,12 +152,7 @@
 	#redBlue-avel{
 		font-size: 15px;
 	}
-	/* #contentboard{
-		overflow: "hidden";
-		text-overflow: "ellipsis";
-		white-space : "nowrap";
-	}
- */
+	
 </style>
 </head>
 <body>
@@ -197,26 +192,26 @@
 			
 			<div class="container2">
 				<div class="cont2-flex">
-					<!-- 상단 -->
+					<!-- 좌측 -->
 					<div class="con2-left">
 						<div class="con2-left-inner ">
-							<table class="ui single line table one" >
+							<table class="ui single line table one">
 								<thead>
 									<tr>
 										<th><input type="checkbox" id="qnaCheckBoxReader"></th>
 										<th>글번호</th>
 										<th>제목</th>
-										<th>내용</th>
+										<th id="content" col = "200px">내용</th>
 										<th>작성일</th>
 									</tr>
 								</thead>
 								<tbody id="myQnaTbody">
 								</tbody>
 								<tfoot>
-									<th colspan="6">
+									<th colspan="5">
 										<div align="right">
-										<!-- <button class="ui brown basic mini button">삭제하기</button> -->
-										</div>
+										<button class="ui blue basic mini button">삭제하기</button>
+									</div>
 									</th>
 								</tfoot>
 							</table>
@@ -226,25 +221,25 @@
 					</div>
 					
 
-					<!-- 하단  -->
+					<!-- 우측  -->
 					<div class="con2-right">
 						<div class="con2-qna">
-							<table class="ui single line table two ">
+							<table class="ui single line table two">
 								<thead>
 									<tr>
 										<th><input type="checkbox" id="qnaCheckBoxReader"></th>
 										<th>글번호</th>
 										<th>제목</th>
-										<th>내용</th>
+										<th id="content">내용</th>
 										<th>작성일</th>
 									</tr>
 								</thead>
-								<tbody id="myQnaTbody">
+								<tbody id="yourQnaTbody">
 								</tbody>
 								<tfoot>
-									<th colspan="6">
+									<th colspan="5">
 										<div align="right">
-										<!-- <button class="ui brown basic mini button">삭제하기</button> -->
+										<button class="ui blue basic mini button">삭제하기</button>
 									</div>
 									</th>
 								</tfoot>
@@ -254,30 +249,26 @@
 					</div>
 				</div>
 			</div>
-		<%}else{
-		request.setAttribute("msg", "잘못된 접근입니다. 다시 로그인해주세요");//활동내역 페이지에서 띄우자
-		request.getRequestDispatcher("views/normal/member/user_login.jsp").forward(request, response);	
-		}
-		%>
 		</div>
 	</div>
 	<br>
 	<br>
 	<br>
 	<br>
-	
+	<%}else{
+		request.setAttribute("msg", "잘못된 접근입니다. 다시 로그인해주세요");//활동내역 페이지에서 띄우자
+		request.getRequestDispatcher("views/normal/member/user_login.jsp").forward(request, response);	
+	}
+	%>
 	<script>
-	  	/* $(function(){
-	  		$("table.one th").eq(3).css("width", "20px");
-	  		$("#contentboard").css({"width": "20px", "overflow": "hidden", "text-overflow": "ellipsis", "white-space" : "nowrap"});
-	  	}); */
 	
+		//내가 작성한 Qna목록 페이징
 		var currentPage = 1;
 		function ajax(data){
 			currentPage = data;
 	
 			 $.ajax({
-				url:"<%=request.getContextPath()%>/qnalist.bo?mno="+<%=mno%>,
+				url:"<%=request.getContextPath()%>/myqnalist.bo?mno="+<%=mno%>,
 				data:{currentPage:currentPage},
 				type:"get",
 				success:function(data){
@@ -294,9 +285,9 @@
 						$tr = $("<tr>")
 						var $checkTd = $("<td>");
 						var $check = $("<input type='checkbox' class='qnaCheck'>");
-						var $bnoTd = $("<td>").text(data.QnaList[key].bNo);
+						var $bnoTd = $("<td>").text(data.QnaList[key].rnum);
 						var $titleTd = $("<td onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">").text(data.QnaList[key].bTitle);
-						var $contentTd = $("<td id = 'contentboard'>").text(data.QnaList[key].bContent);
+						var $contentTd = $("<td>").text(data.QnaList[key].bContent);
 						/* var $likeTd = $("<td>").text(data.QnaList[key].bLike);
 						var $scrapTd = $("<td>").text(data.QnaList[key].bScraps); */
 						var $dateTd = $("<td>").text(data.QnaList[key].bDate);
@@ -317,7 +308,7 @@
 					$centerDiv = $("<div align='center'>");	//나중에 페이징 메뉴바 가운데에 정렬하기 위해서 만든 div
 					$paginationDiv = $("<div class='ui pagination menu'>");	//페이징처리 메뉴바
 					
-					$currentPageOne = $("<a class=\"icon item\" onclick=\"" +"qnaFirstPageMove("+ 1 + ");" +"\">");	//첫번째 페이지
+					$currentPageOne = $("<a class=\"icon item\" onclick=\"" +"myQnaFirstPageMove("+ 1 + ");" +"\">");	//첫번째 페이지
 					$angleIcon = $("<i class='angle double left icon'>");	//시맨틱 유아이에서 << 아이콘 담기
 					
 					$currentPageOne.append($angleIcon);
@@ -331,7 +322,7 @@
 					
 					}else{
 						currentPage = (data.Qnapi.currentPage-1);
-						$leftIconAble = $("<a class=\"icon item\" onclick=\"" +"qnaBeforePageMove("+ currentPage + ");" +"\">");	//전페이지로..?
+						$leftIconAble = $("<a class=\"icon item\" onclick=\"" +"myQnaBeforePageMove("+ currentPage + ");" +"\">");	//전페이지로..?
 						$angleIcon3 = $("<i class='angle left icon' >");
 						$leftIconAble.append($angleIcon3);
 						$paginationDiv.append($leftIconAble);
@@ -339,13 +330,13 @@
 					}
 					
 					//페이지의 숫자를 페이징 메뉴에 담기
-					for(var i = data.Qnapi.startPage; i < data.Qnapi.endPage; i++){
+					for(var i = data.Qnapi.startPage; i <= data.Qnapi.endPage; i++){
 						if(i == data.Qnapi.currentPage){
 							$item1 = $("<a class='item'>").text(i);	//"<a class='item'>" : 페이지의 숫자를 담는 아이콘
 							$paginationDiv.append($item1);
 						}else{
 							currentPage = i;
-							$item2 = $("<a class=\"icon item\" onclick=\"" +"qnaOnePageMove("+ i + ");" +"\">").text(i);
+							$item2 = $("<a class=\"icon item\" onclick=\"" +"myQnaOnePageMove("+ i + ");" +"\">").text(i);
 							$paginationDiv.append($item2);
 						}
 					}
@@ -357,13 +348,13 @@
 						$paginationDiv.append($rightIconDisable);
 					}else{
 						currentPage = (data.Qnapi.currentPage+1);
-						$rightIconAble = $("<a class=\"icon item\" onclick=\"" +"qnaNextPageMove("+ currentPage + ");" +"\">");
+						$rightIconAble = $("<a class=\"icon item\" onclick=\"" +"myQnaNextPageMove("+ currentPage + ");" +"\">");
 						$angleIcon5 = $("<i class='angle right icon' >");
 						$rightIconAble.append($angleIcon5);
 						$paginationDiv.append($rightIconAble);
 					}
 					
-					$currentMaxPage = $("<a class=\"icon item\" onclick=\"" +"qnaLastPageMove("+ data.Qnapi.maxPage + ");" +"\">");
+					$currentMaxPage = $("<a class=\"icon item\" onclick=\"" +"myQnaLastPageMove("+ data.Qnapi.maxPage + ");" +"\">");
 					$angleIcon6 = $("<i class='angle double right icon'>");
 					$currentMaxPage.append($angleIcon6);
 					$paginationDiv.append($currentMaxPage);
@@ -383,21 +374,160 @@
 		//재귀호출 함수
 		ajax();
 		
-		function qnaFirstPageMove(data){
+		function myQnaFirstPageMove(data){
 			ajax(data);
 		}		
-		function qnaBeforePageMove(data){
+		function myQnaBeforePageMove(data){
 			ajax(data);
 		}
-		function qnaOnePageMove(data){
+		function myQnaOnePageMove(data){
 			ajax(data);
 		}
-		function qnaNextPageMove(data){
+		function myQnaNextPageMove(data){
 			ajax(data);
 		}
-		function qnaLastPageMove(data){
+		function myQnaLastPageMove(data){
 			ajax(data);
 		}
+		
+		
+		//내가 스크랩한 Qna목록 페이징
+		var currentPage2 = 1;
+		function ajax2(data){
+			currentPage2 = data;
+	
+			 $.ajax({
+				url:"<%=request.getContextPath()%>/yourqnalist.bo?mno="+<%=mno%>,
+				data:{currentPage2:currentPage2},
+				type:"get",
+				success:function(data){
+					console.log(data);
+					console.log(data.QnaList);
+					console.log(data.Qnapi);
+					
+					$tableBody = $("#yourQnaTbody");
+					$tableBody.html('');
+					
+					//테이블 리스트 구현
+					for(var key in data.QnaList){
+						/* $tr = $("<tr onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">"); */
+						$tr = $("<tr>")
+						var $checkTd = $("<td>");
+						var $check = $("<input type='checkbox' class='qnaCheck'>");
+						var $bnoTd = $("<td>").text(data.QnaList[key].rnum);
+						var $titleTd = $("<td onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">").text(data.QnaList[key].bTitle);
+						var $contentTd = $("<td>").text(data.QnaList[key].bContent);
+						/* var $likeTd = $("<td>").text(data.QnaList[key].bLike);
+						var $scrapTd = $("<td>").text(data.QnaList[key].bScraps); */
+						var $dateTd = $("<td>").text(data.QnaList[key].bDate);
+						$checkTd.append($check);
+						$tr.append($checkTd);
+						$tr.append($bnoTd);
+						$tr.append($titleTd);
+						$tr.append($contentTd);
+						/* $tr.append($likeTd);
+						$tr.append($scrapTd); */
+						$tr.append($dateTd);
+						$tableBody.append($tr);
+					}
+					
+					//페이징 처리
+					$trPage = $("<tr>");
+					$tdPage = $("<td colspan='5'>");
+					$centerDiv = $("<div align='center'>");	//나중에 페이징 메뉴바 가운데에 정렬하기 위해서 만든 div
+					$paginationDiv = $("<div class='ui pagination menu'>");	//페이징처리 메뉴바
+					
+					$currentPageOne = $("<a class=\"icon item\" onclick=\"" +"yourQnaFirstPageMove("+ 1 + ");" +"\">");	//첫번째 페이지
+					$angleIcon = $("<i class='angle double left icon'>");	//시맨틱 유아이에서 << 아이콘 담기
+					
+					$currentPageOne.append($angleIcon);
+					$paginationDiv.append($currentPageOne);
+					
+					if(data.Qnapi.currentPage2 <= 1){	//현재 페이지가 1페이지거나 그보다 작을 숫자의 페이지일때
+						$leftconDisable = $("<a class='icon item'>");	//아무 작동도 없는 버튼으로만 남기기 = 버튼 비활성화
+						$angleIcon2 = $("<i class='angle left icon' >");
+						$leftconDisable.append($angleIcon2);
+						$paginationDiv.append($leftconDisable);
+					
+					}else{
+						currentPage2 = (data.Qnapi.currentPage2-1);
+						$leftIconAble = $("<a class=\"icon item\" onclick=\"" +"yourQnaBeforePageMove("+ currentPage2 + ");" +"\">");	//전페이지로..?
+						$angleIcon3 = $("<i class='angle left icon' >");
+						$leftIconAble.append($angleIcon3);
+						$paginationDiv.append($leftIconAble);
+						
+					}
+					
+					//페이지의 숫자를 페이징 메뉴에 담기
+					for(var i = data.Qnapi.startPage; i <= data.Qnapi.endPage; i++){
+						if(i == data.Qnapi.currentPage2){
+							$item1 = $("<a class='item'>").text(i);	//"<a class='item'>" : 페이지의 숫자를 담는 아이콘
+							$paginationDiv.append($item1);
+						}else{
+							currentPage2 = i;
+							$item2 = $("<a class=\"icon item\" onclick=\"" +"yourQnaOnePageMove("+ i + ");" +"\">").text(i);
+							$paginationDiv.append($item2);
+						}
+					}
+					
+					if(data.Qnapi.currentPage2 >= data.Qnapi.maxPage){	//현재페이지 번호가 한 페이지의 끝번호보다 같거나 크면
+						$rightIconDisable = $("<a class='icon item'>");
+						$angleIcon4 = $("<i class='angle right icon' >");
+						$rightIconDisable.append($angleIcon4);
+						$paginationDiv.append($rightIconDisable);
+					}else{
+						currentPage2 = (data.Qnapi.currentPage2+1);
+						$rightIconAble = $("<a class=\"icon item\" onclick=\"" +"yourQnaNextPageMove("+ currentPage2 + ");" +"\">");
+						$angleIcon5 = $("<i class='angle right icon' >");
+						$rightIconAble.append($angleIcon5);
+						$paginationDiv.append($rightIconAble);
+					}
+					
+					$currentMaxPage = $("<a class=\"icon item\" onclick=\"" +"yourQnaLastPageMove("+ data.Qnapi.maxPage + ");" +"\">");
+					$angleIcon6 = $("<i class='angle double right icon'>");
+					$currentMaxPage.append($angleIcon6);
+					$paginationDiv.append($currentMaxPage);
+					$centerDiv.append($paginationDiv);
+					$tdPage.append($centerDiv);
+					$trPage.append($tdPage);
+					$tableBody.append($trPage);
+				
+				},
+				error:function(data){
+					console.log("데이터 통신 실패..");
+					alert("실패");
+				}
+			}); 
+		}
+		
+		//재귀호출 함수
+		ajax2();
+		
+		function yourQnaFirstPageMove(data){
+			ajax2(data);
+		}		
+		function yourQnaBeforePageMove(data){
+			ajax2(data);
+		}
+		function yourQnaOnePageMove(data){
+			ajax2(data);
+		}
+		function yourQnaNextPageMove(data){
+			ajax2(data);
+		}
+		function yourQnaLastPageMove(data){
+			ajax2(data);
+		}
+		
+		
+		$(function(){
+	  		$("table.two th").eq(3).css("width", "200px");
+	  		$("tr td").eq(3).css("width", "200px");
+	  		$("table.one th").eq(3).css("width", "500px");
+	  		$("tr td").eq(3).css("width", "500px");
+	  		$("table.one th").eq(3).css("background", "red");
+	  		$("tr td").eq(3).css("background", "blue");
+	  	});
 		
 	</script>
 	

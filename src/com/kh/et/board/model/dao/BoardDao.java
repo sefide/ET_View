@@ -507,7 +507,7 @@ public class BoardDao {
 	}
 
 	
-	//QnaList 페이지 처리 후
+	// QnaList 페이지 처리 후
 	public ArrayList<HashMap<String, Object>> QnaList(Connection con, int currentPage, int limit, int mno) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -515,74 +515,136 @@ public class BoardDao {
 		HashMap<String, Object> hmap = null;
 		String bitype1 = "좋아요";
 		String bitype2 = "스크랩";
-	
-		
+
 		String query = prop.getProperty("QnaListPaging");
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
-			
-			int startRow = (currentPage - 1) * limit + 1;	//각 페이징 페이지 마다 처음 페이지 번호(ex.1,11,21,31...)
-			int endRow = startRow + limit - 1;	//각 페이징 페이지 마다 마지막 페이지 번호(ex.10,20,30,40...)
-			
-			/*pstmt.setString(1, bitype1);
-			pstmt.setInt(2, mno);
-			pstmt.setInt(3, bno);
-			pstmt.setString(4, bitype2);
-			pstmt.setInt(5, mno);
-			pstmt.setInt(6, bno);
-			pstmt.setInt(7, mno);
-			pstmt.setInt(8, bno);
-			pstmt.setInt(9, startRow);
-			pstmt.setInt(10, endRow);*/
-			
+
+			int startRow = (currentPage - 1) * limit + 1; // 각 페이징 페이지 마다 처음 페이지 번호(ex.1,11,21,31...)
+			int endRow = startRow + limit - 1; // 각 페이징 페이지 마다 마지막 페이지 번호(ex.10,20,30,40...)
+
 			pstmt.setInt(1, mno);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
-			
+
 			rset = pstmt.executeQuery();
-			
-			
-			if(rset != null) {
-				QnaList = new ArrayList<HashMap<String, Object>>();	//페이징 리스트 생성하고
-				while(rset.next()) {
+
+			if (rset != null) {
+				QnaList = new ArrayList<HashMap<String, Object>>(); // 페이징 리스트 생성하고
+				while (rset.next()) {
 					hmap = new HashMap<String, Object>();
-					
+
 					hmap.put("bNo", rset.getInt("B_NO"));
-					/*hmap.put("bLikes", rset.getString("LIKES"));
-					hmap.put("bScraps", rset.getString("SCRAPS"));*/
+					/*
+					 * hmap.put("bLikes", rset.getString("LIKES")); 
+					 * hmap.put("bScraps",rset.getString("SCRAPS"));
+					 */
 					hmap.put("bTitle", rset.getString("B_TITLE"));
 					hmap.put("bContent", rset.getString("B_CONTENT"));
 					hmap.put("bDate", rset.getDate("B_DATE"));
-					
-					
-					
-					/*Board b = new Board();
-					b.setbNo(rset.getInt("B_NO"));
-					b.setbLike(rset.getInt("LIKES"));
-					b.setbScrap(rset.getInt("SCRAPS"));
-					b.setBtitle(rset.getString("B_TITLE"));
-					b.setbContent(rset.getString("B_CONTENT"));
-					b.setbDate(rset.getDate("B_DATE"));*/
-					
-					
+					hmap.put("rnum", rset.getInt("RNUM"));
+
+
 					QnaList.add(hmap);
 				}
-				
+
 			}
-			
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(pstmt);
 			close(rset);
 		}
-		
-		
+
 		return QnaList;
+
+	}
 	
-}
+	// 내가 스크랩한 QnA 리스트 전체 불러오기
+	public int getYourQnaListCount(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int QnaListCount = 0;
+
+		String query = prop.getProperty("YourQnaListCount");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				QnaListCount = rset.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return QnaListCount;
+	}
+
+	// QnaList 페이지 처리 후
+	public ArrayList<HashMap<String, Object>> YourQnaList(Connection con, int currentPage, int limit, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> QnaList = null;
+		HashMap<String, Object> hmap = null;
+		String bitype1 = "좋아요";
+		String bitype2 = "스크랩";
+
+		String query = prop.getProperty("YourQnaListPaging");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			int startRow = (currentPage - 1) * limit + 1; // 각 페이징 페이지 마다 처음 페이지 번호(ex.1,11,21,31...)
+			int endRow = startRow + limit - 1; // 각 페이징 페이지 마다 마지막 페이지 번호(ex.10,20,30,40...)
+
+			pstmt.setInt(1, mno);
+			pstmt.setString(2, bitype2);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+			rset = pstmt.executeQuery();
+
+			if (rset != null) {
+				QnaList = new ArrayList<HashMap<String, Object>>(); // 페이징 리스트 생성하고
+				while (rset.next()) {
+					hmap = new HashMap<String, Object>();
+
+					hmap.put("bNo", rset.getInt("B_NO"));
+					/*
+					 * hmap.put("bLikes", rset.getString("LIKES")); 
+					 * hmap.put("bScraps",rset.getString("SCRAPS"));
+					 */
+					hmap.put("bTitle", rset.getString("B_TITLE"));
+					hmap.put("bContent", rset.getString("B_CONTENT"));
+					hmap.put("bDate", rset.getDate("B_DATE"));
+					hmap.put("rnum", rset.getInt("RNUM"));
+
+					QnaList.add(hmap);
+				}
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return QnaList;
+
+	}
+
+	
 	//해당 글 좋아요 갯수 
 	public int getLikeNum(Connection con, int bno) {
 		PreparedStatement pstmt = null;
@@ -724,39 +786,9 @@ public class BoardDao {
 	}
 
 
-	
-	
-	
-	
-
-	
-
-	/*//QnA 페이징 처리 글번호 가져오기
-	public int selectBoardNum(Connection con, int mno) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int bno = 0;
 		
-		String query = prop.getProperty("selectBoardNum");
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, mno);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				bno = rset.getInt("B_NO");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		return bno;
-	}*/
 
-
+	
 
 }
 
