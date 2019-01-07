@@ -31,24 +31,19 @@ public class IdSearch_EmailCheck_Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+	
+		String userId = request.getParameter("userId");
 		
-		String question = request.getParameter("userQuestion");
-		String answer = request.getParameter("userAnwser");
-		
-		Member reqMember = new Member();
-		reqMember.setM_question(question);
-		reqMember.setM_answer(answer);
-		
-		Member loginUser = new MemberService().memberIdSearchEmailCheck(reqMember);
+		Member loginUser = new MemberService().memberPwdSearchEmailCheck(userId);
 		
 		if(loginUser != null) {
-			response.getWriter().println(loginUser.getM_email());
+			
+			response.getWriter().print(loginUser.getM_email());
+			
 		}else {
-			response.getWriter().println("FAIL");
+			response.getWriter().print("FAIL");
 		}
-		
-		
-		
+	
 	}
 
 	/**

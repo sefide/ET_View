@@ -216,10 +216,10 @@ public class MemberDao {
 			
 			if(rset.next()) {
 				loginUser = new Member();
-				
-			
+		
 				loginUser.setM_id(rset.getString("M_ID"));
-				
+				loginUser.setM_question(rset.getString("M_QUESTION"));
+				loginUser.setM_answer(rset.getString("M_ANSWER"));
 			}
 			
 			
@@ -468,7 +468,7 @@ public class MemberDao {
 		return result;
 	}
 
-	public Member memberIdSearchEmailCheck(Connection con, Member reqMember) {
+	public Member memberPwdSearchEmailCheck(Connection con, String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Member loginUser = null;
@@ -476,8 +476,7 @@ public class MemberDao {
 		String query = prop.getProperty("memberIdSearchEmailCheck");	
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, reqMember.getM_question());
-			pstmt.setString(2, reqMember.getM_answer());
+			pstmt.setString(1, userId);
 			
 			rset = pstmt.executeQuery();
 			
