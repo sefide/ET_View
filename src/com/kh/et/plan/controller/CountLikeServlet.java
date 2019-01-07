@@ -35,6 +35,7 @@ public class CountLikeServlet extends HttpServlet {
 		
 		int pno = Integer.parseInt(request.getParameter("pno"));
 		
+		
 		int like = new PlanService().countLike(pno);
 		
 		

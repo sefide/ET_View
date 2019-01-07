@@ -160,7 +160,7 @@
 			    </div>
 					<div class="div-plan-info">
 						<!-- 좋아요 -->
-						<%=  %>
+						
 						<div class="ui labeled button" tabindex="0">
 							<div class="ui red button" id="likePlan">
 								<i class="heart icon"></i> 좋아요!
@@ -168,19 +168,13 @@
 							<a class="ui basic red left pointing label" id="likeCnt"> <%=planMap.get("like")%>
 							</a>
 							<div class="ui red button" id="unlikePlan" style="display: none;" >
-								<i class="empty heart icon"></i> 좋아요 취소
+								<i class="empty heart icon"></i> 좋아요!
 							</div>
 							<a class="ui basic red left pointing label" id="unlikeCnt" style="display: none;" > <%=planMap.get("like")%>
 							</a>
 						</div>
 						
 						<script>
-						$(function () {
-							//pno를 히든으로 가져와서 거기에 관심을 표한 사람이아디랑 로그인 유저랑 같으면 버튼 취소로 됩니당.!
-							
-						});
-						
-						
 							/* 좋아요  클릭시 */
 							$("#likePlan").click(function() {							
 									var pno = '<%= plan.getpNo()%>' ;														
@@ -267,6 +261,8 @@
 
 				</div>
         </div>
+        
+        
         
         
         

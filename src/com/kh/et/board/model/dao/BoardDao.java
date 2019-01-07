@@ -16,6 +16,7 @@ import java.util.Properties;
 import javax.mail.Session;
 
 import com.kh.et.board.model.vo.Board;
+import com.kh.et.board.model.vo.BoardInterest;
 import com.kh.et.member.model.vo.News;
 
 public class BoardDao {
@@ -141,7 +142,7 @@ public class BoardDao {
 		Board b = null;
 		
 		String query = prop.getProperty("selectOne");
-		//selectOne=SELECT B.B_NO, M.M_ID, B.B_TITLE, B.B_CONTENT, B.B_DATE FROM BOARD B JOIN MEMBER M ON(B.B_N_NO = M.M_NO) WHERE B.B_NO = ? AND B.B_STATUS = 'Y' AND B.B_TYPE=0
+		//selectOne=SELECT B.B_NO, B.B_N_NO, M.M_ID, B.B_TITLE, B.B_CONTENT, B.B_DATE FROM BOARD B JOIN MEMBER M ON(B.B_N_NO = M.M_NO) WHERE B.B_NO = ? AND B.B_STATUS = 'Y' AND B.B_TYPE=0
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -153,6 +154,7 @@ public class BoardDao {
 				b = new Board();
 				
 				b.setbNo(rset.getInt("B_NO"));
+				/*b.setbWriterNo(rset.getInt("B_N_NO"));*/
 				b.setbWriter(rset.getString("M_ID"));
 				b.setBtitle(rset.getString("B_TITLE"));
 				b.setbContent(rset.getString("B_CONTENT"));
@@ -581,6 +583,127 @@ public class BoardDao {
 		return QnaList;
 	
 }
+	//해당 글 좋아요 갯수 
+	public int getLikeNum(Connection con, int bno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		 
+		String query = prop.getProperty("getBoardLikeNum");
+		//getBoardLikeNum=SELECT BI.BI_B_NO, COUNT(BI.BI_B_NO) CNT FROM BOARDINTEREST BI JOIN BOARD B ON (BI.BI_B_NO = B.B_NO) WHERE B.B_NO = ? AND BI.BI_TYPE = ? GROUP BY BI_B_NO
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bno);
+			pstmt.setString(2, "좋아요");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("CNT");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return result;
+	}
+	//좋아요 클릭
+	public int clickLike(Connection con, BoardInterest bi, int getNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("clickLike");
+		//clickLike=INSERT INTO BOARDINTEREST SELECT SEQ_BI_NO.NEXTVAL,?,?,?,? FROM DUAL A WHERE NOT EXISTS ( SELECT * FROM BOARDINTEREST WHERE BI_B_NO = ?  AND BI_GIVE_NO = ? AND BI_TYPE = ? )
+		try {
+			System.out.println("사용자 번호"+getNo);
+			String type = "좋아요";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, getNo);
+			pstmt.setInt(2, bi.getBno());
+			pstmt.setInt(3, bi.getUser());
+			pstmt.setString(4, type);
+			pstmt.setInt(5, bi.getBno());
+			pstmt.setInt(6, bi.getUser());
+			pstmt.setString(7, type);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("클릭해서 인설트가 됬을까?"+result);
+		return result;
+	}
+	
+	//좋아요 취소
+	public int clickUnLike(Connection con, BoardInterest bi,int getNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("clickUnLike");
+		System.out.println("좋아요 다오전이야");
+		//clickUnLike=DELETE FROM BOARDINTEREST WHERE  BI_B_NO = ? AND BI_GIVE_NO = ? AND BI_TYPE = ?
+		try {
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bi.getBno());
+			pstmt.setInt(2, bi.getUser());			
+			pstmt.setString(3, type);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("서비스 다오 후야");
+		return result;
+	}
+	
+	
+		
+	//넘버가져오기
+	public int getNo(Connection con, String writer) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		 
+		String query = prop.getProperty("getWriterNo");
+		//getWriterNo=SELECT M_NO FROM  MEMBER  WHERE M_ID = ? 
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1,writer);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("M_NO");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return result;
+	}
+
+	
+	
+	
+	
+
+	
 
 	/*//QnA 페이징 처리 글번호 가져오기
 	public int selectBoardNum(Connection con, int mno) {

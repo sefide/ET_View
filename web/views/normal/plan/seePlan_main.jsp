@@ -216,18 +216,8 @@
 			       <%}%>
 					 });
 			
-		 	// 
-			function goPlanDetail(pno){
-				 
-				<% if(loginUser != null ){%>
-					 
-				 	location.href = "<%=request.getContextPath()%>/seePlanDetail.pl?pno="+pno ;
-				 
-				<% }else{%>
-					 alert("회원만 볼수 있습니당");
-				<% }%>
-				 
-			   }
+		 	
+			
 			
 			</script>
 			
@@ -278,7 +268,7 @@
         						<!-- System.out.println("view에서 보여지는 p"+p); -->
 							<div class ="div-plan-map"> 
         					    <div id ="plan-map1<%=i%>" class ="plan-map"></div>  
-        						<div class = "div-plan-title"><%=p.getpTitle() %></div>
+        						<div class = "div-plan-title" onclick = "goPlanDetail(<%=nPlanList.get(i).getpNo()%>);"><%=p.getpTitle() %></div>
         						<br>
         						<div class = "div-plan-like"> 
         							<i class = "icon heart"><%=p.getpLike() %></i>
@@ -358,6 +348,17 @@
 			
 			
 			
+			function goPlanDetail(pno){
+				 
+				<% if(loginUser != null ){%>
+					 
+				 	location.href = "<%=request.getContextPath()%>/seePlanDetail.pl?pno="+pno ;
+				 
+				<% }else{%>
+					 alert("회원만 볼수 있습니당");
+				<% }%>
+				 
+			   }
 			
 			
 				
