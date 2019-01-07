@@ -1,5 +1,12 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
+	HashMap<String, Object> tb = (HashMap<String, Object>)list.get(0);
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,15 +56,9 @@ body>div {
 	height: 240px;
 	border: 1px solid gray;
 	background: rgba(42, 90, 133, 0.5);;
-	border-radius: 50%;
 	margin-left: 50px;
 }
 
-.img-profile {
-	width: 190px;
-	height: 190px;
-	margin: 15% 0;
-}
 
 td {
 	padding: 10px;
@@ -80,6 +81,17 @@ td {
 	font-family: 'Ubuntu', sans-serif;
 	margin: 0 0 5px 0;
 }
+img{
+ 	width: 500x;
+	height: 250px;
+	border: 1px solid gray;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+.photo{
+	width: 500x;
+	height: 250px;
+}
 </style>
 
 </head>
@@ -92,15 +104,13 @@ td {
 			<div class="insertArea">
 				<table align="center">
 					<tr>
-						<td id="txt"><label id="txt"> 투어 제목</label></td>
+						<td id="txt"><label id="txt"> <%=tb.get("title") %></label></td>
 					</tr>
 					<tr>
-						<td>
+						<td class="photo">
 							<!-- 투어사진 -->
-							<div class="div-img-profile">
-								<img src="/et/image/common/logo_c.png" class="img-profile"
+								<img src="/et/tourUpload/<%=tb.get("changeName")%>" class="img-profile"
 									id="img-profile">
-							</div>
 						</td>
 					</tr>
 
@@ -110,7 +120,7 @@ td {
 								<div class="field">
 									<label id="txt"> 투어 설명 </label>
 									<textarea name="profileTxt" rows="3" cols="50"
-										style="resize: none" placeholder="투어에 대한 설명"></textarea>
+										style="resize: none" placeholder="투어에 대한 설명"><%= tb.get("info") %></textarea>
 								</div>
 							</div>
 
@@ -119,18 +129,18 @@ td {
 					</tr>
 					<tr>
 						<td align="left"><label id="txt"> 투어 기간  </label>&nbsp;&nbsp;&nbsp;
-						 <span id="detail-txt">2018.12.14 ~ 2019.03.15</span></td>				
+						 <span id="detail-txt"><%=tb.get("tdate") %> ~ <%=tb.get("tEndDate") %></span></td>				
 					</tr>
 					<tr>
-						<td align="left"><label id="txt"> 가격  </label>&nbsp;&nbsp;&nbsp;
-						 <span id="detail-txt">450,000원~</span></td>				
+						<td align="left"><label id="txt"> 투어 가격  </label>&nbsp;&nbsp;&nbsp;
+						 <span id="detail-txt"><%= tb.get("price") %></span></td>				
 					</tr>
 					<tr>
 						<td align="left"><label id="txt"> 투어 컨셉 </label>&nbsp;&nbsp;&nbsp;
-						 <span id="detail-txt"> 나홀로 여행! </span></td>				
+						 <span id="detail-txt"> <%=tb.get("concept")%></span></td>				
 					</tr>					<tr>
 						<td align="left"><label id="txt"> 연결 링크 </label>&nbsp;&nbsp;&nbsp;
-						 <span id="detail-txt"><a href="www.naver.com" >www.naver.com</a></span></td>				
+						 <span id="detail-txt"><a href="http://<%=tb.get("link") %>" ><%=tb.get("link") %></a></span></td>				
 					</tr>
 
 				</table>

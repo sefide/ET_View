@@ -159,6 +159,7 @@
 	
 	button {
     		border : 1px solid white;
+    		background : white;
     }
 </style>
 </head>

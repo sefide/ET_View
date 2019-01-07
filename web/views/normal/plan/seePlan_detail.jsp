@@ -160,7 +160,7 @@
 			    </div>
 					<div class="div-plan-info">
 						<!-- 좋아요 -->
-						
+
 						<div class="ui labeled button" tabindex="0">
 							<div class="ui red button" id="likePlan">
 								<i class="heart icon"></i> 좋아요!

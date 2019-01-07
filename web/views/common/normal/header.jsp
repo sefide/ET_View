@@ -238,7 +238,7 @@
                     		<!-- /selectallPlan.pl 서블릿을 호출해야해 완성하면! by 아진-->
                 		</li>
                 		<li class="nav-item">
-                    		<a class="nav-link" href="/et/views/normal/tourBoard/seeTour_main.jsp">투어엿보기</a>
+                    		<a class="nav-link" href="<%=request.getContextPath()%>/memberSeeTour.tbo">투어엿보기</a>
                		 </li>
                 		<li class="nav-item">
                         	<a class="nav-link" href="<%=request.getContextPath() %>/selectList.bo">Q&A</a>

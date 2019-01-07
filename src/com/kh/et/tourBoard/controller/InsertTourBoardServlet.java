@@ -117,14 +117,14 @@ public class InsertTourBoardServlet extends HttpServlet {
 				at.setFilePath(filePath);
 				at.setOriginName(originFiles.get(i));
 				at.setChangeName(saveFiles.get(i));
-				at.setaType("투어");
 				
 				fileList.add(at);
 			}
-			int result = new TourBoardService().insertTourBoard(tb, fileList,loginUser,cp);
+			Company result = new TourBoardService().insertTourBoard(tb, fileList,loginUser,cp);
 			
-			if(result > 0) {
-				response.sendRedirect(request.getContextPath()+"/selectList.tbo?cno="+loginUser.getC_no());
+			if(result != null) {
+				request.getSession().setAttribute("loginCompany", result);
+				response.sendRedirect(request.getContextPath()+"/selectList.tbo?cno="+loginUser.getC_no());	
 			}else {
 				//실패시 저장된 사진 삭제
 				for(int i=0;i<saveFiles.size();i++) {
@@ -133,10 +133,11 @@ public class InsertTourBoardServlet extends HttpServlet {
 					
 					//true false를 리턴
 					failedFile.delete();
+					request.setAttribute("msg", "게시물 등록 실패!");
+					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 				}
 	
-				request.setAttribute("msg", "게시물 등록 실패!");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				
 			}
 		}
 	}

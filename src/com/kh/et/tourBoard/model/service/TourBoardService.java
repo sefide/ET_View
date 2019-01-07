@@ -15,7 +15,7 @@ import com.kh.et.tourBoard.model.vo.TourBoard;
 
 public class TourBoardService {
 
-	public int insertTourBoard(TourBoard tb, ArrayList<Attachment> fileList, Company loginUser, Coupon cp) {
+	public Company insertTourBoard(TourBoard tb, ArrayList<Attachment> fileList, Company loginUser, Coupon cp) {
 
 		Connection con = getConnection();
 		int result = 0;
@@ -43,14 +43,16 @@ public class TourBoardService {
 			result4 = new TourBoardDao().updateMemberCouponUsedStandard(con,loginUser,cp);
 		}
 		
+		Company loginCompany = null;
 		if (result1 > 0 && result2 > 0 && result3>0 && result4>0) {
+			loginCompany =new CompanyDao().selectLoginCompany(con,loginUser);
 			commit(con);
 			result = 1;
 		} else {
 			rollback(con);
 		}
 		close(con);
-		return result;
+		return loginCompany;
 	}
 
 	public ArrayList<HashMap<String, Object>> selectList(int currentPage, int limit, Company loginUser) {
@@ -200,6 +202,36 @@ public class TourBoardService {
 		return CouponCount;
 	}
 
+
+	public ArrayList<HashMap<String, Object>> seeTourList(int currentPage, int limit) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String, Object>> list = new TourBoardDao().seeTourList(con, currentPage, limit);
+
+		close(con);
+
+		return list;
+	}
+
+	public int SeeTourgetListCount() {
+		Connection con = getConnection();
+
+		int listCount = new TourBoardDao().SeeTourgetListCount(con);
+		close(con);
+
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> seeTourDetail(int num) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String, Object>> list = new TourBoardDao().seeTourDetail(con, num);
+
+		close(con);
+
+		return list;
+  }
+  
 	public int deleteTourBoard(TourBoard reqTour) {
 		Connection con=getConnection();
 		
