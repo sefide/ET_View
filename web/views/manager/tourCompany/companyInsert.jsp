@@ -119,15 +119,15 @@
     	
         	<div class="inner-2">
         	
-        <form  id="joinForm" action ="<%=request.getContextPath()%>/insertCompany.co" method="post" class="form">
+        <form  id="joinForm" action ="<%=request.getContextPath()%>/insertCompany.co" method="post" class="form" >
 	<fieldset><legend>제휴사 추가</legend>
 	<p class="name">
 		<label for="name">제휴사 명</label><br> 
 		<input type="text" name="name" id="name"> <button   class="ui black basic button" id=" nameCheck" onclick="return nameCheck();">중복확인</button><br>
 		<label for="num">사업자번호</label>&nbsp;<br>
 		<input type="text" name="num" id="num" /><br>
-		<label for="name">아이디</label><br> <button   class="ui black basic button" id=" idCheck" onclick="return nameCheck();">중복확인</button><br>
-		<input type="text" name="userId" id="userId" /><br>
+		<label for="name">아이디</label><br> 
+		<input type="text" name="userId" id="userId" /><button   class="ui black basic button" id=" idCheck" onclick="return idCheck();">중복확인</button><br>
 		<label for="name">비밀번호</label><br>
 		<input type="password" name="userPwd" id="userPwd" /><br>
 		<label for="phone">연락처</label>&nbsp;<br>
@@ -156,7 +156,7 @@
 		
 		<br>
 		<br>
-		<button type="submit" id="insertBtn" onclick="insertCompany();">완료</button>
+		<button type="submit" id="insertBtn" onclick="insertCompany();" disabled>완료</button>
 		
 	</p>
 
@@ -174,12 +174,52 @@
    	<!-- footer -->
 	<%@ include file= "/views/common/normal/footer.jsp" %>
 	<script>
+	 idck=0;
+    nameCk=0;
 	function insertCompany() {
-		$("#joinForm").submit();
-	}
+			
+			 if($("#num").val() == ""){
+					alert("사업자 번호를 입력해주세요");
+					$("#num").focus();
+					return false;		
+			 }
+			 
+			else if($("#userPwd").val() == ""){
+				alert("비밀번호를 입력해주세요");
+			
+				return false;
+			}
+			else if($("#email").val() == ""){
+				alert("이메일을 입력해주세요");
+			
+				return false;
+			}
+			else if($("#phone").val() == ""){
+				alert("연락처를 입력해주세요");
+				
+				return false;
+			}
+			else if($("#category").val() == ""){
+				alert("연락처를 입력해주세요");
+				
+				return false;
+				
+			}
+			else if($("#address").val()==""){
+				alert("주소를 입력해주세요");
+				return false;
+			}
+			else{ 
+				$("#joinForm").submit();
+				return true;
+			 } 
+			 
+		} 
+		
+
 	
 	function nameCheck() {
-		var CompanyName=$("#name").val();
+		 CompanyName=$("#name").val();
 		$.ajax({
 			url:"/et/nameCheck.mng",
 			type:"post",
@@ -187,17 +227,53 @@
 			success:function(data){
 				if(data==="fail") {
 					alert("이름이 중복됩니다");
-					$("#name").text("");
+					nameCk=0;
+					if(nameCk==0||idck==0){
+						$("#insertBtn").prop("disabled",true);
+					}
 					
 				}else {
 					alert("사용 가능합니다");
-					console.log(data);
+					nameCk=1;
+					if(idck==1&&nameCk==1){
+						$("#insertBtn").prop("disabled",false);
+					}
 				}
 			},
 			error:function(){
 				console.log("실패");
 			}
 			
+		});
+		return false;
+	}
+	
+	function idCheck() {
+		 userId=$("#userId").val();
+		$.ajax ({
+			url:"/et/idCheck.mng",
+			type:"post",
+			data:{userId:userId},
+			success:function(data){
+				if(data==="fail"){
+					idck=0;
+					alert("아이디가 중복됩니다");
+					if(idck==0||nameCk==0){
+						$("#insertBtn").prop("disabled",true);
+					}
+			}else if(data=="success") {
+				alert("사용 가능합니다");
+				idck=1;
+				if(idck==1&&nameCk==1){
+					$("#insertBtn").prop("disabled",false);
+				}
+				
+			}
+		},
+		error:function(){
+			console.log("실패");
+		}
+		
 		});
 		return false;
 	}

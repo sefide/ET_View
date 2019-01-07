@@ -390,5 +390,31 @@ public class CompanyDao {
 		return listCount;
 	}
 
+	public int idCheck(Connection con, String userId) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		
+		String query=prop.getProperty("idCheck");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset=pstmt.executeQuery();
+			if(rset.next()) {
+				result=rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return result;
+	}
+
 
 }

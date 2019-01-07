@@ -183,4 +183,21 @@ public class CompanyService {
 		
 	}
 
+
+
+	public int idCheck(String userId) {
+		Connection con=getConnection();
+		
+		int result=new CompanyDao().idCheck(con,userId);
+		
+		if(result>0) {
+			commit(con);
+			
+		}else {
+			rollback(con);
+		}
+		System.out.println("서비스"+result);
+		return result;
+	}
+
 }
