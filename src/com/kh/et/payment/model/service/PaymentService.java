@@ -6,12 +6,11 @@ import static com.kh.et.common.JDBCTemplate.rollback;
 import static com.kh.et.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.et.company.model.dao.CompanyDao;
 import com.kh.et.company.model.vo.Company;
 import com.kh.et.company.model.vo.Coupon;
-import com.kh.et.member.model.dao.MemberDao;
-import com.kh.et.member.model.vo.Member;
 import com.kh.et.payment.model.dao.PaymentDao;
 import com.kh.et.payment.model.vo.Payment;
 
@@ -107,4 +106,30 @@ public int insertPremiumPayment(Payment p, Coupon c) {
 	
 	return result;
 }
+	
+
+	public ArrayList<Payment> selectPayList(int currentPage, int limit, Company loginUser) {
+		Connection con = getConnection();
+		
+		ArrayList<Payment> list = new PaymentDao().selectPayList(con, currentPage, limit, loginUser);
+		
+		close(con);
+	
+		return list;
+	}
+
+	public int getListpayList(Company loginUser) {
+		Connection con = getConnection();
+		
+		int listCount = new PaymentDao().getListpayCoupon(con,loginUser);
+		close(con);
+		
+		return listCount;
+	}
+	
+	
+	
+
+
+
 }

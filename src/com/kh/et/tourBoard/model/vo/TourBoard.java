@@ -1,6 +1,14 @@
 package com.kh.et.tourBoard.model.vo;
 
+import static com.kh.et.common.JDBCTemplate.close;
+import static com.kh.et.common.JDBCTemplate.getConnection;
+
+import java.sql.Connection;
 import java.sql.Date;
+
+import com.kh.et.company.model.dao.CompanyDao;
+import com.kh.et.company.model.vo.Company;
+import com.kh.et.tourBoard.model.dao.TourBoardDao;
 
 public class TourBoard implements java.io.Serializable{
 	private int tno;
@@ -148,6 +156,8 @@ public class TourBoard implements java.io.Serializable{
 				+ tConcept + ", tInfo=" + tInfo + ", tPrice=" + tPrice + ", tLink=" + tLink + ", tGrade=" + tGrade
 				+ ", tStatus=" + tStatus + ", tDate=" + tDate + ", tEndDate=" + tEndDate + ", tctName=" + tctName + "]";
 	}
+
+	
 	
 	
 }

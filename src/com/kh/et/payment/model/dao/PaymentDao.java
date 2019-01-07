@@ -10,11 +10,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.et.company.model.dao.CompanyDao;
+import com.kh.et.company.model.vo.Company;
 import com.kh.et.company.model.vo.Coupon;
 import com.kh.et.payment.model.vo.Payment;
+import com.kh.et.tourBoard.model.vo.TourBoard;
 
 public class PaymentDao {
 	
@@ -197,4 +200,73 @@ public class PaymentDao {
 	
 		return result;
 	}
+
+	public ArrayList<Payment> selectPayList(Connection con, int currentPage, int limit, Company loginUser) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Payment> list = null;
+		
+		String query = prop.getProperty("selectPayList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			int startRow = (currentPage -1) * limit +1;
+			int endRow = startRow + limit - 1;
+			
+			pstmt.setInt(1, loginUser.getC_no());
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Payment>();
+			
+			while(rset.next()) {
+				Payment pm = new Payment();
+				
+				pm.setPayNo(rset.getInt("RNUM"));
+				pm.setPayCT(rset.getString("PAY_COUPON_TYPE"));
+				pm.setPrice(rset.getInt("PAY_PRICE"));
+				pm.setPayDate(rset.getDate("PAY_DATE"));
+				
+				list.add(pm);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return list;
+	}
+
+	public int getListpayCoupon(Connection con, Company loginUser) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("getListpayCoupon");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,loginUser.getC_no());
+			rset =pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+	}
+	
 }
