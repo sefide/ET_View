@@ -118,14 +118,15 @@
         	
     	
         	<div class="inner-2">
+        	
         <form  id="joinForm" action ="<%=request.getContextPath()%>/insertCompany.co" method="post" class="form">
 	<fieldset><legend>제휴사 추가</legend>
 	<p class="name">
-		<label for="name">제휴사 명</label><br>
-		<input type="text" name="name" id="name" /><br>
+		<label for="name">제휴사 명</label><br> 
+		<input type="text" name="name" id="name"> <button   class="ui black basic button" id=" nameCheck" onclick="return nameCheck();">중복확인</button><br>
 		<label for="num">사업자번호</label>&nbsp;<br>
 		<input type="text" name="num" id="num" /><br>
-		<label for="name">아이디</label><br>
+		<label for="name">아이디</label><br> <button   class="ui black basic button" id=" idCheck" onclick="return nameCheck();">중복확인</button><br>
 		<input type="text" name="userId" id="userId" /><br>
 		<label for="name">비밀번호</label><br>
 		<input type="password" name="userPwd" id="userPwd" /><br>
@@ -176,6 +177,34 @@
 	function insertCompany() {
 		$("#joinForm").submit();
 	}
+	
+	function nameCheck() {
+		var CompanyName=$("#name").val();
+		$.ajax({
+			url:"/et/nameCheck.mng",
+			type:"post",
+			data:{CompanyName:CompanyName},
+			success:function(data){
+				if(data==="fail") {
+					alert("이름이 중복됩니다");
+					$("#name").text("");
+					
+				}else {
+					alert("사용 가능합니다");
+					console.log(data);
+				}
+			},
+			error:function(){
+				console.log("실패");
+			}
+			
+		});
+		return false;
+	}
+	
+	
+	
+	
 	
 	</script>
 </body>

@@ -48,19 +48,23 @@
  	float:left;
 }
 table{
- 	width:800px;
+ 	width:600px;
  	height:120px;
  	text-align:center;
  }
  table,tr,td{
- 	border:1px solid black;
+ 	
  }
  td{
- 	width:300px;
+ 	
+ 	width:100px;
  }
  th{
- 	border:1px solid black;
- 	background-color:lightgray;
+ 	
+ 	background-color:white;
+ }
+ .tdn {
+ 	width:30px;
  }
 </style>
 </head>
@@ -71,10 +75,10 @@ table{
     <div class="main_01">
     	<div class="ui header title">▶게시글 조회</div>
     	- 게시글 정보 <br><br>
-    	<table id="tb1">
+    	<table class="table" id="tb1">
     		<tr>
     			<th></th>
-    			<th style=width:150px;>글 번호</th>
+    			<th class="tdn" style=width:150px;>글 번호</th>
     			<th>제목</th>
     			<th>작성자</th>
     			<th>내용</th>
@@ -87,8 +91,8 @@ table{
     			HashMap<String,Object>hmap=list.get(i);
     		%>
     		<tr>
-    			<td class="num"><input type="checkbox" name="checkbox" class="chkCheckBox" value=<%=hmap.get("bNo")%>></td>
-    			<td><%=hmap.get("bNo") %></td>
+    			<td id="tdc" class="num"><input type="checkbox" name="checkbox" class="chkCheckBox" value=<%=hmap.get("bNo")%>></td>
+    			<td id="tdn"><%=hmap.get("bNo") %></td>
     			<td><%=hmap.get("bTitle") %></td>
     			<td><%=hmap.get("mName") %></td>
     			<td><%=hmap.get("bContent") %></td>
@@ -98,38 +102,38 @@ table{
     		</tr>
     		<%} %>
     	</table>
-    	
+    	<br>
     	<div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage = 1'"> << </button>
+    		
+			<button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage = 1'"> << </button>
 			
 			<% if(currentPage <= 1){ %>
-			<button disabled> < </button>
+			<button  class="ui black basic button" disabled> < </button>
 			<% }else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage=<%=currentPage - 1%>'"> < </button>
+			<button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage=<%=currentPage - 1%>'"> < </button>
 			<% } %>
 			
 			<% for(int p = startPage; p <= endPage; p++){ 
 					if(p == currentPage){
 			%>
-					<button disabled><%= p %></button>
+					<button class="ui black basic button" disabled><%= p %></button>
 			<%      }else{ %>
-					<button onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage=<%= p %>'"><%= p %></button>
+					<button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage=<%= p %>'"><%= p %></button>
 			<%      } %>
 	
 			<% } %>
 			
 			
 			<% if(currentPage >= maxPage){ %> <!-- 마지막 페이지일 경우 -->
-			<button disabled> > </button>
+			<button  class="ui black basic button" disabled> > </button>
 			<% }else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage=<%=currentPage + 1%>'"> > </button>
+			<button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage=<%=currentPage + 1%>'"> > </button>
 			<% } %>
-			<button onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage=<%=maxPage%>'"> >> </button> 
+			<button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/boardList.mng?currentPage=<%=maxPage%>'"> >> </button> 
 			
 		</div>
 
-    	<br>
-    	<button style=float:right id="deleteBtn" onclick="deleteBtn();">삭제하기</button>
+    	<button class="ui black basic button" style=float:right id="deleteBtn" onclick="deleteBtn();">삭제하기</button>
     </div>
 	
 	<div class = "two wide column"></div>

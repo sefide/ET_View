@@ -76,16 +76,16 @@ table{
  	
  }
  table,tr,td{
- 	border:1px solid black;
+ 	
  	
  }
  td{
- 	width:300px;
+ 	width:150px;
  	
  } 
  th{
- 	background-color:lightgray;
- 	border:1px solid black;
+ 	
+ 
  }
  .num{
  	width:116px;
@@ -103,7 +103,7 @@ table{
     <div class="main_01">
     	<div class="ui header title" >▶제휴사 관리</div>
     	- 제휴사 조회 <br><br>
-    	<table id="tb1">
+    	<table class="table" id="tb1">
     		<tr>
     			<th></th>
     			<th id="td111">번호</th>
@@ -181,10 +181,10 @@ table{
     	<br>
     	<br>
     	
-    	<button style=float:right; id="deleteBtn">삭제하기</button>
+    	<button class="ui black basic button" style=float:right; id="deleteBtn">삭제하기</button>
     	<!-- onclick="location.href='/et/views/manager/tourCompany/companyUpdate.jsp'"  -->
-    	<button style=float:right;margin-right:30px; id="updateBtn">수정하기</button>
-    	<button style=float:right;margin-right:30px; onclick="location.href='/et/views/manager/tourCompany/companyInsert.jsp'">추가하기</button>
+    	<button class="ui black basic button" style=float:right;margin-right:30px; id="updateBtn">수정하기</button>
+    	<button  class="ui black basic button" style=float:right;margin-right:30px; onclick="location.href='/et/views/manager/tourCompany/companyInsert.jsp'">추가하기</button>
     </div>
     
  <script type="text/javascript">
