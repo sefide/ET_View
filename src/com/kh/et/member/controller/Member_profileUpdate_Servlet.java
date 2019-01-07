@@ -41,7 +41,6 @@ public class Member_profileUpdate_Servlet extends HttpServlet {
 		int mno = Integer.parseInt(request.getParameter("mno"));
 		
 		if(ServletFileUpload.isMultipartContent(request)) { // multipart로 전송되었는가를 체크
-			//전송 파일 용량 제한 :  10MB로 제한
 			int maxSize =  1024 * 1024 * 10;
 			
 			String root = request.getSession().getServletContext().getRealPath("/");
@@ -50,33 +49,16 @@ public class Member_profileUpdate_Servlet extends HttpServlet {
 			
 			String filePath = root + "profileUpload/";
 			
-			//사용자가 올린 파일명을 그대로 저장하지 않는 것이 일반적이다.
-			//1.같은 파일명이 있는 경우 이전 파일을 덮어 쓸 수 있다.
-			//2.한글로된 파일명, 특수기호, 띄어쓰기는 서버에 따라 문제가 생길 수 도 있다.
-			
-			//DefaultFileRenamePolicy는 cos.jar 제공하는 클래스
-			//같은 파일명이 존재하는지를 검사하고 있을 경우에는 뒤에 숫자를 붙여준다.
-			//ex : aaa.zip, aaa1.zip, aaa2.zip
-			
-			/*MultipartRequest multiRequest
-			 = new MultipartRequest(request, filePath, maxSize, 
-					 "UTF-8", new DefaultFileRenamePolicy());*/
-			
 			MultipartRequest multiRequest
 			 = new MultipartRequest(request, filePath, maxSize,
 					 "UTF-8", new MyFileRenamePolicy());
 			
-			
-			// 다중 파일을 묶어서 업로드하기 위해 컬렉션 사용
-			// 저장한 파일의 이름을 저장 할 arrayList 생성
 			ArrayList<String> saveFiles = new ArrayList<String>();
 			
 			// 원본파일의 이름을 저장할 ArrayList 생성
 			ArrayList<String> originFiles = new ArrayList<String>();
 			
-			// 각 파일의 정보를 구해온 뒤 DB에 저장할 목적의 데이터를 꺼내온다.
 			Enumeration<String> files = multiRequest.getFileNames();
-			// Enumeration : ResultSet처럼 반복해서 값을 꺼낼 수 있다. 
 
 			while(files.hasMoreElements()) {
 				String name = files.nextElement();

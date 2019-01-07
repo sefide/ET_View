@@ -63,7 +63,7 @@
 <body>
 <div><br>
 	<h1 id ="title"> My Profile</h1>
-	<form action = "/et/updateProfile.me?mno=<%=loginUser.getM_no() %>" method = "post" encType = "multipart/form-data">
+	<form id="profileForm" action = "/et/updateProfile.me?mno=<%=loginUser.getM_no() %>" method = "post" encType = "multipart/form-data">
 		<div class = "insertArea">
 		
 			<table align = "center">
@@ -92,7 +92,7 @@
 						  <div class="field">
 						    <label id ="txt"> - 자기 소개글 </label>
 						    
-						    <textarea name = "profileTxt" rows="3" cols = "50" style = "resize : none" ><%=loginUser.getM_profile() %></textarea>
+						    <textarea name = "profileTxt" rows="3" cols = "50" maxlength="99" style = "resize : none" ><%=loginUser.getM_profile() %></textarea>
 						  </div>
 						</div>
 						
@@ -104,13 +104,25 @@
 		<br>
 		<div class ="btnArea">
 			<button class="ui grey basic button" onclick = "wclose();">취소하기 </button>
-			<button class="ui grey basic button" type ="submit"> 완료하기 </button>
+			<button class="ui grey basic button" onclick = "return submitProfile();"> 완료하기 </button>
 			
 		</div>
 	</form>
 	</div>
 </body>
 	<script>
+	function submitProfile() {
+		let photoInfo = $("#profileImgSelect").val();
+		if(photoInfo != ""){
+			$("#profileForm").submit;
+			return true;
+		}else {
+			alert("프로필 사진을 넣어주세요. ");
+			return false;
+		}
+	}
+	
+	
 	function loadImg(value) {
 		if(value.files && value.files[0]) { // value는 요소 파일이 있는 상태에 동작한다. 
 			var reader = new FileReader(); // reader는 스트림 
