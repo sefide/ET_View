@@ -633,5 +633,29 @@ private Properties prop = new Properties();
 
 		return CouponCount;
 	}
+
+	public int deleteTourBoard(Connection con, TourBoard reqTour) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		System.out.println(reqTour.getTno());
+		String query=prop.getProperty("deleteCompanyTourBoard");
+		System.out.println("다오까지 오나");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reqTour.getTno());
+			
+			result=pstmt.executeUpdate();
+			System.out.println("diqdiqdiq");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
 	
 }

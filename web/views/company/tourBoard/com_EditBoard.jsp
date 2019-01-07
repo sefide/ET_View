@@ -249,7 +249,6 @@
 	        <span class ="txt-insertTour">투어글 수정하기 </span>
 			<div class = "bar-insertTour"></div>
 			<div class="tableArea  ui form">
-	
 				<form id ="updateForm" action="<%=request.getContextPath()%>/update.tbo" method="post" enctype="multipart/form-data">
 				<%for(int i=0;i<list.size();i++){ 
 							HashMap<String,Object> hmap=list.get(i);
@@ -407,7 +406,7 @@
 						</tr>
 						
 					</table>
-					<%} %>
+				
 					<br>
 					
 					<div align="center">
@@ -430,12 +429,12 @@
 							//}
 						}
 						function deleteTourBoard(){
-							$("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteTourBoard.tbo");
+							$("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteTourBoard.tbo?tno=<%=tb.getTno()%>");
 						}
 					
 					</script>
 				</form>
-				
+					<%} %>
 			</div>
 				
 			</div>

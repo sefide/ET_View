@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,com.kh.et.company.model.vo.*"%>
     <% Company c =(Company)request.getAttribute("c");
-    int comNo = (int)request.getAttribute("comNo");
+	int comNo=(int)request.getAttribute("comNo");
     %>
 <!DOCTYPE html>
 <html>
@@ -121,7 +121,7 @@
         	
     	
         	<div class="inner-2">
-        <form  id="joinForm"  action ="<%=request.getContextPath()%>/updateCompany.co?comNo=<%=comNo %>" method="post" class="form">
+        <form  id="joinForm"  action ="<%=request.getContextPath()%>/updateCompany.co?comNo=<%=comNo%>" method="post" class="form">
 	<fieldset><legend>제휴사 수정</legend>
 	<p class="name">
 

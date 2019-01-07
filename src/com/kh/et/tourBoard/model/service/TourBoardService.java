@@ -200,4 +200,19 @@ public class TourBoardService {
 		return CouponCount;
 	}
 
+	public int deleteTourBoard(TourBoard reqTour) {
+		Connection con=getConnection();
+		
+		int result=new TourBoardDao().deleteTourBoard(con,reqTour);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		System.out.println("service"+result);
+		return result;
+	}
+
 }
