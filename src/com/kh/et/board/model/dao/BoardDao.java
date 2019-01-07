@@ -671,7 +671,6 @@ public class BoardDao {
 		
 	//넘버가져오기
 	public int getNo(Connection con, String writer) {
-		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
@@ -698,6 +697,32 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+
+	public int insertClaim(Connection con, String reason, int userNo, int boardNo, int boardwriterNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		 
+		String query = prop.getProperty("insertClaim");
+		//getWriterNo=SELECT M_NO FROM  MEMBER  WHERE M_ID = ? 
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, boardwriterNo);
+			pstmt.setInt(2, boardNo);
+			pstmt.setInt(3, userNo);
+			pstmt.setString(4,reason);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 	
 	
