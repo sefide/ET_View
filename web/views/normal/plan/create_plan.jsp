@@ -22,7 +22,7 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
- 	 	
+	
  	<!-- css 불러오기  -->
  	<link href = "/et/views/css/create_plan.css" rel='stylesheet' type='text/css'>
 
@@ -226,7 +226,7 @@
 	    height: 120px;
 	    border-radius: 7px;
 	}
-	caption, colgroup{
+	caption, colgroup, small, .btn-xs{
 		display : none;
 	}
 	thead > tr {
@@ -247,6 +247,20 @@
 	
 	td {
 		border : 1px solid #E1E0E0;
+	}
+	
+	.top10img {
+		width : 200px;
+		height : 200px;
+	}
+	
+	.top10ol li{
+		float :left;
+		margin : 1%;
+	}
+	.top10ol h5, .top10ol h5:hover{
+		color : black;
+		font-size : 14px;
 	}
 	
 </style>
@@ -366,40 +380,17 @@
 			 </div>
 			 
 			 <div class = "p-place-div">
-			 <div class ="p-title"> 인기명소  </div>
-			 	<div class ="p-flex"> 
-			 		<div class ="p-p">
-			 			<div><img class ="p-p-img" src ="/et/image/city/0.jpg"></div>
-			 			<div><label class ="p-p-name">관광지명 </label></div>
-			 		</div>
-			 		<div class ="p-p">
-			 			<div><img class ="p-p-img" src ="/et/image/city/0.jpg"></div>
-			 			<div><label class ="p-p-name">관광지명 </label></div>
-			 		</div>
-			 		<div class ="p-p">
-			 			<div><img class ="p-p-img" src ="/et/image/city/0.jpg"></div>
-			 			<div><label class ="p-p-name">관광지명 </label></div>
-			 		</div>
-			 		<div class ="p-p">
-			 			<div><img class ="p-p-img" src ="/et/image/city/0.jpg"></div>
-			 			<div><label class ="p-p-name">관광지명 </label></div>
-			 		</div>
-			 		<div class ="p-p">
-			 			<div><img class ="p-p-img" src ="/et/image/city/0.jpg"></div>
-			 			<div><label class ="p-p-name">관광지명 </label></div>
-			 		</div>
-			 		<div class ="p-p">
-			 			<div><img class ="p-p-img" src ="/et/image/city/0.jpg"></div>
-			 			<div><label class ="p-p-name">관광지명 </label></div>
-			 		</div>
+			 <div class ="p-title"> 관광명소  </div>
+			 	<div class ="p-flex p-place"> 
+			 	
 			 	</div>
 			 </div>
 			 
 			</div>
+			<br><br>
 		</div>
 			
 	    <!-- 지도 위치  -->
- 	 	<!-- <iframe class = "plan-map"  id = "gg-map" src=".." width="100%" height="850px" style="border:none;"></iframe>  -->
  		<div id="map-canvas" class = "plan-map"></div>
  		<!-- style="width: 1000px; height: 700px" -->
 		<div class="ui search">
@@ -616,17 +607,20 @@
 				success : function(data){ 
 					$("#p-tour-detail").html("");
 					$("#weather-div").html("");
+					$(".p-place").html("");
+					
 					var resultStr; 
 					var tourOne;
+					var tourWeather;
+					var tourPlace;
 					
 					for(var key in data){
-						/* var tourName = (data[key])[t]. */
 						tourOne = data[key];
 						var tourName;
 						var tourConcept;
 						var tourPrice;
 						var tourPhoto;
-						var tourWeather;
+						
 						for(var i in tourOne){
 							console.log(i);
 							if(i == 't'){
@@ -635,18 +629,22 @@
 								tourPrice = tourOne[i].tPrice;
 							} else if(i == 'a'){
 								tourPhoto = tourOne[i].changeName;
-							} 
-							else {
+							} else if(i == 'w'){
 								tourWeather = "<table>" + tourOne[i] + "</table>";
-							} 
+							} else { // (i == 'p')
+								tourPlace = "<ol class = 'top10ol'>" + tourOne[i] + "</ol>";
+							}
 						}
 						tourPrice = commaMoney(tourPrice);
 						resultStr = "<div class ='p-t'><div><img class ='p-t-img' src = '/et/tourUpload/"+tourPhoto+"' alt = 'tour'></div><label class ='p-t-name'>["+ tourName+ "] </label><div class ='p-t-price'><label >"+ tourPrice+ "원</label></div></div>";
 						$("#p-tour-detail").append(resultStr);
-						$("#weather-div").append(tourWeather);
 					}
+					
+					$("#weather-div").append(tourWeather);
+					$(".p-place").append(tourPlace);
+					
 					var topStr = " 여행을 가기 전 알아둬야 할 점 ! ";
-					$(".p-city-name").html(locations[city][0] + topStr);
+					$(".p-city-name").html("<i class='plane icon'></i>" + locations[city][0] + topStr);
 					$("#img-city-detail").attr("src", "image/city/"+ cityName	+".jpg");
 					$(".p-info-txt").html(locations[city][1]);
 					$("thead th").eq(0).html("");
