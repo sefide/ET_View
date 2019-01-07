@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" %>
+<% String mno = request.getParameter("mno"); %>	
 
 <!DOCTYPE html>
 <html>
@@ -22,7 +23,7 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
 <!-- jQuery Custom Scroller CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script> -->
 
 <style>
 	.container1 {
@@ -118,8 +119,8 @@
 		width : 100%;
 	}
 	.con2-left{
-		width : 47%;
-		margin : 1%;
+		width : 90%;
+		margin : 2%;
 	}
 	.con2-left-inner {
 		width : 100%;
@@ -128,12 +129,14 @@
 		margin-left : 3%;
 	}
 	.con2-right{
-		width : 47%;
-		margin : 1%;
+		width : 90%;
+		margin : 2%;
 	}
 	.con2-qna{
-		width : 99%;
-		margin-left : 10%;
+		width : 100%;
+		border : 1px solid lightgray;
+		border-radius : 7px;
+		margin-left : 3%;
 	}
 	
 	/* 나의 Q&A / 스크랩 Q&A */
@@ -199,8 +202,6 @@
 										<th>글번호</th>
 										<th>제목</th>
 										<th>내용</th>
-										<th>좋아요수</th>
-										<th>스크랩수</th>
 										<th>작성일</th>
 									</tr>
 								</thead>
@@ -209,7 +210,7 @@
 								<tfoot>
 									<th colspan="6">
 										<div align="right">
-										<button class="ui brown basic mini button">삭제하기</button>
+										<!-- <button class="ui brown basic mini button">삭제하기</button> -->
 									</div>
 									</th>
 								</tfoot>
@@ -230,8 +231,6 @@
 										<th>글번호</th>
 										<th>제목</th>
 										<th>내용</th>
-										<th>좋아요수</th>
-										<th>스크랩수</th>
 										<th>작성일</th>
 									</tr>
 								</thead>
@@ -240,7 +239,7 @@
 								<tfoot>
 									<th colspan="6">
 										<div align="right">
-										<button class="ui brown basic mini button">삭제하기</button>
+										<!-- <button class="ui brown basic mini button">삭제하기</button> -->
 									</div>
 									</th>
 								</tfoot>
@@ -262,13 +261,13 @@
 	}
 	%>
 	<script>
-		
+	
 		var currentPage = 1;
 		function ajax(data){
 			currentPage = data;
-			
-			$.ajax({
-				url:"<%=request.getContextPath()%>/qnalist.bo",
+	
+			 $.ajax({
+				url:"<%=request.getContextPath()%>/qnalist.bo?mno="+<%=mno%>,
 				data:{currentPage:currentPage},
 				type:"get",
 				success:function(data){
@@ -281,22 +280,23 @@
 					
 					//테이블 리스트 구현
 					for(var key in data.QnaList){
-						$tr = $("<tr onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">");
+						/* $tr = $("<tr onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">"); */
+						$tr = $("<tr>")
 						var $checkTd = $("<td>");
 						var $check = $("<input type='checkbox' class='qnaCheck'>");
 						var $bnoTd = $("<td>").text(data.QnaList[key].bNo);
-						var $titleTd = $("<td>").text(data.QnaList[key].btitle);
+						var $titleTd = $("<td onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">").text(data.QnaList[key].bTitle);
 						var $contentTd = $("<td>").text(data.QnaList[key].bContent);
-						var $likeTd = $("<td>").text(data.QnaList[key].bLike);
-						var $scrapTd = $("<td>").text(data.QnaList[key].bScraps);
+						/* var $likeTd = $("<td>").text(data.QnaList[key].bLike);
+						var $scrapTd = $("<td>").text(data.QnaList[key].bScraps); */
 						var $dateTd = $("<td>").text(data.QnaList[key].bDate);
 						$checkTd.append($check);
 						$tr.append($checkTd);
 						$tr.append($bnoTd);
 						$tr.append($titleTd);
 						$tr.append($contentTd);
-						$tr.append($likeTd);
-						$tr.append($scrapTd);
+						/* $tr.append($likeTd);
+						$tr.append($scrapTd); */
 						$tr.append($dateTd);
 						$tableBody.append($tr);
 					}
@@ -314,10 +314,10 @@
 					$paginationDiv.append($currentPageOne);
 					
 					if(data.Qnapi.currentPage <= 1){	//현재 페이지가 1페이지거나 그보다 작을 숫자의 페이지일때
-						$leftconDisable = $("<a class='icon item'>");	//icon item?
+						$leftconDisable = $("<a class='icon item'>");	//아무 작동도 없는 버튼으로만 남기기 = 버튼 비활성화
 						$angleIcon2 = $("<i class='angle left icon' >");
-						$leftIconDisable.append($angleIcon2);
-						$paginationDiv.append($leftIconDisable);
+						$leftconDisable.append($angleIcon2);
+						$paginationDiv.append($leftconDisable);
 					
 					}else{
 						currentPage = (data.Qnapi.currentPage-1);
@@ -367,7 +367,7 @@
 					console.log("데이터 통신 실패..");
 					alert("실패");
 				}
-			});
+			}); 
 		}
 		
 		//재귀호출 함수
@@ -390,6 +390,10 @@
 		}
 		
 	</script>
+	
+	
+	
+	
 
 	<!-- footer -->
 	<%@ include file="/views/common/normal/footer.jsp"%>

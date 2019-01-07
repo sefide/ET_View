@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.et.board.model.dao.BoardDao;
+import com.kh.et.company.model.dao.CompanyDao;
 import com.kh.et.company.model.vo.Company;
 import com.kh.et.company.model.vo.Coupon;
 import com.kh.et.tourBoard.model.dao.TourBoardDao;
@@ -179,6 +180,24 @@ public class TourBoardService {
 		}
 		close(con);
 		return result;
+	}
+
+	public int getPreCouponCount(Company loginUser) {
+			Connection con = getConnection();
+			
+			int CouponCount = new TourBoardDao().getPreCouponCount(con,loginUser);
+			close(con);
+			
+			return CouponCount;
+	}
+
+	public int getStdCouponCount(Company loginUser) {
+		Connection con = getConnection();
+		
+		int CouponCount = new TourBoardDao().getStdCouponCount(con,loginUser);
+		close(con);
+		
+		return CouponCount;
 	}
 
 }

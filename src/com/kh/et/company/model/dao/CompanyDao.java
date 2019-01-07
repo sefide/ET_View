@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.et.company.model.vo.Company;
+import com.kh.et.tourBoard.model.vo.TourBoard;
 
 
 public class CompanyDao {
@@ -60,7 +61,7 @@ public class CompanyDao {
 				loginCompany.setC_date(rset.getDate("C_DATE"));
 				loginCompany.setC_end_date(rset.getDate("C_END_DATE"));
 				loginCompany.setC_status(rset.getString("C_STATUS"));
-				loginCompany.setcStandard(rset.getInt("C_PREMIUM"));
+				loginCompany.setcPremium(rset.getInt("C_PREMIUM"));
 				loginCompany.setcStandard(rset.getInt("C_STANDARD"));
 			}
 
@@ -319,5 +320,75 @@ public class CompanyDao {
 			return result;
 		
 		}
+
+
+	public ArrayList<TourBoard> selectCouponList(Connection con, int currentPage, int limit, Company loginUser) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<TourBoard> list = null;
+		
+		String query = prop.getProperty("selectCouponList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			int startRow = (currentPage -1) * limit +1;
+			int endRow = startRow + limit - 1;
+			
+			pstmt.setInt(1, loginUser.getC_no());
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<TourBoard>();
+			
+			while(rset.next()) {
+				TourBoard tb = new TourBoard();
+				
+				tb.setTno(rset.getInt("RNUM"));
+				tb.settGrade(rset.getString("T_GRADE"));
+				tb.settTitle(rset.getString("T_TITLE"));
+				tb.settDate(rset.getDate("T_DATE"));
+				
+				list.add(tb);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return list;
+	}
+
+	public int getListCountCoupon(Connection con, Company loginUser) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("getListCountCoupon");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,loginUser.getC_no());
+			rset =pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+	}
+
 
 }

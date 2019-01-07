@@ -33,6 +33,9 @@ public class SelectPlanDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
 		String planNo = request.getParameter("pno");
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		

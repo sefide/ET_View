@@ -1,6 +1,8 @@
-package com.kh.et.member.controller;
+package com.kh.et.tourBoard.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,20 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.et.member.model.service.MemberService;
-import com.kh.et.member.model.vo.Member;
+import com.google.gson.Gson;
+import com.kh.et.company.model.vo.Company;
+import com.kh.et.tourBoard.model.service.TourBoardService;
+import com.kh.et.tourBoard.model.vo.TourBoard;
 
 /**
- * Servlet implementation class IdSearch_EmailCheck_Servlet
+ * Servlet implementation class CompanyPostCountPremium
  */
-@WebServlet("/emailCheck.me")
-public class IdSearch_EmailCheck_Servlet extends HttpServlet {
+@WebServlet("/companyPostCountPre.tbo")
+public class CompanyPostCountPremium extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IdSearch_EmailCheck_Servlet() {
+    public CompanyPostCountPremium() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,20 +34,19 @@ public class IdSearch_EmailCheck_Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-	
-		String userId = request.getParameter("userId");
 		
-		Member loginUser = new MemberService().memberPwdSearchEmailCheck(userId);
+		Company loginUser = (Company)request.getSession().getAttribute("loginCompany");
 		
-		if(loginUser != null) {
-			
-			response.getWriter().print(loginUser.getM_email());
-			
-		}else {
-			response.getWriter().print("FAIL");
-		}
-	
+		TourBoardService tb = new TourBoardService();
+		
+		int CouponCount = tb.getPreCouponCount(loginUser);
+		
+		System.out.println("쿠폰카운트"+CouponCount);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(CouponCount, response.getWriter());
+		
+		
 	}
 
 	/**

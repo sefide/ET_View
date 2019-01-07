@@ -210,21 +210,21 @@
 			    	<table class="ui called small table" id ="table1">
 			    		<tr>
 			    			<td class ="coupon-type"><i class="star outline icon"></i> Standard <font>쿠폰</font> </td>
-			    			<td><label class = "txt-coupon"> <%=loginUser.getcStandard() %> </label><td>
+			    			<td><label class = "txt-coupon"> <%=loginUser.getcStandard() %>장 </label><td>
 			    		</tr>
 			    		
 			    		<tr>
 			    			<td class ="coupon-type"><i class="star icon"></i> Premium <font>쿠폰</font> </td>
-			    			<td><label class = "txt-coupon"> <%=loginUser.getcPremium() %> </label><td>
+			    			<td><label class = "txt-coupon"> <%=loginUser.getcPremium() %>장 </label><td>
 			    		</tr>
 			    		
 			    		<tr>
 			    			<td class = "coupon-type"> <i class="star outline icon"></i><font>글 개수</font></td>
-			    			<td> <label class = "txt-coupon"> 10 </label> </td>
+			    			<td> <label class = "txt-coupon" id="standard"></label> </td>
 			    		</tr>
 			    		<tr>
 			    			<td class = "coupon-type"> <i class="star icon"></i><font>글 개수</font></td>
-			    			<td> <label class = "txt-coupon"> 10 </label> </td>
+			    			<td> <label class = "txt-coupon" id="premium"></label> </td>
 			    		</tr>
 					</table>
 					<br>
@@ -504,7 +504,33 @@
 		}
 		
 	} 
-	  
+	 
+   	
+   	$(function() {
+		$.ajax({
+			url:"<%=request.getContextPath()%>/companyPostCountPre.tbo",
+			type:"get",
+			success:function(data){
+				$("#standard").text(data+"개");
+			},
+			error:function(data){
+				console.log("에러!!");
+			}
+		});
+	});
+	
+	$(function() {
+		$.ajax({
+			url:"<%=request.getContextPath()%>/companyPostCountStd.tbo",
+			type:"get",
+			success:function(data){
+				$("#premium").text(data+"개");
+			},
+			error:function(data){
+				console.log("에러!!");
+			}
+		});
+	});
    	</script>
    	
    	<!-- footer -->

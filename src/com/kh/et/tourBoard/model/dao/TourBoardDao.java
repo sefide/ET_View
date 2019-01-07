@@ -579,5 +579,59 @@ private Properties prop = new Properties();
 		
 		return result;
 	}
+
+	public int getPreCouponCount(Connection con, Company loginUser) {
+		PreparedStatement pstmt = null;
+		int CouponCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("getPreCouponCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,loginUser.getC_no());
+			rset =pstmt.executeQuery();
+			
+			if(rset.next()) {
+				CouponCount = rset.getInt(1);
+				System.out.println("쿠폰카운트"+CouponCount);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return CouponCount;
+	}
+
+	public int getStdCouponCount(Connection con, Company loginUser) {
+		PreparedStatement pstmt = null;
+		int CouponCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("getStdCouponCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,loginUser.getC_no());
+			rset =pstmt.executeQuery();
+			
+			if(rset.next()) {
+				CouponCount = rset.getInt(1);
+				System.out.println("쿠폰카운트"+CouponCount);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return CouponCount;
+	}
 	
 }

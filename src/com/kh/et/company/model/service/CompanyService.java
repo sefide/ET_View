@@ -13,6 +13,8 @@ import com.kh.et.manager.model.dao.ManagerDao;
 import com.kh.et.member.model.dao.MemberDao;
 import com.kh.et.member.model.vo.Member;
 import com.kh.et.point.model.dao.PointDao;
+import com.kh.et.point.model.vo.Point;
+import com.kh.et.tourBoard.model.vo.TourBoard;
 
 
 
@@ -136,6 +138,31 @@ public class CompanyService {
 		return res;
 		
 	}
+	
+	public ArrayList<TourBoard> selectCouponList(int currentPage, int limit, Company loginUser) {
+		Connection con = getConnection();
+		
+		ArrayList<TourBoard> list = new CompanyDao().selectCouponList(con, currentPage, limit, loginUser);
+		
+		close(con);
+	
+		return list;
+	}
+
+
+	public int getListCountCoupon(Company loginUser) {
+		Connection con = getConnection();
+		
+		int listCount = new CompanyDao().getListCountCoupon(con,loginUser);
+		close(con);
+		
+		return listCount;
+	}
+
+
+
+
+	
 
 
 

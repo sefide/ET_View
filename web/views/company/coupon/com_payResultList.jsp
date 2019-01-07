@@ -1,5 +1,19 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.et.payment.model.vo.*, com.kh.et.company.model.vo.Company"%>
+<% 
+
+	ArrayList<Payment> list = (ArrayList<Payment>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	
+	Company loginUser = (Company)session.getAttribute("loginCompany");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,37 +158,23 @@
 	                		<th>결제금액</th>
 	                		<th>결제날짜</th>
 	                	</tr>
-	                	<tr>
-	                		<td>1</td>
-	                		<td>Premium</td>
-	                		<td>3</td>
-	                		<td>60000</td>
-	                		<td>2018-12-19</td>
-	                	</tr>
+	                	<%for (Payment pm : list){ %>
+						<tr>
+							<td><%= pm.getPayNo() %></td>
+							<td><%= pm.getPayCT() %></td>
+							<%if(pm.getPayCT().equals("premium")){ %>
+							<td><%= pm.getPrice()/2 %>장</td>
+							<%}else{ %>
+							<td><%= pm.getPrice()/2 %>장</td>
+							<%} %>
+							<td><%= pm.getPrice() %>원</td>
+							<td><%=pm.getPayDate()%></td>			
+						</tr>
+					<%} %>
 	                </table>
 	            </div>
 	                
-                <div class = "div-tour-paging">
-                		<nav aria-label="Page navigation">
-					  <ul class="pagination pagination-sm">
-					    <li class="page-item">
-					      <a class="page-link" href="#" aria-label="Previous"  id = "page-link" >
-					        <span aria-hidden="true">&laquo;</span>
-					        <span class="sr-only">Previous</span>
-					      </a>
-					    </li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">1</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">2</a></li>
-					    <li class="page-item"><a class="page-link" id = "page-link" href="#">3</a></li>
-					    <li class="page-item">
-					      <a class="page-link" href="#" aria-label="Next"  id = "page-link" >
-					        <span aria-hidden="true">&raquo;</span>
-					        <span class="sr-only">Next</span>
-					      </a>
-					    </li>
-					  </ul>
-					</nav>
-                </div>
+               <!-- 페이징 처리 들어감 -->
 
             </div>
             

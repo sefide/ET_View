@@ -154,7 +154,7 @@
                     		<a class="nav_link" href="/et/views/company/tourBoard/com_InsertBoard.jsp">투어글 작성</a>
                 		</li>
                 		<li class="nav_item">
-                    		<a class="nav_link" href="/et/views/company/coupon/com_couponHistory.jsp">쿠폰 히스토리</a>
+                    		<a class="nav_link" href="<%=request.getContextPath()%>/companyCouponHistory.co">쿠폰 히스토리</a>
                 		</li>
                 		<li class="nav_item">
                     		<a class="nav_link" href="/et/views/company/coupon/com_Store.jsp">쿠폰상점</a>
