@@ -7,16 +7,18 @@ import java.util.HashMap;
 
 import com.kh.et.board.model.dao.BoardDao;
 import com.kh.et.company.model.vo.Company;
+import com.kh.et.company.model.vo.Coupon;
 import com.kh.et.tourBoard.model.dao.TourBoardDao;
 import com.kh.et.tourBoard.model.vo.Attachment;
 import com.kh.et.tourBoard.model.vo.TourBoard;
 
 public class TourBoardService {
 
-	public int insertTourBoard(TourBoard tb, ArrayList<Attachment> fileList, Company loginUser) {
+	public int insertTourBoard(TourBoard tb, ArrayList<Attachment> fileList, Company loginUser, Coupon cp) {
 
 		Connection con = getConnection();
 		int result = 0;
+		int result4 = 0;
 
 		int result1 = new TourBoardDao().insertTourBoard(con, tb, loginUser);
 
@@ -26,10 +28,21 @@ public class TourBoardService {
 			for (int i = 0; i < fileList.size(); i++) {
 				fileList.get(i).setAtno(tno);
 				;
+				cp.setCptno(tno);
 			}
 		}
 		int result2 = new TourBoardDao().insertAttachment(con, fileList);
-		if (result1 > 0 && result2 > 0) {
+		
+		int result3 = new TourBoardDao().insertUsedCoupon(con,cp,loginUser);
+		
+		
+		if(cp.getCpType().equals("premium")) {
+			result4 = new TourBoardDao().updateMemberCouponUsedPremium(con,loginUser,cp);
+		}else {
+			result4 = new TourBoardDao().updateMemberCouponUsedStandard(con,loginUser,cp);
+		}
+		
+		if (result1 > 0 && result2 > 0 && result3>0 && result4>0) {
 			commit(con);
 			result = 1;
 		} else {

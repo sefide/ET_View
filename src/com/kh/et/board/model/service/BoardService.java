@@ -252,20 +252,26 @@ public class BoardService {
 	}
 
 	//내가 쓴 Qna리스트 페이징 처리 후 조회
-	public ArrayList<Board> QnaList(int currentPage, int limit, int mno, int num) {
+	public ArrayList<HashMap<String, Object>> QnaList(int currentPage, int limit, int mno) {
 		Connection con = getConnection();
-		ArrayList<Board> QnaList = new BoardDao().QnaList(con, currentPage, limit, mno, num);
+		
+		/*//글번호 가져오기
+		int bno = new BoardDao().selectBoardNum(con, mno);*/
+		
+		
+		ArrayList<HashMap<String, Object>> QnaList = new BoardDao().QnaList(con, currentPage, limit, mno);
 		
 		if (QnaList != null) {
 			commit(con);
 		} else {
 			rollback(con);
 		}
+		
 		close(con);
 
 		return QnaList;
 	}
 	
-
+	
 
 }

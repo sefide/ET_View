@@ -196,6 +196,7 @@
 								<thead>
 									<tr>
 										<th><input type="checkbox" id="qnaCheckBoxReader"></th>
+										<th>글번호</th>
 										<th>제목</th>
 										<th>내용</th>
 										<th>좋아요수</th>
@@ -226,6 +227,7 @@
 								<thead>
 									<tr>
 										<th><input type="checkbox" id="qnaCheckBoxReader"></th>
+										<th>글번호</th>
 										<th>제목</th>
 										<th>내용</th>
 										<th>좋아요수</th>
@@ -282,13 +284,15 @@
 						$tr = $("<tr onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">");
 						var $checkTd = $("<td>");
 						var $check = $("<input type='checkbox' class='qnaCheck'>");
+						var $bnoTd = $("<td>").text(data.QnaList[key].bNo);
 						var $titleTd = $("<td>").text(data.QnaList[key].btitle);
 						var $contentTd = $("<td>").text(data.QnaList[key].bContent);
 						var $likeTd = $("<td>").text(data.QnaList[key].bLike);
-						var $scrapTd = $("<td>").text(data.QnaList[key].bScrap);
+						var $scrapTd = $("<td>").text(data.QnaList[key].bScraps);
 						var $dateTd = $("<td>").text(data.QnaList[key].bDate);
 						$checkTd.append($check);
 						$tr.append($checkTd);
+						$tr.append($bnoTd);
 						$tr.append($titleTd);
 						$tr.append($contentTd);
 						$tr.append($likeTd);
@@ -300,11 +304,91 @@
 					//페이징 처리
 					$trPage = $("<tr>");
 					$tdPage = $("<td colspan='5'>");
-					$centerDiv = $("<div align='center'>");
-					$paginationDiv = $("<div class='ui pagination menu'>");
+					$centerDiv = $("<div align='center'>");	//나중에 페이징 메뉴바 가운데에 정렬하기 위해서 만든 div
+					$paginationDiv = $("<div class='ui pagination menu'>");	//페이징처리 메뉴바
+					
+					$currentPageOne = $("<a class=\"icon item\" onclick=\"" +"qnaFirstPageMove("+ 1 + ");" +"\">");	//첫번째 페이지
+					$angleIcon = $("<i class='angle double left icon'>");	//시맨틱 유아이에서 << 아이콘 담기
+					
+					$currentPageOne.append($angleIcon);
+					$paginationDiv.append($currentPageOne);
+					
+					if(data.Qnapi.currentPage <= 1){	//현재 페이지가 1페이지거나 그보다 작을 숫자의 페이지일때
+						$leftconDisable = $("<a class='icon item'>");	//icon item?
+						$angleIcon2 = $("<i class='angle left icon' >");
+						$leftIconDisable.append($angleIcon2);
+						$paginationDiv.append($leftIconDisable);
+					
+					}else{
+						currentPage = (data.Qnapi.currentPage-1);
+						$leftIconAble = $("<a class=\"icon item\" onclick=\"" +"qnaBeforePageMove("+ currentPage + ");" +"\">");	//전페이지로..?
+						$angleIcon3 = $("<i class='angle left icon' >");
+						$leftIconAble.append($angleIcon3);
+						$paginationDiv.append($leftIconAble);
+						
+					}
+					
+					//페이지의 숫자를 페이징 메뉴에 담기
+					for(var i = data.Qnapi.startPage; i < data.Qnapi.endPage; i++){
+						if(i == data.Qnapi.currentPage){
+							$item1 = $("<a class='item'>").text(i);	//"<a class='item'>" : 페이지의 숫자를 담는 아이콘
+							$paginationDiv.append($item1);
+						}else{
+							currentPage = i;
+							$item2 = $("<a class=\"icon item\" onclick=\"" +"qnaOnePageMove("+ i + ");" +"\">").text(i);
+							$paginationDiv.append($item2);
+						}
+					}
+					
+					if(data.Qnapi.currentPage >= data.Qnapi.maxPage){	//현재페이지 번호가 한 페이지의 끝번호보다 같거나 크면
+						$rightIconDisable = $("<a class='icon item'>");
+						$angleIcon4 = $("<i class='angle right icon' >");
+						$rightIconDisable.append($angleIcon4);
+						$paginationDiv.append($rightIconDisable);
+					}else{
+						currentPage = (data.Qnapi.currentPage+1);
+						$rightIconAble = $("<a class=\"icon item\" onclick=\"" +"qnaNextPageMove("+ currentPage + ");" +"\">");
+						$angleIcon5 = $("<i class='angle right icon' >");
+						$rightIconAble.append($angleIcon5);
+						$paginationDiv.append($rightIconAble);
+					}
+					
+					$currentMaxPage = $("<a class=\"icon item\" onclick=\"" +"qnaLastPageMove("+ data.Qnapi.maxPage + ");" +"\">");
+					$angleIcon6 = $("<i class='angle double right icon'>");
+					$currentMaxPage.append($angleIcon6);
+					$paginationDiv.append($currentMaxPage);
+					$centerDiv.append($paginationDiv);
+					$tdPage.append($centerDiv);
+					$trPage.append($tdPage);
+					$tableBody.append($trPage);
+				
+				},
+				error:function(data){
+					console.log("데이터 통신 실패..");
+					alert("실패");
 				}
 			});
 		}
+		
+		//재귀호출 함수
+		ajax();
+		
+		function qnaFirstPageMove(data){
+			ajax(data);
+		}		
+		function qnaBeforePageMove(data){
+			ajax(data);
+		}
+		function qnaOnePageMove(data){
+			ajax(data);
+		}
+		function qnaNextPageMove(data){
+			ajax(data);
+		}
+		function qnaLastPageMove(data){
+			ajax(data);
+		}
+		
 	</script>
 
 	<!-- footer -->

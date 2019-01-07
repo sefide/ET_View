@@ -467,6 +467,37 @@ public class MemberDao {
 		
 		return result;
 	}
+
+	public Member memberIdSearchEmailCheck(Connection con, Member reqMember) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member loginUser = null;
+				
+		String query = prop.getProperty("memberIdSearchEmailCheck");	
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqMember.getM_question());
+			pstmt.setString(2, reqMember.getM_answer());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				loginUser = new Member();
+				
+				loginUser.setM_email(rset.getString("M_EMAIL"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return loginUser;
+	}
 	
 	
 

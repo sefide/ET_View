@@ -15,6 +15,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.et.common.MyFileRenamePolicy;
 import com.kh.et.company.model.vo.Company;
+import com.kh.et.company.model.vo.Coupon;
 import com.kh.et.tourBoard.model.service.TourBoardService;
 import com.kh.et.tourBoard.model.vo.Attachment;
 import com.kh.et.tourBoard.model.vo.TourBoard;
@@ -104,7 +105,8 @@ public class InsertTourBoardServlet extends HttpServlet {
 			tb.settGrade(multiPowerLink);
 			
 			
-			
+			Coupon cp = new Coupon();
+			cp.setCpType(multiPowerLink);
 			
 			
 			//Attachment 객체 생성하여 arrayList 객체 생성
@@ -119,7 +121,7 @@ public class InsertTourBoardServlet extends HttpServlet {
 				
 				fileList.add(at);
 			}
-			int result = new TourBoardService().insertTourBoard(tb, fileList,loginUser);
+			int result = new TourBoardService().insertTourBoard(tb, fileList,loginUser,cp);
 			
 			if(result > 0) {
 				response.sendRedirect(request.getContextPath()+"/selectList.tbo?cno="+loginUser.getC_no());

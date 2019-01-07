@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*"%>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.et.plan.model.vo.*" %>
      <%
-    ArrayList<HashMap<String,Object>> list=(ArrayList<HashMap<String,Object>>)request.getAttribute("list");
+   City ct=(City)request.getAttribute("ct");
     int comNo = (int)request.getAttribute("comNo");
     %> 
     
@@ -104,16 +104,16 @@
         	
     	
         	<div class="inner-2">
-        	
+        <form  id="updateForm"  action ="<%=request.getContextPath()%>/updateCity.mng?comNo=<%=comNo %>" method="post" class="form">
         	<h1> ▶여행지 수정</h1>
-        	 <% for(int i=0;i<list.size();i++){
-    			HashMap<String,Object>hmap=list.get(i);
-    		%> 
-        	<p> <%=hmap.get("ctName")%>,<%=hmap.get("ctCountry")%></p>
-        	<%} %> 
+        	
+        	<p> <%=ct.getCtName()%>,<%=ct.getCtCountry()%></p>
+        	
         	<p >여행지 설명</p>
-         	<textArea >내용을 입력해주세요</textArea>
-         	
+         	<textArea name="content" id="content"><%=ct.getCtInfo()%></textArea>
+         	<br>
+         	<button type="submit" id="updateTravel" onclick="complete();">완료</button>
+         	</form>
          
         	 </div>
     
@@ -126,5 +126,13 @@
    	
    	<!-- footer -->
 	<%@ include file= "/views/common/normal/footer.jsp" %>
+	
+	<script>
+		function complete(){
+			$("#updateForm").submit();
+		}
+	</script>
+	
+	
 </body>
 </html>

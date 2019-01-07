@@ -143,7 +143,7 @@
 		float:left;
 		margin-right : 10px;
 	}
-	#win-info{
+	#wininfo{
 		font-weight : 500;
 		font-size : 15px;
 		font-family: 'Nanum Gothic', sans-serif;
@@ -202,8 +202,58 @@
 		top : 100px;
 		left : 80px;
 		z-index : 2000 !important;	
-		}
+	}
+	/* 여행지 정보 팝업  */
+	.p-t-name{
+		font-weight : 700;
+		font-size : 20px;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
 	
+	.p-t-price{
+		font-weight : 700;
+		font-size : 18px;
+		font-family: 'Nanum Gothic', sans-serif;
+		margin-top : 3%;
+		color : rgb(237,197,58);
+	}
+	.p-t-concept{
+		font-weight : 500;
+		font-size : 18px;
+		font-family: 'Nanum Gothic', sans-serif;
+		margin-left : 3%;
+		/* <label class ='p-t-concept'>"+ tourConcept+ " </label> */
+	}
+	
+	table {
+		/* border : 1px solid lightgray; */
+		width: 80%;
+	    margin-left: 1.5%;
+	    height: 120px;
+	    border-radius: 7px;
+	}
+	caption, colgroup{
+		display : none;
+	}
+	thead > tr {
+		height: 35px;
+   		font-size: 15px;
+   		font-family: 'Nanum Gothic', sans-serif;
+   		/* background : white; */
+   		border-bottom : 1px solid lightgray;
+	}
+	tbody {
+		font-size: 15px;
+		font-family: 'Nanum Gothic', sans-serif;
+		text-align : center;
+	}
+	th{
+		background :rgba(171, 199, 244, 0.7);
+	}
+	
+	td {
+		border : 1px solid #E1E0E0;
+	}
 </style>
 </head>
 <body>
@@ -266,7 +316,7 @@
 		</span> -->
 		
 		<button class = "btn-save" onclick = "return save();"> 수정완료 </button>
-		<button class = "btn-return" onclick = "returnMain();"> 돌아가기</button>
+		<button class = "btn-return" onclick = "return returnMain();"> 돌아가기</button>
 	</div>
 	<div class = "plan-table-calendar">
 			<input type = "hidden" name = "writerNo" 
@@ -288,92 +338,75 @@
 	</form>
 	
 	<div class = "plan-table-map">
-			<div id ="detailPop">
-				 <i class="window close outline icon" id = "closePop" onclick = "closePop();"></i>
-				<div id = "borderPop">
-				 
-				 <div class = "p-city-name">파리 여행을 가기 전 알아둬야 할 점 ! </div> <br>
-				 <div class = "p-info-div"> 
-			     	<img class = "p-info-img" src = "/et/image/city/paris.jpg" alt = "paris">
-			     	<label class ="p-info-txt"> 간단 소개내용  </label>
-			     	
-				 </div>
-				 <br>
-				 <div class ="p-weather-div"> 
-				 	<div class ="p-title"> 월 평균 기온 </div>
-				 	<div class ="p-flex" id ="weather-div"> 
-				 		<div class ="p-w">1월 </div>
-				 		<div class ="p-w">2월 </div>
-				 		<div class ="p-w">3월 </div>
-				 		<div class ="p-w">4월 </div>
-				 		<div class ="p-w">5월 </div>
-				 		<div class ="p-w">6월 </div>
-				 		<div class ="p-w">7월 </div>
-				 		<div class ="p-w">8월 </div>
-				 		<div class ="p-w">9월 </div>
-				 		<div class ="p-w">10월 </div>
-				 		<div class ="p-w">11월 </div>
-				 		<div class ="p-w">12월 </div>
-				 	</div>
-				 </div>
-				 <div class = "p-place-div">
-				 <div class ="p-title"> 인기명소  </div>
-				 	<div class ="p-flex"> 
-				 		<div class ="p-p">
-				 			<div><img class ="p-p-img" src ="/et/image/city/paris.jpg"></div>
-				 			<div><label class ="p-p-name">관광지명 </label></div>
-				 		</div>
-				 		<div class ="p-p">
-				 			<div><img class ="p-p-img"></div>
-				 			<div><label class ="p-p-name">관광지명 </label></div>
-				 		</div>
-				 		<div class ="p-p">
-				 			<div><img class ="p-p-img"></div>
-				 			<div><label class ="p-p-name">관광지명 </label></div>
-				 		</div>
-				 		<div class ="p-p">
-				 			<div><img class ="p-p-img"></div>
-				 			<div><label class ="p-p-name">관광지명 </label></div>
-				 		</div>
-				 		<div class ="p-p">
-				 			<div><img class ="p-p-img"></div>
-				 			<div><label class ="p-p-name">관광지명 </label></div>
-				 		</div>
-				 		<div class ="p-p">
-				 			<div><img class ="p-p-img"></div>
-				 			<div><label class ="p-p-name">관광지명 </label></div>
-				 		</div>
-				 	</div>
-				 </div>
-				 <div class ="p-tour-div">
-				 	<div class ="p-title"> 관련 투어  </div>
-					<div class ="p-flex"> 
-				 		<div class ="p-t">
-				 			<div><img class ="p-t-img"></div>
-				 			<label class ="p-t-name">투어명 </label>
-				 			<label class ="p-t-price">가격 </label>
-				 		</div>
-				 		<div class ="p-t">
-				 			<div><img class ="p-t-img"></div>
-				 			<label class ="p-t-name">투어명 </label>
-				 			<label class ="p-t-price">가격 </label>
-				 		</div>
-				 		<div class ="p-t">
-				 			<div><img class ="p-t-img"></div>
-				 			<label class ="p-t-name">투어명 </label>
-				 			<label class ="p-t-price">가격 </label>
-				 		</div>
-				 		<div class ="p-t">
-				 			<div><img src ="/et/image/city/paris.jpg" class ="p-t-img"></div>
-				 			<label class ="p-t-name">투어명 </label>
-				 			<label class ="p-t-price">가격 </label>
-				 		</div>
-				 		
-				 	</div>
-				 </div>
-				 
-				</div>
+		<div id ="detailPop">
+			 <i class="window close outline icon" id = "closePop" onclick = "closePop();"></i>
+			<div id = "borderPop">
+			 
+			 <div class = "p-city-name"> </div> <br>
+			 <div class = "p-info-div"> 
+		     	<img class = "p-info-img" src = "" alt = "city" id = "img-city-detail">
+		     	<br><label class ="p-info-txt"> 도시 소개  </label>
+		     	
+			 </div>
+			 <br>
+			 <div class ="p-weather-div"> 
+			 	<div class ="p-title"> 월 평균 기온 </div>
+			 	<div class ="p-flex" id ="weather-div"> 
+			 		<!-- <div class ="p-w">1월 </div>
+			 		<div class ="p-w">2월 </div>
+			 		<div class ="p-w">3월 </div>
+			 		<div class ="p-w">4월 </div>
+			 		<div class ="p-w">5월 </div>
+			 		<div class ="p-w">6월 </div>
+			 		<div class ="p-w">7월 </div>
+			 		<div class ="p-w">8월 </div>
+			 		<div class ="p-w">9월 </div>
+			 		<div class ="p-w">10월 </div>
+			 		<div class ="p-w">11월 </div>
+			 		<div class ="p-w">12월 </div> -->
+			 	</div>
+			 </div>
+			 
+			 <div class ="p-tour-div">
+			 	<div class ="p-title"> 관련 투어  </div>
+				<div class ="p-flex" id = "p-tour-detail"> 
+			 		
+			 	</div>
+			 </div>
+			 
+			 <div class = "p-place-div">
+			 <div class ="p-title"> 인기명소  </div>
+			 	<div class ="p-flex"> 
+			 		<div class ="p-p">
+			 			<div><img class ="p-p-img" src ="/et/image/city/0.jpg"></div>
+			 			<div><label class ="p-p-name">관광지명 </label></div>
+			 		</div>
+			 		<div class ="p-p">
+			 			<div><img class ="p-p-img" src ="/et/image/city/0.jpg"></div>
+			 			<div><label class ="p-p-name">관광지명 </label></div>
+			 		</div>
+			 		<div class ="p-p">
+			 			<div><img class ="p-p-img" src ="/et/image/city/0.jpg"></div>
+			 			<div><label class ="p-p-name">관광지명 </label></div>
+			 		</div>
+			 		<div class ="p-p">
+			 			<div><img class ="p-p-img" src ="/et/image/city/0.jpg"></div>
+			 			<div><label class ="p-p-name">관광지명 </label></div>
+			 		</div>
+			 		<div class ="p-p">
+			 			<div><img class ="p-p-img" src ="/et/image/city/0.jpg"></div>
+			 			<div><label class ="p-p-name">관광지명 </label></div>
+			 		</div>
+			 		<div class ="p-p">
+			 			<div><img class ="p-p-img" src ="/et/image/city/0.jpg"></div>
+			 			<div><label class ="p-p-name">관광지명 </label></div>
+			 		</div>
+			 	</div>
+			 </div>
+			 
 			</div>
+		</div>
+			
 			
 	    <!-- 지도 위치  -->
  	 	<!-- <iframe class = "plan-map"  id = "gg-map" src=".." width="100%" height="850px" style="border:none;"></iframe>  -->
@@ -519,6 +552,7 @@
 			var mno = <%=loginUser.getM_no()%>;
 			location.href = "<%=request.getContextPath()%>/selectPlanList.pl?mno="+mno;
 			<% } %>
+			return false;
 		}
 		
 		function editTitle() {
@@ -602,7 +636,60 @@
 			<%}%>
 		<% }%> 
 		
-		console.log(exCities);
+		function cityDetail(city) {
+			$("#detailPop").css("visibility", "visible"); 
+			var cityName = locations[city][0];
+			var cityNum = locations[city][4];
+			$.ajax({
+				url : "cityDetail.pl",
+				data : {cityName : cityName, cityNum : cityNum},
+				contentType : 'application/json; charset=UTF-8',
+				type : "get",
+				success : function(data){ 
+					$("#p-tour-detail").html("");
+					$("#weather-div").html("");
+					var resultStr; 
+					var tourOne;
+					
+					for(var key in data){
+						/* var tourName = (data[key])[t]. */
+						tourOne = data[key];
+						var tourName;
+						var tourConcept;
+						var tourPrice;
+						var tourPhoto;
+						var tourWeather;
+						for(var i in tourOne){
+							console.log(i);
+							if(i == 't'){
+								tourName = tourOne[i].tTitle;
+								tourConcept = tourOne[i].tConcept;
+								tourPrice = tourOne[i].tPrice;
+							} else if(i == 'a'){
+								tourPhoto = tourOne[i].changeName;
+							} 
+							else {
+								tourWeather = "<table>" + tourOne[i] + "</table>";
+							} 
+						}
+						tourPrice = commaMoney(tourPrice);
+						resultStr = "<div class ='p-t'><div><img class ='p-t-img' src = '/et/tourUpload/"+tourPhoto+"' alt = 'tour'></div><label class ='p-t-name'>["+ tourName+ "] </label><div class ='p-t-price'><label >"+ tourPrice+ "원</label></div></div>";
+						$("#p-tour-detail").append(resultStr);
+						$("#weather-div").append(tourWeather);
+					}
+					var topStr = " 여행을 가기 전 알아둬야 할 점 ! ";
+					$(".p-city-name").html(locations[city][0] + topStr);
+					$("#img-city-detail").attr("src", "image/city/"+ cityName	+".jpg");
+					$(".p-info-txt").html(locations[city][1]);
+					$("thead th").eq(0).html("");
+					
+				},
+				error : function(data){
+					console.log("서버 전송 실패");
+					console.log(data);
+				}
+			});
+		}
     
         // 맵 정보 설정
         var map = new google.maps.Map(document.getElementById('map-canvas'), { 
@@ -633,7 +720,7 @@
 		     return function() {
 		      var cityName = "<h2 id ='win-title'>" + locations[i][0] + "</h2>";
 		 	  var cityPhoto = "<img src = '/et/image/city/"+i+".jpg' alt = 'city' id = 'win-photo'>"
-		      var cityInfo = "<div id = 'win-info-div'><font id = 'win-info'>" + locations[i][1] + "<font></div> <br>";
+		      var cityInfo = "<div id = 'win-info-div'><font id = 'wininfo'>" + locations[i][1] + "<font></div> <br>";
 		      var plusBtn = "<div id = 'win-btn'><button class='ui basic button' onclick = 'addCity("+i +");'>추가하기 </button></div><br>";
 		      //<span><i class='plus square outline icon' id = 'win-plus-icon' onclick = 'addCity("+i +");'></i><span>
 		
@@ -696,7 +783,7 @@
         function addCity(i){
         		var cityblockhead = "<div id ='cityblock" +countCity+ "' class= 'cityblock'> <input type = 'hidden' name = 'cityNo' value = '"+locations[i][4] +"'> <input type = 'hidden' name = 'cityName' value = '"+locations[i][0] +"'> <div class ='bar2'></div>";
         		var citytrans = "<div width = '100%; overflow-x:hidden'> <div class = 'div-trans'> <select class='ui dropdown' id ='trans' name = 'transform'>  <option value='비행기'>비행기 </option>  <option value='기차'>기차 </option>  <option value='선박'>선박 </option>  <option value='버스'>버스 </option>  <option value='기타'>기타  </option> </select> </div> </div> <div class ='bar2'></div>";
-        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights' id = 'selectNight' name = 'selectNight' onfocus = 'focNight(this)' onchange = 'selNight(this)'> <option value='1'>1박 </option>  <option value='2'>2박  </option>  <option value='3'>3박  </option>  <option value='4'>4박 </option> <option value='5'>5박  </option> <option value='6'>6박 </option></select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city' id = 'why'> <i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail();'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity(this);'> </i> </div> </div>";
+        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights' id = 'selectNight' name = 'selectNight' onfocus = 'focNight(this)' onchange = 'selNight(this)'> <option value='1'>1박 </option>  <option value='2'>2박  </option>  <option value='3'>3박  </option>  <option value='4'>4박 </option> <option value='5'>5박  </option> <option value='6'>6박 </option></select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city' id = 'why'> <i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail("+i+");'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity(this);'> </i> </div> </div>";
         		var cityblockfoot = "";
         		
         		// 새로운 도시 div 추가 

@@ -22,7 +22,6 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
- 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
  	 	
  	<!-- css 불러오기  -->
  	<link href = "/et/views/css/create_plan.css" rel='stylesheet' type='text/css'>
@@ -220,6 +219,36 @@
 		/* <label class ='p-t-concept'>"+ tourConcept+ " </label> */
 	}
 	
+	table {
+		/* border : 1px solid lightgray; */
+		width: 80%;
+	    margin-left: 1.5%;
+	    height: 120px;
+	    border-radius: 7px;
+	}
+	caption, colgroup{
+		display : none;
+	}
+	thead > tr {
+		height: 35px;
+   		font-size: 15px;
+   		font-family: 'Nanum Gothic', sans-serif;
+   		/* background : white; */
+   		border-bottom : 1px solid lightgray;
+	}
+	tbody {
+		font-size: 15px;
+		font-family: 'Nanum Gothic', sans-serif;
+		text-align : center;
+	}
+	th{
+		background :rgba(171, 199, 244, 0.7);
+	}
+	
+	td {
+		border : 1px solid #E1E0E0;
+	}
+	
 </style>
 </head>
 <body>
@@ -314,7 +343,7 @@
 			 <div class ="p-weather-div"> 
 			 	<div class ="p-title"> 월 평균 기온 </div>
 			 	<div class ="p-flex" id ="weather-div"> 
-			 		<div class ="p-w">1월 </div>
+			 		<!-- <div class ="p-w">1월 </div>
 			 		<div class ="p-w">2월 </div>
 			 		<div class ="p-w">3월 </div>
 			 		<div class ="p-w">4월 </div>
@@ -325,7 +354,7 @@
 			 		<div class ="p-w">9월 </div>
 			 		<div class ="p-w">10월 </div>
 			 		<div class ="p-w">11월 </div>
-			 		<div class ="p-w">12월 </div>
+			 		<div class ="p-w">12월 </div> -->
 			 	</div>
 			 </div>
 			 
@@ -586,7 +615,7 @@
 				type : "get",
 				success : function(data){ 
 					$("#p-tour-detail").html("");
-					
+					$("#weather-div").html("");
 					var resultStr; 
 					var tourOne;
 					
@@ -597,24 +626,30 @@
 						var tourConcept;
 						var tourPrice;
 						var tourPhoto;
+						var tourWeather;
 						for(var i in tourOne){
 							console.log(i);
 							if(i == 't'){
 								tourName = tourOne[i].tTitle;
 								tourConcept = tourOne[i].tConcept;
 								tourPrice = tourOne[i].tPrice;
-							} else {
+							} else if(i == 'a'){
 								tourPhoto = tourOne[i].changeName;
-							}
+							} 
+							else {
+								tourWeather = "<table>" + tourOne[i] + "</table>";
+							} 
 						}
 						tourPrice = commaMoney(tourPrice);
 						resultStr = "<div class ='p-t'><div><img class ='p-t-img' src = '/et/tourUpload/"+tourPhoto+"' alt = 'tour'></div><label class ='p-t-name'>["+ tourName+ "] </label><div class ='p-t-price'><label >"+ tourPrice+ "원</label></div></div>";
 						$("#p-tour-detail").append(resultStr);
+						$("#weather-div").append(tourWeather);
 					}
 					var topStr = " 여행을 가기 전 알아둬야 할 점 ! ";
 					$(".p-city-name").html(locations[city][0] + topStr);
 					$("#img-city-detail").attr("src", "image/city/"+ cityName	+".jpg");
 					$(".p-info-txt").html(locations[city][1]);
+					$("thead th").eq(0).html("");
 					
 				},
 				error : function(data){

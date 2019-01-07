@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.kh.et.board.model.vo.Board;
 import com.kh.et.company.model.vo.Company;
+import com.kh.et.company.model.vo.Coupon;
 import com.kh.et.tourBoard.model.vo.Attachment;
 import com.kh.et.tourBoard.model.vo.TourBoard;
 
@@ -512,6 +513,69 @@ private Properties prop = new Properties();
 			}finally {
 				close(pstmt);
 			}
+		
+		return result;
+	}
+
+	public int insertUsedCoupon(Connection con, Coupon cp, Company loginUser) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertUsedCoupon");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginUser.getC_no());
+			pstmt.setString(2, cp.getCpType());
+			pstmt.setString(3, "사용");
+			pstmt.setInt(4, cp.getCptno());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateMemberCouponUsedPremium(Connection con, Company loginUser, Coupon cp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateMemberCouponUsedPremium");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginUser.getC_no());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int updateMemberCouponUsedStandard(Connection con, Company loginUser, Coupon cp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateMemberCouponUsedStandard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginUser.getC_no());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		
 		return result;
 	}
