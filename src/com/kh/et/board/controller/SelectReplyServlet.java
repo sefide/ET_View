@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.et.board.model.dao.BoardDao;
 import com.kh.et.board.model.service.BoardService;
 import com.kh.et.board.model.vo.Board;
@@ -38,8 +39,10 @@ public class SelectReplyServlet extends HttpServlet {
 		Board b = new Board();
 	
 		
-		/*ArrayList<Board> replyList = new BoardService().insertReply();*/
+		ArrayList<Board> replyList = new BoardService().selectReply(b.getbNo());
 		
+		response.setContentType("application/json");
+		new Gson().toJson(replyList, response.getWriter());
 		
 		
 	}
