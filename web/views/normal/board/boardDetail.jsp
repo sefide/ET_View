@@ -1,7 +1,8 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.*"%>
 <%
-	Board b = (Board) request.getAttribute("b");
+	Board b = (Board)request.getAttribute("b");
 %>
 
 <!DOCTYPE html>
@@ -78,17 +79,19 @@
 				게시글 상세보기
 				&nbsp;&nbsp;
 				<div class="ui labeled button" tabindex="0">
-							<div class="ui red button" id="likePlan">
-								<i class="heart icon"></i> 좋아요!
-							</div>
-							<a class="ui basic red left pointing label" id="likeCnt"> <%=b.getbLike() %>
-							</a>
-							<div class="ui red button" id="unlikePlan" style="display: none;" >
-								<i class="empty heart icon"></i> 좋아요!
-							</div>
-							<a class="ui basic red left pointing label" id="unlikeCnt" style="display: none;" ><%=b.getbLike() %> 
-							</a>
-			</div>		
+					<div class="ui red button" id="likePlan">
+						<i class="heart icon"></i> 좋아요!
+					</div>
+					<a class="ui basic red left pointing label" id="likeCnt"> <%=b.getbLike()%>
+					</a>
+					<div class="ui red button" id="unlikePlan" style="display: none;">
+						<i class="empty heart icon"></i> 좋아요!
+					</div>
+					<a class="ui basic red left pointing label" id="unlikeCnt"
+						style="display: none;"> <%=b.getbLike()%>
+					</a>
+				</div>
+
 			</h1>
 			<!-- 좋아요 스크립트부분 -->
 			<script>
@@ -246,14 +249,17 @@
 			</table>
 			</div>
 				<div id="replySelectArea">
-					<table id="replySelectTable" border="1" align="center"></table>
+					<table id="replySelectTable" border="1" align="center">
+
+					</table>
 				</div>
 			</div>
 		
 			<!-- 댓글 달기 -->
 	 		<script>
              $(function() {
-
+           
+ 
                $("#addReply").click(function() {
             	    
             	  var writer = <%=loginUser.getM_no() %> ;

@@ -646,7 +646,7 @@ public class BoardDao {
 		int result = 0;
 		
 		String query = prop.getProperty("clickUnLike");
-		System.out.println("좋아요 다오전이야");
+		System.out.println("좋아요취소 다오전이야");
 		//clickUnLike=DELETE FROM BOARDINTEREST WHERE  BI_B_NO = ? AND BI_GIVE_NO = ? AND BI_TYPE = ?
 		try {
 			String type = "좋아요";
@@ -663,6 +663,7 @@ public class BoardDao {
 			close(pstmt);
 		}
 		System.out.println("서비스 다오 후야");
+		System.out.println(result);
 		return result;
 	}
 	

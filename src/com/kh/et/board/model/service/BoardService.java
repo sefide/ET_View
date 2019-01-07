@@ -119,13 +119,15 @@ public class BoardService {
 	public Board selectOne(int num) {
 		Connection con = getConnection();
 		
-		Board b = null;
-		
+		Board b = null;	
 		
 			
 		b = new BoardDao().selectOne(con, num);
-		 int like = new BoardDao().getLikeNum(con, num);
-		 b.setbLike(like);
+		
+		int like = new BoardDao().getLikeNum(con, num);
+		b.setbLike(like);
+
+		 
 		close(con);
 		return b;
 	}
@@ -326,6 +328,19 @@ public class BoardService {
 		close(con);
 		
 		return result;
+	}
+	
+	
+	//댓글 가져오깅
+	public ArrayList<Board> selectReply(int getbNo) {
+		Connection con = getConnection();
+		ArrayList<Board> replyList = null;
+		
+		replyList = new BoardDao().selectReplyList(con, getbNo);
+
+		close(con);
+		
+		return replyList;
 	}
 	
 	
