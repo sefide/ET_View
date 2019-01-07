@@ -748,7 +748,7 @@ public class PlanDao {
 		int result = 0;
 		
 		String query = prop.getProperty("clickLike");
-		//clickLike=INSERT INTO PLANINTEREST VALUES (SEQ_PI_NO.NEXTVAL,?,?,?,?)
+		//clickLike=INSERT INTO PLANINTEREST SELECT SEQ_PI_NO.NEXTVAL,?,?,?,? FROM DUAL A WHERE NOT EXISTS ( SELECT * FROM PLANINTEREST WHERE  PI_P_NO =  AND PI_GIVE_NO = AND PI_TYPE = ? )
 		try {
 			String type = "좋아요";
 			
@@ -757,6 +757,9 @@ public class PlanDao {
 			pstmt.setInt(2, pl.getPno());
 			pstmt.setInt(3, pl.getUser());
 			pstmt.setString(4, type);
+			pstmt.setInt(5, pl.getPno());
+			pstmt.setInt(6, pl.getUser());
+			pstmt.setString(7, type);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -767,21 +770,22 @@ public class PlanDao {
 		
 		return result;
 	}
+	
 	//플랜 좋아요 취소
 	public int clickUnLike(Connection con, PlanInterest pl) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("clickUnLike");
-		//clickUnLike=
+		System.out.println("좋아요 다오전이야");
+		//clickUnLike=DELETE FROM PLANINTEREST WHERE  PI_P_NO = ? AND PI_GIVE_NO = ? AND PI_TYPE = ?
 		try {
 			String type = "좋아요";
 			
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, pl.getWriter());
-			pstmt.setInt(2, pl.getPno());
-			pstmt.setInt(3, pl.getUser());
-			pstmt.setString(4, type);
+			pstmt.setInt(1, pl.getPno());
+			pstmt.setInt(2, pl.getUser());			
+			pstmt.setString(3, type);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -789,7 +793,9 @@ public class PlanDao {
 		}finally {
 			close(pstmt);
 		}
-		
+		System.out.println("서비스 다오 후야");
 		return result;
 	}
+	
+
 }

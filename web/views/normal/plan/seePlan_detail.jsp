@@ -1,192 +1,446 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import ="java.util.*"%>
+    pageEncoding="UTF-8" import = "com.kh.et.plan.model.vo.*, java.util.*"%>
 <% 
-	HashMap<String, Object> plan = (HashMap<String, Object>)request.getAttribute("plan");
+	HashMap<String, Object> planMap = (HashMap<String, Object>)request.getAttribute("planMap"); 
+	Plan plan = (Plan)planMap.get("plan");
+	ArrayList<PlanDetail> DetailList = (ArrayList<PlanDetail>)planMap.get("planDetailList");
+	HashMap<String,City> cityMap = (HashMap<String,City>)request.getAttribute("cityMap");
+	
+	String msg = (String)request.getAttribute("msg");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- jquery -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<!-- jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	
+	<!-- Semantic UI -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	
+	<!-- 글꼴  -->
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
+	
+	<!-- googleMap -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
+	<title>ET_Planner</title>
+	<link rel="icon" href="/views/image/common/logo.png">
 
-<!-- Semantic UI -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-<!-- bootstrap -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-	crossorigin="anonymous"></script>
-
-<title>ET_Planner</title>
-<link rel="icon" href="/views/image/common/logo.png">
+	
 <style>
-.column {
-	height: 100%;
-}
-/* .container{
-	float: center;
-} */
+	.div-flex {
+    		width : 100%;
+    		display : flex;
+    		flex-wrap : wrap;
+    }
+    .div-left {
+    		width : 58%;
+    }
+    .div-right {
+    		width : 38%;
+    }
+    .div-plan-top {
+    		width : 100%;
+    		display : flex;
+    		flex-wrap : wrap;
+    }
+    #plan-title{
+    		width : 86%;
+    		font-size : 25px;
+    		font-weight : 800;
+    		font-family: 'Nanum Gothic', sans-serif;
+    }
+    
+    #plan-btns {
+    		width : 12%;
+    }
+    #seeInfo, #setting{
+    		font-size : 24px;
+    }
+    
+    #map-canvas{
+    		width : 97%;
+    		margin : 1% 1% 1% 0;
+    		height : 600px;
+    }
+    
+    /* 팝업창  */
+    .div-absolute{
+        	position : absolute;
+        	background : rgba(253,253,253,0.9);
+        	width : 300px;
+        	height : 115px;
+        	border-radius : 7px;
+        	z-index : 1000;
+        	left : 50%;
+        	top : 60px;
+        visibility : hidden;
+    }
+    .plan-infoBox{
+    		margin-top : 1%;
+    		padding : 1%;
+    }
+    .txt{
+    		font-size : 16px;
+    		font-family: 'Nanum Gothic', sans-serif;
+    		color : black;
+    }
+    
+    #selectSetting{
+    	 	position : absolute;
+    	 	visibility : hidden;
+ 	 	top : 60px;
+ 	 	font-size : 20px;
+ 	 	z-index : 1000;
+ 	 	background : white;
+ 	 	border : 3px solid white;
+    }
+    .settingBtn{
+    		border : 1px solid lightgray;
+    		border-radius : 7px;
+    		color : gray;
+    		cursor : pointer;
+    }
+    
+    .fc-event,
+	.fc-agenda .fc-event-time,
+	.fc-event a {
+		border-style: solid; 
+		border-color: rgb(42,90,133) !important;    /* default BORDER color (probably the same as background-color) */
+		background-color: rgb(42,90,133) !important; /* default BACKGROUND color */
+		color: #fff;            /* default TEXT color */
+	}
+	
+	.fc-header .fc-state-disabled span {
+	border-color: #fff #fff #f0f0f0 !important; /* inner border */
+	background: black !important;
+	}
+	
+	.div-plan-info{
+		margin-top : 1%;
+	}
+    
 </style>
 
 </head>
 <body>
-	<!-- navigation - header.jsp -->
-	<%@ include file="/views/common/normal/header.jsp"%>
-	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다	면 include path를 수정해야합니 -->
+	<!-- navigation -->
+	<%@ include file = "/views/common/normal/header.jsp" %>
+    
 
-	<div class="ui grid">
-		<div class="two wide column"></div>
-		<div class="twelve wide column" style="margin-top: 50px;">
-
-			<br> <br>
-			<div class="container">
-				<!-- 내용시작 -->
-				<div class="ui segment" style="border: none;">
-					<div class="ui two column very relaxed grid" style="border: none;">
-						<!-- 지도 -->
-						<div class="column" style="border: none;">
-							<h1 class="ui header">플랜제목 HOT</h1>
-							<div class="div-best-plan-map">
-								
+    <div class="ui grid">
+        <div class = "one wide column"></div>
+        <div class = "fourteen wide column" style="margin-top:110px;">
+        
+        <div class = "div-flex">
+	        	<div class = "div-left">
+	        		<div class ="div-plan-top">
+	        			<div class = "" id= "plan-title"><%=plan.getpTitle() %> </div> 
+	        			
+	        		</div>
+	        		<div id = "map-canvas"></div>
+	        	</div>
+	        	 
+	        <div class = "div-right"> 
+		        <div class = "calendar" style="margin-top:30px;">
+		        		<%-- <%@ include file = "/views/normal/plan/calendar_plan.jsp" %> --%>
+		        		<div id='calendar'></div>
+		        </div>
+		        <div class ="plan-infoBox">
+			        	<div class = "txt"> 첫 작성날짜 : <%=plan.getpDate().toString() %></div>
+			        	<div class = "txt"> 공개/비공개 : <% if(plan.getpPrivate().equals("Y")) { %> 공개 <%} else { %> 비공개 <%} %></div>
+			        	<div class = "txt"> 여행도시 개수 : <%=plan.getpCites().split(", ").length %>개 도시 </div>
+			    </div>
+					<div class="div-plan-info">
+						<!-- 좋아요 -->
+						<%=  %>
+						<div class="ui labeled button" tabindex="0">
+							<div class="ui red button" id="likePlan">
+								<i class="heart icon"></i> 좋아요!
 							</div>
+							<a class="ui basic red left pointing label" id="likeCnt"> <%=planMap.get("like")%>
+							</a>
+							<div class="ui red button" id="unlikePlan" style="display: none;" >
+								<i class="empty heart icon"></i> 좋아요 취소
+							</div>
+							<a class="ui basic red left pointing label" id="unlikeCnt" style="display: none;" > <%=planMap.get("like")%>
+							</a>
 						</div>
-						<!-- 달력 -->
-						<div class="column">
-							<h1 class="ui header">달력</h1>
-							<div class="div-best-plan-map">
-								<div class="outer">
-									<select name="manage">
-										<option>관리</option>
-										<option>수정</option>
-										<option>삭제</option>
-									</select> <a target="_blank"
-										href="https://calendar.google.com/event?action=TEMPLATE&amp;tmeid=NmdqaGI0Z3E0bzBzbzVudmUzZ2Rjc3F1NnYgd285OTA1MTBAbQ&amp;tmsrc=wo990510%40gmail.com"><img
-										border="0"
-										src="https://www.google.com/calendar/images/ext/gc_button1_ko.gif"></a>
-									<script
-										src=https://calendar.google.com/event?action=TEMPLATE&tmeid=NWtmZ2toNWpqdDE3ZG9yYm5yaTI2MGVtdWsgd285OTA1MTBAbQ&tmsrc=wo990510%40gmail.com></script>
-									<script>
-//Google api console clientID and apiKey 
-
-var clientId = "";
-var apiKey = "";
-
-// enter the scope of current project (this API must be turned on in the Google console)
-  var scopes = 'https://www.googleapis.com/auth/calendar';
-
-
-//OAuth2 functions
-    function handleClientLoad() {
-          gapi.client.setApiKey(apiKey);
-          window.setTimeout(checkAuth, 1);
-       }
-
-//To authenticate
- function checkAuth() {
-   gapi.auth.authorize({ client_id: clientId, scope: scopes, immediate: true }, handleAuthResult);
-       }
-
-//This is the resource we will pass while calling api function
-var resource = {
-           "summary": "My Event",
-           "start": {
-               "dateTime": today
-           },
-           "end": {
-               "dateTime": twoHoursLater
-           },
-           "description":"We are organizing events",
-           "location":"US",
-           "attendees":[
-           {
-                   "email":"attendee1@gmail.com",
-                   "displayName":"Jhon",
-                   "organizer":true,
-                   "self":false,
-                   "resource":false,
-                   "optional":false,
-                   "responseStatus":"needsAction",
-                   "comment":"This is my demo event",
-                   "additionalGuests":3
-                   
-           },
-           {    
-               "email":"attendee2@gmail.com",
-                   "displayName":"Marry",
-                   "organizer":true,
-                   "self":false,
-                   "resource":false,
-                   "optional":false,
-                   "responseStatus":"needsAction",
-                   "comment":"This is an official event",
-                   "additionalGuests":3
-           }
-           ],
-       };
-
-function makeApiCall(){
-gapi.client.load('calendar', 'v3', function () { // load the calendar api (version 3)
-               var request = gapi.client.calendar.events.insert
-               ({
-                   'calendarId': '24tn4fht2tr6m86efdiqqlsedk@group.calendar.google.com', 
-                   
-//calendar ID which id of Google Calendar where you are creating events. this can be copied from your Google Calendar user view.
-
-                   "resource": resource 	// above resource will be passed here
-                  
-               });                
-}
-
-
-</script>
-									<button id="btnCreateEvents" class="btn btn-primary"
-										onclick="makeApiCall();">Create Events</button>
-
-									<div id="divifm">
-										<iframe id="ifmCalendar"
-											src="https://www.google.com/calendar/embed?
-                    height=550&amp;wkst=1&amp;bgcolor=%23FFFFFF&
-                    amp;src=24tn4fht2sssdssfdiqqlsedk%40group.calendar.google.com&
-                    amp;color=%238C500B&amp;ctz=Asia%2FCalcutta"
-											style="border-width: 0" width="950" height="520"
-											frameborder="0" scrolling="no"> </iframe>
-									</div>
-
-								</div>
-
-
+						
+						<script>
+						$(function () {
+							//pno를 히든으로 가져와서 거기에 관심을 표한 사람이아디랑 로그인 유저랑 같으면 버튼 취소로 됩니당.!
+							
+						});
+						
+						
+							/* 좋아요  클릭시 */
+							$("#likePlan").click(function() {							
+									var pno = '<%= plan.getpNo()%>' ;														
+									var user = '<%= loginUser.getM_no() %>' ; 
+									var writer = '<%= plan.getpWriter()%>' ; 								
+									jQuery.ajax({
+										url:"/et/clickLikePlan.pl",
+										data:{pno:pno, user:user, writer:writer},
+										type:"post",
+										success:function(data){
+											console.log(data);		
+											
+											 $("#likePlan").css("display", "none");
+											$("#likeCnt").css("display", "none");
+											$("#unlikePlan").css("display", "block");	
+											$("#unlikeCnt").css("display", "block");	
+											
+											//좋아요 갯수를 가져오는 ajax
+											jQuery.ajax({
+												url:"/et/countLike.pl",
+												data:{pno:pno, user:user, writer:writer},
+												type:"post",
+												success:function(data){
+													console.log(data);	
+													 $("#unlikeCnt").text(data.like);
+													},
+												error:function(){
+														console.log('실패');
+													}
+												});
+										},
+										error:function(){
+											console.log('실패');
+										}
+									});
+	
+								}); 
+											
+							/* 좋아요 취소시*/
+							$("#unlikePlan").click(function() {	
+								var pno = '<%= plan.getpNo()%>' ;														
+								var user = '<%= loginUser.getM_no() %>' ; 
+								var writer = '<%= plan.getpWriter()%>' ; 
+									jQuery.ajax({
+									url:"/et/clickUnLikePlan.pl",
+									data:{pno:pno, user:user, writer:writer},
+									type:"post",
+									success:function(data){																
+										$("#unlikePlan").css("display", "none");
+										$("#unlikeCnt").css("display", "none");
+										$("#likeCnt").css("display", "block");
+										$("#likePlan").css("display", "block");
+										
+										jQuery.ajax({
+											url:"/et/countLike.pl",
+											data:{pno:pno, user:user, writer:writer},
+											type:"post",
+											success:function(data){
+													
+												 $("#likeCnt").text(data.like);
+												},
+											error:function(){
+													console.log('실패');
+												}
+											});
+									},
+									error:function(){
+										console.log('실패');
+									}
+								});
+							});																
+						</script>
+						<br>
+						<!-- 스크랩 -->
+						<div class="ui labeled button" tabindex="0"
+							style="margin-top: 10px;">
+							<div class="ui basic blue button">
+								<i class="fork icon"></i> Scrap
 							</div>
+							<a class="ui basic left pointing blue label"> <%=planMap.get("scrap")%>
+							</a>
 						</div>
 					</div>
+
 				</div>
+        </div>
+        
+        
+        
+        </div>
+        <div class = "one wide column"></div>
+   	</div>
+   	
+   	<!-- footer -->
+   	<script>
+   		var toggle1 = 0;
+   		$("#setting").click(function() {
+			if(toggle1 == 0){
+				$("#selectSetting").css("visibility", "visible");
+				toggle1 = 1;
+   			}else {
+   				$("#selectSetting").css("visibility", "hidden");
+   				toggle1 = 0;
+   			}
+		});
+   		$("#Delete").click(function() {
+			location.href = "<%=request.getContextPath()%>/deletePlan.pl?pno="+<%=plan.getpNo()%>;
+			$("#selectSetting").css("visibility", "hidden");
+			toggle1 = 0;
+		});
+   		$("#Update").click(function() {
+   			location.href = "<%=request.getContextPath()%>/selectPlanForUpdate.pl?pno="+<%=plan.getpNo()%>;
+   			$("#selectSetting").css("visibility", "hidden");
+   			toggle1 = 0;
+   		});
+   		
+   		var toggle2 = 0;
+   		$("#seeInfo").click(function() {
+   			if(toggle2 == 0){
+   				$(".div-absolute").css("visibility", "visible");
+   				toggle2 = 1;
+   			}else {
+	   			$(".div-absolute").css("visibility", "hidden");
+	   			toggle2 = 0;
+   			}
+   		});
+   		
+   		var flightPlanCoordinates = [];
+        var path = {};
+   		/* 지도  */
+   		// 맵 정보 설정
+        var map = new google.maps.Map(document.getElementById('map-canvas'), { 
+          zoom: 5,
+          center: new google.maps.LatLng(47.778744, 7.397438),
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.country","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.province","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"administrative.neighborhood","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"administrative.neighborhood","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"all","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.stroke","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.highway.controlled_access","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"transit","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"transit","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]}]
+        });
+   		
+   		
+		<%
+        String[] planCityArr = null;
+		planCityArr =  (plan.getpCites()).split(", "); // 이건 String
+		for(String cityNo : planCityArr){
+			%> path = {lat : <%=cityMap.get(cityNo).getCtLat()%>, lng : <%=cityMap.get(cityNo).getCtLng()%>};
+			flightPlanCoordinates.push(path); 
+		<%}%>
+        
+       /*  // 맵 띄우기
+        var infowindow = new google.maps.InfoWindow(); */
+	    		    
+	    var lineSymbol = {
+	            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+	            scale: 4,
+	            strokeColor: '#EDC53A'
+       	};
+	    		    
+	   	poly = new google.maps.Polyline({
+	    		path : flightPlanCoordinates,
+	        strokeColor: '#2A5A85',
+	        strokeOpacity: 1.0,
+	        strokeWeight: 5
+	    });
+        poly.setMap(map);
+        
+        for(var i = 0; i <<%=planCityArr.length%>; i++){
+        		marker = new google.maps.Marker({
+                position: flightPlanCoordinates[i],
+                icon : lineSymbol,
+                map: map
+              });
+            
+        }
+        
+        $(document).ready(function() {
+			<% 
+ 			if(msg != null){ %>
+ 			alert("<%=msg%>");
+ 			<%} %>
+ 		});
+        
+   	
+   	</script>
+   
+   	<!-- 달력 -->
+   	<link rel='stylesheet' type='text/css' href="/et/views/css/theme.css" />
+   	
+	<link rel='stylesheet' type='text/css' href='/et/views/css/fullcalendar.css' />
+	<script type='text/javascript' src='/et/views/js/jquery.js'></script>
+	<script type='text/javascript' src='/et/views/js/jquery-ui-custom.js'></script>
+	<script type='text/javascript' src='/et/views/js/fullcalendar.min.js'></script>
+	<script>
+	var jb = jQuery.noConflict();
+	
+	jb(document).ready(function() {
+		var y ='<%=(plan.getpStartDate().toString()).substring(0,4)%>';
+		var m = '<%=(plan.getpStartDate().toString()).substring(5,7)%>';
+		var d = '<%=(plan.getpStartDate().toString()).substring(8,10)%>';
+		var date = new Date(y, m-1, d);
+		
+		var event = [];
+		var eventInfo = {};
+		var sy, sm, sd;
+		var ey, em, ed;
+		var title;
+		<%
+		java.util.Date cityStart;
+		java.util.Date cityEnd;
+		String[] cityArr = plan.getpCites().split(", ");
+		for(int i = 0; i < cityArr.length; i++){ // 0 ~ 여행 도시 개수 
+			if(i < cityArr.length-1){ // 0 ~ 플랜디테일 사이즈 개수 
+			    cityStart = ((PlanDetail)DetailList.get(i)).getPdStartDate();
+			    cityEnd = ((PlanDetail)DetailList.get(i)).getPdEndDate(); %>
+				sy = <%=cityStart.toString().substring(0,4)%>;
+				sm = <%=cityStart.toString().substring(5,7)%>;
+				sd = <%=cityStart.toString().substring(8,10)%>;
+				ey = <%=cityEnd.toString().substring(0,4)%>;
+				em = <%=cityEnd.toString().substring(5,7)%>;
+				ed = <%=cityEnd.toString().substring(8,10)%>; 
+				console.log(sy + ", " + sm + ", " + sd + "/ " + ey + ", " + em + ", " + ed);
+ 			<%} else { 
+				cityStart = ((PlanDetail)DetailList.get(i-1)).getPdEndDate();
+				cityEnd = plan.getpEndDate(); %>
+				sy = <%=cityStart.toString().substring(0,4)%>;
+				sm = <%=cityStart.toString().substring(5,7)%>;
+				sd = <%=cityStart.toString().substring(8,10)%>;
+				ey = <%=cityEnd.toString().substring(0,4)%>;
+				em = <%=cityEnd.toString().substring(5,7)%>;
+				ed = <%=cityEnd.toString().substring(8,10)%>; 
+				console.log(sy + ", " + sm + ", " + sd + "/ " + ey + ", " + em + ", " + ed);
+			 <% } %>
+			 title = '<%=cityArr[i]%>';
+			 eventInfo = {title : title, start : new Date(sy,sm-1,sd), end : new Date(ey,em-1,ed)};
+			 event.push(eventInfo);
+			 console.log(eventInfo);
+		<%}%>
+		
+		
+			/* {
+				title: 'Long Event',
+				start: new Date(y, m, d-5),
+				end: new Date(y, m, d-2)
+			}]; */
+		jb('#calendar').fullCalendar({
+			theme: true,
+			header : {
+				/* left : 'title', */
+				/* center : 'agendaDay,agendaWeek,month', */
+				left : '',
+				center : 'title',
+				right : 'prev, next'
+			},
+			editable: false,
+			events: event
+		});
+		
+/* 		events.push
+ */		
+	});
 
-			</div>
-
-
-
-
-		</div>
-		<div class="two wide column"></div>
-	</div>
-
-	<!-- footer -->
-	<%@ include file="/views/common/normal/footer.jsp"%>
+</script>
+	
 </body>
 </html>

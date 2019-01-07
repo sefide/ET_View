@@ -277,9 +277,9 @@ public class PlanService {
 	//좋아요 눌렀을때
 	public int clickLike(PlanInterest pl) {
 		Connection con = getConnection();
-		
+		System.out.println("좋아요 서비스전이야");
 		int result = new PlanDao().clickLike(con,pl);
-		
+		System.out.println("좋아요 서비스양");
 		if(result>0) {
 			commit(con);
 		}else {
@@ -305,6 +305,7 @@ public class PlanService {
 		
 		return like;
 	}
+	
 	//플랜 좋아요 취소
 	public int clickUnLike(PlanInterest pl) {
 		Connection con = getConnection();
@@ -320,7 +321,7 @@ public class PlanService {
 		
 		return result;
 	}
-	
+
 	
 
 	

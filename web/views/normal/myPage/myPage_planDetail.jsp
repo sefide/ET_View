@@ -29,7 +29,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
 	
 	<!-- googleMap -->
-	
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">
 
@@ -179,109 +179,6 @@
 							<a class="ui basic red left pointing label" id="unlikeCnt" style="display: none;" > <%=planMap.get("like")%>
 							</a>
 						</div>
-						
-						<script>
-						
-							/* 좋아요  클릭시 */
-							$("#likePlan").click(function() {
-							
-									var pno = '<%= plan.getpNo()%>' ;														
-									var user = '<%= loginUser.getM_no() %>' ; 
-									var writer = '<%= plan.getpWriter()%>' ; 
-									
-									jQuery.ajax({
-										url:"/et/clickLikePlan.pl",
-										data:{pno:pno, user:user, writer:writer},
-										type:"post",
-										success:function(data){
-											console.log(data);
-											
-											$("#likePlan").css("display", "none");
-											$("#likeCnt").css("display", "none");
-											$("#unlikePlan").css("display", "block");	
-											$("#unlikeCnt").css("display", "block");	
-											jQuery.ajax({
-												url:"/et/countLike.pl",
-												data:{pno:pno},
-												type:"post",
-												success:function(data){
-													
-													$("#unlikeCnt").text(like);
-												},
-												error:function(){}
-												
-											});
-											
-											
-										},
-										error:function(){
-											console.log('실패');
-										}
-									});
-	
-								}); //planlike func 닫기임
-								
-						
-							
-							
-							/* 좋아요 취소시 */
-							$("#unlikePlan").click(function() {
-								
-								
-								var pno = '<%= plan.getpNo()%>' ;														
-								var user = '<%= loginUser.getM_no() %>' ; 
-								var writer = '<%= plan.getpWriter()%>' ; 
-								
-								
-								jQuery.ajax({
-									url:"/et/clickUnLikePlan.pl",
-									data:{pno:pno, user:user, writer:writer},
-									type:"post",
-									success:function(data){
-										console.log(data);
-										
-										$("#unlikePlan").css("display", "none");
-										$("#unlikeCnt").css("display", "none");
-										$("#likeCnt").css("display", "block");
-										$("#likePlan").css("display", "block");
-										
-										
-										
-									},
-									error:function(){
-										console.log('실패');
-									}
-								});
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-							
-								
-							});
-							
-							
-							
-							
-							
-								
-		
-						
-						
-						
-							
-							
-							
-						
-						</script>
 						<br>
 						<!-- 스크랩 -->
 						<div class="ui labeled button" tabindex="0"
