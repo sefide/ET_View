@@ -69,6 +69,10 @@
 	color :gray;
 	cursor : pointer;
 }
+.claim : hover{
+	color :lightgray;
+	cursor : pointer;
+}
 .claim-popup{
 	position : absolute ;
 	width : 420px;
@@ -78,6 +82,7 @@
 	text-align : center;
 	top: 20%;
     left: 35%;
+    	visibility : hidden;
 }
 .claim-popup-txt{
 	font-size : 18px;

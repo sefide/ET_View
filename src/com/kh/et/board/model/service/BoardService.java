@@ -357,9 +357,8 @@ public class BoardService {
 		
 		return result;
 	}
-<<<<<<< aerin-20190107-2
-=======
 
+	// 글 신고하기 
 	public int insertClaim(String reason, int userNo, int boardNo, String boardwriter) {
 		Connection con = getConnection();
 		int boardwriterNo = new BoardDao().getNo(con, boardwriter);
@@ -392,7 +391,5 @@ public class BoardService {
 		return replyList;
 	}
 	
-	
->>>>>>> master
 
 }
