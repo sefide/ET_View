@@ -246,7 +246,7 @@
 	<script>
 		$(function() {
 			$.ajax({
-				url:"<%=request.getContextPath()%>/companyPostCountPre.tbo",
+				url:"<%=request.getContextPath()%>/companyPostCountStd.tbo",
 				type:"get",
 				success:function(data){
 					$("#standard").text(data+"개");
@@ -259,7 +259,7 @@
 		
 		$(function() {
 			$.ajax({
-				url:"<%=request.getContextPath()%>/companyPostCountStd.tbo",
+				url:"<%=request.getContextPath()%>/companyPostCountPre.tbo",
 				type:"get",
 				success:function(data){
 					$("#premium").text(data+"개");

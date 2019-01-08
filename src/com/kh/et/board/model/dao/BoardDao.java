@@ -814,6 +814,89 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+	
+	//보드 좋아요 포인트 시작
+	public ArrayList<HashMap<String, Object>> sameListBoardLike(Connection con, BoardInterest bi, int getNo) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("sameListBoardLike");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, bi.getBno());
+			pstmt.setInt(2, bi.getUser());
+			pstmt.setInt(3, getNo);
+			pstmt.setString(4, "게시글좋아요받기");
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();  //멤버 객체대신 hash맵사용
+				
+				hmap.put("ponno", rset.getInt("PO_N_NO"));  //DB 대소문자 상관없음. 단, 값은 구분함
+				hmap.put("pobino", rset.getInt("PO_BI_NO"));
+				hmap.put("biGiveno", rset.getString("BI_GIVE_NO"));
+
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return list;
+	}
+
+	public int insertBoardLikePoint(Connection con, BoardInterest bi, int getNo) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("insertBoardLikePoint");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, getNo);
+			pstmt.setString(2, "게시글좋아요받기");
+			pstmt.setInt(3, bi.getBno());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {	
+			close(pstmt);
+		}
+	
+
+		return result;
+	}
+
+	public int updataBoardClickedMember(Connection con, BoardInterest bi, int getNo) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("updataBoardClickedMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, getNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+	return result;
+	}
 
 
 		

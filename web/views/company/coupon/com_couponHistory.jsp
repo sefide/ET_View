@@ -122,9 +122,16 @@
 	.couponArea th {
 		background-color: gray;
 	}
-	button {
-    		border : 1px solid white;
-    }
+	table tr{
+		height: 40px;
+	}
+	table td{
+		font-weight: 700;
+	}
+	.pagingArea > button{
+		border : 1px solid white;
+	    background : white;
+	}
 	
 	
 </style>
