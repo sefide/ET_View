@@ -1,6 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.Board, java.util.*, com.kh.et.member.model.vo.News, com.kh.et.plan.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.Board, java.util.*, com.kh.et.member.model.vo.News, com.kh.et.plan.model.vo.*,  com.kh.et.common.NumberExec"%>
 <% 
 	String msg = (String) request.getAttribute("msg");
 
@@ -17,8 +17,7 @@
 		scrapPlanCityMap = (HashMap<String, City>)scrapPlan.get("scrapPlanCity");
 	}
 	
-	
-	/* ArrayList<HashMap<String,Object>> NewsList = (ArrayList<HashMap<String,Object>>)request.getAttribute("NewsList"); */
+	NumberExec NE = new NumberExec();
 %>	
 <!DOCTYPE html>
 <html>
@@ -46,239 +45,262 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> 
 	
 <!-- googleMap -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>	
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
 
 <style>
-	.container1 {
-		margin-left : 50px;
-		width : 90%;
-		border-bottom: 1px solid rgb(200,200,200);
-	  	height: 300px;
-	}
-	/* 프로필  */
-	.div-img-profile {
-		width : 240px;
-		height : 240px;
-		border : 1px solid gray;
-		background : rgba(42,90,133,0.5);;
-		border-radius : 50%;
-		float :left;
-		text-align : center;
-	}
-	.img-profile {
-		width : 190px;
-		height : 190px;
-		margin : 15% 0;
-	}
-	
-	.div-txt-profile{
-		float : left;
-		margin : 50px 0 30px 40px;
-		font-family: 'Nanum Gothic', sans-serif;
-	}
-	.div-name{
-		font-size : 36px;
-		font-weight : 600;
-		font-family: 'Nanum Gothic', sans-serif;
-	}
-	
-	.div-point{
-		font-size : 20px;
-		font-weight : 800;
-		margin-bottom : 1px;
-		font-family: 'Nanum Gothic', sans-serif;
-	}
-	 .div-profileTxt{
-		font-size : 15px;
-		font-weight : 700;
-		font-family: 'Nanum Gothic', sans-serif;
-		margin-bottom : 10px;
-	 }
-	.btn-profile{
-		margin-top : 35px;
-		font-family: 'Nanum Gothic', sans-serif;
-		width : 100px;
-		height : 30px;
-		border-radius : 7px;
-		font-weight:700;
-	}
-	
-	/* 우측 메뉴  */
-	.div-menu{
-		float : right;
-		margin-top : 40px;
-	}
-	
-	.div-menu  li {
-		list-style : none;
-		font-size : 20px;
-		margin: 10px 0;
-		font-weight : 300;
-		font-size : 20px;
-		font-family: 'Nanum Gothic', sans-serif;
-	}
-	
-	.this-page {
-		font-weight : 800;
-	}
-	
-	.div-menu a, .div-menu li{
-		color : black;
-	}
-	.div-menu li:hover, .div-menu a:hover {
-		text-decoration : none;
-		color : rgb(254, 200, 0);
-	}
-	
-	/* 하단 활동내역 보기  */
-	.container2{
-		width : 93%;
-		margin-left : 80px;
-	}
-	/* 틀 잡기  */	
-	.cont2-flex{
-		display : flex;
-		flex-wrap : wrap;
-		width : 100%;
-	}
-	.con2-left{
-		width : 34%;
-		margin : 1%;
-	}
-	.con2-left-inner {
-		width : 94%;
-		border : 1px solid lightgray;
-		border-radius : 7px;
-		margin-left : 3%;
-	}
-	.con2-right{
-		width : 60%;
-		margin : 1%;
-	}
-	.con2-qna{
-		width : 99%;
-		margin-left : 10%;
-	}
-	
-	
-	/* 새 소식 */
-	.news{
-		font-size: 30px;
-		font-family:'Nanum Gothic', sans-serif;
-		padding-top:15px;
-	}
-	#news-content{
-		margin-left: 10%;
-		font-family:'Nanum Gothic', sans-serif;
-	}
-	
-	/* 나의 Q&A / 스크랩 Q&A */
-	.description{
-		font-size: 15px;
-		width: 90%;
-		height: 50px;
-	}
-	#redBlue-avel{
-		font-size: 15px;
-	}
+.container1 {
+	margin-left: 50px;
+	width: 90%;
+	border-bottom: 1px solid rgb(200, 200, 200);
+	height: 300px;
+}
+/* 프로필  */
+.div-img-profile {
+	width: 240px;
+	height: 240px;
+	border: 1px solid gray;
+	background: rgba(42, 90, 133, 0.5);;
+	border-radius: 50%;
+	float: left;
+	text-align: center;
+}
 
-	#plus1{
-		margin-left: 305px;
-	}
-	#plus2{
-		margin-left: 280px;
-	}
-	.plus{
-		color : black;
-		text-decoration : none;
-		font-size: 600;
-	}
-	.plus:hover{
-		cursor: pointer;
-	}
-	
-	/* 내가 스크랩한 플랜 보기  */
-	.container3{
-		width : 93%;
-		margin-left : 80px;
-	}
-	
-	/* 스크랩한 플랜보기  */
-	.div-myPage-title{
-		margin-top : 20px;
-		font-size : 30px;
-		font-weight : 600;
-		font-family: 'Nanum Gothic', sans-serif;
-		display : inline-block;
-		width : 250px;
-	}
-	
-	.plan-list-inner {
-		width : 100%;
-		display : flex;
-		flex-wrap: wrap;
-	}
-	
-	.planBox{
-		width : 30%;
-		margin : 4% 1.5%;
-		height : 480px;
-		display : flex;
-		flex-wrap : wrap;
-	}
-	
-	.planMap{
-		width : 100%;
-		height : 320px;
-		display :inline-block;
-		
-	}
-	
-	.div-plan-title{
-		font-size : 30px;
-		font-weight : 700;
-		font-family: 'Nanum Gothic', sans-serif;
-		display : inline-block;
-		cursor : pointer;
-		margin : 3px 0;
-	}
+.img-profile {
+	width: 190px;
+	height: 190px;
+	margin: 15% 0;
+}
 
-	.div-plan-title:hover{
-		color : rgb(237,197,58);
-	}
-	
-	.div-plan-cities{
-		margin-top : 5px;
-		font-size : 19px;
-		font-weight : 500;
-		font-family: 'Nanum Gothic', sans-serif;
-		color : rgb(60,60,60);
-	}
-	
-	.div-plan-writer{
-		width : 24%;
-		height : 30px;
-		color : rgba(255,255,255,0.8);
-		font-size : 18px;
-		font-family: 'Nanum Gothic', sans-serif;
-		background : rgba(42,90,133,0.5);
-		border-radius : 5px;
-		text-align : center;
-	}
-	
-	.div-writer{
-		width : 70%;
-		margin-left : 1%;
-		font-size : 19px;
-		font-weight : 500;
-		font-family: 'Nanum Gothic', sans-serif;
-		color : rgb(60,60,60);
-	}
-	.div-plan-list {
+.div-txt-profile {
+	float: left;
+	margin: 50px 0 30px 40px;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.div-name {
+	font-size: 36px;
+	font-weight: 600;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.div-point {
+	font-size: 20px;
+	font-weight: 800;
+	margin-bottom: 1px;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.div-profileTxt {
+	font-size: 15px;
+	font-weight: 700;
+	font-family: 'Nanum Gothic', sans-serif;
+	margin-bottom: 10px;
+}
+
+.btn-profile {
+	margin-top: 35px;
+	font-family: 'Nanum Gothic', sans-serif;
+	width: 100px;
+	height: 30px;
+	border-radius: 7px;
+	font-weight: 700;
+}
+
+/* 우측 메뉴  */
+.div-menu {
+	float: right;
+	margin-top: 40px;
+}
+
+.div-menu  li {
+	list-style: none;
+	font-size: 20px;
+	margin: 10px 0;
+	font-weight: 300;
+	font-size: 20px;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.this-page {
+	font-weight: 800;
+}
+
+.div-menu a, .div-menu li {
+	color: black;
+}
+
+.div-menu li:hover, .div-menu a:hover {
+	text-decoration: none;
+	color: rgb(254, 200, 0);
+}
+
+/* 하단 활동내역 보기  */
+.container2 {
+	width: 93%;
+	margin-left: 80px;
+}
+/* 틀 잡기  */
+.cont2-flex {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.con2-left {
+	width: 34%;
+	margin: 1%;
+}
+
+.con2-left-inner {
+	width: 94%;
+	border: 1px solid lightgray;
+	border-radius: 7px;
+	margin-left: 3%;
+}
+
+.con2-right {
+	width: 60%;
+	margin: 1%;
+}
+
+.con2-qna {
+	width: 99%;
+	margin-left: 10%;
+}
+
+/* 새 소식 */
+.news {
+	font-size: 30px;
+	font-family: 'Nanum Gothic', sans-serif;
+	padding-top: 15px;
+}
+
+#news-content {
+	margin-left: 10%;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+/* 나의 Q&A / 스크랩 Q&A */
+.description {
+	font-size: 15px;
+	width: 90%;
+	height: 50px;
+}
+
+#redBlue-avel {
+	font-size: 15px;
+}
+
+#plus1 {
+	margin-left: 305px;
+}
+
+.plus {
+	color: black;
+	text-decoration: none;
+	font-size: 15px;
+}
+.plus2{
+	color: black;
+	text-decoration: none;
+	font-size: 15px;;
+}
+
+
+.plus:hover, .plus2:hover {
+	cursor: pointer;
+}
+
+/* 내가 스크랩한 플랜 보기  */
+.container3 {
+	width: 93%;
+	margin-left: 3%;
+}
+
+.div-myPage-title {
+	margin-top: 20px;
+	font-size: 30px;
+	font-weight: 600;
+	font-family: 'Nanum Gothic', sans-serif;
+	display: inline-block;
+	width: 250px;
+}
+
+.plan-list-inner {
+	width: 95%;
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 1%;
+}
+
+.planBox {
+	width: 30%;
+	margin: 4% 1.5%;
+	height: 480px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.onlyMap{
+	width: 100%;
+	margin: 4% 1.5%;
+	height: 400px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.planMap {
+	width: 100%;
+	height: 320px;
+	display: inline-block;
+}
+
+.div-plan-title {
+	font-size: 30px;
+	font-weight: 700;
+	font-family: 'Nanum Gothic', sans-serif;
+	display: inline-block;
+	cursor: pointer;
+	margin: 3px 0;
+}
+
+.div-plan-title:hover {
+	color: rgb(237, 197, 58);
+}
+
+.div-plan-cities {
+	margin-top: 5px;
+	font-size: 19px;
+	font-weight: 500;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: rgb(60, 60, 60);
+}
+
+.div-plan-writer {
+	width: 24%;
+	height: 30px;
+	color: rgba(255, 255, 255, 0.8);
+	font-size: 18px;
+	font-family: 'Nanum Gothic', sans-serif;
+	background: rgba(42, 90, 133, 0.5);
+	border-radius: 5px;
+	text-align: center;
+}
+
+.div-writer {
+	width: 70%;
+	margin-left: 1%;
+	font-size: 19px;
+	font-weight: 500;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: rgb(60, 60, 60);
+}
+
+.div-plan-list {
 	margin-left: 10px;
-	display : flex;
-	flex-wrap : wrap;
-	width : 99%;
+	display: flex;
+	flex-wrap: wrap;
+	width: 99%;
 }
 
 .div-plan-map {
@@ -297,11 +319,10 @@
 	font-size: 20px;
 	font-weight: 600;
 	font-family: 'Ubuntu', sans-serif;
-	color : #2A5A85 ;
+	color: #2A5A85;
 	display: inline-block;
 	cursor: pointer;
 }
-
 
 .div-plan-like {
 	width: 80px;
@@ -311,7 +332,6 @@
 	font-family: 'Ubuntu', sans-serif;
 	text-align: center;
 	float: left;
-	
 }
 </style>
 </head>
@@ -387,8 +407,7 @@
 					<div class="con2-right">
 						<!-- 나의 Q&A -->
 						<div class="con2-qna">
-							<div class="myQnA-content"
-								style='display: inline; float: left; width: 500px'>
+							<div class="myQnA-content" style='display: inline; float: left; width: 500px'>
 								<div class="QnA">
 									<b style="font-size: 25px;">나의 Q&A</b> <span id="plus1"><i class="chevron circle right icon"></i><a class="plus" onclick="QnAPlus();">더 보기</a></span>
 								</div>
@@ -399,7 +418,7 @@
 									<div class="ui raised segment">
 										<a class="ui red ribbon label" id="redBlue-avel">제목</a> <span><%=QnAlist.get("my").getBtitle()%></span>
 										<p></p>
-										<a class="ui blue ribbon label" id="redBlue-avel">내용</a> <span><%=QnAlist.get("my").getbContent()%></span>
+										<a class="ui blue ribbon label" id="redBlue-avel">내용</a> <span><%=NE.lengthsplit(QnAlist.get("my").getbContent(), 33)%></span>
 										<p></p>
 									</div>
 								</div>
@@ -410,11 +429,10 @@
 						</div>
 						<!-- 스크랩 Q&A -->
 						<div class="con2-qna">
-							<div class="scrapQnA-content"
-								style='display: inline; float: left; width: 500px; height: 100px;'>
-								<br>
+							<div class="scrapQnA-content" style='display: inline; float: left; width: 500px; height: 100px;'>
+								<br><br>
 								<div class="QnA">
-									<b style="font-size: 25px;">스크랩 Q&A</b> <span id="plus2"></span>
+									<b style="font-size: 25px;">내가 스크랩한 Q&A</b>
 								</div>
 								<%
 									if (QnAlist != null && QnAlist.get("you") != null) {
@@ -423,7 +441,7 @@
 									<div class="ui raised segment">
 										<a class="ui red ribbon label" id="redBlue-avel">제목</a> <span><%=QnAlist.get("you").getBtitle()%></span>
 										<p></p>
-										<a class="ui blue ribbon label" id="redBlue-avel">내용</a> <span><%=QnAlist.get("you").getbContent()%></span>
+										<a class="ui blue ribbon label" id="redBlue-avel">내용</a> <span><%=NE.lengthsplit(QnAlist.get("you").getbContent(), 33)%></span>
 										<p></p>
 									</div>
 								</div>
@@ -439,6 +457,7 @@
 			<div class="container3">
 			<i class="calendar alternate outline big icon"></i>
 	        		<div class = "div-myPage-title"> 내가 스크랩한 플랜 </div>
+	        		<span><i class="chevron circle right icon"></i><a class="plus2" onclick="PlanPlus();">더 보기</a></span>
 				<div class="plan-list-inner" id="plan-list-inner">
 					<div class="div-plan-list">
 						<% if(scrapPlan != null){						
@@ -447,19 +466,19 @@
        						Plan p = scrapPlanList.get(i);
 
        						%>
-						<!-- System.out.println("view에서 보여지는 p"+p); -->
 						<div class="planBox map">
-							<div class="div-plan-writer">작성자</div>
+						<div class="onlyMap">
+							<%-- <div class="div-plan-writer">작성자</div>
 							<div class="div-writer">
 								<%=scrapPlanList.get(i).getpNo()%>
-							</div>
-							<div class="div-plan-title"
-								onclick="goPlanDetail(<%=scrapPlanList.get(i).getpNo()%>);">
-								<%=p.getpTitle()%>
+							</div> --%>
+							<div class="div-plan-title" onclick="goPlanDetail(<%=scrapPlanList.get(i).getpNo()%>);">
+							<%=p.getpTitle()%>
 							</div>
 							<div id="plan-map<%=i%>" class="planMap" readonly></div>
+						</div>		
 							<div class="div-plan-cities">
-								<%= p.getpCites() %>
+								<%=NE.lengthsplit(p.getpCites(),44)%>
 							</div>
 							<div class="ui labeled button" tabindex="0">
 								<div class="ui yellow button">
@@ -469,19 +488,6 @@
 								</a>
 							</div>
 						</div>
-						<%-- <div class ="div-plan-map"> 
-						
-       					    <div id ="plan-map<%=i%>" class ="plan-map"></div>
-       						
-       						<div class = "div-plan-title" onclick = "goPlanDetail(<%=scrapPlanList.get(i).getpNo()%>);"> <%=p.getpTitle()%> </div>
-       						<br>
-							<div class="ui labeled button" tabindex="0" >
-								<div class="ui yellow button">
-									<i class="heart icon"></i> 좋아요
-								</div>
-								<a class="ui basic yellow left pointing label"> <%=p.getpLike() %> </a>
-							</div>
-       					</div> --%>
 						<%}
        					}%>
 					</div>
@@ -505,6 +511,8 @@
 		function QnAPlus(){
 			location.href = "/et/views/normal/myPage/myPage_activity_qna.jsp?mno="+<%=loginUser.getM_no()%>;
 		}
+		
+		
 		
 		var map;
 		var flightPlanCoordinatesArr = [];

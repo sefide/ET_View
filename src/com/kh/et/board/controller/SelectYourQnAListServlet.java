@@ -53,7 +53,7 @@ int mno = Integer.parseInt(request.getParameter("mno"));	//세션에 담긴 로�
 		//한 페이지에 보여질 목록 갯수
 		limit = 10;
 		
-		//전체 게시글 수 조회
+	//전체 게시글 수 조회
 		int listCount = new BoardService().getYourQnaListCount(mno);
 		
 		//총 페이지 수 계산
@@ -73,6 +73,7 @@ int mno = Integer.parseInt(request.getParameter("mno"));	//세션에 담긴 로�
 		
 		PageInfo Qnapi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
+	//페이징 처리
 		ArrayList<HashMap<String, Object>> QnaList = new BoardService().YourQnaList(currentPage, limit, mno);
 		
 		//가져온 객체 담기

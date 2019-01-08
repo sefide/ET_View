@@ -8,4 +8,14 @@ public class NumberExec {
 		
 	}
 	
+	//플랜 도시 이름 길이 제한
+	public String lengthsplit(String str, int length) {
+		if(str.length() >= length){
+		    return str.substring(0,length)+" ...";
+		}
+		return str;
+	}
+	
+	
+	
 }

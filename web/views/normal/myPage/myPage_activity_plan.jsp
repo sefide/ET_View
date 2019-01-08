@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.et.common.NumberExec"%>
+	
+<%
+	NumberExec NE = new NumberExec();
+%>	
 <!DOCTYPE html>
 <html>
 <head>

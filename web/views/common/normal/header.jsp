@@ -274,8 +274,8 @@
     		Kakao.init('key-value');
     		function goLogout(){
     			// 로그아웃 함수내에서 submit 함수 호출
-        		getKakaotalkUserProfile();
-    			
+        		//getKakaotalkUserProfile();
+    			location.href = "/et/logout.me";
     		}
     		function getKakaotalkUserProfile(){
 		        Kakao.API.request({
