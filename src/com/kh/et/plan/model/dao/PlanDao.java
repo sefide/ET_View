@@ -877,8 +877,108 @@ public class PlanDao {
 
 		return resultMap;
 	}
+	//플랜 좋아요 포인트 업데이트 부분 시작
+	public ArrayList<HashMap<String, Object>> sameListMethod(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("samePlanPointList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, pl.getPno());
+			pstmt.setInt(2, pl.getUser());
+			pstmt.setInt(3, pl.getWriter());
+			pstmt.setString(4, "플랜좋아요받기");
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();  //멤버 객체대신 hash맵사용
+				
+				hmap.put("ponno", rset.getInt("PO_N_NO"));  //DB 대소문자 상관없음. 단, 값은 구분함
+				hmap.put("popino", rset.getInt("PO_PI_NO"));
+				hmap.put("piGiveno", rset.getString("PI_GIVE_NO"));
+
+				list.add(hmap);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return list;
+	}
+	//플랜 좋아요 받았을시 포인트 업데이트
+	public int insertPlanLikePoint(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("insertPlanLikePoint");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, pl.getWriter());
+			pstmt.setString(2, "플랜좋아요받기");
+			pstmt.setInt(3, pl.getPno());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {	
+			close(pstmt);
+		}
 	
+		return result;
+	}
+
+	public int updataPlanClickedMember(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("updataPlanClickedMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pl.getWriter());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
 	
-	
+	public int updatePlanLickeClicKMember(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String query = prop.getProperty("updatePlanLickeClicKMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pl.getUser());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	//라이크 포인트 끝	
 
 }

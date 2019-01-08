@@ -277,18 +277,39 @@ public class PlanService {
 	//좋아요 눌렀을때
 	public int clickLike(PlanInterest pl) {
 		Connection con = getConnection();
+		int result = 0;  //int result = 0 으로 선언
+		ArrayList<HashMap<String, Object>> list = new PlanDao().sameListMethod(con,pl);
+		System.out.println(",planService:"+list.size());
 		System.out.println("좋아요 서비스전이야");
-		int result = new PlanDao().clickLike(con,pl);
-		System.out.println("좋아요 서비스양");
-		if(result>0) {
-			commit(con);
+		if(list.size()==0) {
+			int result1 = new PlanDao().clickLike(con,pl); //result ->result1로 변경	
+			int result2 = new PlanDao().insertPlanLikePoint(con,pl);
+			int result3 = new PlanDao().updataPlanClickedMember(con,pl);
+/*				int result4 = new PlanDao().updatePlanLickeClicKMember(con,pl);
+				System.out.println("result4:"+result4);*/
+			if(result1>0 && result2>0 && result3>0) {
+				commit(con);
+				result =1;
+			}else {
+				rollback(con);
+			}
 		}else {
-			rollback(con);
+			int result1 = new PlanDao().clickLike(con,pl);
+			if(result1>0) {
+				commit(con);
+				result =1;
+			}else {
+				rollback(con);
+			}
 		}
+		
 		close(con);
 		
 		return result;
 	}
+	///포인트 합류 끝
+	
+	
 	
 	//좋아요 갯수 구하기
 	public int countLike(int pno) {

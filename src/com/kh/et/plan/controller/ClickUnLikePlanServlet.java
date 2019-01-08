@@ -43,7 +43,7 @@ public class ClickUnLikePlanServlet extends HttpServlet {
 		pl.setUser(user);
 		
 		int result = new PlanService().clickUnLike(pl);
-		
+		System.out.println("delete:"+result);
 		response.setContentType("application/json");
 	}
 
