@@ -398,7 +398,7 @@ private Properties prop = new Properties();
 		return tourList;
 	}
 
-	public ArrayList<HashMap<String, Object>> editOne(Connection con, String num) {
+	public ArrayList<HashMap<String, Object>> editOne(Connection con, String num, String grade) {
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
 		TourBoard tb=null;
@@ -410,6 +410,7 @@ private Properties prop = new Properties();
 		try {
 			pstmt=con.prepareStatement(query);
 			pstmt.setInt(1, Integer.parseInt(num));
+			
 			rset=pstmt.executeQuery();
 			hmap=new HashMap<String,Object>();
 			
@@ -469,12 +470,15 @@ private Properties prop = new Properties();
 			pstmt.setInt(7, tb.getTctno());
 			pstmt.setInt(8, tb.getTno());
 			
-			System.out.println("dao 갖고오나"+result);
+			//System.out.println("tno: "+ tb.getTno());
+			//System.out.println("tcno" +tb.getTcno());
+			//System.out.println("tctno"+tb.getTctno());
+			
+			//System.out.println("dao 갖고오나"+result);
 
 			
-			
 			result = pstmt.executeUpdate();
-			System.out.println("query result"+result);
+			//System.out.println("query result"+result);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

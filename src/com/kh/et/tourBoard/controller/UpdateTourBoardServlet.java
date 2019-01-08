@@ -47,11 +47,11 @@ public class UpdateTourBoardServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.println("update.tbo");
+		//System.out.println("update.tbo");
 		
 		Company loginUser = (Company)request.getSession().getAttribute("loginCompany");
 		
-		  System.out.println("request getContentType : " + request.getContentType());
+		  //System.out.println("request getContentType : " + request.getContentType());
 
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
@@ -60,7 +60,7 @@ public class UpdateTourBoardServlet extends HttpServlet {
 			
 			String root = request.getSession().getServletContext().getRealPath("/");
 				
-			System.out.println(root);
+			//System.out.println(root);
 			
 			String filePath = root + "tourUpload/";
 			
@@ -81,15 +81,16 @@ public class UpdateTourBoardServlet extends HttpServlet {
 			
 			while(files.hasMoreElements()) {
 				String name = files.nextElement();
-				System.out.println("name: " + name);
+				//System.out.println("name: " + name);
 				
 				saveFiles.add(multiRequest.getFilesystemName(name));
 				originFiles.add(multiRequest.getOriginalFileName(name));
 				
-				System.out.println("fileSystem name: "+ multiRequest.getFilesystemName(name));
-				System.out.println("originFile name: "+multiRequest.getOriginalFileName(name));
+				//System.out.println("fileSystem name: "+ multiRequest.getFilesystemName(name));
+				//System.out.println("originFile name: "+multiRequest.getOriginalFileName(name));
 			}
 			
+			int multitno=Integer.parseInt(multiRequest.getParameter("tno"));
 			String multiTitle = multiRequest.getParameter("title");
 			String multiPowerLink = multiRequest.getParameter("powerLink");
 			String multiConcept = multiRequest.getParameter("concept");
@@ -101,12 +102,13 @@ public class UpdateTourBoardServlet extends HttpServlet {
 			String status=multiRequest.getParameter("status");
 			String updatePhotoId=multiRequest.getParameter("updatePhotoId");
 			
-			System.out.println("multiTitle:" + multiTitle);
+			//System.out.println("multiTitle:" + multiTitle);
 			
 			//Board객체 생성
 			TourBoard tb = new TourBoard();
-			/*tb.setTcno(Integer.parseInt(multiTcno));*/
-			/*tb.setTctno(Integer.parseInt(multiTctno));*/
+			//tb.setTcno(Integer.parseInt(multiTcno));
+			//tb.setTctno(Integer.parseInt(multiTctno));*/
+			tb.setTno(multitno);
 			tb.setTctno(multiTctno);
 			tb.settTitle(multiTitle);
 			tb.settConcept(multiConcept);
@@ -114,7 +116,7 @@ public class UpdateTourBoardServlet extends HttpServlet {
 			tb.settPrice(multiPrice);
 			tb.settLink(multiContectLint);
 			tb.settGrade(multiPowerLink);
-		
+			System.out.println(multiPowerLink);
 
 			//Attachment 객체 생성하여 arrayList 객체 생성
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
@@ -146,12 +148,6 @@ public class UpdateTourBoardServlet extends HttpServlet {
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}
-		else {
-			
-		}
-		
-		
-		
 		
 		
 	}

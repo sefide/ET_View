@@ -357,8 +357,7 @@ public class BoardService {
 		
 		return result;
 	}
-<<<<<<< aerin-20190107-2
-=======
+
 
 	public int insertClaim(String reason, int userNo, int boardNo, String boardwriter) {
 		Connection con = getConnection();
@@ -393,6 +392,6 @@ public class BoardService {
 	}
 	
 	
->>>>>>> master
+
 
 }

@@ -34,9 +34,13 @@ public class EditTourBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String num=request.getParameter("num");
+		int tno=Integer.parseInt(num);
 		System.out.println(num);
+		String grade=request.getParameter("grade");
+		System.out.println(grade);
 		
-		ArrayList<HashMap<String, Object>> list=new TourBoardService().editOne(num);
+		
+		ArrayList<HashMap<String, Object>> list=new TourBoardService().editOne(num,grade);
 		
 		String page="";
 		
@@ -44,8 +48,8 @@ public class EditTourBoardServlet extends HttpServlet {
 			
 			page="views/company/tourBoard/com_EditBoard.jsp";
 			request.setAttribute("list",list);
-			
-		
+			request.setAttribute("tno", tno);
+			request.setAttribute("grade", grade);
 		}else {
 			
 			page="views/common/errorPage.jsp";

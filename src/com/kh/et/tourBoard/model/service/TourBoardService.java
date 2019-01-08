@@ -137,10 +137,10 @@ public class TourBoardService {
 		return tourList;
 	}
 
-	public ArrayList<HashMap<String, Object>> editOne(String num) {
+	public ArrayList<HashMap<String, Object>> editOne(String num,String grade) {
 
 		Connection con = getConnection();
-		ArrayList<HashMap<String, Object>> list = new TourBoardDao().editOne(con, num);
+		ArrayList<HashMap<String, Object>> list = new TourBoardDao().editOne(con, num,grade);
 		int result = 0;
 
 		if (result > 0)
@@ -159,6 +159,7 @@ public class TourBoardService {
 		int result = 0;
 
 		int result1 = new TourBoardDao().updatetTourBoard(con, tb, loginUser);
+		System.out.println("result1: "+result1);
 		int result2 = 0;
 		if (status.equalsIgnoreCase("Y")) {
 			if (result1 > 0) {
@@ -169,6 +170,7 @@ public class TourBoardService {
 			}
 
 			result2 = new TourBoardDao().updateAttachment(con, fileList);
+			System.out.println("result2:" +result2);
 		} else {
 			System.out.println("service Result2"+result2);
 			result2 = 1;

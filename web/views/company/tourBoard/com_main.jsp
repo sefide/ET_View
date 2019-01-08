@@ -254,7 +254,7 @@
 	                <%for(int i=0;i<list.size();i++) {
 	                HashMap<String,Object> hmap=list.get(i);
 	                				%>
-	             	  	<button class="ui yellow button" onclick = "goEditTour(<%=hmap.get("tno")%>);">수정하기 </button>
+	             	  	<button class="ui yellow button" onclick = "goEditTour(<%=hmap.get("tno")%>,'<%=hmap.get("grade")%>');">수정하기 </button>
 						<!-- <button class="ui yellow button">삭제하기 </button> -->
 					<%} %>
 					</div>
@@ -285,9 +285,11 @@
 	<script>
 	
 	var jb = jQuery.noConflict();
-		function goEditTour(num) {
+		function goEditTour(num,grade) {
 			/* location.href = "/et/views/company/tourBoard/com_EditBoard.jsp"; */
-			location.href='<%=request.getContextPath()%>/editOne.tbo?num='+num;
+			var grad = grade;
+			location.href="<%=request.getContextPath()%>/editOne.tbo?num="+num+"&grade="+grad;
+			console.log(grade);
 		}
 	
 		<%-- function test(){
