@@ -8,9 +8,6 @@
 		
 	Board b = (Board) bMap.get("b");
 	ArrayList<Board> list = (ArrayList<Board>) bMap.get("list");
-	
-	
-
 %>
 
 <!DOCTYPE html>
@@ -103,6 +100,17 @@
 	font-size : 12px;
 	color :gray;
 }
+.claim-popup-reply{
+	position : absolute ;
+	width : 420px;
+	background : rgba(255,255,255, 0.9);
+	padding : 1%;
+	border : 1px solid gray;
+	text-align : center;
+	top: 20%;
+    left: 35%;
+    	visibility : hidden;
+}
 </style>
 
 </head>
@@ -116,9 +124,6 @@
 		<div class="twelve wide column" style="margin-top: 50px;">
 
 			<!-- 내용 넣기 -->
-			
-			
-			
 			
   			<h1 class="ui header" style="margin-top: 15px;">
 				게시글 상세보기
@@ -224,7 +229,7 @@
 									}
 								});
 							});			
-						<%}%>
+						
 						
 						/* 스크랩 클릭 */
 						$("#scrapPlan").click(function() {							
@@ -266,13 +271,10 @@
 							
 						
 						
-						
+						<%}%>
 						
 						
 						</script>
-				
-			
-			
 			
 			<div class="ui segment" style="border-color: #fbbd08;" >
 				<div id="container">
@@ -334,15 +336,14 @@
 			
 			</div>
 			
-			<!-- 신고 및 기타 ,, -->
+			<!-- 게시글 신고 팝업 -->
 			<div class = "div-claim">
 				<a class = "claim"><i class="frown icon"></i> 글 신고하기 </a>
 			</div>
 			<div class = "claim-popup">
-				<i class = "close icon" onclick = "closePop();"></i>
+				<i class = "close icon" onclick = "closePop1();"></i>
 				<div align = "center" id = "resultClaim">
-				<div class = "claim-popup-txt"> <i class="frown outline icon"></i>신고 이유를 기입해주세요. </div>
-
+				<div class = "claim-popup-txt"> <i class="frown outline icon"></i>게시글에 대한 신고 이유를 기입해주세요. </div>
 				<input type ="radio" name = "reason" id = "reason1" value = "reason1"> <label for = "reason1">불필요한 비속어의 사용이 섞여있습니다. </label> <br>
 				<input type ="radio" name = "reason" id = "reason2" value = "reason2"> <label for = "reason2">특정 대상에 대한 괴롭힘에 참여했습니다.  </label> <br>
 				<input type ="radio" name = "reason" id = "reason3" value = "reason3"> <label for = "reason3">인종, 성별, 정체성, 장애등에 대한 혐오를 조장하고 있습니다. </label> <br>
@@ -353,52 +354,23 @@
 				<div class = "caution-txt">타당하지 않은 근거로 신고 시 본 사이트 사용에 불이익을 받을 수 있습니다.  </div>
 				</div>
 			</div>
-			<script>
-				function closePop() {
-					$(".claim-popup").css("visibility" , "hidden");
-				}
-				
-				$(".claim").click(function(){
-					$(".claim-popup").css("visibility" , "visible");
-				});
-				
-				$("#submitClaim").click(function(){
-					<% if(loginUser != null){%>
-					var radioVal = $('input[name="reason"]:checked').next().text();
-					var userId = <%= loginUser.getM_no()%>;
-					var boardNo = <%= b.getbNo()%>;
-					var boardwriter = '<%= b.getbWriter()%>';
-					console.log(radioVal);
-					if(radioVal != null){
-						$.ajax({
-							url : "claim.bo",
-							data : {radioVal: radioVal, userId : userId, boardNo : boardNo, boardwriter : boardwriter},
-							contentType : 'application/json; charset=UTF-8',
-							type : "get",
-							success : function(data){ 
-								$("#resultClaim").html("");
-								if(data == "FAIL"){
-									console.log("신고실패  ");
-									$("#resultClaim").append("<div class = 'claim-popup-txt'> 신고처리가 잘 안됐습니다... </div>");
-								}else {
-									console.log("신고완료 ");
-									$("#resultClaim").append("<div class = 'claim-popup-txt'> 신고처리가 정상적으로 완료되었습니다. </div>");
-								}
-								
-							}, error : function(data){
-								console.log("서버 전송 실패");	
-							}
-						});
-					}else {
-						alert("신고 사유를 작성해주세요 . ");
-					}
-					<%} else {%>
-						alert("신고하려면 로그인이 필요합니다. ");
-					<%}%>
-				});
-				
-			
-			</script>
+			<!-- 댓글 신고 팝업 -->
+			<div class = "claim-popup-reply">
+				<i class = "close icon" onclick = "closePop2();"></i>
+				<div align = "center" id = "resultClaim2">
+				<div class = "claim-popup-txt"> <i class="frown outline icon"></i>댓글에 대한 신고 이유를 기입해주세요. </div>
+				<input type ="radio" name = "reasonR" id = "reasonR1" value = "reason1"> <label for = "reasonR1">불필요한 비속어의 사용이 섞여있습니다. </label> <br>
+				<input type ="radio" name = "reasonR" id = "reasonR2" value = "reason2"> <label for = "reasonR2">특정 대상에 대한 괴롭힘에 참여했습니다.  </label> <br>
+				<input type ="radio" name = "reasonR" id = "reasonR3" value = "reason3"> <label for = "reasonR3">인종, 성별, 정체성, 장애등에 대한 혐오를 조장하고 있습니다. </label> <br>
+				<input type ="radio" name = "reasonR" id = "reasonR4" value = "reason4"> <label for = "reasonR4">폭력적 위협 혹은 신체적인 위해를 가하고 있습니다. </label> <br>
+				<input type ="radio" name = "reasonR" id = "reasonR5" value = "reason5"> <label for = "reasonR5">자살 또는 자해를 조장하거나 암시하는 내용입니다. </label> <br>
+				<input type ="radio" name = "reasonR" id = "reasonR6" value = "reason6"> <label for = "reasonR6">기타 </label> <br>
+				<button id = "submitClaimReply"> 신고 </button>
+				<div class = "caution-txt">타당하지 않은 근거로 신고 시 본 사이트 사용에 불이익을 받을 수 있습니다.  </div>
+				</div>
+			</div>
+		
+		
 			<h3 class="ui header" style="margin-top: 15px;">
 				댓글을 달아주세요!</h3>		
 			<!-- 댓글다는부분 -->
@@ -432,7 +404,10 @@
 							<tr><td> <%= bn.getbWriter() %></td>
 								<td><%= bn.getbContent() %></td>
 								<td><%=bn.getbDate() %></td>
-								<td>신고</td>
+								<td onclick = "claimBtn(this);">댓글 신고하기
+								<input type = "hidden" value = "<%= bn.getbNo() %>">
+								<input type = "hidden" value = "<%= bn.getbWriter() %>">
+								</td>
 							</tr>
 							<% } %>
 						</tbody>	
@@ -442,11 +417,68 @@
 			<br><br><br><br>
 			<!-- 댓글 달기 -->
 	 		<script>
+	 		/* 게시글 신고  */
+	 		function closePop1() {
+				$(".claim-popup").css("visibility" , "hidden");
+			}
+			
+			$(".claim").click(function(){
+				$(".claim-popup").css("visibility" , "visible");
+			});
+			
+			/* 댓글 신고 */
+			function claimBtn(obj){
+				$(".claim-popup-reply").css("visibility" , "visible");
+				var boardNo = $(obj).find("input").eq(0).val(); // 보드 번호 
+				var boardwriter = $(obj).find("input").eq(1).val(); // 보드 작성자 아이디 
+				var loginUserId = "<%= loginUser.getM_id()%>";
+				$("#submitClaimReply").click(function(){
+					<% if(loginUser != null){%>
+					var radioVal = $('input[name="reasonR"]:checked').next().text();
+					var userNo = <%= loginUser.getM_no()%>;
+					
+					console.log(radioVal);
+					if(radioVal != null){
+						$.ajax({
+							url : "claim.bo",
+							data : {radioVal: radioVal, userNo : userNo, boardNo : boardNo, boardwriter : boardwriter, loginUserId : loginUserId},
+							contentType : 'application/json; charset=UTF-8',
+							type : "get",
+							success : function(data){ 
+								$("#resultClaim2").html("");
+								if(data.indexOf('FAIL_NORMAL')>-1){
+									$("#resultClaim2").append("<div class = 'claim-popup-txt'> 신고처리 중 오류가 발생했습니다. </div>");
+								}
+								else if(data.indexOf('FAIL_SAMEUSER')>-1) {
+									$("#resultClaim2").append("<div class = 'claim-popup-txt'> 본인글에 대한 신고처리는 불가능합니다.  </div>");
+								}
+								else if(data.indexOf('FAIL_EXIST')>-1){
+									$("#resultClaim2").append("<div class = 'claim-popup-txt'> 이전에 신고한 글입니다.  </div>");
+								}
+								else {
+									$("#resultClaim2").append("<div class = 'claim-popup-txt'> 신고처리가 정상적으로 완료되었습니다. </div>");
+								}
+								
+							}, error : function(data){
+								console.log("서버 전송 실패");	
+							}
+						});
+					}else {
+						alert("신고 사유를 작성해주세요 . ");
+					}
+					<%} else {%>
+						alert("신고하려면 로그인이 필요합니다. ");
+					<%}%>
+				});
+			}
+			function closePop2() {
+				$(".claim-popup-reply").css("visibility" , "hidden");
+			}
+			
 	 		$(function() {
 
-                <%if (loginUser != null){%>
-
                $("#addReply").click(function() {
+            	   <%if (loginUser != null){%>
                       var writer = <%=loginUser.getM_no() %> ;
                   var bid = <%= b.getbNo() %>;
                   var content = $("#replyContent").val();
@@ -462,34 +494,84 @@
                      success : function(data) {
                         console.log(data);
                   
-                  var $replySelectTable = $("#replySelectTable");
-                  $replySelectTable.html('');
-                  
-                  /* var $thead = $("thead"); */
-                  /* $replySelectTable.append($thead); */
-                  
-                   for(var key in data){
-                     var $tr = $("<tr>");
-                     var $writerTd = $("<td>").text(data[key].bWriter).css("width","100px");
-                     var $contentTd = $("<td>").text(data[key].bContent).css("width","400px");
-                     var $dateTd = $("<td>").text(data[key].bDate).css("width", "200px");
-                     var $claimTd = $("<td>").text("신고").css("width", "100");
-                     
-                     $tr.append($writerTd);
-                     $tr.append($contentTd);
-                     $tr.append($dateTd);
-                     $tr.append($claimTd);
-                     
-                     $replySelectTable.append($tr);    
-                  }
-               },
-               error:function(){
-                  console.log(실패);
-               }
-            });
-         });
-            <%}%>
-      });
+	                  var $replySelectTable = $("#replySelectTable");
+	                  $replySelectTable.html('');
+	                  
+	                  /* var $thead = $("thead"); */
+	                  /* $replySelectTable.append($thead); */
+	                  
+	                   for(var key in data){
+	                     var $tr = $("<tr>");
+	                     var $writerTd = $("<td>").text(data[key].bWriter).css("width","100px");
+	                     var $contentTd = $("<td>").text(data[key].bContent).css("width","400px");
+	                     var $dateTd = $("<td>").text(data[key].bDate).css("width", "200px");
+	                     var $claimTd = $("<td onclick = 'claimBtn();'>").text("댓글 신고하기").css("width", "100").attr("onclick", "claimBtn(this);");
+	                     var $claimBNo = $("<input>").attr("type", "hidden").val(data[key].bNo);
+	                     var $claimBwriter = $("<input>").attr("type", "hidden").val(data[key].bWriter);
+	                     
+	                     $claimTd.append($claimBNo);
+	                     $claimTd.append($claimBwriter);
+	                     $tr.append($writerTd);
+	                     $tr.append($contentTd);
+	                     $tr.append($dateTd);
+	                     $tr.append($claimTd);
+	                     
+	                     $replySelectTable.append($tr);    
+	                  }
+	               },
+	               error:function(){
+	                  console.log(실패);
+	               }
+	            });
+	              <%}else {%>
+	              alert(" 댓글을 달려면 로그인이 필요합니다. ");
+	               <%}%>
+	         });
+      	});
+		 
+		
+		$("#submitClaim").click(function(){
+			<% if(loginUser != null){%>
+			var radioVal = $('input[name="reason"]:checked').next().text();
+			var userNo = <%= loginUser.getM_no()%>;
+			var boardNo = <%= b.getbNo()%>;
+			var boardwriter = '<%= b.getbWriter()%>';
+			var loginUserId = "<%= loginUser.getM_id()%>";
+			console.log(radioVal);
+			if(radioVal != null){
+				$.ajax({
+					url : "claim.bo",
+					data : {radioVal: radioVal, userNo : userNo, boardNo : boardNo, boardwriter : boardwriter, loginUserId : loginUserId},
+					contentType : 'application/json; charset=UTF-8',
+					type : "get",
+					success : function(data){ 
+						$("#resultClaim").html("");
+						if(data.indexOf('FAIL_NORMAL')>-1){
+							$("#resultClaim").append("<div class = 'claim-popup-txt'> 신고처리 중 오류가 발생했습니다. </div>");
+						}
+						else if(data.indexOf('FAIL_SAMEUSER')>-1) {
+							$("#resultClaim").append("<div class = 'claim-popup-txt'> 본인글에 대한 신고처리는 불가능합니다.  </div>");
+						}
+						else if(data.indexOf('FAIL_EXIST')>-1){
+							$("#resultClaim").append("<div class = 'claim-popup-txt'> 이전에 신고한 글입니다.  </div>");
+						}
+						else {
+							$("#resultClaim").append("<div class = 'claim-popup-txt'> 신고처리가 정상적으로 완료되었습니다. </div>");
+						}
+						
+					}, error : function(data){
+						console.log("서버 전송 실패");	
+					}
+				});
+			}else {
+				alert("신고 사유를 작성해주세요 . ");
+			}
+			<%} else {%>
+				alert("신고하려면 로그인이 필요합니다. ");
+			<%}%>
+		});
+		
+		
 	</script>  
 			
 

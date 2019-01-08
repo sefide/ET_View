@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.et.board.model.service.BoardService;
+import com.kh.et.member.model.vo.Member;
 
 /**
  * Servlet implementation class claimBoardServlet
@@ -28,24 +29,36 @@ public class claimBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String reason = request.getParameter("radioVal");
-		String userId = request.getParameter("userId");
-		String boardNum = request.getParameter("boardNo");
-		String boardwriter = request.getParameter("boardwriter");
-		int userNo = Integer.parseInt(userId);
+		String reason = request.getParameter("radioVal"); // reason
+		String userNoStr = request.getParameter("userNo"); // 로그인 유저 번호 
+		String boardNum = request.getParameter("boardNo"); // 보드 번호 
+		String boardwriter = request.getParameter("boardwriter"); // 보드 작성자 아이디 
+		String loginUserId = request.getParameter("loginUserId"); // 로그인 유저 아이디
+		int userNo = Integer.parseInt(userNoStr);
 		int boardNo = Integer.parseInt(boardNum);
 		
-		System.out.println("얍 " + reason +userId + boardNo + boardwriter );
-		
-		int result = new BoardService().insertClaim(reason, userNo, boardNo, boardwriter	);
-		
-		if(result > 0) {
-			System.out.println("신고완료 ");
-			response.getWriter().println("SUCCESS");
+		if(boardwriter.equals(loginUserId)) { // 자신의 게시물 
+			System.out.println("신고 실패 - 자신의 게시물");
+			response.getWriter().println("FAIL_SAMEUSER");
+			response.getWriter().close();
 		}else {
-			System.out.println("신고 실패 ");
-			response.getWriter().println("FAIL");
+			int result = new BoardService().insertClaim(reason, userNo, boardNo, boardwriter);
+			
+			if(result > 0) {
+				System.out.println("신고 완료 ");
+				response.getWriter().println("SUCCESS");
+				response.getWriter().close();
+			}else if(result == -1){
+				System.out.println("신고 실패 - 이전에 신고함 ");
+				response.getWriter().println("FAIL_EXIST");
+				response.getWriter().close();
+			} else {
+				System.out.println("신고 실패 ");
+				response.getWriter().println("FAIL_NORMAL");
+				response.getWriter().close();
+			}
 		}
+		
 	}
 
 	/**

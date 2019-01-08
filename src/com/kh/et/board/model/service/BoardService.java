@@ -384,24 +384,29 @@ public class BoardService {
 	// 글 신고하기 
 	public int insertClaim(String reason, int userNo, int boardNo, String boardwriter) {
 		Connection con = getConnection();
+		
+		// 보드 작성한 회원 번호 가져오기 
 		int boardwriterNo = new BoardDao().getNo(con, boardwriter);
 		int result = 0;
 		
-		if(boardwriterNo != 0) {
+		// 이전에 신고한 글인지 확인 
+		int checkExistResult = new BoardDao().checkExistClaim(con, userNo, boardNo);
+		
+		if(checkExistResult == 0 && boardwriterNo != 0) {
 			result = new BoardDao().insertClaim(con, reason, userNo, boardNo, boardwriterNo);
-		}
-			
-		if(result>0) {
 			commit(con);
-		}else {
+		} else if(checkExistResult > 0) {
+			result = -1;
+			commit(con);
+		} else {
 			rollback(con);
 		}
+		
 		close(con);
 		
 		return result;
 	}
-	
-	
+
 	//댓글 가져오깅
 /*	public ArrayList<HashMap<String, Object>> selectReply(int getbNo) {
 		Connection con = getConnection();

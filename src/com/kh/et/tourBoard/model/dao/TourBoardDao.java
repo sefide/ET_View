@@ -748,6 +748,7 @@ private Properties prop = new Properties();
 				hmap.put("changeName", rset.getString("a_change_name"));
 				hmap.put("filePath", rset.getString("a_file_path"));
 				hmap.put("uploadDate", rset.getDate("a_upload_date"));
+				hmap.put("tcname", rset.getString("c_name"));
 				
 				list.add(hmap);
 			}

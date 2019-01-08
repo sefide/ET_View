@@ -23,6 +23,7 @@
 	<!-- 글꼴  -->
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Noto+Sans+KR" rel="stylesheet">
+	
 	<!-- 카카오톡 -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
@@ -274,8 +275,8 @@
     		Kakao.init('key-value');
     		function goLogout(){
     			// 로그아웃 함수내에서 submit 함수 호출
-        		getKakaotalkUserProfile();
-    			
+        		//getKakaotalkUserProfile();
+    			location.href = "/et/logout.me";
     		}
     		function getKakaotalkUserProfile(){
 		        Kakao.API.request({
