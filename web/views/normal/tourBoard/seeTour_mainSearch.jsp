@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.et.tourBoard.model.vo.*, com.kh.et.common.NumberExec"%>
 <% 
- 	ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
+ 	ArrayList<HashMap<String,Object>> list2 = (ArrayList<HashMap<String, Object>>)request.getAttribute("list2");
 	PageInfo pi=(PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -236,8 +236,8 @@
 				<div class="div-card-tour">
 			<div class="ui huge header">TourList</div>
 			<hr>
-				<%for(int i=0; i <list.size(); i++){ 
-          			HashMap<String,Object> hmap = list.get(i);
+				<%for(int i=0; i <list2.size(); i++){ 
+          			HashMap<String,Object> hmap = list2.get(i);
               	%>
 						<div class="card" width="200px" height="330px" id="cardOne" onclick="seeDetail(<%=hmap.get("tno")%>);">
 						 <input type="hidden" value="<%=hmap.get("tno")%>">
@@ -256,11 +256,11 @@
 				</div>
 				<br><br>
              <div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/memberSeeTour.tbo?currentPage=1'"><<</button>
+			<button onclick="location.href='<%=request.getContextPath()%>/searchSeeTour.tbo?currentPage=1'"><<</button>
 			<%if(currentPage <= 1){%>
 			<button disabled><</button>
 			<% }else{%>
-			<button onclick="location.href='<%=request.getContextPath()%>/memberSeeTour.tbo?currentPage=<%=currentPage -1%>'"><</button>
+			<button onclick="location.href='<%=request.getContextPath()%>/searchSeeTour.tbo?currentPage=<%=currentPage -1%>'"><</button>
 			<%} %>
 			
 			<% for(int p = startPage; p <= endPage; p++){ 
@@ -268,7 +268,7 @@
 			%>
 					<button disabled><%= p %></button>
 			<%		}else{ %>
-					<button onclick="location.href='<%= request.getContextPath()%>/memberSeeTour.tbo?currentPage=<%= p %>'"><%= p %></button>
+					<button onclick="location.href='<%= request.getContextPath()%>/searchSeeTour.tbo?currentPage=<%= p %>'"><%= p %></button>
 			<%		}%>
 				
 			<% } %>
@@ -277,10 +277,10 @@
 			<%if(currentPage >= maxPage){ %>
 			<button disable>></button>
 			<%}else{ %>
-			<button onclick="location.href='<%= request.getContextPath()%>/memberSeeTour.tbo?currentPage=<%=currentPage + 1%>'">></button>
+			<button onclick="location.href='<%= request.getContextPath()%>/searchSeeTour.tbo?currentPage=<%=currentPage + 1%>'">></button>
 			<%} %>
 			
-			<button onclick="location.href='<%=request.getContextPath()%>/memberSeeTour.tbo?currentPage=<%=maxPage%>'">>></button>
+			<button onclick="location.href='<%=request.getContextPath()%>/searchSeeTour.tbo?currentPage=<%=maxPage%>'">>></button>
             </div>
 			</div>
 			<br>

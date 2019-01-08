@@ -19,7 +19,7 @@ public class PointService {
 	public Member insertPoint(int pmNo, int pFkpNo,Member m) {
 		Connection con = getConnection();
 		int result=0;
-		
+		int planNum = 0;
 
 		int result1 = new PointDao().insertPoint(con, pmNo, pFkpNo);
 		System.out.println("service1");
@@ -35,6 +35,8 @@ public class PointService {
 			loginUser = new MemberDao().selectLoginUser(con, m);
 			if(loginUser != null) {
 				Member profile = new MemberDao().profileChcek(con, m);
+				planNum = new MemberDao().planNum(con, loginUser);
+				loginUser.setM_plan_num(planNum);
 				if(profile != null) {
 					loginUser.setA_change_Name("/et/profileUpload/"+profile.getA_change_Name());
 				} else {
@@ -52,7 +54,7 @@ public class PointService {
 	public Member insertPointStorage(int mno, Member m) {
 		Connection con = getConnection();
 		int result=0;
-		
+		int planNum = 0;
 		int result1 = new PointDao().insertPointStorage(con, mno);
 		System.out.println("service1");
 
@@ -65,6 +67,8 @@ public class PointService {
 			loginUser = new MemberDao().selectLoginUser(con, m);
 			if(loginUser != null) {
 				Member profile = new MemberDao().profileChcek(con, m);
+				planNum = new MemberDao().planNum(con, loginUser);
+				loginUser.setM_plan_num(planNum);
 				if(profile != null) {
 					loginUser.setA_change_Name("/et/profileUpload/"+profile.getA_change_Name());
 				} else {

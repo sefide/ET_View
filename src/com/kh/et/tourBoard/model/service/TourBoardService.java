@@ -249,4 +249,23 @@ public class TourBoardService {
 		return result;
 	}
 
+	public ArrayList<HashMap<String, Object>> SearchseeTourList(int currentPage, int limit, int city) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String, Object>> list = new TourBoardDao().SearchSeeTourList(con, currentPage, limit,city);
+
+		close(con);
+
+		return list;
+	}
+
+	public int SearchSeeTourgetListCount(int city) {
+		Connection con = getConnection();
+
+		int listCount = new TourBoardDao().SearchSeeTourgetListCount(con,city);
+		close(con);
+
+		return listCount;
+	}
+
 }
