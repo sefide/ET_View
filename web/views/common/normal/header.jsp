@@ -23,6 +23,9 @@
 	<!-- 글꼴  -->
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu:700&amp;subset=latin-ext" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Noto+Sans+KR" rel="stylesheet">
+	<!-- 카카오톡 -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 	
 	<title>ET_Planner</title>
 	<link rel="icon" href="/et/image/common/logo.png">
@@ -268,10 +271,27 @@
     			<% } %>
     		}
     		
+    		Kakao.init('key-value');
     		function goLogout(){
-    			location.href = "/et/logout.me";
+    			// 로그아웃 함수내에서 submit 함수 호출
+        		getKakaotalkUserProfile();
+    			
     		}
-    		
+    		function getKakaotalkUserProfile(){
+		        Kakao.API.request({
+				url: '/v1/user/me',
+				success: function(res) {
+			        //alert(Kakao.Auth.getAccessToken());
+                    Kakao.Auth.logout(function () {
+                    		location.href = "/et/logout.me";
+                    	});
+		        },fail: function(error) {
+				}
+			});
+		}
+    		function applicationApply() {
+    			// submit 실행
+		}
     		function goPlan(){
     			<%
         	 	if(loginUser != null){
