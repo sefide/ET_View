@@ -128,6 +128,10 @@
 	table td{
 		font-weight: 700;
 	}
+	.pagingArea > button{
+		border : 1px solid white;
+	    background : white;
+	}
 </style>
 </head>
 <body>
@@ -174,7 +178,34 @@
 	                </table>
 	            </div>
 	                
-               <!-- 페이징 처리 들어감 -->
+               <div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/searchSeeTour.tbo?currentPage=1'"><<</button>
+			<%if(currentPage <= 1){%>
+			<button disabled><</button>
+			<% }else{%>
+			<button onclick="location.href='<%=request.getContextPath()%>/searchSeeTour.tbo?currentPage=<%=currentPage -1%>'"><</button>
+			<%} %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+					if(p == currentPage){
+			%>
+					<button disabled><%= p %></button>
+			<%		}else{ %>
+					<button onclick="location.href='<%= request.getContextPath()%>/searchSeeTour.tbo?currentPage=<%= p %>'"><%= p %></button>
+			<%		}%>
+				
+			<% } %>
+			
+			
+			<%if(currentPage >= maxPage){ %>
+			<button disable>></button>
+			<%}else{ %>
+			<button onclick="location.href='<%= request.getContextPath()%>/searchSeeTour.tbo?currentPage=<%=currentPage + 1%>'">></button>
+			<%} %>
+			
+			<button onclick="location.href='<%=request.getContextPath()%>/searchSeeTour.tbo?currentPage=<%=maxPage%>'">>></button>
+            </div>
+			</div>
 
             </div>
             

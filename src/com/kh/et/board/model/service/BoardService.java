@@ -331,20 +331,37 @@ public class BoardService {
 	//글 좋아요
 	public int clickLike(BoardInterest bi) {
 		Connection con = getConnection();
+		int result=0;
 		System.out.println("좋아요 서비스전이야");
 		
 		int getNo = new BoardDao().getNo(con,bi.getWriter());
 		
-		int result = new BoardDao().clickLike(con,bi,getNo);
-		System.out.println("좋아요 서비스양");
-		if(result>0) {
-			commit(con);
-		}else {
-			rollback(con);
+		ArrayList<HashMap<String, Object>> list = new BoardDao().sameListBoardLike(con,bi,getNo);
+		System.out.println("boardService:"+list.size());
+		if(list.size()==0) {
+			int result1 = new BoardDao().clickLike(con,bi,getNo);
+			int result2 = new BoardDao().insertBoardLikePoint(con,bi,getNo);
+			int result3 = new BoardDao().updataBoardClickedMember(con,bi,getNo);
+			System.out.println("좋아요 서비스양");
+			if(result1>0 && result2>0 && result3>0) {
+				commit(con);
+				result =1;
+			}else {
+				rollback(con);
+			}
+		}else{
+			int result1 = new BoardDao().clickLike(con,bi,getNo);
+		      if(result1>0){
+		        commit(con);
+		        result = 1;
+		      }else {
+		       rollback(con); 
+		      }
 		}
 		close(con);
 		
 		return result;
+		
 	}
 	//글 좋아요 취소
 	public int clickUnLike(BoardInterest bi) {

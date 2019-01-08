@@ -524,35 +524,6 @@
 	   	
    	});
    	</script>
-   	<%-- <script>
-   		function insertBoard() {
-   			/* $("input[type = radio]").click(function(){
-   				grade = $(this).val();
-   			}); */
-   			grade = $('input[name="powerLink"]:checked').val();
-   			premiumC = <%=loginUser.getcPremium()%>;
-   			Standard = <%=loginUser.getcStandard()%>;
-   			console.log(grade);
-   			console.log(premiumC);
-   			console.log(Standard);
-
-   			if(grade == "premium"){
-   				if(premiumC>0){
-   					 location.href="<%=request.getContextPath()%>/insert.tbo"; 
-   				}else{
-   					alert("프리미엄 쿠폰이 부족합니다!!(충전해주세요!)");
-   				}
-			}else{
-				if(Standard>0){
-					location.href="<%=request.getContextPath()%>/insert.tbo";
-				}else{
-					alert("스탠다드 쿠폰이 부족합니다!!(충전해주세요!!)");
-				}
-			}
-			
-		}
-   	
-   	</script> --%>
    	<script>
    	function loadImg(value,num) {
 		if(value.files && value.files[0]) { // value는 요소 파일이 있는 상태에 동작한다. 
@@ -570,7 +541,7 @@
    	
    	$(function() {
 		$.ajax({
-			url:"<%=request.getContextPath()%>/companyPostCountPre.tbo",
+			url:"<%=request.getContextPath()%>/companyPostCountStd.tbo",
 			type:"get",
 			success:function(data){
 				$("#standard").text(data+"개");
@@ -583,7 +554,7 @@
 	
 	$(function() {
 		$.ajax({
-			url:"<%=request.getContextPath()%>/companyPostCountStd.tbo",
+			url:"<%=request.getContextPath()%>/companyPostCountPre.tbo",
 			type:"get",
 			success:function(data){
 				$("#premium").text(data+"개");
