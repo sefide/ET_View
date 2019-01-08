@@ -15,8 +15,8 @@
 	<script>
 		var naverLogin = new naver.LoginWithNaverId(
 			{
-				clientId: "key-value",
-				callbackUrl: "pass",
+				clientId: "key-valu",
+				callbackUrl: "password",
 				isPopup: false,
 				callbackHandle: true
 				/* callback 페이지가 분리되었을 경우에 callback 페이지에서는 callback처리를 해줄수 있도록 설정합니다. */

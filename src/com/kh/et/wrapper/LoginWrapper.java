@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletRequestWrapper;
 public class LoginWrapper extends HttpServletRequestWrapper{
 
 	public LoginWrapper(HttpServletRequest request) {
-		super(request);
+		super(request); // ServletRequest (부모)
 	}
 	
 	@Override
 	public String getParameter(String key) {
 		String value = "";
-		if(key != null && key.equals("userPwd")) {
-			value = getSha512(super.getParameter("userPwd"));
+		if(key != null && key.equals("userPwd")) { 
+			value = getSha512(super.getParameter("userPwd"));  // 암호화 처리한다. 
 		}else {
-			value = super.getParameter(key);
+			value = super.getParameter(key); // 값을 그대로 돌려준다. 
 		}
 		return value;
 	}
