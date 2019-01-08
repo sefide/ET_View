@@ -1,8 +1,16 @@
+<%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.*"%>
 <%
-	Board b = (Board)request.getAttribute("b");
+	HashMap<String,Object> bMap = (HashMap<String,Object>)request.getAttribute("aList");
+ 	
+		
+	Board b = (Board) bMap.get("b");
+	ArrayList<Board> list = (ArrayList<Board>) bMap.get("list");
+	
+	
+
 %>
 
 <!DOCTYPE html>
@@ -105,10 +113,13 @@
 			<!-- 내용 넣기 -->
 			
 			
+			
+			
   			<h1 class="ui header" style="margin-top: 15px;">
 				게시글 상세보기
-				&nbsp;&nbsp;
-				<div class="ui labeled button" tabindex="0">
+				&nbsp;&nbsp;		
+					<!-- 좋아요 -->
+					<div class="ui labeled button" tabindex="0">
 					<div class="ui red button" id="likePlan">
 						<i class="heart icon"></i> 좋아요!
 					</div>
@@ -120,7 +131,19 @@
 					<a class="ui basic red left pointing label" id="unlikeCnt"
 						style="display: none;"> <%=b.getbLike()%>
 					</a>
-				</div>
+					</div>
+					<!-- 스크랩 -->
+					<div class="ui labeled button" tabindex="0" style="margin-top: 10px;">
+					<div class="ui basic blue button" id="scrapPlan">
+					<i class="fork icon"></i> 스크랩
+					</div>
+					<a class="ui basic left pointing blue label" id="scrapCnt"> <%=b.getbScrap() %> <a>
+							
+					<div class="ui blue button" id="unscrapPlan" style="display: none;">
+					<i class="empty fork icon"></i> 스크랩</div>
+					<a class="ui basic left pointing blue label" id="unscrapCnt" style="display: none;" > <%=b.getbScrap() %><a>
+							
+					</div>
 
 			</h1>
 			<!-- 좋아요 스크립트부분 -->
@@ -197,13 +220,56 @@
 								});
 							});			
 						<%}%>
+						
+						/* 스크랩 클릭 */
+						$("#scrapPlan").click(function() {							
+							var bno = '<%= b.getbNo()%>' ;														
+							var user = '<%= loginUser.getM_no() %>' ; 
+							var writer = '<%= b.getbWriter()%>' ; 							
+									jQuery.ajax({
+										url:"/et//clickScrapBoard.bo",
+										data:{pno:pno, user:user, writer:writer},
+										type:"post",
+										success:function(data){
+											console.log(data);		
+											
+											 $("#scrapPlan").css("display", "none");
+											$("#scrapCnt").css("display", "none");
+											$("#unscrapPlan").css("display", "block");	
+											$("#unscrapCnt").css("display", "block");	
+											
+											
+											jQuery.ajax({
+												url:"/et/countScrapCnt.pl",
+												data:{pno:pno, user:user, writer:writer},
+												type:"post",
+												success:function(data){
+													console.log(data);	
+													 $("#unscrapCnt").text(data.scrap);
+													},
+												error:function(){
+														console.log('실패');
+													}
+												});
+										},
+										error:function(){
+											console.log('실패');
+										}
+									});
+	
+								}); 
+							
+						
+						
+						
+						
+						
 						</script>
 				
 			
 			
 			
-			<div class="ui segment">
-			
+			<div class="ui segment" style="border-color: #fbbd08;" >
 				<div id="container">
 					<div id='box-left'>
 						<img class="ui small circular image"
@@ -215,7 +281,7 @@
 						<div align="left" >
 							제목
 						<input type="text" size="50" 
-									name="title" value="<%=b.getBtitle()%>" readonly>		
+									name="title" value="<%=b.getBtitle() %>" readonly>		
 						</div>
 						<div align="left">
 							작성일
@@ -232,7 +298,7 @@
 								<textarea rows="2" cols="10" style="height: 100px;" id="content" readonly><%=b.getbContent()%></textarea>
 							</div>
 						</div>
-						
+						<br>
 					</div>
 				</div>
 			
@@ -241,10 +307,10 @@
 				<div class="ui list" style="text-align: right;">
 			
 			
-				<button class="ui right yellow button" onclick="location.href='<%=request.getContextPath()%>/selectList.bo'">목록으로 되돌아가기</button>
+				<button class="ui yellow basic button" onclick="location.href='<%=request.getContextPath()%>/selectList.bo'">목록으로 되돌아가기</button>
 				<% if( loginUser != null && loginUser.getM_id().equals(b.getbWriter()) ){%>		
 				<% int num = b.getbNo();  %>			
-				<button class="ui right yellow button" id="edit" >수정 및 삭제 하기</button>
+				<button class="ui yellow basic button" id="edit" >수정 및 삭제 하기</button>
 				<%}%>
 				<script>
 					$("#edit").click(function name() {
@@ -328,36 +394,55 @@
 				
 			
 			</script>
-			
-			
+			<h3 class="ui header" style="margin-top: 15px;">
+				댓글을 달아주세요!</h3>		
 			<!-- 댓글다는부분 -->
 			<!-- <div class="ui yellow segment">Yellow</div> -->
 			
 			<div class="replyArea">
 				<div class="replyWriterArea">
-				<table align="center">
-					<tr>
-						<td>댓글 작성</td>
-						<td><textarea rows="3" cols="80" id="replyContent"></textarea></td>
-						<td><button id="addReply">댓글 등록</button></td>
+				<table align="left" >
+					<tr>		
+						<td align="left"> 
+							    <textarea rows="3" cols="100" id="replyContent" style="background-color:transparent; border: solid 2px #fbbd08; border-radius: 5px;">
+								</textarea>	
+			  			</td>
+						<td style="margin-left: 20px;"><button id="addReply" class="ui invert yellow button" style="float: none; position: static;" >댓글 등록!</button></td>
 				</tr>
-			</table>
-			</div>
+				</table>
+				</div>
+				<br>
 				<div id="replySelectArea">
-					<table id="replySelectTable" border="1" align="center">
-
-					</table>
+					 <table  class="ui yellow table" id="replySelectTable" border="1" align="center">
+						<thead id="thead">
+							<!-- <tr>
+								<th>작성자</th>
+								<th>내용</th>
+								<th>작성일</th>
+								<th>신고!!!</th>
+							</tr> -->
+						</thead>						
+						<%  for(int i = 0 ; i< list.size() ; i++){ 
+								Board bn = (Board)list.get(i);%>
+							<tr><td> <%= bn.getbWriter() %></td>
+								<td><%= bn.getbContent() %></td>
+								<td><%=bn.getbDate() %></td>
+								<td>신고</td>
+							</tr>
+							<% } %>
+						</tbody>	
+					</table> 
 				</div>
 			</div>
 			<br><br><br><br>
 			<!-- 댓글 달기 -->
 	 		<script>
-             $(function() {
+	 		$(function() {
 
-          	   <%if (loginUser != null){%>
+                <%if (loginUser != null){%>
 
                $("#addReply").click(function() {
-            	  	  var writer = <%=loginUser.getM_no() %> ;
+                      var writer = <%=loginUser.getM_no() %> ;
                   var bid = <%= b.getbNo() %>;
                   var content = $("#replyContent").val();
 
@@ -371,31 +456,38 @@
                      type : "post",
                      success : function(data) {
                         console.log(data);
-						
-						var $replySelectTable = $("#replySelectTable");
-						$replySelectTable.html('');
-						
-					 	for(var key in data){
-							var $tr = $("<tr>");
-							var $writerTd = $("<td>").text(data[key].bWriter).css("width","100px");
-							var $contentTd = $("<td>").text(data[key].bContent).css("width","400px");
-							var $dateTd = $("<td>").text(data[key].bDate).css("width", "200px");
-							
-							$tr.append($writerTd);
-							$tr.append($contentTd);
-							$tr.append($dateTd);
-							$replySelectTable.append($tr);	 
-						}
-					},
-					error:function(){
-						console.log(실패);
-					}
-				});
-			});
+                  
+                  var $replySelectTable = $("#replySelectTable");
+                  $replySelectTable.html('');
+                  
+                  /* var $thead = $("thead"); */
+                  /* $replySelectTable.append($thead); */
+                  
+                   for(var key in data){
+                     var $tr = $("<tr>");
+                     var $writerTd = $("<td>").text(data[key].bWriter).css("width","100px");
+                     var $contentTd = $("<td>").text(data[key].bContent).css("width","400px");
+                     var $dateTd = $("<td>").text(data[key].bDate).css("width", "200px");
+                     var $claimTd = $("<td>").text("신고").css("width", "100");
+                     
+                     $tr.append($writerTd);
+                     $tr.append($contentTd);
+                     $tr.append($dateTd);
+                     $tr.append($claimTd);
+                     
+                     $replySelectTable.append($tr);    
+                  }
+               },
+               error:function(){
+                  console.log(실패);
+               }
+            });
+         });
             <%}%>
-		});
+      });
 	</script>  
 			
+
 	</div>
 		<div class="two wide column"></div>
 	</div>

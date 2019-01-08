@@ -784,6 +784,36 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+	//스크랩 수 가져오기
+	public int getScrapNum(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		 
+		String query = prop.getProperty("getBoardLikeNum");
+		//getBoardLikeNum=SELECT BI.BI_B_NO, COUNT(BI.BI_B_NO) CNT FROM BOARDINTEREST BI JOIN BOARD B ON (BI.BI_B_NO = B.B_NO) WHERE B.B_NO = ? AND BI.BI_TYPE = ? GROUP BY BI_B_NO
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			pstmt.setString(2, "스크랩");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("CNT");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return result;
+	}
 
 
 		

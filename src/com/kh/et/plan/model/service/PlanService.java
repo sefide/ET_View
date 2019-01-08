@@ -277,9 +277,9 @@ public class PlanService {
 	//좋아요 눌렀을때
 	public int clickLike(PlanInterest pl) {
 		Connection con = getConnection();
-		System.out.println("좋아요 서비스전이야");
+		
 		int result = new PlanDao().clickLike(con,pl);
-		System.out.println("좋아요 서비스양");
+		
 		if(result>0) {
 			commit(con);
 		}else {
@@ -340,6 +340,52 @@ public class PlanService {
 		}
 		
 		return scrapPlan;
+	}
+	//스크랩 클릭시 
+	public int clickScrap(PlanInterest pl) {
+		
+		Connection con = getConnection();
+		
+		int result = new PlanDao().clickScrap(con,pl);		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+	
+	//스크랩 수 구하기
+	public int countScrap(int pno) {
+		Connection con = getConnection();
+		
+		int scrap = new PlanDao().getScrapNum(con, pno);
+		
+		if(scrap>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return scrap;
+	}
+	//스크랩 취소 
+	public int clickUnScrap(PlanInterest pl) {
+		Connection con = getConnection();
+		
+		int result = new PlanDao().clickUnScrap(con,pl);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
 	}
 
 	
