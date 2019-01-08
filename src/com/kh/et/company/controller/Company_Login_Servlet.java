@@ -14,7 +14,7 @@ import com.kh.et.company.model.vo.Company;
 /**
  * Servlet implementation class Company_login_Servlet
  */
-@WebServlet("/login.company")
+@WebServlet("/login.co")
 public class Company_Login_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

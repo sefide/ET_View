@@ -25,7 +25,7 @@ public class CommonFilter implements Filter {
 	/**
 	 * @see Filter#destroy()
 	 */
-	public void destroy() {
+	public void destroy() {		/*톰캣이 종료될때 호출되는 메소드*/
 		// TODO Auto-generated method stub
 	}
 
@@ -33,6 +33,8 @@ public class CommonFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		
+		// doGet처럼 사용되는 메소드
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		

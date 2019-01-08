@@ -8,10 +8,12 @@
 	ArrayList<News> NewsList = (ArrayList<News>)request.getAttribute("NewsList");
 	Board board = (Board)request.getAttribute("board"); 
 	
+	
 	HashMap<String, Object> scrapPlan = (HashMap<String, Object>)request.getAttribute("scrapPlan");
 	HashMap<String, City> scrapPlanCityMap = null;	
 	ArrayList<Plan> scrapPlanList = null;
 	if(scrapPlan != null){
+		scrapPlanList = (ArrayList<Plan>)scrapPlan.get("scrapPlan"); 
 		scrapPlanCityMap = (HashMap<String, City>)scrapPlan.get("scrapPlanCity");
 	}
 	
@@ -41,8 +43,10 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> 
 	
+<!-- googleMap -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>	
 
 <style>
 	.container1 {
@@ -225,9 +229,9 @@
 	
 	.planMap{
 		width : 100%;
-		height : 380px;
+		height : 320px;
 		display :inline-block;
-		border : 1px solid gray;
+		
 	}
 	
 	.div-plan-title{
@@ -272,6 +276,9 @@
 	}
 	.div-plan-list {
 	margin-left: 10px;
+	display : flex;
+	flex-wrap : wrap;
+	width : 99%;
 }
 
 .div-plan-map {
@@ -432,38 +439,53 @@
 			<div class="container3">
 			<i class="calendar alternate outline big icon"></i>
 	        		<div class = "div-myPage-title"> 내가 스크랩한 플랜 </div>
-        			<div class = "plan-list-inner" id = "plan-list-inner">
-        				<div class ="planBox map">
-    						<div class = "div-plan-writer" > 작성자 </div > <div class ="div-writer"> 아이디 얍얍 </div>
-    						<div class = "div-plan-title"> 플랜 제목입니다. </div>
-        					<div id = "planMap0" class ="planMap" readonly>
-        					
-        					<div class="div-plan-list" >
-							<% if(scrapPlan != null){						
-								scrapPlanList = (ArrayList<Plan>)scrapPlan.get("scrapPlan"); //planDao에서 플랜정보를 담은 리스트				
-        					for(int i = 0; i < scrapPlanList.size(); i++){        						
-        						Plan p = scrapPlanList.get(i);
+				<div class="plan-list-inner" id="plan-list-inner">
+					<div class="div-plan-list">
+						<% if(scrapPlan != null){						
+							scrapPlanList = (ArrayList<Plan>)scrapPlan.get("scrapPlan"); //planDao에서 플랜정보를 담은 리스트				
+       					for(int i = 0; i < scrapPlanList.size(); i++){        						
+       						Plan p = scrapPlanList.get(i);
 
-        						%>
-        						<!-- System.out.println("view에서 보여지는 p"+p); -->
-							<div class ="div-plan-map"> 
-        					    <div id ="plan-map<%=i%>" class ="plan-map"></div>
-        						
-        						<div class = "div-plan-title" onclick = "goPlanDetail(<%=scrapPlanList.get(i).getpNo()%>);"> <%=p.getpTitle()%> </div>
-        						<br>
-								<div class="ui labeled button" tabindex="0" >
-									<div class="ui yellow button">
-										<i class="heart icon"></i> 좋아요
-									</div>
-									<a class="ui basic yellow left pointing label"> <%=p.getpLike() %> </a>
-								</div>
-        					</div>
-        						<%}
-        					}%>
+       						%>
+						<!-- System.out.println("view에서 보여지는 p"+p); -->
+						<div class="planBox map">
+							<div class="div-plan-writer">작성자</div>
+							<div class="div-writer">
+								<%=scrapPlanList.get(i).getpNo()%>
 							</div>
-        					</div>
-   						</div>
-        			</div>
+							<div class="div-plan-title"
+								onclick="goPlanDetail(<%=scrapPlanList.get(i).getpNo()%>);">
+								<%=p.getpTitle()%>
+							</div>
+							<div id="plan-map<%=i%>" class="planMap" readonly></div>
+							<div class="div-plan-cities">
+								<%= p.getpCites() %>
+							</div>
+							<div class="ui labeled button" tabindex="0">
+								<div class="ui yellow button">
+									<i class="heart icon"></i> 좋아요
+								</div>
+								<a class="ui basic yellow left pointing label"> <%=p.getpLike() %>
+								</a>
+							</div>
+						</div>
+						<%-- <div class ="div-plan-map"> 
+						
+       					    <div id ="plan-map<%=i%>" class ="plan-map"></div>
+       						
+       						<div class = "div-plan-title" onclick = "goPlanDetail(<%=scrapPlanList.get(i).getpNo()%>);"> <%=p.getpTitle()%> </div>
+       						<br>
+							<div class="ui labeled button" tabindex="0" >
+								<div class="ui yellow button">
+									<i class="heart icon"></i> 좋아요
+								</div>
+								<a class="ui basic yellow left pointing label"> <%=p.getpLike() %> </a>
+							</div>
+       					</div> --%>
+						<%}
+       					}%>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -498,7 +520,7 @@
 				<%
 				if(scrapPlanCityMap != null && scrapPlanList != null){
 				String[] planCityArr = null;
-				
+				System.out.println("jsp scrapPlanList 사이즈 : " + scrapPlanList.size());
 				
 				for (int i = 0; i < scrapPlanList.size(); i++){
 					planCityArr =  (scrapPlanList.get(i).getpCites()).split(", "); // 이건 String

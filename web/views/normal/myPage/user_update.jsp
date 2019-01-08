@@ -303,7 +303,7 @@ table{
 		function userDelete(){
 			alert("정말 탈퇴하시겠습니까?");
 			location.href = "<%=request.getContextPath()%>/userDelete.me";
-
+		
 			return false;
 		}
 	

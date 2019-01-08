@@ -248,7 +248,7 @@
 						<script type="text/javascript">
 							var naverLogin = new naver.LoginWithNaverId(
 								{
-									clientId: "key-value",
+									clientId: "tcR9vwEXbbuTYhKDCt7X",
 									callbackUrl: "http://127.0.0.1:8003/et/views/normal/member/user_NaverLogin_callback.jsp",
 									isPopup: false, /* 팝업을 통한 연동처리 여부 */
 									loginButton: {color: "green", type: 3, height: 65} /* 로그인 버튼의 타입을 지정 */
@@ -277,7 +277,7 @@
 						<div id="managerlogin">
 							<br> 
 							<div>
-							<a href="/et/views/common/manager/manager_login.jsp" style="color: black; text-decoration:none">관리자/제휴사 로그인 하러가기&nbsp;<i class="large hand point right outline icon"></i></a>
+							<a href="/et/views/common/manager/manager_login.jsp" style="color: silver; text-decoration:none">관리자/제휴사 로그인 하러가기&nbsp;<i class="large hand point right outline icon"></i></a>
 							</div>
 							<br>
 						</div>
