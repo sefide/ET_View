@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" %>
-<% String mno = request.getParameter("mno"); %>	
+	pageEncoding="UTF-8" import="com.kh.et.common.NumberExec"%>
+<% 
+	String mno = request.getParameter("mno"); 
+	NumberExec NE = new NumberExec();
+%>	
 
 <!DOCTYPE html>
 <html>
@@ -152,6 +155,11 @@
 	#redBlue-avel{
 		font-size: 15px;
 	}
+	.QnAType{
+		margin-left: 35px;
+		font-size: 30px;
+		
+	}
 	
 </style>
 </head>
@@ -194,6 +202,9 @@
 				<div class="cont2-flex">
 					<!-- 좌측 -->
 					<div class="con2-left">
+					<div class="QnAType">
+						<i class="angle right icon"></i><b style="font-size: 25px;">나의 Q&A</b>
+					</div><br>
 						<div class="con2-left-inner ">
 							<table class="ui single line table one">
 								<thead>
@@ -223,6 +234,9 @@
 
 					<!-- 우측  -->
 					<div class="con2-right">
+					<div class="QnAType">
+						<i class="angle right icon"></i><b style="font-size: 25px;">내가 스크랩한 Q&A</b>
+					</div><br>
 						<div class="con2-qna">
 							<table class="ui single line table two">
 								<thead>
@@ -262,6 +276,14 @@
 	%>
 	<script>
 	
+		function lengthsplit(string, len){
+			var str = string.length;
+			if(str >= len){
+			    return string.substring(0,len)+" ...";
+			}
+			return string;
+		}
+		
 		//내가 작성한 Qna목록 페이징
 		var currentPage = 1;
 		function ajax(data){
@@ -287,7 +309,8 @@
 						var $check = $("<input type='checkbox' class='qnaCheck'>");
 						var $bnoTd = $("<td>").text(data.QnaList[key].rnum);
 						var $titleTd = $("<td onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">").text(data.QnaList[key].bTitle);
-						var $contentTd = $("<td>").text(data.QnaList[key].bContent);
+						var $contentTd = $("<td>").text(lengthsplit(data.QnaList[key].bContent, 25));
+						
 						/* var $likeTd = $("<td>").text(data.QnaList[key].bLike);
 						var $scrapTd = $("<td>").text(data.QnaList[key].bScraps); */
 						var $dateTd = $("<td>").text(data.QnaList[key].bDate);
@@ -398,7 +421,7 @@
 	
 			 $.ajax({
 				url:"<%=request.getContextPath()%>/yourqnalist.bo?mno="+<%=mno%>,
-				data:{currentPage2:currentPage2},
+				data:{currentPage:currentPage2},
 				type:"get",
 				success:function(data){
 					console.log(data);
@@ -416,7 +439,8 @@
 						var $check = $("<input type='checkbox' class='qnaCheck'>");
 						var $bnoTd = $("<td>").text(data.QnaList[key].rnum);
 						var $titleTd = $("<td onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">").text(data.QnaList[key].bTitle);
-						var $contentTd = $("<td>").text(data.QnaList[key].bContent);
+						var $contentTd = $("<td>").text(lengthsplit(data.QnaList[key].bContent, 25));
+						
 						/* var $likeTd = $("<td>").text(data.QnaList[key].bLike);
 						var $scrapTd = $("<td>").text(data.QnaList[key].bScraps); */
 						var $dateTd = $("<td>").text(data.QnaList[key].bDate);
@@ -443,14 +467,14 @@
 					$currentPageOne.append($angleIcon);
 					$paginationDiv.append($currentPageOne);
 					
-					if(data.Qnapi.currentPage2 <= 1){	//현재 페이지가 1페이지거나 그보다 작을 숫자의 페이지일때
+					if(data.Qnapi.currentPage <= 1){	//현재 페이지가 1페이지거나 그보다 작을 숫자의 페이지일때
 						$leftconDisable = $("<a class='icon item'>");	//아무 작동도 없는 버튼으로만 남기기 = 버튼 비활성화
 						$angleIcon2 = $("<i class='angle left icon' >");
 						$leftconDisable.append($angleIcon2);
 						$paginationDiv.append($leftconDisable);
 					
 					}else{
-						currentPage2 = (data.Qnapi.currentPage2-1);
+						currentPage2 = (data.Qnapi.currentPage-1);
 						$leftIconAble = $("<a class=\"icon item\" onclick=\"" +"yourQnaBeforePageMove("+ currentPage2 + ");" +"\">");	//전페이지로..?
 						$angleIcon3 = $("<i class='angle left icon' >");
 						$leftIconAble.append($angleIcon3);
@@ -460,7 +484,7 @@
 					
 					//페이지의 숫자를 페이징 메뉴에 담기
 					for(var i = data.Qnapi.startPage; i <= data.Qnapi.endPage; i++){
-						if(i == data.Qnapi.currentPage2){
+						if(i == data.Qnapi.currentPage){
 							$item1 = $("<a class='item'>").text(i);	//"<a class='item'>" : 페이지의 숫자를 담는 아이콘
 							$paginationDiv.append($item1);
 						}else{
@@ -470,13 +494,13 @@
 						}
 					}
 					
-					if(data.Qnapi.currentPage2 >= data.Qnapi.maxPage){	//현재페이지 번호가 한 페이지의 끝번호보다 같거나 크면
+					if(data.Qnapi.currentPage >= data.Qnapi.maxPage){	//현재페이지 번호가 한 페이지의 끝번호보다 같거나 크면
 						$rightIconDisable = $("<a class='icon item'>");
 						$angleIcon4 = $("<i class='angle right icon' >");
 						$rightIconDisable.append($angleIcon4);
 						$paginationDiv.append($rightIconDisable);
 					}else{
-						currentPage2 = (data.Qnapi.currentPage2+1);
+						currentPage2 = (data.Qnapi.currentPage+1);
 						$rightIconAble = $("<a class=\"icon item\" onclick=\"" +"yourQnaNextPageMove("+ currentPage2 + ");" +"\">");
 						$angleIcon5 = $("<i class='angle right icon' >");
 						$rightIconAble.append($angleIcon5);
@@ -492,6 +516,7 @@
 					$trPage.append($tdPage);
 					$tableBody.append($trPage);
 				
+					console.log("성공");
 				},
 				error:function(data){
 					console.log("데이터 통신 실패..");
@@ -519,15 +544,6 @@
 			ajax2(data);
 		}
 		
-		
-		$(function(){
-	  		$("table.two th").eq(3).css("width", "200px");
-	  		$("tr td").eq(3).css("width", "200px");
-	  		$("table.one th").eq(3).css("width", "500px");
-	  		$("tr td").eq(3).css("width", "500px");
-	  		$("table.one th").eq(3).css("background", "red");
-	  		$("tr td").eq(3).css("background", "blue");
-	  	});
 		
 	</script>
 	

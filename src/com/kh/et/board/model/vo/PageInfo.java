@@ -77,10 +77,6 @@ public class PageInfo implements java.io.Serializable{
 				+ maxPage + ", startPage=" + startPage + ", endPage=" + endPage + "]";
 	}
 	
-	
-	
 
-	
-	
 	
 }
