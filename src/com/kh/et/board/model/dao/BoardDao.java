@@ -775,6 +775,7 @@ public class BoardDao {
 			pstmt.setString(4,reason);
 			
 			result = pstmt.executeUpdate();
+			System.out.println("insertClaim 실행 - dao");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -815,10 +816,34 @@ public class BoardDao {
 		return result;
 	}
 
-
+	// 신고기록 확인하기 (신고한 회원, 신고된 글번호 )
+	public int checkExistClaim(Connection con, int userNo, int boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
 		
-
-	
+		String query = prop.getProperty("checkExistClaim");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, boardNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset != null	) {
+				
+				while(rset.next()) {
+					result++;
+				}
+			}
+			System.out.println("dao - 이전에 신고한 기록 : "+ result);
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 
 }
 
