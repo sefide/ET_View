@@ -5,7 +5,8 @@
   <% 
   ArrayList<HashMap<String,Object>> list=(ArrayList<HashMap<String,Object>>)request.getAttribute("list");
   Company loginUser = (Company)session.getAttribute("loginCompany");
-  
+  int tno=(int)request.getAttribute("tno");  
+  String grade=(String)request.getAttribute("grade");
   %>  
 <!DOCTYPE html>
 <html>
@@ -249,7 +250,7 @@
 	        <span class ="txt-insertTour">투어글 수정하기 </span>
 			<div class = "bar-insertTour"></div>
 			<div class="tableArea  ui form">
-				<form id ="updateForm" action="<%=request.getContextPath()%>/update.tbo" method="post" enctype="multipart/form-data">
+				<form id ="updateForm" action="<%=request.getContextPath()%>/update.tbo?tno=<%=tno%>" method="post" enctype="multipart/form-data">
 				<%for(int i=0;i<list.size();i++){ 
 							HashMap<String,Object> hmap=list.get(i);
 							TourBoard tb = (TourBoard)hmap.get("tb");
@@ -289,35 +290,35 @@
 							<td class="attr1" align="center"><label>도시 선택</label></td>
 							<td colspan="2">
 							 <select class="ui fluid dropdown" name="city">
-								<option value="">파리</option>
-								<option value="">리옹</option>
-								<option value="">니스</option>
-								<option value="">뮌헨</option>
-								<option value="">베를린</option>
-								<option value="">뉘른베르크</option>
-								<option value="">프랑크푸르트</option>
-								<option value="">런던</option>
-								<option value="">옥스포드</option>
-								<option value="">암스테르담</option>
-								<option value="">밀라노</option>
-								<option value="">베네치아</option>
-								<option value="">피렌체</option>
-								<option value="">로마</option>
-								<option value="">프라하</option>
-								<option value="">아테네</option>
-								<option value="">부다페스트</option>
-								<option value="">빈</option>
-								<option value="">잘츠부르크</option>
-								<option value="">자그레브</option>
-								<option value="">코펜하겐</option>
-								<option value="">오덴세</option>
-								<option value="">인터라켄</option>
-								<option value="">취리히</option>
-								<option value="">이스탄불</option>
-								<option value="">앙카라</option>
-								<option value="">리스본</option>
-								<option value="">바르셀로나</option>
-								<option value="">마드리드</option>
+								<option value="1">파리</option>
+								<option value="2">리옹</option>
+								<option value="3">니스</option>
+								<option value="4">뮌헨</option>
+								<option value="5">베를린</option>
+								<option value="6">뉘른베르크</option>
+								<option value="7">프랑크푸르트</option>
+								<option value="8">런던</option>
+								<option value="9">옥스포드</option>
+								<option value="10">밀라노</option>
+								<option value="11">베네치아</option>
+								<option value="12">피렌체</option>
+								<option value="13">로마</option>
+								<option value="14">프라하</option>
+								<option value="15">아테네</option>
+								<option value="16">부다페스트</option>
+								<option value="17">빈</option>
+								<option value="18">잘츠부르크</option>
+								<option value="19">자그레브</option>
+								<option value="20">코펜하겐</option>
+								<option value="21">오덴세</option>
+								<option value="22">인터라켄</option>
+								<option value="23">취리히</option>
+								<option value="24">이스탄불</option>
+								<option value="25">앙카라</option>
+								<option value="26">리스본</option>
+								<option value="27">바르셀로나</option>
+								<option value="28">마드리드</option>
+								<option value="29">암스테르담</option>
 							</select>
 							</td>	
 						</tr>
@@ -348,12 +349,13 @@
 								</div>
 								<% } %> --%>
 								<div class ="ui radio checkbox">
-								<input type="radio" name = "powerLink" id = "powerYes" value ="premium" checked disabled><label for = "powerYes" >Yes</label>
+								<%if(tb.gettGrade().equals("premium")){%>
+								<input type="radio" name = "powerLink" id = "powerYes" value ="premium" checked><label for = "powerYes" >Yes</label>
 								</div>
-							
+								<%}else {%>
 								<div class ="ui radio checkbox">
-								<input type="radio" name = "powerLink" id = "powerNo" value ="standard" disabled><label for = "powerNo">No</label>
-								</div>
+								<input type="radio" name = "powerLink" id = "powerNo" value ="standard" checked ><label for = "powerNo">No</label>
+								<%}%></div>
 							</td>
 		
 						</tr>
@@ -417,21 +419,25 @@
 					<script>
 						function complete() {
 							//console.log("complete invocation.")
-							//if(status=="N"||(status=="Y"&&
-							//		$("#photoAttachment").val()!="")){
-								 console.log("http://127.0.0.1:8010/et/update.tbo");
+							
+							if($("#delYN").val()=="N"||($("#delYN").val()=="Y"&&
+								$("#photoAttachment").val()!="")){
+								
 							 	 $("#updateForm").submit();
 								//console.log($("#testText").text())
-							//}
-							//else {
-							//	alert("사진을 띄워주세요");
-							//	console.log("클릭")
-							//}
+								alert("사진을 띄워주세요!");
+							}
+							else {
+								alert("사진을 띄워주세요");
+								console.log("클릭")
+							}
 						}
 						function deleteTourBoard(){
 							$("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteTourBoard.tbo?tno=<%=tb.getTno()%>");
 						}
 					
+						
+						
 					</script>
 				</form>
 					<%} %>

@@ -422,8 +422,8 @@ public class CompanyDao {
 				resultM.setC_status(rset.getString("C_STATUS"));
 				resultM.setcPremium(rset.getInt("C_PREMIUM"));
 				resultM.setcStandard(rset.getInt("C_STANDARD"));
-				
-
+		
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -436,6 +436,7 @@ public class CompanyDao {
 		return resultM;
 
 	}
+	
   public int idCheck(Connection con, String userId) {
 		int result=0;
 		PreparedStatement pstmt=null;
@@ -463,4 +464,5 @@ public class CompanyDao {
 
 		return result;
 
-}
+  }
+  }
