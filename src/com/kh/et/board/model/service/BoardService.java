@@ -116,20 +116,26 @@ public class BoardService {
 	}
 	
 	//상세 글 보기 메소드
-	public Board selectOne(int num) {
+	public HashMap<String, Object> selectOne(int num) {
+		
 		Connection con = getConnection();
 		
 		Board b = null;	
-		
-			
 		b = new BoardDao().selectOne(con, num);
 		
 		int like = new BoardDao().getLikeNum(con, num);
 		b.setbLike(like);
-
-		 
+		int scrap = new BoardDao().getScrapNum(con, num);
+		b.setbScrap(scrap);
+		
+		ArrayList<Board> list = new BoardDao().selectReplyList(con, num);
+		
+		HashMap<String, Object> bMap = new HashMap<>();		
+		bMap.put("list",list);
+		bMap.put("b", b);
+		
 		close(con);
-		return b;
+		return bMap;
 	}
 
 	
@@ -223,23 +229,23 @@ public class BoardService {
 	}
 	
 	//댓글 달기
-	public ArrayList<Board> insertReply(Board b) {
-		Connection con = getConnection();
-		ArrayList<Board> replyList = null;
-		
-		int result = new BoardDao().insertReply(con, b);
-		
-		if(result > 0) {
-			commit(con);
-			replyList = new BoardDao().selectReplyList(con, b.getbNo());
-		}else {
-			rollback(con);
-		}
-		
-		close(con);
-		
-		return replyList;
-	}
+	   public ArrayList<Board> insertReply(Board b) {
+		      Connection con = getConnection();
+		      ArrayList<Board> replyList = null;
+		      
+		      int result = new BoardDao().insertReply(con, b);
+		      
+		      if(result > 0) {
+		         commit(con);
+		         replyList = new BoardDao().selectReplyList(con, b.getbNo());
+		      }else {
+		         rollback(con);
+		      }
+		      
+		      close(con);
+		      
+		      return replyList;
+		   }
 
 	// 내가 쓴 QnA 리스트 전체 불러오기
 	public int getQnaListCount(int mno) {
@@ -358,7 +364,7 @@ public class BoardService {
 		return result;
 	}
 
-
+	// 글 신고하기 
 	public int insertClaim(String reason, int userNo, int boardNo, String boardwriter) {
 		Connection con = getConnection();
 		int boardwriterNo = new BoardDao().getNo(con, boardwriter);
@@ -380,7 +386,7 @@ public class BoardService {
 	
 	
 	//댓글 가져오깅
-	public ArrayList<Board> selectReply(int getbNo) {
+/*	public ArrayList<HashMap<String, Object>> selectReply(int getbNo) {
 		Connection con = getConnection();
 		ArrayList<Board> replyList = null;
 		
@@ -390,7 +396,7 @@ public class BoardService {
 		
 		return replyList;
 	}
-	
+	*/
 	
 
 

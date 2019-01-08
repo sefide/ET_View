@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.et.plan.model.service.PlanService;
 import com.kh.et.plan.model.vo.PlanInterest;
 
@@ -43,8 +44,9 @@ public class ClickUnLikePlanServlet extends HttpServlet {
 		pl.setUser(user);
 		
 		int result = new PlanService().clickUnLike(pl);
-		
+		System.out.println("delete:"+result);
 		response.setContentType("application/json");
+		new Gson().toJson(pl, response.getWriter());
 	}
 
 	/**

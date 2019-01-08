@@ -106,12 +106,54 @@
 	font-size: 25px;
 	text-decoration: none;
 }
+.kakao-login-popup{
+	position : absolute ;
+	width : 420px;
+	background : rgba(255,255,255, 0.9);
+	padding : 1%;
+	border : 1px solid gray;
+	text-align : center;
+	top: 20%;
+    left: 35%;
+    	visibility : hidden;
+}
+.kakao-popup-txt{
+	font-size : 18px;
+	font-weight : 700;
+	margin-bottom : 10px;
+}
 
 
 </style>
 </head>
 <body>
 	<!--로그인페이지 시작-->
+	<div class = "kakao-login-popup">
+		<i class = "close icon" onclick = "closePop();"></i>
+		<div align = "center" id = "resultClaim">
+			<label class = "kakao-popup-txt">이메일</label>
+			<input type="email" name="userEmail" id="getuserEmail" placeholder="이메일을 입력해주세요"> 
+			<span>
+				<button class="ui button" onclick="return sendEmail();" style="width: 110px; height: 30px; font-size: 12px;">인증번호발송</button>
+			</span>
+			<!-- 인증번호 생성 -->
+				<%!public int getRandom() {
+					int randomCode = 0;
+					randomCode = (int) Math.floor((Math.random() * 99999 - 10000 + 1)) + 10000;
+					return randomCode;
+				}%>
+			<input type="hidden" value="<%=getRandom()%>" id="randomCode">
+			
+			<!-- 인증번호 입력란 -->
+			<div class="ui transparent input" id="sendEmailClick">
+				<input id="authCode" type="text" placeholder="인증번호를 입력하세요">
+				<span>
+					<a><button class="ui button" onclick="return auth();" style="width: 97px; height: 30px; font-size: 12px;">인증하기</button></a>
+				</span>
+			</div>
+			<button id = "submitClaim"> 가입 완료 </button>
+		</div>
+	</div>
 	<div class="main" id = "main">
 		<form id="loginForm" action="<%= request.getContextPath() %>/login.me" method="post">
 			<table align="center">
@@ -171,10 +213,16 @@
 							          	Kakao.API.request({
 							          		url:'/v1/user/me',
 							          		success:function(data){
-							          			alert(data.id);//아이디
-							          			alert(data.kaccount_email);//이메일 받아오기
+							          			var userId = data.id;//아이디
+							          			var userEmail = data.kaccount_email;//이메일 받아오기
+							          			var userEmail_verified = data.kaccount_email_verified; // 이메일 인증여부 확인 
 							          			
-							          			/* location.href */
+							          			if(userEmail == null || !userEmail_verified){
+							          				alert("이메일은 필수정보입니다. 이메일 정보제공을 동의해주세요.");
+							          				Kakao.Auth.logout();
+							          			}else {
+							          				location.href="<%=request.getContextPath()%>/kakaoLogin.me?userId="+userId+"&userEmail="+userEmail+"&password=0202";
+							          			}
 							          		}
 							          	})
 							        },
@@ -257,6 +305,44 @@
 			alert("<%=joinmsg%>");
 			<%} %>
 		});
+		
+		//이메일 인증번호 발송		
+		function sendEmail(){
+			$("#sendEmailClick").show();
+			
+			var randomCode = $("#randomCode").val();
+			
+			var getuserEmail = document.getElementById("getuserEmail").value;
+			
+			$.ajax({
+				url:"/et/sendEmail.me",
+				type:"get",
+				data:{userEmail:getuserEmail,randomCode:randomCode},
+				success:function(data){
+					if(data == "SUCCESS"){
+						alert("인증코드 발송 성공!");
+					}else{
+						alert("인증코드 발송 실패");
+					}
+				},
+				error:function(){
+					console.log("실패!");
+				}
+			});
+			return false;
+				
+		}	
+		//이메일 인증코드 확인
+		function auth(){
+			if($("#authCode").val() == $("#randomCode").val()){
+				alert("이메일이 인증되었습니다.");
+				$("#emailCheckImg").show();
+				$("#emailCheckImg").attr("src",checkImgPath);
+			}else{
+				alert("이메일 인증 실패");
+			}
+			return false;
+		}
 	</script>
 	
 </body>
