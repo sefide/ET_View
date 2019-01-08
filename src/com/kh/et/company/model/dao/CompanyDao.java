@@ -423,7 +423,7 @@ public class CompanyDao {
 				resultM.setcPremium(rset.getInt("C_PREMIUM"));
 				resultM.setcStandard(rset.getInt("C_STANDARD"));
 				
-
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -463,4 +463,5 @@ public class CompanyDao {
 
 		return result;
 
+}
 }

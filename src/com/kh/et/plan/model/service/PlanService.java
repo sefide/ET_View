@@ -334,6 +334,7 @@ public class PlanService {
 		
 		if(scrapPlan != null && scrapPlanCity != null) {
 			scrapPlan.put("scrapPlanCity", scrapPlanCity);
+			System.out.println("service - 도시 정보 넣었어,,, ");
 			commit(con);
 		}else {
 			rollback(con);

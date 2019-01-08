@@ -175,7 +175,7 @@
 	    }
 	    
 	    function goLogout(){
-	    	location.href = "/et/logout.company"
+	    	location.href = "/et/logout.co"
 	    }
     </script>
     

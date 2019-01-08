@@ -236,7 +236,7 @@
     						<div class = "div-plan-title"> 플랜 제목입니다. </div>
         					<div id = "planMap0" class ="planMap" readonly></div>
         					<div class = "div-plan-cities"> 여행도시,여행도시, 여행도시, 여행도시, 여행도시, 여행도시 </div>
-   					</div>
+   						</div>
    					
         				
         				

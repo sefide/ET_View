@@ -821,12 +821,13 @@ public class PlanDao {
 			while (rset.next()) {
 				Plan p = new Plan();
 
-				p.setpNo(rset.getInt("P_NO"));
+				p.setpNo(rset.getInt("PI_P_NO"));
 				p.setpTitle(rset.getString("P_TITLE"));
 				p.setpCites(rset.getString("P_CITYS"));
 				p.setpDate(rset.getDate("P_DATE"));
 
 				list.add(p);
+				System.out.println("dao - plan 입력 ");
 			}
 			planmap.put("scrapPlan", list);
 			// 키 - 최근 스크랩한 플랜 : 값 - 스크랩한 플랜들의 정보
@@ -867,7 +868,7 @@ public class PlanDao {
 
 				resultMap.put(String.valueOf(ct.getCtName()), ct);
 			}
-
+			System.out.println("dao - city 크기 :  " + resultMap.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

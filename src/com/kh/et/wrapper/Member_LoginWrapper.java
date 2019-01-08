@@ -8,19 +8,19 @@ import java.util.Base64;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-public class LoginWrapper extends HttpServletRequestWrapper{
+public class Member_LoginWrapper extends HttpServletRequestWrapper{
 
-	public LoginWrapper(HttpServletRequest request) {
-		super(request);
+	public Member_LoginWrapper(HttpServletRequest request) {
+		super(request);	//super : 부모(ServletRequest) =>ServletRequest의 request를 부르게따
 	}
 	
-	@Override
+	@Override	//부모의 getParameter를 오버라이드 하여 getParameter를 새로 정의했다.
 	public String getParameter(String key) {
 		String value = "";
-		if(key != null && key.equals("userPwd")) {
-			value = getSha512(super.getParameter("userPwd"));
+		if(key != null && key.equals("userPwd")) {	//키 값이 userPwd일경우
+			value = getSha512(super.getParameter("userPwd"));	//getSha512라는 메소드를 거쳐 암호화 처리를하여 반환하고,
 		}else {
-			value = super.getParameter(key);
+			value = super.getParameter(key);	//아니면 암호화 처리를 하지 않고 그냥 그대로 반환한다.
 		}
 		return value;
 	}

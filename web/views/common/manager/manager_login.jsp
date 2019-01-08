@@ -175,7 +175,7 @@
 		}); 
 		
 		function company_login(){	//액션 따로 주기!!
-			$("#managerLoginForm").attr("action", "<%=request.getContextPath() %>/login.company");
+			$("#managerLoginForm").attr("action", "<%=request.getContextPath() %>/login.co");
 			$("#managerLoginForm").submit;
 
 		}
