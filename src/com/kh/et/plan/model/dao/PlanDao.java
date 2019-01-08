@@ -936,6 +936,7 @@ public class PlanDao {
 			close(pstmt);
 		}
 	
+
 		return result;
 	}
 
@@ -951,7 +952,33 @@ public class PlanDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+	return result;
+	}
+	//스크랩 클릭시 
+	public int clickScrap(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("clickScrap");
+		//clickScrap=INSERT INTO PLANINTEREST SELECT SEQ_PI_NO.NEXTVAL,?,?,?,? FROM DUAL A WHERE NOT EXISTS ( SELECT * FROM PLANINTEREST WHERE  PI_P_NO = ? AND PI_GIVE_NO = ? AND PI_TYPE = ? )
+		try {
+			String type = "스크랩";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pl.getWriter());
+			pstmt.setInt(2, pl.getPno());
+			pstmt.setInt(3, pl.getUser());
+			pstmt.setString(4, type);
+			pstmt.setInt(5, pl.getPno());
+			pstmt.setInt(6, pl.getUser());
+			pstmt.setString(7, type);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -959,6 +986,31 @@ public class PlanDao {
 
 		return result;
 	}
+	//스크랩 취소 클릭
+	public int clickUnScrap(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		int result = 0;		
+		String query = prop.getProperty("clickUnScrap");		
+		//clickUnScrap=DELETE FROM PLANINTEREST WHERE  PI_P_NO = ? AND PI_GIVE_NO = ? AND PI_TYPE = ?
+		try {
+			String type = "스크랩";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pl.getPno());
+			pstmt.setInt(2, pl.getUser());			
+			pstmt.setString(3, type);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+
 	
 	public int updatePlanLickeClicKMember(Connection con, PlanInterest pl) {
 		PreparedStatement pstmt = null;

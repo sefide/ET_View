@@ -14,6 +14,7 @@ public class Plan implements java.io.Serializable{
 	private String pPrivate;
 	private String pStatus;
 	private int pLike;
+	private int Scrap;
 	
 	public Plan() {}
 
@@ -110,8 +111,28 @@ public class Plan implements java.io.Serializable{
 
 
 
+	
+
+
+
+
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "Plan [pNo=" + pNo + ", pWriter=" + pWriter + ", pId=" + pId + ", pTitle=" + pTitle + ", pDate=" + pDate
+				+ ", pStartDate=" + pStartDate + ", pEndDate=" + pEndDate + ", pCites=" + pCites + ", pPrivate="
+				+ pPrivate + ", pStatus=" + pStatus + ", pLike=" + pLike + ", Scrap=" + Scrap + "]";
+	}
+
+
+
+
 	public Plan(int pNo, int pWriter, String pId, String pTitle, Date pDate, Date pStartDate, Date pEndDate,
-			String pCites, String pPrivate, String pStatus, int pLike) {
+			String pCites, String pPrivate, String pStatus, int pLike, int scrap) {
 		super();
 		this.pNo = pNo;
 		this.pWriter = pWriter;
@@ -124,16 +145,7 @@ public class Plan implements java.io.Serializable{
 		this.pPrivate = pPrivate;
 		this.pStatus = pStatus;
 		this.pLike = pLike;
-	}
-
-
-
-
-	@Override
-	public String toString() {
-		return "Plan [pNo=" + pNo + ", pWriter=" + pWriter + ", pId=" + pId + ", pTitle=" + pTitle + ", pDate=" + pDate
-				+ ", pStartDate=" + pStartDate + ", pEndDate=" + pEndDate + ", pCites=" + pCites + ", pPrivate="
-				+ pPrivate + ", pStatus=" + pStatus + ", pLike=" + pLike + "]";
+		Scrap = scrap;
 	}
 
 
@@ -141,6 +153,20 @@ public class Plan implements java.io.Serializable{
 
 	public void setpId(String pId) {
 		this.pId = pId;
+	}
+
+
+
+
+	public int getScrap() {
+		return Scrap;
+	}
+
+
+
+
+	public void setScrap(int scrap) {
+		Scrap = scrap;
 	}
 
 	

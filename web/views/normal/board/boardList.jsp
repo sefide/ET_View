@@ -89,7 +89,7 @@
 			} %> --%>
 
 			<!-- 리스트 테이블 -->
-			<table class="ui celled padded table" id="listArea">
+			<table class="ui yellow table" id="listArea">
 				<thead>
 					<tr>
 						<th class="single line">글 번호</th>
@@ -162,7 +162,7 @@
 				<script>
 			$(function(){
 			$("#listArea td").mouseenter(function(){
-				$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+				$(this).parent().css({"background":"#fbbd08", "cursor":"pointer"});
 			}).mouseout(function(){
 				$(this).parent().css({"background":"none"});
 			}).click(function(){

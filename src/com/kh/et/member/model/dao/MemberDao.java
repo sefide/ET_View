@@ -442,28 +442,26 @@ public class MemberDao {
 		return result;
 	}
 
-	public int insertNaverUser(Connection con, String name, String email, String password) {
+	public int insertSnsUser(Connection con, String name, String email, String password) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
-		String query = prop.getProperty("insertNaverUser");
+		String user = "이름을 설정해주세요.";
+		String query = prop.getProperty("insertSnsUser");
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, email);
 			pstmt.setString(2, password);
 			pstmt.setString(3, name);
 			pstmt.setString(4, email);
-			pstmt.setString(5, "테스트입니다");
+			pstmt.setString(5, "안녕하세요. 행복한 유럽여행 다녀올게요.");
 			
 			result = pstmt.executeUpdate();
-			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
-		System.out.println(result);
 		
 		return result;
 	}

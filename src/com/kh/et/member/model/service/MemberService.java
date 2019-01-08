@@ -184,16 +184,60 @@ public class MemberService {
 	//네이버로 로그인시 자동회원가입 되게 해주기
 	public int insertNaverUser(String name, String email, String password) {
 		Connection con = getConnection();
+		Member m = new Member();
+		m.setM_id(email);
+		m.setM_pwd(password);
+		int allResult = 0;
 		
-		int result = new MemberDao().insertNaverUser(con, name, email, password);
+		// 존재하는 회원인지 확인 
+		Member resultExistMember = new MemberDao().loginCheck(con ,m);
+		int resultInsertMember = 0;
 		
-		if(result > 0) {
+		if(resultExistMember != null) { // 이미 존재하는 회원 
 			commit(con);
-		}else {
-			rollback(con);
+			allResult = 1;
+		}else { // 존재하지 않은 회원 
+			resultInsertMember = new MemberDao().insertSnsUser(con, name, email, password);
+			if(resultInsertMember > 0) {
+				commit(con);
+				allResult = 1;
+			}else {
+				rollback(con);
+			}
 		}
+		
 		close(con);
-		return result;
+		return allResult;
+	}
+	
+	// 카카오로 회원가입 
+	public int insertKakaoUser(String userName, String userEmail, String password) {
+		Connection con = getConnection();
+		Member m = new Member();
+		m.setM_id(userEmail);
+		m.setM_pwd(password);
+		int allResult = 0;
+		
+		// 존재하는 회원인지 확인 
+		Member resultExistMember = new MemberDao().loginCheck(con ,m);
+		int resultInsertMember = 0;
+		
+		if(resultExistMember != null) { // 이미 존재하는 회원 
+			commit(con);
+			allResult = 1;
+			System.out.println("이야잉양 ");
+		}else { // 존재하지 않은 회원 
+			resultInsertMember = new MemberDao().insertSnsUser(con, userName, userEmail, password);
+			if(resultInsertMember > 0) {
+				commit(con);
+				allResult = 1;
+			}else {
+				rollback(con);
+			}
+		}
+		
+		close(con);
+		return allResult;
 	}
 
 	//비밀번호 찾을 시 이메일 유효성 검사
@@ -208,7 +252,7 @@ public class MemberService {
 		return loginUser;
 	}
 
-
+	
 
 
 

@@ -39,9 +39,9 @@ public class ClickLikePlanServlet extends HttpServlet {
 				int user = Integer.parseInt(request.getParameter("user"));
 				int writer = Integer.parseInt(request.getParameter("writer"));
 				
-				System.out.println("플랜번호 = "+pno);
+				/*System.out.println("플랜번호 = "+pno);
 				System.out.println("로그인 유저 = "+user);
-				System.out.println("플랜 작성자 = "+writer);
+				System.out.println("플랜 작성자 = "+writer);*/
 		
 				PlanInterest pl = new PlanInterest();
 				pl.setPno(pno);
