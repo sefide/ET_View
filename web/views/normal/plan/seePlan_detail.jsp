@@ -126,6 +126,7 @@
 	.div-plan-info{
 		margin-top : 1%;
 	}
+	
     
 </style>
 
@@ -158,23 +159,63 @@
 			        	<div class = "txt"> 공개/비공개 : <% if(plan.getpPrivate().equals("Y")) { %> 공개 <%} else { %> 비공개 <%} %></div>
 			        	<div class = "txt"> 여행도시 개수 : <%=plan.getpCites().split(", ").length %>개 도시 </div>
 			    </div>
-					<div class="div-plan-info">
-						<!-- 좋아요 -->
-
+					<div class="div-plan-info">						
+						<!-- 좋아요 -->						
+						<%-- <% if( plan.getpWriter() != loginUser.getM_no()){ %> --%>
 						<div class="ui labeled button" tabindex="0">
-							<div class="ui red button" id="likePlan">
+							<div class="ui basic red button" id="likePlan">
 								<i class="heart icon"></i> 좋아요!
 							</div>
-							<a class="ui basic red left pointing label" id="likeCnt"> <%=planMap.get("like")%>
-							</a>
+							<a class="ui basic red left pointing label" id="likeCnt"> <%=planMap.get("like")%></a>
+							
 							<div class="ui red button" id="unlikePlan" style="display: none;" >
 								<i class="empty heart icon"></i> 좋아요!
 							</div>
 							<a class="ui basic red left pointing label" id="unlikeCnt" style="display: none;" > <%=planMap.get("like")%>
 							</a>
 						</div>
+						<!-- 스크랩 -->
+						<div class="ui labeled button" tabindex="0" style="margin-top: 10px;">
+							<div class="ui basic blue button" id="scrapPlan">
+								<i class="fork icon"></i> 스크랩
+							</div>
+							<a class="ui basic left pointing blue label" id="scrapCnt"> <%=planMap.get("scrap")%> <a>
+							
+							<div class="ui blue button" id="unscrapPlan" style="display: none;">
+								<i class="empty fork icon"></i> 스크랩</div>
+							<a class="ui basic left pointing blue label" id="unscrapCnt" style="display: none;" > <%=planMap.get("scrap")%><a>
+							
+						</div>
+						<%-- <%}else{ %>
+						 <div class="ui labeled button" tabindex="0"  >
+							<div class="ui red button" id="like" >
+								<i class="heart icon"></i> 좋아요!
+							</div>
+							<a class="ui basic red left pointing label" > <%=planMap.get("like")%>
+							</a>
+							<div class="ui red button" id="unlike" style="display: none;" >
+								<i class="empty heart icon"></i> 좋아요!
+							</div>
+							<a class="ui basic red left pointing label" style="display: none;" > <%=planMap.get("like")%>
+							</a>
+						</div>
+						<div class="ui labeled button" tabindex="0" style="margin-top: 10px;">
+							<div class="ui basic blue button" id="scrap">
+								<i class="fork icon"></i> 스크랩
+							</div>
+							<a class="ui basic left pointing blue label" > <%=planMap.get("scrap")%><a>
+							
+							<div class="ui blue button" id="unscrap" style="display: none;"  >
+								<i class="empty fork icon"></i> 스크랩
+							</div>
+							<a class="ui basic blue left pointing  label"  style="display: none;" > <%=planMap.get("scrap")%><a>							
+						</div>							
+						<%} %> --%>
 						
 						<script>
+						$('a[href="#"]').click(function(e) {
+							e.preventDefault();
+						});
 							/* 좋아요  클릭시 */
 							$("#likePlan").click(function() {							
 									var pno = '<%= plan.getpNo()%>' ;														
@@ -245,19 +286,84 @@
 										console.log('실패');
 									}
 								});
-							});																
+							});		
+							
+							/* 스크랩 클릭시 */
+							$("#scrapPlan").click(function() {							
+									var pno = '<%= plan.getpNo()%>' ;														
+									var user = '<%= loginUser.getM_no() %>' ; 
+									var writer = '<%= plan.getpWriter()%>' ; 								
+									jQuery.ajax({
+										url:"/et/clickScrapPlan.pl",
+										data:{pno:pno, user:user, writer:writer},
+										type:"post",
+										success:function(data){
+											console.log(data);		
+											
+											 $("#scrapPlan").css("display", "none");
+											$("#scrapCnt").css("display", "none");
+											$("#unscrapPlan").css("display", "block");	
+											$("#unscrapCnt").css("display", "block");	
+											
+											
+											jQuery.ajax({
+												url:"/et/countScrapCnt.pl",
+												data:{pno:pno, user:user, writer:writer},
+												type:"post",
+												success:function(data){
+													console.log(data);	
+													 $("#unscrapCnt").text(data.scrap);
+													},
+												error:function(){
+														console.log('실패');
+													}
+												});
+										},
+										error:function(){
+											console.log('실패');
+										}
+									});
+	
+								}); 
+							
+							/* 스크랩 취소시 */
+							$("#unscrapPlan").click(function() {	
+								var pno = '<%= plan.getpNo()%>' ;														
+								var user = '<%= loginUser.getM_no() %>' ; 
+								var writer = '<%= plan.getpWriter()%>' ; 
+									jQuery.ajax({
+									url:"/et/clickUnLikePlan.pl",
+									data:{pno:pno, user:user, writer:writer},
+									type:"post",
+									success:function(data){																
+										$("#unscrapPlan").css("display", "none");
+										$("#unscrapCnt").css("display", "none");
+										$("#scrapCnt").css("display", "block");
+										$("#scrapPlan").css("display", "block");
+										
+										jQuery.ajax({
+											url:"/et/clickUnScrapPlan.pl",
+											data:{pno:pno, user:user, writer:writer},
+											type:"post",
+											success:function(data){
+													
+												 $("#scrapCnt").text(data.scrap);
+												},
+											error:function(){
+													console.log('실패');
+												}
+											});
+									},
+									error:function(){
+										console.log('실패');
+									}
+								});
+							});									
 						</script>
-						<br>
-						<!-- 스크랩 -->
-						<div class="ui labeled button" tabindex="0"
-							style="margin-top: 10px;">
-							<div class="ui basic blue button">
-								<i class="fork icon"></i> Scrap
-							</div>
-							<a class="ui basic left pointing blue label"> <%=planMap.get("scrap")%>
-							</a>
-						</div>
-					</div>
+						
+						
+						
+					</div> <!-- div-info 끝 -->
 
 				</div>
         </div>

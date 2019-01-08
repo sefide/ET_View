@@ -73,7 +73,7 @@
 
 .div-plan-map {
 	width: 240px;
-	height: 280px;
+	height: 380px;
 	display: inline-block;
 	margin: 5px 12px 30px 10px;
 }
@@ -136,12 +136,26 @@
         						
         						<div class = "div-plan-title" onclick = "goPlanDetail(<%=planList.get(i).getpNo()%>);"> <%=p.getpTitle()%> </div>
         						<br>
-								<div class="ui labeled button" tabindex="0" >
-									<div class="ui yellow button">
+								
+									<div class="ui labeled button" tabindex="0" style="width: 250px; height: 30px; margin-top: 5px;" >
+									<div class="ui basic red button">
 										<i class="heart icon"></i> 좋아요
 									</div>
-									<a class="ui basic yellow left pointing label"> <%=p.getpLike() %> </a>
-								</div>
+									<a class="ui basic left pointing red label"> <%=p.getpLike() %> </a>
+									</div>
+									<br>
+									<div class="ui labeled button" tabindex="0" style="width: 250px; height: 30px; margin-top: 5px;" >
+									<div class="ui basic blue button">
+										<i class="fork icon"></i> 스크랩
+									</div>
+									<a class="ui basic left pointing blue label"> <%= p.getScrap() %> </a>
+									</div>
+
+								
+								
+								
+								
+								
         					</div>
         					<%}
         				}%>
@@ -270,14 +284,13 @@
         					    <div id ="plan-map1<%=i%>" class ="plan-map"></div>  
         						<div class = "div-plan-title" onclick = "goPlanDetail(<%=nPlanList.get(i).getpNo()%>);"><%=p.getpTitle() %></div>
         						<br>
-        						<div class = "div-plan-like"> 
-        							<i class = "icon heart"><%=p.getpLike() %></i>
-        						</div>
+									<i class="red heart icon"></i><span style="color: red;"> 좋아요 </span> <%=p.getpLike() %> <br>
+									<i class="blue fork icon"></i><span style="color: #2185d0;"> 스크랩 </span> <%= p.getScrap() %> 
+        						
         					
         					</div>
         					<%}
-        				}%>							
-						</div>					
+        				}%>	</div>					
 					</div>
 				</div>
 			</div>	
