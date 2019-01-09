@@ -226,7 +226,7 @@
     				<div class = "div-menu">
     					<ul>
     						<li><a onclick = "goMyPlan();" > > 내 플랜보기 </a> </li>
-    						<li><a href = "/et/views/normal/myPage/myPage_activity_history.jsp"> > 나의 활동내역 </a></li>
+    						<li><a onclick="goMyActivity();"> > 나의 활동내역 </a></li>
     						<li><a href = "<%=request.getContextPath()%>/pointList.po"  class = "this-page"> > 포인트 히스토리 </a></li>
     						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
     					</ul>
@@ -344,6 +344,11 @@
 	}
 	function editProfile() {
 		window.open("views/normal/myPage/myPage_profile_edit.jsp", "프로필 수정", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+	}
+	
+	function goMyActivity(){
+		var mno = <%=loginUser.getM_no()%>;
+		location.href = "<%=request.getContextPath()%>/qnaplan.bo?mno="+mno;
 	}
  	</script>
 	

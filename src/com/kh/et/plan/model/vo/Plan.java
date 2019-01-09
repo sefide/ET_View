@@ -15,6 +15,8 @@ public class Plan implements java.io.Serializable{
 	private String pStatus;
 	private int pLike;
 	private int Scrap;
+	private int pRnum;
+	private String pName;
 	
 	public Plan() {}
 
@@ -104,35 +106,19 @@ public class Plan implements java.io.Serializable{
 
 
 
-	public String getpId() {
-		return pId;
-	}
-
-
-
-
-	
-
-
-
-
-
-
-
-
 
 	@Override
 	public String toString() {
 		return "Plan [pNo=" + pNo + ", pWriter=" + pWriter + ", pId=" + pId + ", pTitle=" + pTitle + ", pDate=" + pDate
 				+ ", pStartDate=" + pStartDate + ", pEndDate=" + pEndDate + ", pCites=" + pCites + ", pPrivate="
-				+ pPrivate + ", pStatus=" + pStatus + ", pLike=" + pLike + ", Scrap=" + Scrap + "]";
+				+ pPrivate + ", pStatus=" + pStatus + ", pLike=" + pLike + ", Scrap=" + Scrap + ", pRnum=" + pRnum + ", pName=" + pName + "]";
 	}
 
 
 
 
 	public Plan(int pNo, int pWriter, String pId, String pTitle, Date pDate, Date pStartDate, Date pEndDate,
-			String pCites, String pPrivate, String pStatus, int pLike, int scrap) {
+			String pCites, String pPrivate, String pStatus, int pLike, int scrap, int pRnum, String pName) {
 		super();
 		this.pNo = pNo;
 		this.pWriter = pWriter;
@@ -146,9 +132,14 @@ public class Plan implements java.io.Serializable{
 		this.pStatus = pStatus;
 		this.pLike = pLike;
 		Scrap = scrap;
+		this.pRnum = pRnum;
+		this.pName = pName;
 	}
 
 
+	public String getpId() {
+		return pId;
+	}
 
 
 	public void setpId(String pId) {
@@ -163,12 +154,39 @@ public class Plan implements java.io.Serializable{
 	}
 
 
-
-
 	public void setScrap(int scrap) {
 		Scrap = scrap;
 	}
 
+
+
+
+	public int getpRnum() {
+		return pRnum;
+	}
+
+
+
+
+	public void setpRnum(int pRnum) {
+		this.pRnum = pRnum;
+	}
+
+
+
+
+	public String getpName() {
+		return pName;
+	}
+
+
+
+
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+
+	
 	
 
 	
