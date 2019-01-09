@@ -370,7 +370,57 @@ public class ManagerDao {
 		return max_count_member;
 	}
 
-	//블랙회원조회
+	//블랙회원조회(정지안된 회원)
+	public ArrayList<Member> selectBlackList2(Connection con, int currentPage, int limit) {
+		
+		PreparedStatement pstmt= null;
+		ResultSet rset = null;
+		Member m = null;
+		ArrayList<Member> list = null;
+		
+		String query = prop.getProperty("selectBlackList2");
+		
+		list = new ArrayList<Member>();
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			
+			//현재페이지(목록)에서 시작하는 글번호
+			int startRow = (currentPage - 1) * limit + 1;
+			//현재페이지에서 마지막 글번호
+			int endRow = startRow + limit - 1;/*
+			System.out.println("endRow : "+endRow);
+			System.out.println("startRow : "+startRow);*/
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				m = new Member();
+				
+				m.setM_no(rset.getInt("M_NO"));
+				m.setM_id(rset.getString("M_ID"));
+				m.setM_email(rset.getString("M_EMAIL"));
+				m.setM_point(rset.getInt("CNT"));
+				
+				list.add(m);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+	
+	
+	//블랙회원조회(탈퇴안한 회원)
 	public ArrayList<Member> selectBlackList(Connection con, int currentPage, int limit) {
 		
 		PreparedStatement pstmt= null;

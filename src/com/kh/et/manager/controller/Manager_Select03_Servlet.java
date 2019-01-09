@@ -68,7 +68,7 @@ public class Manager_Select03_Servlet extends HttpServlet {
 		//페이징처리에 쓸 변수들 가지고있는 객체생성
 		PageInfo pi = new PageInfo(currentPage,BlackListCount,limit,maxPage,startPage,endPage);
 				
-		ArrayList<Member> BlackList = new ManagerService().selectBlackList(currentPage,limit);
+		ArrayList<Member> BlackList = new ManagerService().selectBlackList2(currentPage,limit);
 
 		String page="";
 		if(BlackList!=null) {
