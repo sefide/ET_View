@@ -156,7 +156,7 @@
                		 	</li><li class="nav_item">
                     		<a class="nav_link" href="/et/selectList.co">투어&제휴사 관리</a>
                		 	</li><li class="nav_item">
-                    		<a class="nav_link" href="#">평가지 관리</a>
+                    		<a class="nav_link" href="<%=request.getContextPath()%>/selectEval.mng">평가지 관리</a>
                		 	</li>
             		</ul>
 	        </div>
