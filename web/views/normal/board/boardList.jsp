@@ -65,25 +65,28 @@
 				<div class="ui two column very relaxed grid">
 					<div class="column">
 						<h1 class="ui header">
-							<img src="/et/image/common/logo.png" class="ui circular image">
+							<img src="/et/image/common/logo.png" class="ui circular image" style ="border : 1px solid gray">
 							ET Planner 공지사항
 						</h1>
 
 					</div>
 					<div class="column">
-						<p>*비방과 욕설은 금물!</p>
-						<p>*좋아요와 스크랩은 환영!</p>
+						<p>*여행 관련 질문을 마음껏 해주세요. </p>
+						<p>*비방과 욕설은 금물이예요. </p>
+						<p>*좋아요와 스크랩은 환영해요. </p>
 					</div>
 				</div>
 			</div>
 			
 			<!-- 등록버튼 -->
 			<%-- <% if(loginUser != null){%> --%>
-			<div class="ui list" style="text-align: right;">
+			<div class="ui list" >
+			<b style = "font-size : 37px;">Q&A</b>
 				<!-- <button class="ui right yellow button" onclick="location.href='views/normal/board/boardInsertForm.jsp'"> 글 등록하기</button> -->
 				<!-- 글 등록하기 onclick이벤트로 수정(글작성 포인트 제한) -->
-				 <button class="ui right yellow button" onclick="goBoardInsert();"> 글 등록하기</button> 
+				 <button style="float: right;" class="ui right yellow button" onclick="goBoardInsert();"> 글 등록하기</button> 
 			</div>
+			<div clear = "both" style = "margin_bottom : -30px;"></div>
 			<%-- <%}else{
 				
 			} %> --%>

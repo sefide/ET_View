@@ -32,8 +32,6 @@ public class SelectAllPlanServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("모든 플랜보기 서블릿에 들어왔당!");
-		
 		int currentPage;
 		int limit;
 		int maxPage;
