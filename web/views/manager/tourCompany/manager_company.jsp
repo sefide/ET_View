@@ -112,6 +112,7 @@ table{
     			<th>연락처</th>
     			<th>계약 시작 날짜</th>
     			<th>계약 종료 날짜</th>
+    			
 
     			
     		</tr>
@@ -124,7 +125,7 @@ table{
     			<td><%=c.getC_phone() %></td>
     			<td><%=c.getC_date() %></td>
     			<td><%=c.getC_end_date() %></td>
-    			    		
+    			
     		</tr>
     		<%} %>
     		
