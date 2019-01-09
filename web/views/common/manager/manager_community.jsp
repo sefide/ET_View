@@ -21,15 +21,19 @@
 			float:left;
 			border:1px solid black;
 			margin: 5% 5%;
-			height:150px;
+			height:100px;
 			text-align:left;
 			display : table-cell;
 			vertical-align : middle;
 		} 
+		.ul_01 {
+			margin-top:24px;
+		}
 		
 </style>
 </head>
 <body>
+
 <!-- 카테고리 네비게이터 -->
    		<div class="left-nav">
        		<ul class="ul_01">

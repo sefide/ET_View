@@ -21,13 +21,19 @@
 			float:left;
 			border:1px solid black;
 			margin: 5% 5%;
-			height:150px;
+			height:100px;
 			text-align:left;
 			display : table-cell;
 			vertical-align : middle;
 		} 
 		.ul_01 {
 			vertical-align:middle;
+			margin-top:24px;
+		}
+		.lic {
+			margin-top:auto;
+			margin-left: auto;
+			margin-right:auto;
 		}
 		
 		
@@ -37,10 +43,10 @@
 <!-- 카테고리 네비게이터 -->
    		<div class="left-nav">
        		<ul class="ul_01" style= vertical-align:middle;>
-           		<li>
+           		<li class="lic">
                		<div class="click" onclick = "test();">제휴사 관리</div>
            		</li>
-           		<li>
+           		<li class="lic">
                		<div class="click" onclick = "searchPost();">투어글 관리</div>
            		</li>
            		
