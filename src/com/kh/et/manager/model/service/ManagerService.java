@@ -586,6 +586,18 @@ public class ManagerService {
 		return result;
 	}
 
+	public ArrayList<HashMap<String, Object>> selectEval() {
+		Connection con=getConnection();
+		ArrayList<HashMap<String,Object>> list=null;
+		
+			list=new ManagerDao().selectEval(con);
+		
+		close(con);
+		
+		
+		return list;
+	}
+
 	
 
 

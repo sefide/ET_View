@@ -850,11 +850,11 @@ public class ManagerDao {
 		ResultSet rset=null;
 		
 		String query=prop.getProperty("cityList");
-	/*	SELECT ROWNUM RNUM,CT_NAME,CT_COUNTRY,RK
-		FROM(SELECT CT_NAME,CT_COUNTRY, RANK() OVER (ORDER BY EV_STAR DESC) AS RK 
-		FROM TRAVELCITY TC JOIN PLANDETAIL P ON(TC.CT_NO=P.PD_START_CITY)
-		JOIN EVAL E ON(P.PD_NO=E.EV_PD_NO))
-		WHERE ROWNUM BETWEEN ? AND ?;*/
+		/*SELECT RNUM,CT_NAME,CT_COUNTRY,AVG F
+		ROM(SELECT ROWNUM RNUM,CT_NAME,CT_COUNTRY,AVG FROM(SELECT distinct TC.CT_NAME,TC.CT_COUNTRY,RANK() OVER(ORDER BY AVG(ev_star)DESC) AS AVG 
+				FROM TRAVELCITY TC JOIN PLANDETAIL P ON(TC.CT_NO=P.PD_START_CITY or tc.ct_no=p.pd_end_city) 
+				JOIN EVAL E ON(P.PD_NO=E.EV_PD_NO) 
+				group by ct_name,ct_country order by AVG))*/
 		
 		try {
 			pstmt=con.prepareStatement(query);
@@ -869,10 +869,10 @@ public class ManagerDao {
 				
 				
 				hmap=new HashMap<String,Object>();
-				hmap.put("ctNo",rset.getInt("CT_NO"));
+				hmap.put("ctNo",rset.getInt("RNUM"));
 				hmap.put("ctName",rset.getString("CT_NAME"));
 				hmap.put("ctCountry",rset.getString("CT_COUNTRY"));
-				hmap.put("rank",rset.getInt("RK"));
+				hmap.put("rank",rset.getInt("AVG"));
 				list.add(hmap);
 			}
 			System.out.println(list);
@@ -1246,6 +1246,46 @@ public class ManagerDao {
 		}
 		System.out.println("다오"+result);
 		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectEval(Connection con) {
+		PreparedStatement pstmt=null;
+		ArrayList<HashMap<String,Object>> list=null;
+		HashMap<String, Object> hmap=null;
+		ResultSet rset=null;
+		
+		String query=prop.getProperty("selectEval");
+		/*select ROWNUM RNUM,CT_NAME,CT_COUNTRY,AVG
+		from(SELECT distinct TC.CT_NAME,TC.CT_COUNTRY,avg(ev_star) AS AVG
+		FROM TRAVELCITY TC JOIN PLANDETAIL P ON(TC.CT_NO=P.PD_START_CITY or tc.ct_no=p.pd_end_city) 
+		JOIN EVAL E ON(P.PD_NO=E.EV_PD_NO)
+		group by ct_name,ct_country)*/
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			list=new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				hmap=new HashMap<String,Object>();
+				
+				hmap.put("ctCountry",rset.getString("CT_COUNTRY"));
+				hmap.put("ctName",rset.getString("CT_NAME"));
+				hmap.put("avg",rset.getString("AVG"));
+			
+				list.add(hmap);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+	
+		return list;
 	}
 
 	
