@@ -12,6 +12,7 @@
 		cityMap = (HashMap<String, City>) bestplanMap.get("bestCityMap");
 	}
 	
+	
 	HashMap<String, Object> normalPlanMap = (HashMap<String, Object>) request.getAttribute("normalPlanMap");	
 	HashMap<String, City> nCityMap = null;	
 	ArrayList<Plan> nPlanList = null;

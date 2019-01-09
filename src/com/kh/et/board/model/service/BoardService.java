@@ -401,6 +401,7 @@ public class BoardService {
 		} else {
 			rollback(con);
 		}
+		 
 		
 		close(con);
 		
