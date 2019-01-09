@@ -25,6 +25,7 @@
 	
 	<!-- 글꼴  -->
 	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Ubuntu" rel="stylesheet">
+	 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	
 <style>
 
@@ -71,7 +72,33 @@ table{
     	</div>
     
     	<div class="sub">
-	    	<div class="ui header title">▶회원현황</div>
+    	    <script type="text/javascript">
+		      google.charts.load('current', {'packages':['bar']});
+		      google.charts.setOnLoadCallback(drawChart);
+		
+		      function drawChart() {
+		        var data = google.visualization.arrayToDataTable([
+		          ['', '전체회원', '오늘의 신규회원', '탈퇴회원'],
+		          ['회원현황', <%= select[0] %>, <%= select[1] %>, <%= select[2] %>]
+		        ]);
+		
+		        var options = {
+		          chart: {
+		            title: '▶회원현황',
+		            subtitle: '- 전체현황',
+		          }
+		        };
+		
+		        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+		
+		        chart.draw(data, google.charts.Bar.convertOptions(options));
+		      }
+		    </script>
+    		<div id="columnchart_material" style="width: 600px; height: 450px;"></div>
+    	
+    	
+    	
+	    	<%-- <div class="ui header title">▶회원현황</div>
 	    	- 전체현황 <br><br>
 	    	<table id="tb1">
 	    		<tr>
@@ -86,9 +113,11 @@ table{
 	    			<th>탈퇴한 회원</th>
 	    			<td><%= select[2] %>명</td>
 	    		</tr>
-	    	</table>
+	    	</table> --%>
 	    </div>
 	</div>
+	
+    
 	
 	<div class = "two wide column"></div>
 	
