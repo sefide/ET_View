@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.et.board.model.dao.BoardDao;
+import com.kh.et.member.model.vo.Member;
 import com.kh.et.plan.model.dao.PlanDao;
 import com.kh.et.plan.model.vo.City;
 import com.kh.et.plan.model.vo.Plan;
@@ -285,11 +286,15 @@ public class PlanService {
 		
 		if(likeStatus.equals("X")) { // 좋아요 누른 기록이 없음으로 insert 해줘야 함
 			System.out.println("service status:"+likeStatus);
-			result1 = new PlanDao().insertLike(con,pl);			
-			if(result1 > 0 ) {
-				commit(con);}
-			else {
-				rollback(con);}		
+			result1 = new PlanDao().insertLike(con,pl);
+			int result2 = new PlanDao().insertPlanLikePoint(con,pl);
+			int result3 = new PlanDao().updataPlanClickedMember(con,pl);
+			int result4 = new PlanDao().updatePlanLickeClicKMember(con,pl);
+			if(result1 > 0 && result2 >0 && result3>0 && result4 > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}	
 			
 		}else if(likeStatus.equals("N")) { // likeStatus == "N" 좋아요 했다가 취소한거니까 update->Y
 			System.out.println("service status:"+likeStatus);
@@ -307,33 +312,6 @@ public class PlanService {
 		System.out.println("service에서 변화가 있낭"+result1);
 		return result1;
 
-	/*	ArrayList<HashMap<String, Object>> list = new PlanDao().sameListMethod(con,pl);
-		System.out.println(",planService:"+list.size());
-		System.out.println("좋아요 서비스전이야");
-		if(list.size()==0) {
-			 //result ->result1로 변경	
-				int result2 = new PlanDao().insertPlanLikePoint(con,pl);
-				int result3 = new PlanDao().updataPlanClickedMember(con,pl);
-				int result4 = new PlanDao().updatePlanLickeClicKMember(con,pl);
-				System.out.println("result4:"+result4);
-			if(result1>0 && result2>0 && result3>0) {
-				commit(con);
-				result =1;
-			}else {
-				rollback(con);
-			}
-    }else{
-      int result11 = new PlanDao().insertLike(con, pl);
-      if(result11>0){
-        commit(con);
-        result = 1;
-      }else {
-       rollback(con); 
-      }
-    }
-		close(con);
-		
-		return result;*/
 	}
 	///포인트 합류 끝
 	
@@ -491,16 +469,10 @@ public class PlanService {
 		}else {
 			rollback(con);
 		}
-		
+
 		close(con);
 		
 		return scrapPlanList;
 	}
-
-	
-	
-
-	
-
 
 }

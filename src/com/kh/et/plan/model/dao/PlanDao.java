@@ -15,6 +15,7 @@ import com.kh.et.plan.model.vo.City;
 import com.kh.et.plan.model.vo.Plan;
 import com.kh.et.plan.model.vo.PlanDetail;
 import com.kh.et.plan.model.vo.PlanInterest;
+import com.kh.et.member.model.vo.Member;
 import com.kh.et.member.model.vo.News;
 import com.kh.et.plan.model.dao.PlanDao;
 
