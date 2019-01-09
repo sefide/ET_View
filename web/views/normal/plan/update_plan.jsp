@@ -27,6 +27,7 @@
 	<link rel="icon" href="/et/image/common/logo.png">
 	
 	<!-- googleMap -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
  	
  	<!-- css 불러오기  -->
  	<link href = "/et/views/css/create_plan.css" type = "text/css" rel= "stylesheet">
@@ -78,7 +79,7 @@
 		border : 3px solid black; 
 		cursor: pointer;
 		padding-top : 20px;
-		padding-left : 10px;
+		padding-left : 6.5px;
 	}
 	#a-day {
 		width : 50px;
@@ -649,13 +650,12 @@
 						var tourPhoto;
 						
 						for(var i in tourOne){
-							console.log(i);
 							if(i == 't'){
 								tourName = tourOne[i].tTitle;
 								tourConcept = tourOne[i].tConcept;
 								tourPrice = tourOne[i].tPrice;
 								tourPrice = commaMoney(tourPrice);
-								console.log("뭐지 ");
+
 								resultStr = "<div class ='p-t'><div><img class ='p-t-img' src = '/et/tourUpload/"+tourPhoto+"' alt = 'tour'></div><label class ='p-t-name'>["+ tourName+ "] </label><div class ='p-t-price'><label >"+ tourPrice+ "원</label></div></div>";
 								$("#p-tour-detail").append(resultStr);
 							} else if(i == 'a'){
@@ -667,7 +667,6 @@
 							}
 						}
 						
-						console.log("resultStr : " + resultStr);
 					}
 					
 					$("#weather-div").append(tourWeather);
@@ -779,7 +778,7 @@
         function addCity(i){
         		var cityblockhead = "<div id ='cityblock" +countCity+ "' class= 'cityblock'> <input type = 'hidden' name = 'cityNo' value = '"+locations[i][4] +"'> <input type = 'hidden' name = 'cityName' value = '"+locations[i][0] +"'> <div class ='bar2'></div>";
         		var citytrans = "<div width = '100%; overflow-x:hidden'> <div class = 'div-trans'> <select class='ui dropdown' id ='trans' name = 'transform'>  <option value='비행기'>비행기 </option>  <option value='기차'>기차 </option>  <option value='선박'>선박 </option>  <option value='버스'>버스 </option>  <option value='기타'>기타  </option> </select> </div> </div> <div class ='bar2'></div>";
-        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights' id = 'selectNight' name = 'selectNight' onfocus = 'focNight(this)' onchange = 'selNight(this)'> <option value='1'>1박 </option>  <option value='2'>2박  </option>  <option value='3'>3박  </option>  <option value='4'>4박 </option> <option value='5'>5박  </option> <option value='6'>6박 </option></select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city' id = 'why'> <i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail("+i+");'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity(this);'> </i> </div> </div>";
+        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights' id = 'selectNight' name = 'selectNight' onfocus = 'focNight(this)' onchange = 'selNight(this)'> <option value='1'>1박 </option>  <option value='2'>2박  </option>  <option value='3'>3박  </option>  <option value='4'>4박 </option> <option value='5'>5박  </option> <option value='6'>6박 </option></option><option value='7'>7박 </option><option value='8'>8박 </option><option value='9'>9박 </option><option value='10'>10박 </option></select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city' id = 'why'> <i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail("+i+");'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity(this);'> </i> </div> </div>";
         		var cityblockfoot = "";
         		
         		// 새로운 도시 div 추가 
@@ -820,7 +819,6 @@
         		// 4. 해당 도시의 위도, 경도 정보를 지우고
         		// 5. 이를 다시 그려준다. 
         		var parentId = $(obj).parent().parent().parent().attr('id');
-        		console.log("마지막 인덱스 " + parentId.length);
 	        var delIndex = parentId.substring(9,parentId.length); // 1.
 	        
 	        var night_sel = $(obj).parent().parent().find("#selectNight").find(":selected").val(); // 박수 가져오기 
@@ -887,7 +885,6 @@
 	   	 	var m = $("#input-date-start").val().substring(5,7);
 	   	 	var d = $("#input-date-start").val().substring(8,10);
 		    var startDate = new Date(y,m-1,d);
-	   	 	console.log(y+", " + m + ", " + d);
 		    
 		   	// 종료 날짜 정보 설정 
 		    	var endDate = new Date(startDate); 

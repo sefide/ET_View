@@ -274,32 +274,6 @@
 								<option value="1">파리</option>
 								<option value="2">리옹</option>
 								<option value="3">니스</option>
-								<option value="4">뮌헨</option>
-								<option value="5">베를린</option>
-								<option value="6">뉘른베르크</option>
-								<option value="7">프랑크푸르트</option>
-								<option value="8">런던</option>
-								<option value="9">옥스포드</option>	
-								<option value="10">밀라노</option>
-								<option value="11">베네치아</option>
-								<option value="12">피렌체</option>
-								<option value="13">로마</option>
-								<option value="14">프라하</option>
-								<option value="15">아테네</option>
-								<option value="16">부다페스트</option>
-								<option value="17">빈</option>
-								<option value="18">잘츠부르크</option>
-								<option value="19">자그레브</option>
-								<option value="20">코펜하겐</option>
-								<option value="21">오덴세</option>
-								<option value="22">인터라켄</option>
-								<option value="23">취리히</option>
-								<option value="24">이스탄불</option>
-								<option value="25">앙카라</option>
-								<option value="26">리스본</option>
-								<option value="27">바르셀로나</option>
-								<option value="28">마드리드</option>
-								<option value="29">암스테르담</option>
 							</select>
 							</td>	
 						</tr>

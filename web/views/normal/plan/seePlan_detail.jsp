@@ -3,7 +3,9 @@
 <% 
 	HashMap<String, Object> planMap = (HashMap<String, Object>)request.getAttribute("planMap"); 
 	Plan plan = (Plan)planMap.get("plan");
+	
 	ArrayList<PlanDetail> DetailList = (ArrayList<PlanDetail>)planMap.get("planDetailList");
+	System.out.println("djdlk" + DetailList.size());
 	HashMap<String,City> cityMap = (HashMap<String,City>)request.getAttribute("cityMap");
 	
 	String msg = (String)request.getAttribute("msg");
@@ -30,6 +32,7 @@
 	
 	<!-- googleMap -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
+	
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">
 
@@ -492,31 +495,37 @@
 		java.util.Date cityEnd;
 		String[] cityArr = plan.getpCites().split(", ");
 		for(int i = 0; i < cityArr.length; i++){ // 0 ~ 여행 도시 개수 
-			if(i < cityArr.length-1){ // 0 ~ 플랜디테일 사이즈 개수 
-			    cityStart = ((PlanDetail)DetailList.get(i)).getPdStartDate();
-			    cityEnd = ((PlanDetail)DetailList.get(i)).getPdEndDate(); %>
-				sy = <%=cityStart.toString().substring(0,4)%>;
-				sm = <%=cityStart.toString().substring(5,7)%>;
-				sd = <%=cityStart.toString().substring(8,10)%>;
-				ey = <%=cityEnd.toString().substring(0,4)%>;
-				em = <%=cityEnd.toString().substring(5,7)%>;
-				ed = <%=cityEnd.toString().substring(8,10)%>; 
-				console.log(sy + ", " + sm + ", " + sd + "/ " + ey + ", " + em + ", " + ed);
- 			<%} else { 
-				cityStart = ((PlanDetail)DetailList.get(i-1)).getPdEndDate();
-				cityEnd = plan.getpEndDate(); %>
-				sy = <%=cityStart.toString().substring(0,4)%>;
-				sm = <%=cityStart.toString().substring(5,7)%>;
-				sd = <%=cityStart.toString().substring(8,10)%>;
-				ey = <%=cityEnd.toString().substring(0,4)%>;
-				em = <%=cityEnd.toString().substring(5,7)%>;
-				ed = <%=cityEnd.toString().substring(8,10)%>; 
-				console.log(sy + ", " + sm + ", " + sd + "/ " + ey + ", " + em + ", " + ed);
-			 <% } %>
-			 title = '<%=cityArr[i]%>';
-			 eventInfo = {title : title, start : new Date(sy,sm-1,sd), end : new Date(ey,em-1,ed)};
-			 event.push(eventInfo);
-			 console.log(eventInfo);
+			System.out.println("뭐가 ㅂ뭉누잉마ㅓ");
+			if(DetailList.size() != 0){
+				System.out.println("뭐가 ㅂ뭉누잉마ㅓ");
+				if(i < cityArr.length-1){ // 0 ~ 플랜디테일 사이즈 개수
+				 	cityStart = ((PlanDetail)DetailList.get(i)).getPdStartDate();
+				    cityEnd = ((PlanDetail)DetailList.get(i)).getPdEndDate(); %>
+					sy = <%=cityStart.toString().substring(0,4)%>;
+					sm = <%=cityStart.toString().substring(5,7)%>;
+					sd = <%=cityStart.toString().substring(8,10)%>;
+					ey = <%=cityEnd.toString().substring(0,4)%>;
+					em = <%=cityEnd.toString().substring(5,7)%>;
+					ed = <%=cityEnd.toString().substring(8,10)%>; 
+					console.log(sy + ", " + sm + ", " + sd + "/ " + ey + ", " + em + ", " + ed);
+				   
+	 			<%} else { 
+					cityStart = ((PlanDetail)DetailList.get(i-1)).getPdEndDate();
+					cityEnd = plan.getpEndDate(); %>
+					sy = <%=cityStart.toString().substring(0,4)%>;
+					sm = <%=cityStart.toString().substring(5,7)%>;
+					sd = <%=cityStart.toString().substring(8,10)%>;
+					ey = <%=cityEnd.toString().substring(0,4)%>;
+					em = <%=cityEnd.toString().substring(5,7)%>;
+					ed = <%=cityEnd.toString().substring(8,10)%>; 
+					console.log(sy + ", " + sm + ", " + sd + "/ " + ey + ", " + em + ", " + ed);
+				 <% } %>
+				 title = '<%=cityArr[i]%>';
+				 eventInfo = {title : title, start : new Date(sy,sm-1,sd), end : new Date(ey,em-1,ed)};
+				 event.push(eventInfo);
+				 console.log(eventInfo);
+
+			<%}%>
 		<%}%>
 		
 		

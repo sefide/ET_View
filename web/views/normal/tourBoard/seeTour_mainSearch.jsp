@@ -64,33 +64,41 @@
 }
 
 /* 상단 투어 검색 */
+form {
+	width : 63%;
+	display : inline-block;
+}
+.btn-search{
+	width : 20%;
+	display : inline-block;
+	padding-top : 55px;
+	vertical-align: middle;
+}
 .div-search-area {
 	width: 95%;
 	display: inline-block;
 	vertical-align: middle;
-	/* background: red; */
-	padding-left: 250px;
-	padding-top: 10px;
 }
 
 .div-dropdown {
 	/* background: yellow;  */
-	width: 300px;
-	display: inline-block;
-	margin: 10px 20px 10px 35px;
-	display: inline-block;
+	width: 100%;
+	display :flex;
+	flex-wrap : wrap;
+	margin: 10px 0px 10px 0px;
 	vertical-align: middle;
 }
-
+#div-dropdown-inner{
+	width: 48%;
+	margin : 1%;
+}
 .div-search-text {
-	padding-top: 15px;
-	font-size: 27px;
+	padding-top: 22px;
+	font-size: 20px;
 	font-weight: 700;
 	font-family: 'Ubuntu', sans-serif;
 	margin-top: 10px;
 	margin-bottom: 1px;
-	text-align: center;
-	font-size: 27px;
 }
 
 /* 하단 투어 보기 */
@@ -98,16 +106,13 @@
 	width: 95%;
 	margin-top: 30px;
 	margin-left: 40px;
-	/* background: blue; */
 }
 
 .div-tour-list {
 	margin-left: 5px;
-	/* background: red; */
 }
 
 .div-tour-img {
-	/* background: yellow; */
 	width: 330px;
 	height: 280px;
 	display: inline-block;
@@ -123,8 +128,8 @@
 }
 
 .card{
-	width:210px;
-	height: 330px;
+	width:22%;
+	height: 350px;
 	display: inline-block;
 	margin-bottom: 20px;
 }
@@ -133,11 +138,12 @@
 }
 .div-card-tour{
 	display: inline-block;
+	margin-top : 5px;
 }
 #cardOne{
 	display:inline-block;
 	margin-bottom: 20px;
-	margin-left : 50px;
+	margin-left : 1%;
 }
 
 .pagingArea > button{
@@ -146,6 +152,17 @@
 }
 .card:hover{
 	cursor:pointer;
+}
+
+#tour-price{
+	color :  #ee685a;
+	font-weight : 800;
+	font-size : 15px;
+}
+.header-txt{
+    font-size: 2em;
+    font-weight : 700;
+    width : 100%;
 }
 </style>
 
@@ -157,18 +174,18 @@
 
 	<div class="ui grid">
 		<div class="two wide column"></div>
-		<div class="twelve wide column" style="margin-top: 50px;">
+		<div class="twelve wide column" style="margin-top: 50px; margin-bottom : 150px;">
 
 			<!-- 내용시작 -->
 
 			<!-- 상단 검색 창 -->
 
-			<div class="div-search-text">나라 및 도시 검색</div>
+			<div class="div-search-text">나라 및 도시 검색 <i class="search icon"></i></div>
 			<div class="div-search-area">
 				<form class="ui form">
 
 					<div class="div-dropdown">
-						<div class="field">
+						<div class="field" id = "div-dropdown-inner">
 							<label>나라 선택</label> <select class="ui fluid dropdown" name="nation" id ="sel-nation">
 								<option value="프랑스">프랑스</option>
 								<option value="독일">독일</option>
@@ -187,74 +204,53 @@
 								<option value="스페인">스페인</option>
 							</select>
 						</div>
-						<div class="field">
+						<div class="field" id = "div-dropdown-inner">
 							<label>도시 선택</label> <select class="ui fluid dropdown" name="city" id ="sel-city">
 								<option value="1">파리</option>
 								<option value="2">리옹</option>
 								<option value="3">니스</option>
-								<option value="4">뮌헨</option>
-								<option value="5">베를린</option>
-								<option value="6">뉘른베르크</option>
-								<option value="7">프랑크푸르트</option>
-								<option value="8">런던</option>
-								<option value="9">옥스포드</option>	
-								<option value="10">밀라노</option>
-								<option value="11">베네치아</option>
-								<option value="12">피렌체</option>
-								<option value="13">로마</option>
-								<option value="14">프라하</option>
-								<option value="15">아테네</option>
-								<option value="16">부다페스트</option>
-								<option value="17">빈</option>
-								<option value="18">잘츠부르크</option>
-								<option value="19">자그레브</option>
-								<option value="20">코펜하겐</option>
-								<option value="21">오덴세</option>
-								<option value="22">인터라켄</option>
-								<option value="23">취리히</option>
-								<option value="24">이스탄불</option>
-								<option value="25">앙카라</option>
-								<option value="26">리스본</option>
-								<option value="27">바르셀로나</option>
-								<option value="28">마드리드</option>
-								<option value="29">암스테르담</option>
 							</select>
 						</div>
 
 					</div>
 					
 				</form>
-				<button class="ui yellow basic button"
-						onclick="GoSearchPage();"  style="margin-left: 35px;" >검색하기</button>
+				<div class = "btn-search">
+					<button class="ui yellow basic button" onclick="GoSearchPage();" >검색하기</button>
+				</div>
 			</div>
 			<hr>
 			<!-- 하단 투어 리스트  -->
 			<br> <br>
-			<div class="ui mt-20">
+			<div class="ui mt-20" style = "margin-bottom : 100px;">
 
-				<div class="card-deck">
+			<div class="card-deck">
+				<%if(list2.size() > 0) {%>
+				<div class="header-txt"><%=list2.get(0).get("country") %>, <%=list2.get(0).get("city") %>의 투어 </div> <br>
+				<%} else { %>
+				<div class="header-txt">검색하신 도시의 투어정보가 없습니다.  </div><br>
+				<%} %>
+				<hr width = "100%">
+				<div></div>
 				<div class="div-card-tour">
-			<div class="ui huge header">TourList</div>
-			<hr>
-				<%for(int i=0; i <list2.size(); i++){ 
-          			HashMap<String,Object> hmap = list2.get(i);
-              	%>
-						<div class="card" width="200px" height="330px" id="cardOne" onclick="seeDetail(<%=hmap.get("tno")%>);">
+					
+					<%for(int i=0; i <list2.size(); i++){ 
+	          			HashMap<String,Object> hmap = list2.get(i);%>
+						<div class="card" id="cardOne" onclick="seeDetail(<%=hmap.get("tno")%>);">
 						 <input type="hidden" value="<%=hmap.get("tno")%>">
-							<img class="card-img-top" src="/et/tourUpload/<%=hmap.get("changeName")%>" 
-							 width="200px" height="200px">
+							<img class="card-img-top" src="/et/tourUpload/<%=hmap.get("changeName")%>" height="200px">
 							<div class="card-body">
-								<h5 class="card-title"> <%= hmap.get("title") %></h5>
-								<p class="card-text"><%= Ne.commaMoney((int)hmap.get("price")) %></p>
+								<h5 class="card-title">(<%=hmap.get("country") %>-<%=hmap.get("city") %>)<%= hmap.get("title") %></h5>
+								<p class="card-text" id = "tour-price"><%= Ne.commaMoney((int)hmap.get("price")) %>원</p>
 								<p class="card-text">
 									<small class="text-muted"><%=hmap.get("concept") %> </small>
 								</p>
 							</div>
 						</div>
-						<%} %>
-					</div>
+					<%} %>
 				</div>
-				<br><br>
+			</div>
+			<br><br>
              <div class="pagingArea" align="center">
 			<button onclick="location.href='<%=request.getContextPath()%>/searchSeeTour.tbo?currentPage=1'"><<</button>
 			<%if(currentPage <= 1){%>

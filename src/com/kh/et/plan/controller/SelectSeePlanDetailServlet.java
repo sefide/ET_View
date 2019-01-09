@@ -35,7 +35,6 @@ public class SelectSeePlanDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String planNo = request.getParameter("pno");
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		
 		HashMap<String, Object> planMap = new PlanService().selectPlanDetail(Integer.parseInt(planNo));
 		HashMap<String,City> cityMap = new PlanService().selectCityMap();
 		

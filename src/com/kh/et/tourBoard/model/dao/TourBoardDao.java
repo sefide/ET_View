@@ -676,6 +676,8 @@ private Properties prop = new Properties();
 			hmap.put("changeName", rset.getString("a_change_name"));
 			hmap.put("filePath", rset.getString("a_file_path"));
 			hmap.put("uploadDate", rset.getDate("a_upload_date"));
+			hmap.put("city", rset.getString("ct_name"));
+			hmap.put("country", rset.getString("ct_country"));
 			
 			list.add(hmap);
 			
@@ -749,6 +751,8 @@ private Properties prop = new Properties();
 				hmap.put("filePath", rset.getString("a_file_path"));
 				hmap.put("uploadDate", rset.getDate("a_upload_date"));
 				hmap.put("tcname", rset.getString("c_name"));
+				hmap.put("city", rset.getString("ct_name"));
+				hmap.put("country", rset.getString("ct_country"));
 				
 				list.add(hmap);
 			}
@@ -825,6 +829,8 @@ private Properties prop = new Properties();
 			hmap.put("changeName", rset.getString("a_change_name"));
 			hmap.put("filePath", rset.getString("a_file_path"));
 			hmap.put("uploadDate", rset.getDate("a_upload_date"));
+			hmap.put("city", rset.getString("ct_name"));
+			hmap.put("country", rset.getString("ct_country"));
 			
 			list.add(hmap);
 			
