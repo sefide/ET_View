@@ -5,9 +5,11 @@
 	Plan plan = (Plan)planMap.get("plan");
 	
 	ArrayList<PlanDetail> DetailList = (ArrayList<PlanDetail>)planMap.get("planDetailList");
+	System.out.println("djdlk" + DetailList.size());
 	HashMap<String,City> cityMap = (HashMap<String,City>)request.getAttribute("cityMap");
-	String likeStatus = (String) request.getAttribute("likeStatus");
 	
+	String likeStatus = (String) request.getAttribute("likeStatus");
+	String scrapStatus = (String) request.getAttribute("scrapStatus");
 	
 	String msg = (String)request.getAttribute("msg");
 %>
@@ -33,6 +35,7 @@
 	
 	<!-- googleMap -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
+	
 	<title>ET_Planner</title>
 	<link rel="icon" href="/views/image/common/logo.png">
 
@@ -164,15 +167,16 @@
 			        	<div class = "txt"> 여행도시 개수 : <%=plan.getpCites().split(", ").length %>개 도시 </div>
 			        	<div> 플랜 관심 상태는?<%= likeStatus %></div>
 			    </div>
+			    
+			    	<%--좋아요 버튼 div--%>
 					<div class="div-plan-info">				
-					<%-- <%if(plan.getpWriter() != loginUser.getM_no())%> --%>
-					
+					<%-- <%if(plan.getpWriter() != loginUser.getM_no())%> --%>					
 					<% if(likeStatus == "X"){ %>
 						<div class="ui labeled button" tabindex="0">
 							<div class="ui red button" id="likePlan" onclick="clickLike('<%=likeStatus%>') ;">
 							<i class="heart icon" ></i> 좋아요!
 							</div>
-							<a class="ui basic red left pointing label" id="likeCnt"> <%=plan.getpLike()%></a>
+							<a class="ui basic red left pointing label" id="likeCnt"> </a>
 						</div>						
 					<%}else if(likeStatus == "N"){ %> 
 						<!-- 좋아요   안 눌렸을때(취소 했을 때) -->
@@ -184,27 +188,47 @@
 						</div>					
 					<%}else{ %>
 							<!-- 좋아요 눌렸을때 -->
-							<div class="ui labeled button" tabindex="0">
-							<div class="ui red button" id="UnlikePlan">
+						<div class="ui labeled button" tabindex="0">
+							<div class="ui red button"  onclick="clickLike('<%=likeStatus%>') ;" >
 							<i class="heart icon"></i> 좋아요 취소
 							</div>
 							<a class="ui basic red left pointing label" id="likeCnt"> <%=plan.getpLike()%></a>
 						</div>
 						
 					<%} %>
-					
-					
-					
-							
 					</div> <!-- div-info 끝 -->
+					
+					<%--스크랩 버튼 div --%>
+					<div class="div-plan-info">
+					<%if(scrapStatus == "X"){ %>
+						<div class="ui labeled button" tabindex="0" style="margin-top: 10px;">
+							<div class="ui basic blue button" onclick="clickScrap('<%= scrapStatus%>');">
+							<i class="fork icon"></i> 스크랩하기
+							</div>
+							<a class="ui basic left pointing blue label" id="scrapCnt"> </a>
+						</div>	
+					
+					<%}else{ %>
+						<div class="ui labeled button" tabindex="0" style="margin-top: 10px;">
+							<div class="ui  blue button">
+							<i class="fork icon"></i> 스크랩 완료
+							</div>
+							<a class="ui blue left pointing label" id="scrapCnt"> </a>
+						</div>
+					<%} %>
+					</div>
+					
+					
+					
+					
 			</div>
         </div>
+        		
+        		
         		<script>
         		
-        		$(function() {
-        			
-        			var pno = <%= plan.getpNo() %>;
-        		
+        		$(function() {        			
+        			var pno = <%= plan.getpNo() %>;       		
         			 $.ajax({
                          url : "/et/countLike.pl",
                          data : {
@@ -213,24 +237,48 @@
                          type : "post",
                          success : function(data) {
                             console.log(data);
-                            
+                            $("#likeCnt").text(data.like);
                          },
-                         error:function(){
-                        	
+                         error:function(){                       	
                          }
-        			 }
+        			 });
+        			 $.ajax({
+                         url : "/et/countScrapCnt.pl",
+                         data : {
+                            pno:pno
+                         },
+                         type : "post",
+                         success : function(data) {
+                            console.log(data);
+                            $("#scrapCnt").text(data.scrap);
+                         },
+                         error:function(){                       	
+                         }
+        			 });
+        			 
                     });
-        			       			
+        		
+        			//좋아요 버튼클릭	
         			function clickLike(likeStatus) {
         				var pno = <%= plan.getpNo() %>;
         				var writer = <%= plan.getpWriter() %> ;
         				var user = <%= loginUser.getM_no() %>;
         				status = "";
-        				status = likeStatus;
-        				console.log("좋아요 버튼이 클릭 되었습니당!");
+        				status = likeStatus;       				
 						location.href="<%=request.getContextPath()%>/clickLike.pl?pno="+pno+"&writer="+writer+"&user="+user+"&status="+status ;
 					}
-        		
+        			
+        			//스크랩 버튼 클릭
+        			function clickScrap(scrapStatus) {
+        				var pno = <%= plan.getpNo() %>;
+        				var writer = <%= plan.getpWriter() %> ;
+        				var user = <%= loginUser.getM_no() %>;
+        				status = "";
+        				status = scrapStatus;       				
+						location.href="<%=request.getContextPath()%>/clickScrap.pl?pno="+pno+"&writer="+writer+"&user="+user+"&status="+status ;
+        			}
+        			
+
         		</script>
         
         
@@ -382,31 +430,37 @@
 		java.util.Date cityEnd;
 		String[] cityArr = plan.getpCites().split(", ");
 		for(int i = 0; i < cityArr.length; i++){ // 0 ~ 여행 도시 개수 
-			if(i < cityArr.length-1){ // 0 ~ 플랜디테일 사이즈 개수 
-			    cityStart = ((PlanDetail)DetailList.get(i)).getPdStartDate();
-			    cityEnd = ((PlanDetail)DetailList.get(i)).getPdEndDate(); %>
-				sy = <%=cityStart.toString().substring(0,4)%>;
-				sm = <%=cityStart.toString().substring(5,7)%>;
-				sd = <%=cityStart.toString().substring(8,10)%>;
-				ey = <%=cityEnd.toString().substring(0,4)%>;
-				em = <%=cityEnd.toString().substring(5,7)%>;
-				ed = <%=cityEnd.toString().substring(8,10)%>; 
-				console.log(sy + ", " + sm + ", " + sd + "/ " + ey + ", " + em + ", " + ed);
- 			<%} else { 
-				cityStart = ((PlanDetail)DetailList.get(i-1)).getPdEndDate();
-				cityEnd = plan.getpEndDate(); %>
-				sy = <%=cityStart.toString().substring(0,4)%>;
-				sm = <%=cityStart.toString().substring(5,7)%>;
-				sd = <%=cityStart.toString().substring(8,10)%>;
-				ey = <%=cityEnd.toString().substring(0,4)%>;
-				em = <%=cityEnd.toString().substring(5,7)%>;
-				ed = <%=cityEnd.toString().substring(8,10)%>; 
-				console.log(sy + ", " + sm + ", " + sd + "/ " + ey + ", " + em + ", " + ed);
-			 <% } %>
-			 title = '<%=cityArr[i]%>';
-			 eventInfo = {title : title, start : new Date(sy,sm-1,sd), end : new Date(ey,em-1,ed)};
-			 event.push(eventInfo);
-			 console.log(eventInfo);
+			System.out.println("뭐가 ㅂ뭉누잉마ㅓ");
+			if(DetailList.size() != 0){
+				System.out.println("뭐가 ㅂ뭉누잉마ㅓ");
+				if(i < cityArr.length-1){ // 0 ~ 플랜디테일 사이즈 개수
+				 	cityStart = ((PlanDetail)DetailList.get(i)).getPdStartDate();
+				    cityEnd = ((PlanDetail)DetailList.get(i)).getPdEndDate(); %>
+					sy = <%=cityStart.toString().substring(0,4)%>;
+					sm = <%=cityStart.toString().substring(5,7)%>;
+					sd = <%=cityStart.toString().substring(8,10)%>;
+					ey = <%=cityEnd.toString().substring(0,4)%>;
+					em = <%=cityEnd.toString().substring(5,7)%>;
+					ed = <%=cityEnd.toString().substring(8,10)%>; 
+					console.log(sy + ", " + sm + ", " + sd + "/ " + ey + ", " + em + ", " + ed);
+				   
+	 			<%} else { 
+					cityStart = ((PlanDetail)DetailList.get(i-1)).getPdEndDate();
+					cityEnd = plan.getpEndDate(); %>
+					sy = <%=cityStart.toString().substring(0,4)%>;
+					sm = <%=cityStart.toString().substring(5,7)%>;
+					sd = <%=cityStart.toString().substring(8,10)%>;
+					ey = <%=cityEnd.toString().substring(0,4)%>;
+					em = <%=cityEnd.toString().substring(5,7)%>;
+					ed = <%=cityEnd.toString().substring(8,10)%>; 
+					console.log(sy + ", " + sm + ", " + sd + "/ " + ey + ", " + em + ", " + ed);
+				 <% } %>
+				 title = '<%=cityArr[i]%>';
+				 eventInfo = {title : title, start : new Date(sy,sm-1,sd), end : new Date(ey,em-1,ed)};
+				 event.push(eventInfo);
+				 console.log(eventInfo);
+
+			<%}%>
 		<%}%>
 		
 		

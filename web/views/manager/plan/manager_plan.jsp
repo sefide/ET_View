@@ -43,42 +43,48 @@
  }  
  .main_01{
  	margin:2%;
- 	float:left; 
+ 	display:flex; 
 }
 table{
- 	width:600px;
- 	height:120px;
  	text-align:center;
  }
- table,tr,td{
- 	
- }
- td{
- 	width:150px;
- } 
  th{
- 	
- 	
+ 	background-color:lightgray;
  }
  .num{
  	width:116px;
  }
+.nav{
+	width:15%;
+}
+.sub{
+	width:80%;
+}
+#tb1{
+	width:700px;
+}
 </style>
 </head>
 <body>
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
-<%@ include file = "/views/common/manager/manager_plan_nav.jsp" %>
 	
     <div class="main_01">
+    	<div class="nav">
+			<%@ include file = "/views/common/manager/manager_plan_nav.jsp" %>
+    	</div>
+    
+    
+    	<div class="sub">
     	<div class="ui header title">▶여행플랜 조회</div>
     	- 여행플랜 <br><br>
     	<table class="table" id="tb1">
     		<tr>
     			<th>플랜관리</th>
     			<th>번호</th>
-    			<th>제목</th>
+    			<th style="width:300px;">제목</th>
     			<th>작성자</th>
     			<th>공개여부</th>
+    			<th>플랜상태</th>
     			<th>좋아요수</th>
     		</tr>
     		<%for(int i=0;i<list.size();i++) {
@@ -90,6 +96,7 @@ table{
     			<td><%=hmap.get("pTitle") %></td>
     			<td><%=hmap.get("m_name") %></td>
     			<td><%=hmap.get("pPrivate") %></td>
+    			<td><%=hmap.get("pStatus") %></td>
     			<td><%=hmap.get("PI_type") %></td>
     		</tr>
     		<%} %>
@@ -97,8 +104,10 @@ table{
     		
     	</table>
     	
+    	
     	<br>
-    	<div class="pagingArea" align="center">
+    	<div class="pagingArea" style="margin-left:230px;">
+    	
 			<button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectPlan.mng?currentPage = 1'"> << </button>
 			
 			<% if(currentPage <= 1){ %>
@@ -127,9 +136,11 @@ table{
 		</div>
 		
 		<div class="btn">
-    			<button class="ui black basic button" id="planDelete">플랜 삭제</button>
+    			<button class="ui lightgrey button" id="planDelete">플랜 삭제</button>
     	</div>
+		</div>
 		
+    </div>
    
     
      <script>
@@ -143,6 +154,7 @@ table{
 					$("#check:checked").each(function(){
 						restoreArr.push($(this).val());	
 					});
+					console.log(restoreArr);
 					
 					var arr1=new Array;
 					arr1 = restoreArr;
@@ -170,7 +182,6 @@ table{
 			});	
     	</script>
     	
-    	 </div>
 	
  <div class = "two wide column"></div> 
 		

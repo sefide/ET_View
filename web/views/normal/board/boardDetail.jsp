@@ -53,12 +53,15 @@
 }
 
 #box-left {
-	flex: 1;
+	flex: 0.7;
 }
 
 #box-center {
-	flex: 3;
+	flex: 3.3;
 	text-align: center;
+	font-size : 17px;
+	font-family: 'Nanum Gothic', sans-serif;
+	
 }
 
 #box-right {
@@ -110,6 +113,16 @@
 	top: 20%;
     left: 35%;
     	visibility : hidden;
+}
+.board-contents{
+	margin : 1%;
+}
+#img-profile {
+	width : 150px;
+	height : 150px;
+	border-radius : 50%;
+	border : 1px solid gray;
+	/* margin : 15% 0; */
 }
 </style>
 
@@ -279,31 +292,29 @@
 			<div class="ui segment" style="border-color: #fbbd08;" >
 				<div id="container">
 					<div id='box-left'>
-						<img class="ui small circular image"
-							src="/et/image/common/logo.png">
+						<img id = "img-profile" src="<%=b.getbCheckBest()%>">
 					</div>
 					<div id='box-center'>
-						
 						<!-- 제목 -->
-						<div align="left" >
-							제목
-						<input type="text" size="50" 
-									name="title" value="<%=b.getBtitle() %>" readonly>		
+						<div class = "board-contents" align="left" >
+							제목 : 
+							<b><%=b.getBtitle() %></b>
+						<%-- <input type="text" size="50" 
+									name="title" value="<%=b.getBtitle() %>" readonly>	 --%>	
 						</div>
-						<div align="left">
-							작성일
-							<input type="date" name="date" value="<%=b.getbDate() %>" readonly>						
+						<div class = "board-contents" align="left">
+							작성일 : <b><%=b.getbDate() %></b>
+							<%-- <input type="date" name="date" value="<%=b.getbDate() %>" readonly> --%>						
 						</div>
-						<div align="left" >
-							작성자
-							<input type="text" value="<%=b.getbWriter()%>" name="writer" readonly>	
+						<div class = "board-contents" align="left" >
+							여행자 : <b><%=b.getbWriter() %></b>
+							<%-- <input type="text" value="<%=b.getbWriter()%>" name="writer" readonly>	 --%>
 						</div>						
 						
 						<!-- 내용 -->
-						<div class="ui form">
-							<div class="field">
-								<textarea rows="2" cols="10" style="height: 100px;" id="content" readonly><%=b.getbContent()%></textarea>
-							</div>
+						<div class = "board-contents" align="left">
+							내용 : <b style = "font-size : 20px;"> <%=b.getbContent()%> </b>
+							<%-- <textarea rows="2" cols="10" style="height: 100px;" id="content" readonly><%=b.getbContent()%></textarea> --%>
 						</div>
 						<br>
 					</div>
@@ -431,15 +442,14 @@
 				$(".claim-popup-reply").css("visibility" , "visible");
 				var boardNo = $(obj).find("input").eq(0).val(); // 보드 번호 
 				var boardwriter = $(obj).find("input").eq(1).val(); // 보드 작성자 아이디 
-				var loginUserId = "<%= loginUser.getM_id()%>";
-				
+				var loginUserId = "";
 				$("#submitClaimReply").click(function(){
 					
 					<% if(loginUser != null){%>
 					
 					var radioVal = $('input[name="reasonR"]:checked').next().text();
 					var userNo = <%= loginUser.getM_no()%>;
-					
+					loginUserId = "<%= loginUser.getM_id()%>";
 					console.log(radioVal);
 					if(radioVal != null){
 						$.ajax({

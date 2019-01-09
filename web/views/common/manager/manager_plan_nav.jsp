@@ -19,7 +19,6 @@
      	 
      	 .left-nav{
 			float:left;
-			border:1px solid black;
 			margin: 5% 5%;
 			height:150px;
 			text-align:left;
@@ -28,6 +27,7 @@
 		} 
 		.ul_01 {
 			vertical-align:middle;
+			margin-top:24px;
 		}
 		
 		
@@ -36,7 +36,15 @@
 <body>
 <!-- 카테고리 네비게이터 -->
    		<div class="left-nav">
-       		<ul class="ul_01" style= vertical-align:middle;>
+   			<div class="ui vertical menu" style="width:160px;">
+			  <a class="item">
+			    <h4 class="ui header" id="tag1" onclick = "test();">여행플랜 조회</h4>
+			  </a>
+			  <a class="item">
+			    <h4 class="ui header" onclick = "searchPost();">여행지 관리</h4>
+			  </a>
+			</div>
+       		<!-- <ul class="ul_01" style= vertical-align:middle;>
            		<li>
                		<div class="click" onclick = "test();">여행플랜 조회</div>
            		</li>
@@ -44,7 +52,7 @@
                		<div class="click" onclick = "searchPost();">여행지 관리</div>
            		</li>
            		
-       		</ul>
+       		</ul> -->
    		 </div>
 
 	<script>

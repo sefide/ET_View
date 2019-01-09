@@ -67,7 +67,7 @@ font-family: 'Ubuntu', sans-serif;
  }  
  .main_01{
  	margin:2%;
- 	float:left; 
+ 	display:flex; 
 }
 table{
  	width:800px;
@@ -84,8 +84,7 @@ table{
  	
  } 
  th{
- 	
- 
+ 	background-color:lightgray; 
  }
  .num{
  	width:116px;
@@ -93,14 +92,27 @@ table{
  #td111 {
  font-family: 'Nanum Gothic', sans-serif;
  }
+.nav{
+	width:15%;
+}
+.sub{
+	width:80%;
+}
+
  
 </style>
 </head>
 <body>
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
-<%@ include file = "/views/common/manager/manager_company_nav1.jsp" %>
 	
     <div class="main_01">
+    	<div class="nav">
+			<%@ include file = "/views/common/manager/manager_company_nav1.jsp" %>
+    	</div>
+    	
+    	
+    	<div class="sub">
+    	
     	<div class="ui header title" >▶제휴사 관리</div>
     	- 제휴사 조회 <br><br>
     	<table class="table" id="tb1">
@@ -112,6 +124,7 @@ table{
     			<th>연락처</th>
     			<th>계약 시작 날짜</th>
     			<th>계약 종료 날짜</th>
+    			
 
     			
     		</tr>
@@ -124,7 +137,7 @@ table{
     			<td><%=c.getC_phone() %></td>
     			<td><%=c.getC_date() %></td>
     			<td><%=c.getC_end_date() %></td>
-    			    		
+    			
     		</tr>
     		<%} %>
     		
@@ -132,59 +145,44 @@ table{
   
     	</table>
     	<br>
+
     	<!-- 페이징버튼 -->
-				<tfoot>
-				<tr>
-				<th colspan="5">
-					<div class="ui right floated pagination menu">
-						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=1'"> << </a>
+		<div class="pagingArea" align="center">
+          
+         <button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage = 1'"> << </button>
+         
+         <% if(currentPage <= 1){ %>
+         <button  class="ui black basic button" disabled> < </button>
+         <% }else{ %>
+         <button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage - 1%>'"> < </button>
+         <% } %>
+         
+         <% for(int p = startPage; p <= endPage; p++){ 
+               if(p == currentPage){
+         %>
+               <button class="ui black basic button" disabled><%= p %></button>
+         <%      }else{ %>
+               <button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%= p %>'"><%= p %></button>
+         <%      } %>
+   
+         <% } %>
+         
+         
+         <% if(currentPage >= maxPage){ %> <!-- 마지막 페이지일 경우 -->
+         <button  class="ui black basic button" disabled> > </button>
+         <% }else{ %>
+         <button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage + 1%>'"> > </button>
+         <% } %>
+         <button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=maxPage%>'"> >> </button> 
+         
+      </div>
 
-						<%if (currentPage <= 1) {%>
-						<button disabled> < </button>
-						<%} else {%>
-						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage - 1%>'"> < </a>
-						<%}%>
-						
-						
-						<%
-							for (int p = startPage; p <= endPage; p++) {
-								if (p == currentPage) {
-						%>
-								<a class="item" disabled><%=p%></a>
-						<%} else {%>
-								<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=p%>'"> <%=p%> </a>
-						<%}%>
-
-						<%}%>
-
-
-						<%if (currentPage >= maxPage) {%>
-							<a class="item" disabled>></a>
-						<%} else {%>
-						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage + 1%>'">></a>
-						<%}%>
-
-						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=maxPage%>'">>></a>
-							
-						</div>
-					</th>
-				</tr>
-				
-				</tfoot>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
     	
-    	<button class="ui black basic button" style=float:right; id="deleteBtn">삭제하기</button>
+    	<button class="ui lightgrey button" style=float:left; id="deleteBtn">삭제하기</button>
     	<!-- onclick="location.href='/et/views/manager/tourCompany/companyUpdate.jsp'"  -->
-    	<button class="ui black basic button" style=float:right;margin-right:30px; id="updateBtn">수정하기</button>
-    	<button  class="ui black basic button" style=float:right;margin-right:30px; onclick="location.href='/et/views/manager/tourCompany/companyInsert.jsp'">추가하기</button>
+    	<button class="ui lightgrey button" style=float:left;id="updateBtn">수정하기</button>
+    	<button  class="ui lightgrey button" style=float:left;onclick="location.href='/et/views/manager/tourCompany/companyInsert.jsp'">추가하기</button>
+    </div>
     </div>
     
  <script type="text/javascript">
@@ -244,14 +242,11 @@ table{
  	
  	});
  	
- 	
- 
- 
  </script>   
     
     
 	
- <div class = "two wide column"></div> 
+ 	<div class = "two wide column"></div> 
 		
 	<%@ include file = "/views/common/company/footer_com.jsp" %>
 </body>

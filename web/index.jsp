@@ -32,7 +32,8 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 	<!-- googleMap -->
- 	
+ 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMpIr7wrKdZrGsBCW1zoNesmP8fhCdH0" type="text/javascript"></script>
+	
 	<title>ET_Planner</title>
 	<link rel="icon" href="image/common/logo.png">
 	
@@ -334,6 +335,12 @@
         		font-weight : 800;
 		}
 		
+		#tour-price{
+			color :  #ee685a;
+			font-weight : 800;
+			font-size : 15px;
+		}
+		
     </style>
 </head>
 <body>
@@ -380,9 +387,9 @@
 			
             <div class="ui mt-20"> 
                 <div class="ui huge header">BEST Plan TOP 3</div>
-                <div class = "more-div" onclick = "location.href ='/et/views/normal/plan/seePlan_main.jsp'">
+                <div class = "more-div" onclick = "goSeePlan();">
 	                <i class="chevron circle right icon" id = "more-icon"></i>
-	                <font id ="more-txt">더보기 </font>
+	                <font id ="more-txt" >더보기 </font>
                 </div>
                 <div> 
         				<div class = "div-plan-list">  
@@ -512,7 +519,7 @@
 				    <img class="card-img-top" src="/et/tourUpload/<%=a.getChangeName() %>" alt="Card image cap"/>
 				    <div class="card-body">
 				      <h5 class="card-title"> [<%=t.getTctName() %>]<%= t.gettTitle() %> </h5>
-				      <p class="card-text"> <%=Ne.commaMoney(t.gettPrice()) %>원 </p>
+				      <p class="card-text" id = "tour-price"> <%=Ne.commaMoney(t.gettPrice()) %>원 </p>
 				      <p class="card-text"><small class="text-muted"><%=t.gettConcept() %> </small></p>
 				    </div>
 				  </div>
@@ -596,7 +603,7 @@
          }
          
          function goSeePlan(){
-        		 location.href = "/et/views/normal/plan/Seeplan_main.jsp";
+        	 	location.href = "<%=request.getContextPath()%>/selectallPlan.pl";  			
          }
          
          

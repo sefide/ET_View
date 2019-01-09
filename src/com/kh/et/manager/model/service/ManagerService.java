@@ -489,7 +489,7 @@ public class ManagerService {
 			result1[i] = new ManagerDao().planDelete(con,arr2[i]);
 			
 			if(result1[i]==0) {
-				System.out.println("정지취소처리 실패");
+				System.out.println("플랜삭제 실패");
 			}
 			else {
 				sum1+=result1[i];

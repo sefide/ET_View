@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.*, com.kh.et.board.model.vo.*, com.kh.et.plan.model.vo.*, com.kh.et.tourBoard.model.vo.*"%>
+	import="java.util.*, com.kh.et.board.model.vo.*, com.kh.et.plan.model.vo.*, com.kh.et.tourBoard.model.vo.*, com.kh.et.common.*"%>
 
 <%
 	String msg = (String) request.getAttribute("msg");
@@ -20,7 +20,16 @@
 		nCityMap = (HashMap<String, City>) normalPlanMap.get("normalCityMap");
 	}
 	
-	
+	com.kh.et.board.model.vo.PageInfo pi = (com.kh.et.board.model.vo.PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int limit = pi.getLimit();
+    System.out.println("s : " + startPage+", e : " + endPage);
+    
+    NumberExec Ne = new NumberExec();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -70,27 +79,33 @@
 /* 인기플랜  */
 .div-plan-list {
 	margin-left: 10px;
+	width : 100%;
+	display : flex;
+	flex-wrap : wrap;
 }
 
 .div-plan-map {
-	width: 240px;
-	height: 380px;
+	width : 30%;
+	height: 430px;
 	display: inline-block;
-	margin: 5px 12px 30px 10px;
+	margin: 1.4%;
+	cursor : pointer;
 }
 
 .plan-map {
-	width: 240px;
-	height: 240px;
+	width: 95%;
+	height: 330px;
 }
 
 .div-plan-title {
-	font-size: 20px;
+	font-size: 25px;
 	font-weight: 600;
 	font-family: 'Ubuntu', sans-serif;
 	color : #2A5A85 ;
 	display: inline-block;
 	cursor: pointer;
+	text-align :center;
+	width : 95%;
 }
 
 
@@ -102,9 +117,33 @@
 	font-family: 'Ubuntu', sans-serif;
 	text-align: center;
 	float: left;
-	
 }
 
+.pagingArea button {
+	background : white;
+	border : none;
+}
+
+#famous-plan-div{
+	border : 1px solid rgb(237,197,58);
+	border-radius : 7px;
+	padding-bottom : 20px;
+}
+#bottom-contents{
+	padding-top : 20px;
+	border-top : 1px solid lightgray;
+}
+.div-interest{
+	width : 95%;
+	font-size : 16px;
+	margin-top : 5px;
+	text-align : right;
+}
+.div-plan-cities{
+	width : 95%;
+	color : gray;
+	text-align : center;
+}
 </style>
 </head>
 <body>
@@ -119,12 +158,12 @@
 
 
 			<!-- 인기플랜이 보여지는 div -->
-			<div >
-				<div class="ui mt-20">
+			<div>
+				<div class="ui mt-20" style="margin-top: 50px;">
 
-					<div class="ui huge header" style="margin-top: 15px;">인기 플랜 보기</div>
+					<div class="ui huge header"><a class="ui yellow label">HOT</a> &nbsp; 인기 플랜 TOP 3</div>
 					<div>
-						<div class="div-plan-list" >
+						<div class="div-plan-list" id = "famous-plan-div">
 							<% if(bestplanMap!= null){								
         					planList = (ArrayList<Plan>)bestplanMap.get("planList");       					
         					for(int i = 0; i < planList.size(); i++){        						
@@ -133,30 +172,23 @@
         						%>
         						<!-- System.out.println("view에서 보여지는 p"+p); -->
 							<div class ="div-plan-map"> 
-        					    <div id ="plan-map<%=i%>" class ="plan-map"></div>
-        						
-        						<div class = "div-plan-title" onclick = "goPlanDetail(<%=planList.get(i).getpNo()%>);"> <%=p.getpTitle()%> </div>
-        						<br>
-								
-									<div class="ui labeled button" tabindex="0" style="width: 250px; height: 30px; margin-top: 5px;" >
-									<div class="ui basic red button">
+        							<div class = "div-plan-title" onclick = "goPlanDetail(<%=planList.get(i).getpNo()%>);"> 
+        							<a class="ui large circular label" style = "color :white; background : #2A5A85; margin-bottom : 1%;"><%=i+1 %></a>  <%=p.getpTitle()%> </div>
+        					   	 	
+        					   	 	<div id ="plan-map<%=i%>" class ="plan-map"></div>
+        					   	 	<div class = "div-plan-cities">
+        					    			<%=Ne.lengthsplit(p.getpCites(), 24)%>
+        					   		</div>
+								<div class="ui labeled button" tabindex="0" style="width: 95%; height: 30px; margin-top: 5px; text-align : center" >
+									 &nbsp;  &nbsp; &nbsp;  &nbsp;<div class="ui basic red button">
 										<i class="heart icon"></i> 좋아요
-									</div>
-									<a class="ui basic left pointing red label"> <%=p.getpLike() %> </a>
-									</div>
-									<br>
-									<div class="ui labeled button" tabindex="0" style="width: 250px; height: 30px; margin-top: 5px;" >
+									</div> 
+									<a class="ui basic left pointing red label"> <%=p.getpLike() %> </a> &nbsp;  &nbsp;
 									<div class="ui basic blue button">
 										<i class="fork icon"></i> 스크랩
 									</div>
 									<a class="ui basic left pointing blue label"> <%= p.getScrap() %> </a>
-									</div>
-
-								
-								
-								
-								
-								
+								</div>
         					</div>
         					<%}
         				}%>
@@ -231,15 +263,7 @@
 			       <%}%>
 					 });
 			
-		 	
-			
-			
 			</script>
-			
-			
-			
-			
-			
 			
 			
 			<br><br>
@@ -250,7 +274,7 @@
 			<!-- <div>
 				<div class="row">
 					<div class="col-md-6">
-						<!-- <h2>Custom search field</h2> 
+						<h2>Custom search field</h2> 
 						<div id="custom-search-input">
 							<div class="input-group col-md-12" id="div-search-plan">
 								<input type="text" class="form-control input-lg"
@@ -263,17 +287,17 @@
 						</div>
 					</div>
 				</div>
-			</div>  -->
+			</div> -->
 
 
-			<hr>
-			
 			<!-- 모든 플랜 보기 -->
-			<div>
-				<div class="ui mt-20">
-					<div class="ui huge header" > 모든 플랜 보기</div>
+			<div id = "bottom-contents">
+				<div class="ui mt-20" style = "margin-bottom : 80px;">
+					<div class="ui huge header" style = "padding : 1%;"> 모든 플랜 보기 
+						<div style = "float : right; font-weight : 400; font-size : 18px;">최신순</div>
+					</div>
 					<div>
-						<div class="div-plan-list" ">
+						<div class="div-plan-list" style = "margin-bottom : 80px;">
 							<% if(normalPlanMap!= null){								
 								nPlanList = (ArrayList<Plan>)normalPlanMap.get("nPlanList");        						
         					
@@ -281,49 +305,111 @@
         						Plan p = nPlanList.get(i);
         						%>
         						<!-- System.out.println("view에서 보여지는 p"+p); -->
-							<div class ="div-plan-map"> 
-        					    <div id ="plan-map1<%=i%>" class ="plan-map"></div>  
-        						<div class = "div-plan-title" onclick = "goPlanDetail(<%=nPlanList.get(i).getpNo()%>);"><%=p.getpTitle() %></div>
-        						<br>
-									<i class="red heart icon"></i><span style="color: red;"> 좋아요 </span> <%=p.getpLike() %> <br>
-									<i class="blue fork icon"></i><span style="color: #2185d0;"> 스크랩 </span> <%= p.getScrap() %> 
+							<div class ="div-plan-map" onclick = "goPlanDetail(<%=nPlanList.get(i).getpNo()%>);"> 
+							<div class = "div-plan-title" > " <%=p.getpTitle() %> "</div>
+        					    <div id ="Rplan-map<%=i%>" class ="plan-map"></div>  
+        					    <div class = "div-plan-cities">
+        					    		  <%=Ne.lengthsplit(p.getpCites(), 24)%>
+        					    </div>
+        					    <div class = "div-interest">
+        					    		<i class="red heart icon"></i><span style="color: red;"> 좋아요 </span> <%=p.getpLike() %> &nbsp; &nbsp; &nbsp;
+								<i class="blue fork icon"></i><span style="color: #2185d0;"> 스크랩 </span> <%= p.getScrap() %> 
+        					    </div>
+        					    
+        						</div>
+        							
+        						<script>
+				        		
+				        		$(function() {        			
+				        			var pno = <%= p.getpNo() %>;       		
+				        			 console.log(pno);
+				        			 $.ajax({
+				                         url : "/et/countScrapCnt.pl",
+				                         data : {
+				                            pno:pno
+				                         },
+				                         type : "post",
+				                         success : function(data) {
+				                            console.log(data.scrap);
+				                            var cnt = data.scrap;
+				                            $("#scrapCnt").text(cnt);
+				                         },
+				                         error:function(){                       	
+				                         }
+				        			 });
+				        			 
+				                    });
+								
+								</script>
         						
         					
         					</div>
         					<%}
         				}%>	</div>					
 					</div>
+					
+					<div class ="pagingArea" align = "center">
+						<button onclick = "location.href='<%=request.getContextPath()%>/selectallPlan.pl?currentPage=1'"> << </button>
+						
+						<% if (currentPage <= 1) { %>
+						<button disabled> < </button>
+						<% } else { %>
+						<button onclick="location.href = '<%=request.getContextPath()%>/selectallPlan.pl?currentPage=<%=currentPage-1%>'"> < </button>
+						<% } %>
+						
+						<% for (int p = startPage; p <= endPage; p++){
+							    if(p == currentPage){	
+						%>
+								<button disabled> <%= p %></button>
+						<%      }else {%>
+								<button onclick ="location.href = '<%=request.getContextPath()%>/selectallPlan.pl?currentPage=<%=p %>'"><%=p %> </button>
+						<%      } %>
+						
+						<% } %>
+						
+						<% if(currentPage >= maxPage) {  // 현재 페이지가 마지막 페이지인 경우 %>
+						<button disabled> > </button>
+						<% } else {%>
+						<button onclick="location.href = '<%=request.getContextPath()%>/selectallPlan.pl?currentPage=<%=currentPage + 1%>'"> > </button>
+						<% } %>
+						
+						<button onclick = "location.href = '<%=request.getContextPath()%>/selectallPlan.pl?currentPage=<%=maxPage %>'"> >> </button>
+					</div>
+					
 				</div>
 			</div>	
+		
+			
+			
+			
+			
+			
 			
 			<script>
-			var map;
-			var flightPlanCoordinatesArr = [];
-			var flightPlanCoordinates = [];
-			var path = {};
+			var Rmap;
+			var RflightPlanCoordinatesArr = [];
+			var RflightPlanCoordinates = [];
+			var Rpath = {};
 			
 			$(function () {
 				<%				
 				if(nCityMap != null && nPlanList != null){
 				String[] planCityArr1 = null;
 				
-				
 				for (int i = 0; i < nPlanList.size(); i++){
 					planCityArr1 =  (nPlanList.get(i).getpCites()).split(", "); // 이건 String
 					for(String cityNo : planCityArr1){
 						%>
-						path = {lat : <%=nCityMap.get(cityNo).getCtLat()%>, lng : <%=nCityMap.get(cityNo).getCtLng()%>};				
-						flightPlanCoordinates.push(path); 
+						Rpath = {lat : <%=nCityMap.get(cityNo).getCtLat()%>, lng : <%=nCityMap.get(cityNo).getCtLng()%>};				
+						RflightPlanCoordinates.push(Rpath); 
 					<% }%> 
-					flightPlanCoordinatesArr.push(flightPlanCoordinates); 
-					flightPlanCoordinates = [];
+					RflightPlanCoordinatesArr.push(RflightPlanCoordinates); 
+					RflightPlanCoordinates = [];
 				<% }%>
 				
-				<%for(int i = 0; i < nPlanList.size();  i++){ %>
-		    		// 해당하는 플랜의 도시 배열을 뽑아서 배열값을 나눈 다음에
-		    		// 여행하는 도시의 번호를 가져와서 도시리스트에서 위도, 경도를 구한다.
-		    		// 위도 경도 값을 해당하는 플랜의 도시 순서대로 PATH를 넣는다. 
-				    var map<%=i%> = new google.maps.Map(document.getElementById('plan-map1<%=i%>'), { 
+				<%for(int i = 0; i < nPlanList.size();  i++){ 
+				%>
+				    var Rmap<%=i%> = new google.maps.Map(document.getElementById('Rplan-map<%=i%>'), { 
 				          zoom: 4.5,
 				          center: new google.maps.LatLng(47.778744, 7.397438),
 				          mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -338,25 +424,24 @@
 			        };
 				    
 				   	poly<%=i%> = new google.maps.Polyline({
-				    		path : flightPlanCoordinatesArr[<%=i%>],
+				    		path : RflightPlanCoordinatesArr[<%=i%>],
 				        strokeColor: '#2A5A85',
 				        strokeOpacity: 1.0,
 				        strokeWeight: 3
 				    });
-			        poly<%=i%>.setMap(map<%=i%>);
+			        poly<%=i%>.setMap(Rmap<%=i%>);
 			        
 			       
-			        for (var j = 0; j < flightPlanCoordinatesArr[<%=i%>].length; j++) {
+			        for (var j = 0; j < RflightPlanCoordinatesArr[<%=i%>].length; j++) {
 			        marker<%=i%> = new google.maps.Marker({
-			            position: flightPlanCoordinatesArr[<%=i%>][j],
+			            position: RflightPlanCoordinatesArr[<%=i%>][j],
 			            icon : lineSymbol,
-			            map: map<%=i%>
+			            map: Rmap<%=i%>
 			          });
 			        console.log("marker"+j);
 			        }
 			    <%}%>
 		       <%}else{
-		    	   System.out.println("else다!!!" ); 
 		       }%>
 			});
 			
@@ -374,26 +459,15 @@
 				 
 			   }
 			
-			
-				
-			
+			$(".div-plan-map").mouseenter(function(){
+				$(this).find(".div-plan-title").css("color", "rgb(237,197,58)");
+			}).mouseleave(function(){
+				$(this).find(".div-plan-title").css("color", "#2A5A85");
+			});
 			
 			</script>
 			
-			
-
-
-
-
-
-
-
-
-
-
-
-
-			<!-- --------------->
+	
 		</div>
 		<div class="two wide column"></div>
 	</div>

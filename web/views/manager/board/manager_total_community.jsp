@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import ="com.kh.et.manager.model.vo.*"%>
+    pageEncoding="UTF-8" import ="com.kh.et.manager.model.vo.*, java.util.Date"   %>
 <%
 	int[] total = (int[])request.getAttribute("total");
+
+	Date now = new Date();
+	String today=String.format("%tY년 %tm월 %td일 %tA",now,now,now,now);
 %>    
     
     
@@ -54,11 +57,16 @@ table{
  }
  .nav{
  	width:20%;
+ 	margin-left:2px;
  }
  .sub{
  	width:75%;
  }
+ #piechart{
+ 	align:left;
+ }
 </style>
+
 </head>
 <body>
 
@@ -71,7 +79,7 @@ table{
     	</div>
     
     	<div class="sub">
-	    	<div class="ui header title">▶커뮤니티 현황</div>
+	    	<%-- <div class="ui header title">▶커뮤니티 현황</div>
 	    	- 커뮤니티 정보 <br><br>
 	    	<table id="tb1">
 	    		<tr>
@@ -86,12 +94,39 @@ table{
 	    			<th>일일 평균 게시물 수</th>
 	    			<td><%= total[2] %>개</td>
 	    		</tr>
-	    	</table>
+	    	</table> --%>
+	    	<div id="chart_div" style="width: 900px; height: 500px; margin-left:-60px"></div>
 	    </div>
 	</div>
 	
 	<div class = "two wide column"></div>
 	
+	
+	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
+
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        var data = google.visualization.arrayToDataTable([
+          ['Month', '전체게시물 수', '오늘의 게시물', '일평균 게시물'],
+          ['<%= today%>',<%= total[0] %>, <%= total[1] %>, <%= total[2] %>]
+        ]);
+
+        var options = {
+          title : '▶커뮤니티 현황\n\n\n',
+          vAxis: {title: '게시글 수'},
+          hAxis: {title: '현황'},
+          seriesType: 'bars',
+          series: {5: {type: 'line'}}
+        };
+
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
 
 	<%@ include file = "/views/common/company/footer_com.jsp" %>
 

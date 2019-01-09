@@ -12,7 +12,6 @@ public class NumberExec {
 		return str;
 		
 	}
-	
 
 	//텍스트 길이 제한
 	public String lengthsplit(String str, int length) {

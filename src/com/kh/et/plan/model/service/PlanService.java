@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.et.board.model.dao.BoardDao;
+import com.kh.et.member.model.vo.Member;
 import com.kh.et.plan.model.dao.PlanDao;
 import com.kh.et.plan.model.vo.City;
 import com.kh.et.plan.model.vo.Plan;
@@ -101,8 +102,8 @@ public class PlanService {
 		int scrap = 0;
 		if(resultMap != null) {
 			Plan plan = (Plan) resultMap.get("plan");
-			like = new PlanDao().getLikeNum(con, plan.getpNo());
-			scrap = new PlanDao().getScrapNum(con, plan.getpNo());
+			like = new PlanDao().getLikeNum(con, planNo);
+			scrap = new PlanDao().getScrapNum(con, planNo);
 			resultMap.put("like", like);
 			resultMap.put("scrap", scrap);
 			commit(con);
@@ -201,10 +202,9 @@ public class PlanService {
 		System.out.println("selectBestPlan의 Service인걸?");
 		
 		HashMap<String, Object> bestPlanMap = new PlanDao().selectBestPlan(con);
-		System.out.println("service 의 bestPlanMap"+bestPlanMap);
-		
 		HashMap<String, City> bestCityMap = new PlanDao().selectBestMap(con);
-		System.out.println("service 의 bestCityMap"+bestCityMap);
+		
+		
 		
 		if(bestPlanMap != null && bestCityMap != null) {
 			bestPlanMap.put("bestCityMap", bestCityMap); 
@@ -221,16 +221,16 @@ public class PlanService {
 
 	
 	//플랜 엿보기 - 모든플랜 조회
-	public HashMap<String, Object> selectnormalPlan() {
+	public HashMap<String, Object> selectnormalPlan(int currentPage, int limit) {
 		Connection con = getConnection();
 		
 		System.out.println("normalPlan의 Service인걸?");
 		
-		HashMap<String, Object> normalPlanMap = new PlanDao().selectNormalPlan(con);
+		HashMap<String, Object> normalPlanMap = new PlanDao().selectNormalPlan(con, currentPage, limit);
 		System.out.println("service 의 normalPlanMap"+normalPlanMap);
 		
 		HashMap<String, City> normalCityMap = new PlanDao().selectNormalMap(con);
-		System.out.println("service 의 normalCityMap"+normalCityMap);
+		
 		
 		if(normalPlanMap != null && normalCityMap != null) {
 			normalPlanMap.put("normalCityMap", normalCityMap); 		
@@ -275,55 +275,42 @@ public class PlanService {
 		return listCount;
 	}
 	
-	//좋아요 눌렀을때
+	//좋아요 눌렀을때 --> 최종
 	public int clickLike(PlanInterest pl, String likeStatus) {
 		Connection con = getConnection();
 
-		int result = 0;  //int result = 0 으로 선언
+		//int result = 0 으로 선언
 		int result1 = 0;
 		System.out.println("서비스에도 들어왔옹");
 		
 		if(likeStatus.equals("X")) { // 좋아요 누른 기록이 없음으로 insert 해줘야 함
-			System.out.println("서비스 X");
+			System.out.println("service status:"+likeStatus);
 			result1 = new PlanDao().insertLike(con,pl);
+			int result2 = new PlanDao().insertPlanLikePoint(con,pl);
+			int result3 = new PlanDao().updataPlanClickedMember(con,pl);
+			int result4 = new PlanDao().updatePlanLickeClicKMember(con,pl);
+			if(result1 > 0 && result2 >0 && result3>0 && result4 > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}	
 			
-			if(result1 > 0) {commit(con);}
-			else {rollback(con);}			
-		}else { // likeStatus == "N" 좋아요 했다가 취소한거니까 update
-			System.out.println("서비스 Y");
+		}else if(likeStatus.equals("N")) { // likeStatus == "N" 좋아요 했다가 취소한거니까 update->Y
+			System.out.println("service status:"+likeStatus);
 			result1 =  new PlanDao().updateLike(con,pl);
 			if(result1 > 0) {commit(con);}
 			else {rollback(con);}		
+			
+		}else {  // likeStatus == "Y" 좋아요 눌린거를 취소하는거 update->N
+			System.out.println("service status:"+likeStatus);
+			result1 = new PlanDao().updateUnLike(con,pl);
+			if(result1 > 0) {commit(con);}
+			else {rollback(con);}
+		
 		}
+		System.out.println("service에서 변화가 있낭"+result1);
 		return result1;
 
-	/*	ArrayList<HashMap<String, Object>> list = new PlanDao().sameListMethod(con,pl);
-		System.out.println(",planService:"+list.size());
-		System.out.println("좋아요 서비스전이야");
-		if(list.size()==0) {
-			 //result ->result1로 변경	
-			int result2 = new PlanDao().insertPlanLikePoint(con,pl);
-			int result3 = new PlanDao().updataPlanClickedMember(con,pl);
-				int result4 = new PlanDao().updatePlanLickeClicKMember(con,pl);
-				System.out.println("result4:"+result4);
-			if(result1>0 && result2>0 && result3>0) {
-				commit(con);
-				result =1;
-			}else {
-				rollback(con);
-			}
-    }else{
-      int result11 = new PlanDao().insertLike(con, pl);
-      if(result11>0){
-        commit(con);
-        result = 1;
-      }else {
-       rollback(con); 
-      }
-    }
-		close(con);
-		
-		return result;*/
 	}
 	///포인트 합류 끝
 	
@@ -345,21 +332,7 @@ public class PlanService {
 		return like;
 	}
 	
-	//플랜 좋아요 취소
-	public int clickUnLike(PlanInterest pl) {
-		Connection con = getConnection();
-		
-		int result = new PlanDao().clickUnLike(con,pl);
-		
-		if(result>0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		close(con);
-		
-		return result;
-	}
+	
 
 	//내가 스크랩한 플랜 가져오기
 	public HashMap<String, Object> scrapPlan(int mno) {
@@ -381,19 +354,25 @@ public class PlanService {
 		
 		return scrapPlan;
 	}
+	
 	//스크랩 클릭시 
-	public int clickScrap(PlanInterest pl) {
-		
+	public int clickScrap(PlanInterest pl, String scrapStatus) {
 		Connection con = getConnection();
 		
-		int result = new PlanDao().clickScrap(con,pl);		
-		if(result>0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		close(con);
+		int result = 0;
+		System.out.println("서비스에도 들어왔옹");
 		
+		if(scrapStatus.equals("X")) { // 스크랩 누른 기록이 없음으로 insert 해줘야 함
+			System.out.println("service Scrapestatus:"+scrapStatus);
+			result = new PlanDao().insertScrap(con,pl);			
+			if(result > 0 ) {
+				commit(con);
+			}else {
+				rollback(con);
+			}					
+		}else {  // Y 이면 그냥 리턴..
+			result = 1;
+		}
 		return result;
 	}
 	
@@ -412,23 +391,9 @@ public class PlanService {
 		
 		return scrap;
 	}
-	//스크랩 취소 
-	public int clickUnScrap(PlanInterest pl) {
-		Connection con = getConnection();
-		
-		int result = new PlanDao().clickUnScrap(con,pl);
-		
-		if(result>0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		close(con);
-		
-		return result;
-	}
 	
-	//플랜 상태 가져오기
+	
+	//플랜 좋아요상태 가져오기
 	public String getLikeStatus(int pno, int user) {
 		Connection con = getConnection();
 		
@@ -448,6 +413,42 @@ public class PlanService {
 		
 		System.out.println("Service에서 오는 likeStatus 값:"+likeStatus);
 		return likeStatus;
+	}
+	
+	//플랜 스크랩 상태 가져오기
+	public String getScrapStatus(int pno, int user) {
+		Connection con = getConnection();
+		
+		String scrapStatus = new PlanDao().getScrapStatus(con,pno,user);
+		
+		if(scrapStatus.equals("Y")) { // 스크랩 했을때
+			scrapStatus="Y";
+			commit(con);
+		}else { //스크랩  안 했을 때
+			scrapStatus="X";
+			commit(con);
+		}
+		close(con);
+		
+		System.out.println("Service에서 오는 likeStatus 값:"+scrapStatus);
+		return scrapStatus;
+	}
+	
+	//내가 스크랩한 모든 플랜보기
+	public HashMap<String, Object> allScrapPlan(int mno) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> allScrapPlan = new PlanDao().allScrapPlan(con, mno);
+		
+		HashMap<String, City> allScrapPlanCity = new PlanDao().allScrapPlanCity(con);
+		
+		if(allScrapPlan != null & allScrapPlanCity != null) {
+			allScrapPlan.put("allScrapPlanCity", allScrapPlanCity);
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return allScrapPlan;
 	}
 
 
@@ -479,7 +480,7 @@ public class PlanService {
 		}else {
 			rollback(con);
 		}
-		
+
 		close(con);
 		
 		return scrapPlanList;
