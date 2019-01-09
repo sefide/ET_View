@@ -159,6 +159,11 @@ public class BoardDao {
 				b.setBtitle(rset.getString("B_TITLE"));
 				b.setbContent(rset.getString("B_CONTENT"));
 				b.setbDate(rset.getDate("B_DATE"));
+				if(rset.getString("A_CHANGE_NAME")== null) {
+					b.setbCheckBest("/et/image/common/logo_c.png");
+				}else {
+					b.setbCheckBest("/et/profileUpload/"+rset.getString("A_CHANGE_NAME"));
+				}
 			}
 		
 		
