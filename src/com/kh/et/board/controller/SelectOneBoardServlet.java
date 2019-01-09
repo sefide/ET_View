@@ -43,6 +43,7 @@ public class SelectOneBoardServlet extends HttpServlet {
 		HashMap<String, Object> aList = new BoardService().selectOne(num);
 		
 		
+		
 		/*ArrayList<HashMap<String, Object>> list=new BoardService().selectOne(num);*/
 		/*String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getM_no());*/
 		

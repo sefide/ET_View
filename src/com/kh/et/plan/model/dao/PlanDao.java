@@ -471,7 +471,7 @@ public class PlanDao {
 		int result = 0;
 		 
 		String query = prop.getProperty("getLikeNum");
-		//SELECT PI.PI_P_NO, COUNT(PI.PI_P_NO) CNT FROM PLANINTEREST PI JOIN PLAN P ON (PI.PI_P_NO = P.P_NO) WHERE P.P_NO = ? AND PI.PI_TYPE = ? GROUP BY PI_P_NO
+		//SELECT PI.PI_P_NO, COUNT(PI.PI_P_NO) CNT FROM PLANINTEREST PI JOIN PLAN P ON (PI.PI_P_NO = P.P_NO) WHERE P.P_NO = ? AND PI.PI_TYPE = '좋아요' AND PI_STATUS = 'Y' GROUP BY PI.PI_P_NO 
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -1215,13 +1215,7 @@ public class PlanDao {
 	public int insertLike(Connection con, PlanInterest pl) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
-		System.out.println(pl.getWriter());
-		System.out.println(pl.getPno());
-		System.out.println(pl.getUser());
-		
-		
-		
+
 		String query = prop.getProperty("ClickInsert");
 		//ClickInsert=INSERT INTO PLANINTEREST SELECT SEQ_PI_NO.NEXTVAL,?,?,?,?,'Y' FROM DUAL A WHERE NOT EXISTS ( SELECT * FROM PLANINTEREST WHERE  PI_P_NO = ?  AND PI_GIVE_NO = ? AND PI_TYPE = ?  AND PI_STATUS = 'Y' )
 		
@@ -1260,6 +1254,34 @@ public class PlanDao {
 			pstmt.setInt(1, pl.getPno());
 			pstmt.setInt(2, pl.getUser());
 			pstmt.setString(3, type);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return result;
+	}
+	//좋아요 취소
+	public int updateUnLike(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		System.out.println("넘버"+pl.getPno());
+		System.out.println("유저"+pl.getUser());
+		
+		
+		System.out.println();
+		String query = prop.getProperty("ClickUpdateN"); //N로 업데이트
+		//ClickUpdateN=UPDATE PLANINTEREST SET PI_STATUS = 'N' WHERE PI_P_NO = ?  AND PI_GIVE_NO = ? AND PI_TYPE = ?  AND PI_STATUS = 'Y' 
+		
+		try {
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pl.getPno());
+			pstmt.setInt(2, pl.getUser());
+			pstmt.setString(3, type);
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

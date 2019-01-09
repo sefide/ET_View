@@ -168,6 +168,7 @@
 			}).click(function(){
 				var num = parseInt( $(this).parent().children("input").val() );
 				
+				
 				location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num ;
 			});
 		});
