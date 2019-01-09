@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.*, com.kh.et.board.model.vo.*, com.kh.et.plan.model.vo.*, com.kh.et.tourBoard.model.vo.*"%>
+	import="java.util.*, com.kh.et.board.model.vo.*, com.kh.et.plan.model.vo.*, com.kh.et.tourBoard.model.vo.*, com.kh.et.common.*"%>
 
 <%
 	String msg = (String) request.getAttribute("msg");
@@ -28,6 +28,8 @@
 	int endPage = pi.getEndPage();
 	int limit = pi.getLimit();
     System.out.println("s : " + startPage+", e : " + endPage);
+    
+    NumberExec Ne = new NumberExec();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -84,9 +86,10 @@
 
 .div-plan-map {
 	width : 30%;
-	height: 444px;
+	height: 430px;
 	display: inline-block;
-	margin: 1.5%;
+	margin: 1.4%;
+	cursor : pointer;
 }
 
 .plan-map {
@@ -101,6 +104,8 @@
 	color : #2A5A85 ;
 	display: inline-block;
 	cursor: pointer;
+	text-align :center;
+	width : 95%;
 }
 
 
@@ -128,7 +133,17 @@
 	padding-top : 20px;
 	border-top : 1px solid lightgray;
 }
-
+.div-interest{
+	width : 95%;
+	font-size : 16px;
+	margin-top : 5px;
+	text-align : right;
+}
+.div-plan-cities{
+	width : 95%;
+	color : gray;
+	text-align : center;
+}
 </style>
 </head>
 <body>
@@ -157,24 +172,23 @@
         						%>
         						<!-- System.out.println("view에서 보여지는 p"+p); -->
 							<div class ="div-plan-map"> 
-        					    <div id ="plan-map<%=i%>" class ="plan-map"></div>
-        						
-        						<div class = "div-plan-title" onclick = "goPlanDetail(<%=planList.get(i).getpNo()%>);"> <%=p.getpTitle()%> </div>
-        						<br>
-								
-									<div class="ui labeled button" tabindex="0" style="width: 250px; height: 30px; margin-top: 5px;" >
-									<div class="ui basic red button">
+        							<div class = "div-plan-title" onclick = "goPlanDetail(<%=planList.get(i).getpNo()%>);"> 
+        							<a class="ui large circular label" style = "color :white; background : #2A5A85; margin-bottom : 1%;"><%=i+1 %></a>  <%=p.getpTitle()%> </div>
+        					   	 	
+        					   	 	<div id ="plan-map<%=i%>" class ="plan-map"></div>
+        					   	 	<div class = "div-plan-cities">
+        					    			<%=Ne.lengthsplit(p.getpCites(), 24)%>
+        					   		</div>
+								<div class="ui labeled button" tabindex="0" style="width: 95%; height: 30px; margin-top: 5px; text-align : center" >
+									 &nbsp;  &nbsp; &nbsp;  &nbsp;<div class="ui basic red button">
 										<i class="heart icon"></i> 좋아요
-									</div>
-									<a class="ui basic left pointing red label"> <%=p.getpLike() %> </a>
-									</div>
-									<br>
-									<div class="ui labeled button" tabindex="0" style="width: 250px; height: 30px; margin-top: 5px;" >
+									</div> 
+									<a class="ui basic left pointing red label"> <%=p.getpLike() %> </a> &nbsp;  &nbsp;
 									<div class="ui basic blue button">
 										<i class="fork icon"></i> 스크랩
 									</div>
 									<a class="ui basic left pointing blue label"> <%= p.getScrap() %> </a>
-									</div>
+								</div>
         					</div>
         					<%}
         				}%>
@@ -260,7 +274,7 @@
 			<!-- <div>
 				<div class="row">
 					<div class="col-md-6">
-						<!-- <h2>Custom search field</h2> 
+						<h2>Custom search field</h2> 
 						<div id="custom-search-input">
 							<div class="input-group col-md-12" id="div-search-plan">
 								<input type="text" class="form-control input-lg"
@@ -273,13 +287,15 @@
 						</div>
 					</div>
 				</div>
-			</div>  -->
+			</div> -->
 
 
 			<!-- 모든 플랜 보기 -->
 			<div id = "bottom-contents">
 				<div class="ui mt-20" style = "margin-bottom : 80px;">
-					<div class="ui huge header" > 모든 플랜 보기</div>
+					<div class="ui huge header" style = "padding : 1%;"> 모든 플랜 보기 
+						<div style = "float : right; font-weight : 400; font-size : 18px;">최신순</div>
+					</div>
 					<div>
 						<div class="div-plan-list" style = "margin-bottom : 80px;">
 							<% if(normalPlanMap!= null){								
@@ -289,12 +305,17 @@
         						Plan p = nPlanList.get(i);
         						%>
         						<!-- System.out.println("view에서 보여지는 p"+p); -->
-							<div class ="div-plan-map"> 
+							<div class ="div-plan-map" onclick = "goPlanDetail(<%=nPlanList.get(i).getpNo()%>);"> 
+							<div class = "div-plan-title" > " <%=p.getpTitle() %> "</div>
         					    <div id ="Rplan-map<%=i%>" class ="plan-map"></div>  
-        						<div class = "div-plan-title" onclick = "goPlanDetail(<%=nPlanList.get(i).getpNo()%>);">< <%=p.getpTitle() %> ></div>
-        						<br>
-									<i class="red heart icon"></i><span style="color: red;"> 좋아요 </span> <%=p.getpLike() %> <br>
-									<i class="blue fork icon"></i><span style="color: #2185d0;"> 스크랩 </span> <%= p.getScrap() %> 
+        					    <div class = "div-plan-cities">
+        					    		  <%=Ne.lengthsplit(p.getpCites(), 24)%>
+        					    </div>
+        					    <div class = "div-interest">
+        					    		<i class="red heart icon"></i><span style="color: red;"> 좋아요 </span> <%=p.getpLike() %> &nbsp; &nbsp; &nbsp;
+								<i class="blue fork icon"></i><span style="color: #2185d0;"> 스크랩 </span> <%= p.getScrap() %> 
+        					    </div>
+        					    
         						</div>
         					<%}
         				}%>	</div>					
@@ -344,7 +365,6 @@
 				
 				for (int i = 0; i < nPlanList.size(); i++){
 					planCityArr1 =  (nPlanList.get(i).getpCites()).split(", "); // 이건 String
-					System.out.println("planCity" + i + ":" + planCityArr1[0]);
 					for(String cityNo : planCityArr1){
 						%>
 						Rpath = {lat : <%=nCityMap.get(cityNo).getCtLat()%>, lng : <%=nCityMap.get(cityNo).getCtLng()%>};				
@@ -355,7 +375,6 @@
 				<% }%>
 				
 				<%for(int i = 0; i < nPlanList.size();  i++){ 
-				System.out.print("스트레스 받오 ");
 				%>
 				    var Rmap<%=i%> = new google.maps.Map(document.getElementById('Rplan-map<%=i%>'), { 
 				          zoom: 4.5,
@@ -406,6 +425,12 @@
 				<% }%>
 				 
 			   }
+			
+			$(".div-plan-map").mouseenter(function(){
+				$(this).find(".div-plan-title").css("color", "rgb(237,197,58)");
+			}).mouseleave(function(){
+				$(this).find(".div-plan-title").css("color", "#2A5A85");
+			});
 			
 			</script>
 			

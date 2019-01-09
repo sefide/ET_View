@@ -12,7 +12,6 @@ public class NumberExec {
 		return str;
 		
 	}
-	
 
 	//플랜 도시 이름 길이 제한
 	public String lengthsplit(String str, int length) {

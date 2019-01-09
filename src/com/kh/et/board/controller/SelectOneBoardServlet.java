@@ -35,21 +35,14 @@ public class SelectOneBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int num = Integer.parseInt(request.getParameter("num"));
 		
-		System.out.println(num);
-		
 		HashMap<String, Object> aList = new BoardService().selectOne(num);
-		
-		
 		
 		/*ArrayList<HashMap<String, Object>> list=new BoardService().selectOne(num);*/
 		/*String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getM_no());*/
 		
-		
 		String page = "";
-		
 		if(aList != null) {
 			page = "views/normal/board/boardDetail.jsp";
 			request.setAttribute("aList", aList);

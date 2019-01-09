@@ -448,7 +448,6 @@ public class PlanDao {
 			if(rset != null) {
 				while(rset.next()) {
 				News n = new News();
-				System.out.println("다오 - 풀랜있어요 ");
 				n.setTitle(rset.getString("P_TITLE"));
 				n.setName(rset.getString("M_NAME"));
 				n.setType(rset.getString("PI_TYPE"));
@@ -484,8 +483,8 @@ public class PlanDao {
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
-				result += 1;
+			while(rset.next()) {
+				result = rset.getInt("CNT");
 			}
 			
 			
@@ -510,7 +509,6 @@ public class PlanDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, pno);
 			pstmt.setString(2, "스크랩");
-			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -560,7 +558,8 @@ public class PlanDao {
 				p.setpTitle(rset.getString("P_TITLE"));
 				p.setpCites(rset.getString("P_CITYS"));
 				p.setpLike(rset.getInt("CNT"));
-
+				p.setScrap(getScrapNum(con, rset.getInt("PI_P_NO")));
+				
 				list.add(p);
 			}
 			pm.put("planList", list);
@@ -619,10 +618,8 @@ public class PlanDao {
 		ResultSet rset = null;
 		HashMap<String, Object> pm = null;
 		ArrayList<Plan> list = null;
-		System.out.println("normalplan의 dao당!");
 
 		String query = prop.getProperty("selectNormalPlan");
-		System.out.println(query);
 		/*
 		 * SELECT RNUM,P_NO,P_TITLE,P_CITYS, M_ID ,LIKEC FROM(SELECT ROWNUM
 		 * RNUM,P_NO,P_TITLE,P_CITYS, M_ID ,LIKEC FROM(SELECT P.P_NO, P.P_TITLE,
@@ -639,7 +636,7 @@ public class PlanDao {
 			
 			int startRow = (currentPage - 1) * limit + 1;
 			int endRow = startRow + limit -1;
-			
+			int planNum = 0;
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			
@@ -649,15 +646,16 @@ public class PlanDao {
 			pm = new HashMap<String, Object>();
 			while (rset.next()) {
 				Plan p = new Plan();
-
+				planNum = rset.getInt("P_NO");
 				p.setpNo(rset.getInt("P_NO"));
 				p.setpTitle(rset.getString("P_TITLE"));
 				p.setpCites(rset.getString("P_CITYS"));
 				p.setpId(rset.getString("M_ID"));
-				// p.setpLike(rset.getInt("LIKEC"));
+				
+				p.setpLike(getLikeNum(con, planNum));
+				p.setScrap(getScrapNum(con, planNum));
 
 				list.add(p);
-				System.out.println("얍" );
 			}
 			pm.put("nPlanList", list);
 			// pm : key - 인기 순위 order / value - 해당 플랜정보
