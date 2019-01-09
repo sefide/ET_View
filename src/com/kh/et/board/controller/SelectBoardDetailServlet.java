@@ -1,6 +1,7 @@
 package com.kh.et.board.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,7 +38,7 @@ public class SelectBoardDetailServlet extends HttpServlet {
 		
 		/*System.out.println("update: "+num);*/
 		
-		Board b = new BoardService().selectOne(num);
+		HashMap<String, Object> b = new BoardService().selectOne(num);
 		
 		String page = "";
 		if(b != null) {

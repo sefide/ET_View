@@ -98,7 +98,7 @@
 						<th class="single line">글 번호</th>
 						<th>제목</th>
 						<th>작성자</th>
-						<th>좋아요 수</th>
+						<!-- <th>좋아요 수</th>  -->
 						<th>작성일</th>
 
 					</tr>
@@ -111,7 +111,7 @@
 						<td><%= b.getbNo() %></td>
 						<td><%= b.getBtitle() %></td>
 						<td><%= b.getbWriter() %></td>
-						<td><%= b.getbLike() %></td>
+						<!-- <td><%= b.getbLike() %></td>  -->
 						<td><%= b.getbDate() %></td>
 					</tr>
 					<% } %>
@@ -128,7 +128,7 @@
 						<button disabled> < </button>
 						<%} else {%>
 						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage - 1%>'"> < </a>
+							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage - 1%>'"><S</a>
 						<%}%>
 						
 						

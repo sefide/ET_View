@@ -105,6 +105,8 @@ public class BoardService {
 			= new BoardDao().selectList(con, currentPage, limit);
 		
 		
+		
+		
 		if(list != null) {
 			commit(con);
 		}else {
@@ -329,40 +331,41 @@ public class BoardService {
 	
 	
 	//글 좋아요
-	public int clickLike(BoardInterest bi) {
+	public int clickLike(BoardInterest bi, String likeStatus) {
 		Connection con = getConnection();
-		int result=0;
-		System.out.println("좋아요 서비스전이야");
+
+		//int result = 0 으로 선언
+		int result1 = 0;
+		System.out.println("서비스에도 들어왔옹");
 		
-		int getNo = new BoardDao().getNo(con,bi.getWriter());
-		System.out.println("list 실행전 getNo:"+getNo);
-		
-		ArrayList<HashMap<String, Object>> list = new BoardDao().sameListBoardLike(con,bi,getNo);
-		System.out.println("boardService:"+list.size());
-		if(list.size()==0) {
-			System.out.println("list다음 getNo:"+getNo);
-			int result1 = new BoardDao().clickLike(con,bi,getNo);
-			int result2 = new BoardDao().insertBoardLikePoint(con,bi,getNo);
-			int result3 = new BoardDao().updataBoardClickedMember(con,bi,getNo);
-			System.out.println("좋아요 서비스양");
-			if(result1>0 && result2>0 && result3>0) {
+		if(likeStatus.equals("X")) { // 좋아요 누른 기록이 없음으로 insert 해줘야 함
+			System.out.println("service status:"+likeStatus);
+			result1 = new BoardDao().insertLike(con,bi);
+			
+			//int result2 = new PlanDao().insertPlanLikePoint(con,bi);
+			//int result3 = new PlanDao().updataPlanClickedMember(con,bi);
+			//int result4 = new PlanDao().updatePlanLickeClicKMember(con,bi);
+			if(result1 > 0 ) {
 				commit(con);
-				result =1;
 			}else {
 				rollback(con);
-			}
-		}else{
-			int result1 = new BoardDao().clickLike(con,bi,getNo);
-		      if(result1>0){
-		        commit(con);
-		        result = 1;
-		      }else {
-		       rollback(con); 
-		      }
-		}
-		close(con);
+			}	
+			
+		}else if(likeStatus.equals("N")) { // likeStatus == "N" 좋아요 했다가 취소한거니까 update->Y
+			System.out.println("service status:"+likeStatus);
+			result1 =  new BoardDao().updateLike(con,bi);
+			if(result1 > 0) {commit(con);}
+			else {rollback(con);}		
+			
+		}else {  // likeStatus == "Y" 좋아요 눌린거를 취소하는거 update->N
+			System.out.println("service status:"+likeStatus);
+			result1 = new BoardDao().updateUnLike(con,bi);
+			if(result1 > 0) {commit(con);}
+			else {rollback(con);}
 		
-		return result;
+		}
+		System.out.println("service에서 변화가 있낭"+result1);
+		return result1;
 		
 	}
 	//글 좋아요 취소
@@ -409,19 +412,64 @@ public class BoardService {
 		
 		return result;
 	}
-
-	//댓글 가져오깅
-/*	public ArrayList<HashMap<String, Object>> selectReply(int getbNo) {
-		Connection con = getConnection();
-		ArrayList<Board> replyList = null;
+	
+	//좋아요 상태
+	public String getLikeStatus(int num, int user) {
+Connection con = getConnection();
 		
-		replyList = new BoardDao().selectReplyList(con, getbNo);
-
+		String likeStatus = new BoardDao().getLikeStatus(con,num,user);
+		
+		if(likeStatus.equals("Y")) {
+			likeStatus="Y";
+			commit(con);
+		}else if(likeStatus.equals("N")){
+			likeStatus="N";
+			commit(con);
+		}else {
+			likeStatus="X";
+			commit(con);
+		}
 		close(con);
 		
-		return replyList;
+		System.out.println("Service에서 오는 likeStatus 값:"+likeStatus);
+		return likeStatus;
 	}
-	*/
+	
+	//스크랩 상태
+	public String getScrapStatus(int num, int user) {
+Connection con = getConnection();
+		
+		String scrapStatus = new BoardDao().getScrapStatus(con,num,user);
+		
+		if(scrapStatus.equals("Y")) { // 스크랩 했을때
+			scrapStatus="Y";
+			commit(con);
+		}else { //스크랩  안 했을 때
+			scrapStatus="X";
+			commit(con);
+		}
+		close(con);
+		
+		System.out.println("Service에서 오는 scrapStatus 값:"+scrapStatus);
+		return scrapStatus;
+	}
+	//글쓴이 번호 알아오기
+	public int getbwriter(String writer) {
+		Connection con = getConnection();
+		
+		int bwriter = new BoardDao().getbwriter(con,writer);
+		
+		if(bwriter>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return bwriter;
+	}
+
+
 	
 	
 

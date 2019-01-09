@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.et.board.model.service.BoardService;
 import com.kh.et.board.model.vo.Board;
 import com.kh.et.member.model.vo.Member;
+import com.kh.et.plan.model.service.PlanService;
 import com.kh.et.tourBoard.model.service.TourBoardService;
 
 /**
@@ -35,17 +36,29 @@ public class SelectOneBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
+		
+		int num = Integer.parseInt(request.getParameter("num")); //bno
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		
+		int user = loginUser.getM_no();
 		
 		HashMap<String, Object> aList = new BoardService().selectOne(num);
 		
 		/*ArrayList<HashMap<String, Object>> list=new BoardService().selectOne(num);*/
 		/*String writer = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getM_no());*/
 		
+		//좋아요 상태 가져오기
+		String likeStatus = new BoardService().getLikeStatus(num,user);
+		//스크랩 상태 가져오기
+		String scrapStatus = new BoardService().getScrapStatus(num,user);
+		
 		String page = "";
 		if(aList != null) {
 			page = "views/normal/board/boardDetail.jsp";
 			request.setAttribute("aList", aList);
+			request.setAttribute("likeStatus", likeStatus);
+			request.setAttribute("scrapStatus", scrapStatus);
+			
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 상세조회 실패!");

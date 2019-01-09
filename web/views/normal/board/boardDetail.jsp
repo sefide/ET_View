@@ -4,7 +4,8 @@
 	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.*"%>
 <%
 	HashMap<String,Object> bMap = (HashMap<String,Object>)request.getAttribute("aList");
- 	
+	String likeStatus = (String) request.getAttribute("likeStatus");
+	String scrapStatus = (String) request.getAttribute("scrapStatus");
 		
 	Board b = (Board) bMap.get("b");
 	ArrayList<Board> list = (ArrayList<Board>) bMap.get("list");
@@ -140,154 +141,113 @@
 			
   			<h1 class="ui header" style="margin-top: 15px;">
 				게시글 상세보기
-				&nbsp;&nbsp;		
-					<!-- 좋아요 -->
-					<div class="ui labeled button" tabindex="0">
-					<div class="ui red button" id="likePlan">
-						<i class="heart icon"></i> 좋아요!
-					</div>
-					<a class="ui basic red left pointing label" id="likeCnt"> <%=b.getbLike()%>
-					</a>
-					<div class="ui red button" id="unlikePlan" style="display: none;">
-						<i class="empty heart icon"></i> 좋아요!
-					</div>
-					<a class="ui basic red left pointing label" id="unlikeCnt"
-						style="display: none;"> <%=b.getbLike()%>
-					</a>
-					</div>
-					<!-- 스크랩 -->
-					<div class="ui labeled button" tabindex="0" style="margin-top: 10px;">
-					<div class="ui basic blue button" id="scrapPlan">
-					<i class="fork icon"></i> 스크랩
-					</div>
-					<a class="ui basic left pointing blue label" id="scrapCnt"> <%=b.getbScrap() %> <a>
-							
-					<div class="ui blue button" id="unscrapPlan" style="display: none;">
-					<i class="empty fork icon"></i> 스크랩</div>
-					<a class="ui basic left pointing blue label" id="unscrapCnt" style="display: none;" > <%=b.getbScrap() %><a>
-							
-					</div>
-
+				
+				<%--좋아요 버튼 div--%>
+						
+					<%-- <%if(plan.getpWriter() != loginUser.getM_no())%> --%>					
+					<% if(likeStatus == "X"){ %>
+						<div class="ui labeled button" tabindex="0">
+							<div class="ui red button" id="likePlan" onclick="clickLike('<%=likeStatus%>') ;">
+							<i class="heart icon" ></i> 좋아요!
+							</div>
+							<a class="ui basic red left pointing label" id="likeCnt"> </a>
+						</div>						
+					<%}else if(likeStatus == "N"){ %> 
+						<!-- 좋아요   안 눌렸을때(취소 했을 때) -->
+						<div class="ui labeled button" tabindex="0">
+							<div class="ui red button" id="likePlan" onclick="clickLike('<%=likeStatus%>') ;">
+							<i class="heart icon" ></i> 좋아요!
+							</div>
+							<a class="ui basic red left pointing label" id="likeCnt"> </a>
+						</div>					
+					<%}else{ %>
+							<!-- 좋아요 눌렸을때 -->
+						<div class="ui labeled button" tabindex="0">
+							<div class="ui red button"  onclick="clickLike('<%=likeStatus%>') ;" >
+							<i class="heart icon"></i> 좋아요 취소
+							</div>
+							<a class="ui basic red left pointing label" id="likeCnt"></a>
+						</div>
+						
+					<%} %>
+					 <!-- div-info 끝 -->
+					
+					<%--스크랩 버튼 div --%>
+					
+					<%if(scrapStatus == "X"){ %>
+						<div class="ui labeled button" tabindex="0" style="margin-top: 10px;">
+							<div class="ui basic blue button" onclick="clickScrap('<%= scrapStatus%>');">
+							<i class="fork icon"></i> 스크랩하기
+							</div>
+							<a class="ui basic left pointing blue label" id="scrapCnt"> </a>
+						</div>	
+					
+					<%}else{ %>
+						<div class="ui labeled button" tabindex="0" style="margin-top: 10px;">
+							<div class="ui  blue button">
+							<i class="fork icon"></i> 스크랩 완료
+							</div>
+							<a class="ui blue left pointing label" id="scrapCnt"> </a>
+						</div>
+					<%} %>
+					
 			</h1>
-			<!-- 좋아요 스크립트부분 -->
 			<script>
-							<% if(loginUser != null){%>
-							/* 좋아요  클릭시 */
-							$("#likePlan").click(function() {	
-									var bno = '<%= b.getbNo()%>' ;														
-									var user = '<%= loginUser.getM_no() %>' ; 
-									var writer = '<%= b.getbWriter()%>' ; 								
-									jQuery.ajax({
-										url:"/et/clickLikeBoard.bo",
-										data:{bno:bno, user:user, writer:writer},
-										type:"post",
-										success:function(data){											
-											$("#likePlan").css("display", "none");
-											$("#likeCnt").css("display", "none");
-											$("#unlikePlan").css("display", "block");	
-											$("#unlikeCnt").css("display", "block");	
-											
-											 //좋아요 갯수를 가져오는 ajax
-											$.ajax({
-												url:"/et/countBoardLike.bo",
-												data:{bno:bno, user:user, writer:writer},
-												type:"post",
-												success:function(data){
-													console.log(data);	
-													 $("#unlikeCnt").text(data.like);
-													},
-												error:function(){
-														console.log('실패');
-													}
-												}); 
-												
-										},
-										error:function(){
-											console.log('실패');
-										}
-									});
-	
-							});
-							
-											
-							/* 좋아요 취소시*/
-							$("#unlikePlan").click(function() {	
-								var bno = '<%= b.getbNo()%>' ;														
-								var user = '<%= loginUser.getM_no() %>' ; 
-								var writer = '<%= b.getbWriter()%>' ; 
-									jQuery.ajax({
-									url:"/et/clickUnLikeBoard.bo",
-									data:{bno:bno, user:user, writer:writer},
-									type:"post",
-									success:function(data){																
-										$("#unlikePlan").css("display", "none");
-										$("#unlikeCnt").css("display", "none");
-										$("#likeCnt").css("display", "block");
-										$("#likePlan").css("display", "block");
-										
-										jQuery.ajax({
-											url:"/et/countBoardLike.bo",
-											data:{bno:bno, user:user, writer:writer},
-											type:"post",
-											success:function(data){												
-												 $("#likeCnt").text(data.like);
-												},
-											error:function(){
-													console.log('실패');
-												}
-											});
-									},
-									error:function(){
-										console.log('실패');
-									}
-								});
-							});			
-						
-						
-						/* 스크랩 클릭 */
-						$("#scrapPlan").click(function() {							
-							var bno = '<%= b.getbNo()%>' ;														
-							var user = '<%= loginUser.getM_no() %>' ; 
-							var writer = '<%= b.getbWriter()%>' ; 							
-									jQuery.ajax({
-										url:"/et//clickScrapBoard.bo",
-										data:{pno:pno, user:user, writer:writer},
-										type:"post",
-										success:function(data){
-											console.log(data);		
-											
-											 $("#scrapPlan").css("display", "none");
-											$("#scrapCnt").css("display", "none");
-											$("#unscrapPlan").css("display", "block");	
-											$("#unscrapCnt").css("display", "block");	
-											
-											
-											jQuery.ajax({
-												url:"/et/countScrapCnt.pl",
-												data:{pno:pno, user:user, writer:writer},
-												type:"post",
-												success:function(data){
-													console.log(data);	
-													 $("#unscrapCnt").text(data.scrap);
-													},
-												error:function(){
-														console.log('실패');
-													}
-												});
-										},
-										error:function(){
-											console.log('실패');
-										}
-									});
-	
-								}); 
-							
-						
-						
-						<%}%>
-						
-						
-						</script>
+        		
+        		$(function() {        			
+        			var pno = <%= b.getbNo() %>;       		
+        			 $.ajax({
+                         url : "/et/countLike.pl",
+                         data : {
+                            pno:pno
+                         },
+                         type : "post",
+                         success : function(data) {
+                            console.log(data);
+                            $("#likeCnt").text(data.like);
+                         },
+                         error:function(){                       	
+                         }
+        			 });
+        			 $.ajax({
+                         url : "/et/countScrapCnt.pl",
+                         data : {
+                            pno:pno
+                         },
+                         type : "post",
+                         success : function(data) {
+                            console.log(data);
+                            $("#scrapCnt").text(data.scrap);
+                         },
+                         error:function(){                       	
+                         }
+        			 });
+        			 
+                    });
+        		
+        			//좋아요 버튼클릭	
+        			function clickLike(likeStatus) {
+        				var pno = <%= b.getbNo() %>;
+        				var bwriter = <%= b.getbWriter() %> ;
+        				var user = <%= loginUser.getM_no() %>;
+        				status = "";
+        				status = likeStatus;       				
+						location.href="<%=request.getContextPath()%>/clickLikeBoard.bo?pno="+pno+"&bwriter="+bwriter+"&user="+user+"&status="+status ;
+					}
+        			
+        			//스크랩 버튼 클릭
+        			function clickScrap(scrapStatus) {
+        				var pno = <%= b.getbNo() %>;
+        				var bwriter = <%=  b.getbWriter() %> ;
+        				var user = <%= loginUser.getM_no() %>;
+        				status = "";
+        				status = scrapStatus;       				
+						location.href="<%=request.getContextPath()%>/clickScrap.pl?pno="+pno+"&bwriter="+bwriter+"&user="+user+"&status="+status ;
+        			}
+        			
+
+        		</script>
+			
 			
 			<div class="ui segment" style="border-color: #fbbd08;" >
 				<div id="container">

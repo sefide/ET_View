@@ -115,6 +115,8 @@ public class BoardDao {
 				
 				Board b = new Board();
 				
+				
+				
 				b.setbNo (rset.getInt("B_NO"));
 				b.setbWriter(rset.getString("M_ID")); //작성자
 				b.setBtitle(rset.getString("B_TITLE"));
@@ -930,6 +932,187 @@ public class BoardDao {
 			e.printStackTrace();
 		}
 		
+		return result;
+	}
+	//좋아요 상태
+	public String getLikeStatus(Connection con, int num, int user) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String likeStatus="";
+		
+		System.out.println("플랜번호"+num);
+		System.out.println("사용자 정보"+user);
+	
+		String query = prop.getProperty("getLikeStatus");
+		//getLikeStatus=SELECT BI_STATUS FROM BOARDINTEREST WHERE BI_B_NO = ? AND BI_GIVE_NO = ? AND BI_TYPE = ? 
+		try {
+			
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, user);
+			pstmt.setString(3, type);
+			
+			rset = pstmt.executeQuery();	
+			
+			while (rset.next()) {
+				likeStatus = rset.getString("BI_STATUS");
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		return likeStatus;
+	}
+	
+	//스크랩 상태
+	public String getScrapStatus(Connection con, int num, int user) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String ScrapStatus="";
+		
+		System.out.println("플랜번호"+num);
+		System.out.println("사용자 정보"+user);
+		
+		
+		String query = prop.getProperty("getScrapStatus");
+		//getScrapStatus=SELECT BI_STATUS FROM BOARDINTEREST WHERE BI_B_NO = ? AND BI_GIVE_NO = ? AND BI_TYPE = ? 
+		
+		try {
+			
+			String type = "스크랩";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, user);
+			pstmt.setString(3, type);
+			
+			rset = pstmt.executeQuery();	
+			
+			System.out.println(rset);
+			
+			while (rset.next()) {
+				ScrapStatus = rset.getString("BI_STATUS");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("Dao : "+ScrapStatus);
+		return ScrapStatus;
+	}
+	//글쓴이 버노 알아오기
+	public int getbwriter(Connection con, String writer) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int bwriter = 0;
+			
+		String query = prop.getProperty("getbwriter");
+		//getbwriter=SELECT M_NO FROM MEMBER WHERE M_ID= ? 
+		
+		try {
+			
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, writer);
+			
+			rset = pstmt.executeQuery();	
+			
+			System.out.println(rset);
+			
+			while (rset.next()) {
+				bwriter = rset.getInt("M_NO");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return bwriter;
+	}
+	//글 처음 좋아요
+	public int insertLike(Connection con, BoardInterest bi) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("ClickInsert");
+		//ClickInsert= INSERT INTO BOARDINTEREST SELECT SEQ_BI_NO.NEXTVAL,?,?,?,?,'Y' FROM DUAL A WHERE NOT EXISTS ( SELECT * FROM BOARDINTEREST WHERE  BI_B_NO = ?  AND BI_GIVE_NO = ? AND BI_TYPE = ?  AND BI_STATUS = 'Y' )
+		
+		try {
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bi.	getBwriter());
+			pstmt.setInt(2, bi.getBno());
+			pstmt.setInt(3, bi.getUser());
+			pstmt.setString(4, type);
+			pstmt.setInt(5, bi.getBno());
+			pstmt.setInt(6, bi.getUser());
+			pstmt.setString(7, type);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return result;
+	}
+	//좋아요바꾸기
+	public int updateLike(Connection con, BoardInterest bi) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("ClickUpdateY"); //Y로 업데이트
+		//ClickUpdateY=UPDATE BOARDINTEREST SET BI_STATUS = 'Y' WHERE BI_B_NO = ?  AND BI_GIVE_NO = ? AND BI_TYPE = ?  AND BI_STATUS = 'N' 
+		
+		try {
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bi.getBno());
+			pstmt.setInt(2, bi.getUser());
+			pstmt.setString(3, type);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return result;
+	}
+	//좋아요취소
+	public int updateUnLike(Connection con, BoardInterest bi) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		System.out.println();
+		String query = prop.getProperty("ClickUpdateN"); //N로 업데이트
+		//ClickUpdateN=UPDATE BOARDINTEREST SET BI_STATUS = 'N' WHERE BI_B_NO = ?  AND BI_GIVE_NO = ? AND BI_TYPE = ?  AND BI_STATUS = 'Y' 
+		
+		try {
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bi.getBno());
+			pstmt.setInt(2, bi.getUser());
+			pstmt.setString(3, type);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 		return result;
 	}
 

@@ -76,6 +76,7 @@ public class SelectBoardListServlet extends HttpServlet {
 		
 		System.out.println(list);
 		
+	
 		
 		String page = "";
 		if(list != null) {

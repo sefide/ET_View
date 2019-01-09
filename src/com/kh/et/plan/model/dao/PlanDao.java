@@ -15,6 +15,7 @@ import com.kh.et.plan.model.vo.City;
 import com.kh.et.plan.model.vo.Plan;
 import com.kh.et.plan.model.vo.PlanDetail;
 import com.kh.et.plan.model.vo.PlanInterest;
+import com.kh.et.board.model.vo.BoardInterest;
 import com.kh.et.member.model.vo.Member;
 import com.kh.et.member.model.vo.News;
 import com.kh.et.plan.model.dao.PlanDao;
@@ -1144,7 +1145,7 @@ public class PlanDao {
 		System.out.println("사용자 정보"+user);
 	
 		String query = prop.getProperty("getLikeStatus");
-		
+		//SELECT PI_STATUS FROM PLANINTEREST WHERE PI_P_NO = ? AND PI_GIVE_NO = ? AND PI_TYPE = ?
 		try {
 			
 			String type = "좋아요";
@@ -1314,5 +1315,6 @@ public class PlanDao {
 		}	
 		return result;
 	}
+	
 
 }
