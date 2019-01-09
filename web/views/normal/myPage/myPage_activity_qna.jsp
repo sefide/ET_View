@@ -107,7 +107,9 @@
 	}
 	.div-menu li:hover, .div-menu a:hover {
 		text-decoration : none;
+		font-weight: 600;
 		color : rgb(254, 200, 0);
+		cursor: pointer;
 	}
 	
 	/* 하단 활동내역 보기  */
@@ -160,7 +162,7 @@
 		font-size: 30px;
 		
 	}
-	
+
 </style>
 </head>
 <body>
@@ -209,10 +211,10 @@
 							<table class="ui single line table one">
 								<thead>
 									<tr>
-										<th><input type="checkbox" id="qnaCheckBoxReader"></th>
-										<th>글번호</th>
+										<th></th>
+										<th>번호</th>
 										<th>제목</th>
-										<th id="content" col = "200px">내용</th>
+										<th>내용</th>
 										<th>작성일</th>
 									</tr>
 								</thead>
@@ -221,7 +223,7 @@
 								<tfoot>
 									<th colspan="5">
 										<div align="right">
-										<button class="ui blue basic mini button">삭제하기</button>
+										<button class="ui blue basic mini button" id="delete">삭제하기</button>
 									</div>
 									</th>
 								</tfoot>
@@ -241,10 +243,10 @@
 							<table class="ui single line table two">
 								<thead>
 									<tr>
-										<th><input type="checkbox" id="qnaCheckBoxReader"></th>
-										<th>글번호</th>
+										<th></th>
+										<th>번호</th>
 										<th>제목</th>
-										<th id="content">내용</th>
+										<th>내용</th>
 										<th>작성일</th>
 									</tr>
 								</thead>
@@ -253,7 +255,7 @@
 								<tfoot>
 									<th colspan="5">
 										<div align="right">
-										<button class="ui blue basic mini button">삭제하기</button>
+										<button class="ui blue basic mini button" id="deleteBtn">삭제하기</button>
 									</div>
 									</th>
 								</tfoot>
@@ -283,6 +285,7 @@
 			}
 			return string;
 		}
+				
 		
 		//내가 작성한 Qna목록 페이징
 		var currentPage = 1;
@@ -306,23 +309,22 @@
 						/* $tr = $("<tr onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">"); */
 						$tr = $("<tr>")
 						var $checkTd = $("<td>");
-						var $check = $("<input type='checkbox' class='qnaCheck'>");
-						var $bnoTd = $("<td>").text(data.QnaList[key].rnum);
+						
+						var $check = $("<input type='checkbox' id='qnaCheck'>");
+						var $rnumTd = $("<td>").text(data.QnaList[key].rnum);
 						var $titleTd = $("<td onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">").text(data.QnaList[key].bTitle);
 						var $contentTd = $("<td>").text(lengthsplit(data.QnaList[key].bContent, 25));
-						
-						/* var $likeTd = $("<td>").text(data.QnaList[key].bLike);
-						var $scrapTd = $("<td>").text(data.QnaList[key].bScraps); */
 						var $dateTd = $("<td>").text(data.QnaList[key].bDate);
 						$checkTd.append($check);
-						$tr.append($checkTd);
-						$tr.append($bnoTd);
+					 	$tr.append($checkTd);
+						$tr.append($rnumTd);
 						$tr.append($titleTd);
 						$tr.append($contentTd);
-						/* $tr.append($likeTd);
-						$tr.append($scrapTd); */
 						$tr.append($dateTd);
 						$tableBody.append($tr);
+						
+						var $num = data.QnaList[key].bNo;
+						$check.append($num);
 					}
 					
 					//페이징 처리
@@ -413,6 +415,10 @@
 			ajax(data);
 		}
 		
+		/* $("#delete").click(function(){
+			console.log($("#qnaCheck:checked").value);
+		});	 */
+		
 		
 		//내가 스크랩한 Qna목록 페이징
 		var currentPage2 = 1;
@@ -437,20 +443,15 @@
 						$tr = $("<tr>")
 						var $checkTd = $("<td>");
 						var $check = $("<input type='checkbox' class='qnaCheck'>");
-						var $bnoTd = $("<td>").text(data.QnaList[key].rnum);
+						var $rnumTd = $("<td>").text(data.QnaList[key].rnum);
 						var $titleTd = $("<td onclick=\"location.href='/et/selectOne.bo?num="+data.QnaList[key].bNo+"'\">").text(data.QnaList[key].bTitle);
 						var $contentTd = $("<td>").text(lengthsplit(data.QnaList[key].bContent, 25));
-						
-						/* var $likeTd = $("<td>").text(data.QnaList[key].bLike);
-						var $scrapTd = $("<td>").text(data.QnaList[key].bScraps); */
 						var $dateTd = $("<td>").text(data.QnaList[key].bDate);
 						$checkTd.append($check);
 						$tr.append($checkTd);
-						$tr.append($bnoTd);
+						$tr.append($rnumTd);
 						$tr.append($titleTd);
 						$tr.append($contentTd);
-						/* $tr.append($likeTd);
-						$tr.append($scrapTd); */
 						$tr.append($dateTd);
 						$tableBody.append($tr);
 					}

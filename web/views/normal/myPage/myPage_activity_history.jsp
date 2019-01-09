@@ -131,7 +131,9 @@
 
 .div-menu li:hover, .div-menu a:hover {
 	text-decoration: none;
+	font-weight: 600;
 	color: rgb(254, 200, 0);
+	cursor: pointer;
 }
 
 /* 하단 활동내역 보기  */
@@ -200,12 +202,12 @@
 	text-decoration: none;
 	font-size: 15px;
 }
-.plus2{
+
+.plus2 {
 	color: black;
 	text-decoration: none;
 	font-size: 18px;;
 }
-
 
 .plus:hover, .plus2:hover {
 	cursor: pointer;
@@ -241,7 +243,7 @@
 	flex-wrap: wrap;
 }
 
-.onlyMap{
+.onlyMap {
 	width: 100%;
 	margin: 4% 1.5%;
 	height: 400px;
@@ -359,7 +361,7 @@
 				<div class="div-menu">
 					<ul>
 						<li><a onclick="goMyPlan();"> > 내 플랜보기 </a></li>
-						<li><a href="/et/views/normal/myPage/myPage_activity_history.jsp" class="this-page"> > 나의 활동내역 </a></li>
+						<li><a onclick="goMyActivity();" class="this-page"> > 나의 활동내역 </a></li>
 						<li><a href="<%=request.getContextPath()%>/pointList.po" > > 포인트 히스토리 </a></li>
 						<li><a href="/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
 					</ul>
@@ -515,8 +517,14 @@
 		}
 		
 		function PlanPlus(){
-			location.href = "/et/views/normal/myPage/myPage_activity_plan.jsp?mno"+<%=loginUser.getM_no()%>;
+			var mno = <%=loginUser.getM_no()%>;
+			location.href = "<%=request.getContextPath()%>/allscrapplan.pl?mno="+mno;  	
 		}
+		
+		function goMyActivity(){
+    		var mno = <%=loginUser.getM_no()%>;
+    		location.href = "<%=request.getContextPath()%>/qnaplan.bo?mno="+mno;
+    }
 		
 		
 		

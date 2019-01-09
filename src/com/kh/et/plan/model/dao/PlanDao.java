@@ -1011,7 +1011,7 @@ public class PlanDao {
 
 	
 	//내가 스크랩한 모든 플랜 정보 뽑아오기
-	public HashMap<String, Object> allScrapPlan(Connection con, int mno) {
+	public HashMap<String, Object> allScrapPlan(Connection con, int mno, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		HashMap<String, Object> planmap = null;
@@ -1021,29 +1021,37 @@ public class PlanDao {
 		String query = prop.getProperty("allScrapPlan");
 		try {
 			pstmt = con.prepareStatement(query);
+			
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit -1;
+			
 			pstmt.setInt(1, mno);
 			pstmt.setString(2, pType);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
 			
 			rset = pstmt.executeQuery();
 			
 			planmap = new HashMap<String, Object>();
 			list = new ArrayList<Plan>();
 			
-			if(rset.next()) {
-				Plan p = new Plan();
-				
-				p.setpNo(rset.getInt("PI_NO"));
-				p.setpTitle(rset.getString("P_TITLE"));
-				p.setpCites(rset.getString("P_CITYS"));
-				p.setpDate(rset.getDate("P_DATE"));
-				p.setpRnum(rset.getInt("RNUM"));
-				p.setpName(rset.getString("M_NAME"));
-				
-				list.add(p);
+			if(rset != null) {
+				while(rset.next()) {
+					Plan p = new Plan();
+					
+					p.setpNo(rset.getInt("PI_NO"));
+					p.setpTitle(rset.getString("P_TITLE"));
+					p.setpCites(rset.getString("P_CITYS"));
+					p.setpDate(rset.getDate("P_DATE"));
+					p.setpRnum(rset.getInt("RNUM"));
+					p.setpName(rset.getString("M_NAME"));
+					
+					list.add(p);
+				}
+				planmap.put("allScrapPlan", list);
 			}
-			planmap.put("allScrapPlan", list);
-			//키 - 내가 스크랩한 모든 플랜 : 값 - 스크랩한 플랜들의 정보
 			
+			//키 - 내가 스크랩한 모든 플랜 : 값 - 스크랩한 플랜들의 정보
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -1078,7 +1086,6 @@ public class PlanDao {
 
 				resultMap.put(String.valueOf(ct.getCtName()), ct);
 			}
-			System.out.println("dao - city 크기 :  " + resultMap.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
