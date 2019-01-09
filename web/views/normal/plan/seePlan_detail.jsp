@@ -7,8 +7,9 @@
 	ArrayList<PlanDetail> DetailList = (ArrayList<PlanDetail>)planMap.get("planDetailList");
 	System.out.println("djdlk" + DetailList.size());
 	HashMap<String,City> cityMap = (HashMap<String,City>)request.getAttribute("cityMap");
-	String likeStatus = (String) request.getAttribute("likeStatus");
 	
+	String likeStatus = (String) request.getAttribute("likeStatus");
+	String scrapStatus = (String) request.getAttribute("scrapStatus");
 	
 	String msg = (String)request.getAttribute("msg");
 %>
@@ -187,7 +188,7 @@
 						</div>					
 					<%}else{ %>
 							<!-- 좋아요 눌렸을때 -->
-							<div class="ui labeled button" tabindex="0">
+						<div class="ui labeled button" tabindex="0">
 							<div class="ui red button"  onclick="clickLike('<%=likeStatus%>') ;" >
 							<i class="heart icon"></i> 좋아요 취소
 							</div>
@@ -199,6 +200,22 @@
 					
 					<%--스크랩 버튼 div --%>
 					<div class="div-plan-info">
+					<%if(scrapStatus == "X"){ %>
+						<div class="ui labeled button" tabindex="0" style="margin-top: 10px;">
+							<div class="ui basic blue button" onclick="clickScrap('<%= scrapStatus%>');">
+							<i class="fork icon"></i> 스크랩하기
+							</div>
+							<a class="ui basic left pointing blue label" id="scrapCnt"> </a>
+						</div>	
+					
+					<%}else{ %>
+						<div class="ui labeled button" tabindex="0" style="margin-top: 10px;">
+							<div class="ui  blue button">
+							<i class="fork icon"></i> 스크랩 완료
+							</div>
+							<a class="ui blue left pointing label" id="scrapCnt"> </a>
+						</div>
+					<%} %>
 					</div>
 					
 					
@@ -225,6 +242,20 @@
                          error:function(){                       	
                          }
         			 });
+        			 $.ajax({
+                         url : "/et/countScrapCnt.pl",
+                         data : {
+                            pno:pno
+                         },
+                         type : "post",
+                         success : function(data) {
+                            console.log(data);
+                            $("#scrapCnt").text(data.scrap);
+                         },
+                         error:function(){                       	
+                         }
+        			 });
+        			 
                     });
         		
         			//좋아요 버튼클릭	
@@ -237,8 +268,15 @@
 						location.href="<%=request.getContextPath()%>/clickLike.pl?pno="+pno+"&writer="+writer+"&user="+user+"&status="+status ;
 					}
         			
-        			
-        			
+        			//스크랩 버튼 클릭
+        			function clickScrap(scrapStatus) {
+        				var pno = <%= plan.getpNo() %>;
+        				var writer = <%= plan.getpWriter() %> ;
+        				var user = <%= loginUser.getM_no() %>;
+        				status = "";
+        				status = scrapStatus;       				
+						location.href="<%=request.getContextPath()%>/clickScrap.pl?pno="+pno+"&writer="+writer+"&user="+user+"&status="+status ;
+        			}
         			
 
         		</script>

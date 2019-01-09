@@ -83,6 +83,7 @@ public class SelectAllPlanServlet extends HttpServlet {
 		
 		
 		
+		
 		String page = "";
 		if(bestPlanMap != null && normalPlanMap != null) {
 			page = "views/normal/plan/seePlan_main.jsp";
