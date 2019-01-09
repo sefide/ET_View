@@ -136,10 +136,10 @@ table{
     	<button class="ui black basic button" style=float:right id="deleteBtn" onclick="deleteBtn();">삭제하기</button>
     </div>
 	
+
+	
+
 	<div class = "two wide column"></div>
-	
-	<%@ include file = "/views/common/company/footer_com.jsp" %>
-	
 	<script>
 	
 	$(function(){
@@ -155,7 +155,7 @@ table{
  	});
 	
 	</script>
-	
-	
+		
+		<%@ include file = "/views/common/company/footer_com.jsp" %>
 </body>
 </html>

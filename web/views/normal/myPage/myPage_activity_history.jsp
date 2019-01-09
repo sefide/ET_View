@@ -203,7 +203,7 @@
 .plus2{
 	color: black;
 	text-decoration: none;
-	font-size: 15px;;
+	font-size: 18px;;
 }
 
 
@@ -454,6 +454,8 @@
 				</div>
 			</div>
 			<br clear = "both">
+			
+			<!-- 스크랩한 최근 플랜 3개 보기 -->
 			<div class="container3">
 			<i class="calendar alternate outline big icon"></i>
 	        		<div class = "div-myPage-title"> 내가 스크랩한 플랜 </div>
@@ -510,6 +512,10 @@
 		
 		function QnAPlus(){
 			location.href = "/et/views/normal/myPage/myPage_activity_qna.jsp?mno="+<%=loginUser.getM_no()%>;
+		}
+		
+		function PlanPlus(){
+			location.href = "/et/views/normal/myPage/myPage_activity_plan.jsp?mno"+<%=loginUser.getM_no()%>;
 		}
 		
 		

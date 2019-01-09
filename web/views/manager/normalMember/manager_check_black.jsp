@@ -75,6 +75,32 @@
  	.sub{
  		width:75%;
  	}
+ 	.claim-popup{
+	position : absolute ;
+	width : 420px;
+	background : rgba(255,255,255, 0.9);
+	padding : 1%;
+	border : 1px solid gray;
+	text-align : center;
+	top: 20%;
+    left: 35%;
+    	visibility : hidden;
+}
+.claim-popup-txt{
+	font-size : 18px;
+	font-weight : 700;
+	margin-bottom : 10px;
+}
+.caution-txt{
+	text-align : left;
+	margin-top : 8px;
+	font-size : 12px;
+	color :gray;
+}
+button {
+   		border : 1px solid white;
+   		background : white;
+   }
 </style>
 </head>
 <body>
@@ -240,17 +266,26 @@
 		</div>
 	    
 	    
-	    
-	    <div>
-		    <button id="stopBtn">정지시키기</button>
-	    </div>
+    	<div class = "div-claim">
+			<a class = "claim"><i class="check circle icon"></i> 정지시키기 </a>
+		</div>
+		<div class = "claim-popup">
+			<i class = "close icon" onclick = "closePop1();"></i>
+			<div align = "center" id = "resultClaim">
+			<div class = "claim-popup-txt"> <i class="hourglass end icon"></i>정지기간을 선택해주세요</div>
+			<input type ="radio" name = "reason" id = "reason1" value = "10"> <label for = "reason1"> 10일 </label> <br>
+			<input type ="radio" name = "reason" id = "reason2" value = "21"> <label for = "reason2"> 3주 </label> <br>
+			<button id = "stopBtn"> 정지 </button>
+			<div class = "caution-txt">정지처리된 회원은 정지회원관리에서 취소시킬 수 있습니다.  </div>
+			</div>
+		</div>
     
      <div class="notice">
 	    <br><br>
 	    <b>-회원 정지 기준</b><br>
 	    	<div>
 	    		신고 5개 - 10일 정지 <br>
-	    		신고 10개 - 3주 정지 <br>
+	    		신고 10개 - 3주(21일) 정지 <br>
 	    		신고 20개 - 강제탈퇴 (>>회원 탈퇴시키기에서 가능)<br>
 	    	</div>
 	 </div>
@@ -260,41 +295,90 @@
      </div>
      
      <script>
-			/* $("input:checkbox").change(chk1); 
-				
-				function chk1(){
-				if($(this).prop("checked")){
-					arr.push($(this).val());
-				}
-			} */
 
-			$(function(){
-	    		 var arr=new Array;
-				//회원정지
-				$("#stopBtn").click(function(){
-					var index = $("#check:checked").val();
-					var day = prompt("정지기간을 입력해주세요 ");
-					
+     		//팝업창닫기
+			function closePop1() {
+				$(".claim-popup").css("visibility" , "hidden");
+			}
+			
+     		//정지하기 클릭시 팝업창 보임
+			$(".claim").click(function(){
+				$(".claim-popup").css("visibility" , "visible");
+			});
+			
+			
+			//회원정지
+			$("#stopBtn").click(function(){
+				var index = $("#check:checked").val();
+				var day = $('input[name="reason"]:checked').val();
+				console.log(index);
+				console.log(day);
+				
+				if(index!=null){
+				$.ajax({
+					url:"stop.mng",
+					type:"GET",
+					data:{index:index, day:day},
+					success:function(data){
+						if(data=="성공"){
+							alert("정지처리 성공!");
+							window.location.reload();
+						}
+					},
+					error:function(data){
+						if(data=="실패"){
+							alert("정지처리 실패ㅜㅠ");
+						}
+					}
+				});
+				}else{
+					alert("정지시킬 회원을 선택해주세요!");
+				}
+			});
+			
+			<%-- $("#submitClaim").click(function(){
+				<% if(loginUser != null){%>
+				var radioVal = $('input[name="reason"]:checked').next().text();
+				var userNo = <%= loginUser.getM_no()%>;
+				var boardNo = <%= b.getbNo()%>;
+				var boardwriter = '<%= b.getbWriter()%>';
+				var loginUserId = "<%= loginUser.getM_id()%>";
+				console.log(radioVal);
+				if(radioVal != null){
 					$.ajax({
-						url:"stop.mng",
-						type:"GET",
-						data:{index:index, day:day},
-						success:function(data){
-							if(data=="성공"){
-								alert("정지처리 성공!");
-								window.location.reload();
+						url : "claim.bo",
+						data : {radioVal: radioVal, userNo : userNo, boardNo : boardNo, boardwriter : boardwriter, loginUserId : loginUserId},
+						contentType : 'application/json; charset=UTF-8',
+						type : "get",
+						success : function(data){ 
+							$("#resultClaim").html("");
+							if(data.indexOf('FAIL_NORMAL')>-1){
+								$("#resultClaim").append("<div class = 'claim-popup-txt'> 신고처리 중 오류가 발생했습니다. </div>");
 							}
-						},
-						error:function(data){
-							if(data=="실패"){
-								alert("정지처리 실패ㅜㅠ");
+							else if(data.indexOf('FAIL_SAMEUSER')>-1) {
+								$("#resultClaim").append("<div class = 'claim-popup-txt'> 본인글에 대한 신고처리는 불가능합니다.  </div>");
 							}
+							else if(data.indexOf('FAIL_EXIST')>-1){
+								$("#resultClaim").append("<div class = 'claim-popup-txt'> 이전에 신고한 글입니다.  </div>");
+							}
+							else {
+								$("#resultClaim").append("<div class = 'claim-popup-txt'> 신고처리가 정상적으로 완료되었습니다. </div>");
+							}
+							
+						}, error : function(data){
+							console.log("서버 전송 실패");	
 						}
 					});
-				});
-		
-				
-			});	
+				}else {
+					alert("신고 사유를 작성해주세요 . ");
+				}
+				<%} else {%>
+					alert("신고하려면 로그인이 필요합니다. ");
+				<%}%>
+			}); --%>
+			
+			
+			
     	</script>
     
 	<div class = "two wide column"></div>

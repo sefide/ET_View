@@ -132,50 +132,35 @@ table{
   
     	</table>
     	<br>
-    	<!-- 페이징버튼 -->
-				<tfoot>
-				<tr>
-				<th colspan="5">
-					<div class="ui right floated pagination menu">
-						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=1'"> << </a>
-
-						<%if (currentPage <= 1) {%>
-						<button disabled> < </button>
-						<%} else {%>
-						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage - 1%>'"> < </a>
-						<%}%>
-						
-						
-						<%
-							for (int p = startPage; p <= endPage; p++) {
-								if (p == currentPage) {
-						%>
-								<a class="item" disabled><%=p%></a>
-						<%} else {%>
-								<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=p%>'"> <%=p%> </a>
-						<%}%>
-
-						<%}%>
-
-
-						<%if (currentPage >= maxPage) {%>
-							<a class="item" disabled>></a>
-						<%} else {%>
-						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage + 1%>'">></a>
-						<%}%>
-
-						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=maxPage%>'">>></a>
-							
-						</div>
-					</th>
-				</tr>
-				
-				</tfoot>
+    	<div class="pagingArea" align="center">
+    		
+			<button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage = 1'"> << </button>
+			
+			<% if(currentPage <= 1){ %>
+			<button  class="ui black basic button" disabled> < </button>
+			<% }else{ %>
+			<button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage - 1%>'"> < </button>
+			<% } %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+					if(p == currentPage){
+			%>
+					<button class="ui black basic button" disabled><%= p %></button>
+			<%      }else{ %>
+					<button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%= p %>'"><%= p %></button>
+			<%      } %>
+	
+			<% } %>
+			
+			
+			<% if(currentPage >= maxPage){ %> <!-- 마지막 페이지일 경우 -->
+			<button  class="ui black basic button" disabled> > </button>
+			<% }else{ %>
+			<button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=currentPage + 1%>'"> > </button>
+			<% } %>
+			<button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=maxPage%>'"> >> </button> 
+			
+		</div>
     	<br>
     	<br>
     	<br>

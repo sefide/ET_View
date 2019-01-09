@@ -7,6 +7,8 @@
 	ArrayList<PlanDetail> DetailList = (ArrayList<PlanDetail>)planMap.get("planDetailList");
 	System.out.println("djdlk" + DetailList.size());
 	HashMap<String,City> cityMap = (HashMap<String,City>)request.getAttribute("cityMap");
+	String likeStatus = (String) request.getAttribute("likeStatus");
+	
 	
 	String msg = (String)request.getAttribute("msg");
 %>
@@ -157,219 +159,106 @@
 		        		<%-- <%@ include file = "/views/normal/plan/calendar_plan.jsp" %> --%>
 		        		<div id='calendar'></div>
 		        </div>
+		        
 		        <div class ="plan-infoBox">
 			        	<div class = "txt"> 첫 작성날짜 : <%=plan.getpDate().toString() %></div>
 			        	<div class = "txt"> 공개/비공개 : <% if(plan.getpPrivate().equals("Y")) { %> 공개 <%} else { %> 비공개 <%} %></div>
 			        	<div class = "txt"> 여행도시 개수 : <%=plan.getpCites().split(", ").length %>개 도시 </div>
+			        	<div> 플랜 관심 상태는?<%= likeStatus %></div>
 			    </div>
-					<div class="div-plan-info">						
-						<!-- 좋아요 -->						
-						<%-- <% if( plan.getpWriter() != loginUser.getM_no()){ %> --%>
+					<div class="div-plan-info">				
+					<%-- <%if(plan.getpWriter() != loginUser.getM_no())%> --%>
+					
+					<% if(likeStatus == "X"){ %>
 						<div class="ui labeled button" tabindex="0">
-							<div class="ui basic red button" id="likePlan">
-								<i class="heart icon"></i> 좋아요!
+							<div class="ui red button" id="likePlan" onclick="clickLike('<%=likeStatus%>') ;">
+							<i class="heart icon" ></i> 좋아요!
 							</div>
-							<a class="ui basic red left pointing label" id="likeCnt"> <%=planMap.get("like")%></a>
-							
-							<div class="ui red button" id="unlikePlan" style="display: none;" >
-								<i class="empty heart icon"></i> 좋아요!
+							<a class="ui basic red left pointing label" id="likeCnt"> <%=plan.getpLike()%></a>
+						</div>						
+					<%}else if(likeStatus == "N"){ %> 
+						<!-- 좋아요   안 눌렸을때(취소 했을 때) -->
+						<div class="ui labeled button" tabindex="0">
+							<div class="ui red button" id="likePlan" onclick="clickLike('<%=likeStatus%>') ;">
+							<i class="heart icon" ></i> 좋아요!
 							</div>
-							<a class="ui basic red left pointing label" id="unlikeCnt" style="display: none;" > <%=planMap.get("like")%>
-							</a>
+							<a class="ui basic red left pointing label" id="likeCnt"> <%=plan.getpLike()%></a>
+						</div>					
+					<%}else{ %>
+							<!-- 좋아요 눌렸을때 -->
+							<div class="ui labeled button" tabindex="0">
+							<div class="ui red button" id="UnlikePlan">
+							<i class="heart icon"></i> 좋아요 취소
+							</div>
+							<a class="ui basic red left pointing label" id="likeCnt"> <%=plan.getpLike()%></a>
 						</div>
-						<!-- 스크랩 -->
-						<div class="ui labeled button" tabindex="0" style="margin-top: 10px;">
-							<div class="ui basic blue button" id="scrapPlan">
-								<i class="fork icon"></i> 스크랩
-							</div>
-							<a class="ui basic left pointing blue label" id="scrapCnt"> <%=planMap.get("scrap")%> <a>
-							
-							<div class="ui blue button" id="unscrapPlan" style="display: none;">
-								<i class="empty fork icon"></i> 스크랩</div>
-							<a class="ui basic left pointing blue label" id="unscrapCnt" style="display: none;" > <%=planMap.get("scrap")%><a>
-							
-						</div>
-						<%-- <%}else{ %>
-						 <div class="ui labeled button" tabindex="0"  >
-							<div class="ui red button" id="like" >
-								<i class="heart icon"></i> 좋아요!
-							</div>
-							<a class="ui basic red left pointing label" > <%=planMap.get("like")%>
-							</a>
-							<div class="ui red button" id="unlike" style="display: none;" >
-								<i class="empty heart icon"></i> 좋아요!
-							</div>
-							<a class="ui basic red left pointing label" style="display: none;" > <%=planMap.get("like")%>
-							</a>
-						</div>
-						<div class="ui labeled button" tabindex="0" style="margin-top: 10px;">
-							<div class="ui basic blue button" id="scrap">
-								<i class="fork icon"></i> 스크랩
-							</div>
-							<a class="ui basic left pointing blue label" > <%=planMap.get("scrap")%><a>
-							
-							<div class="ui blue button" id="unscrap" style="display: none;"  >
-								<i class="empty fork icon"></i> 스크랩
-							</div>
-							<a class="ui basic blue left pointing  label"  style="display: none;" > <%=planMap.get("scrap")%><a>							
-						</div>							
-						<%} %> --%>
 						
-						<script>
-						$('a[href="#"]').click(function(e) {
-							e.preventDefault();
-						});
-							/* 좋아요  클릭시 */
-							$("#likePlan").click(function() {							
-									var pno = '<%= plan.getpNo()%>' ;														
-									var user = '<%= loginUser.getM_no() %>' ; 
-									var writer = '<%= plan.getpWriter()%>' ; 								
-									jQuery.ajax({
-										url:"/et/clickLikePlan.pl",
-										data:{pno:pno, user:user, writer:writer},
-										type:"post",
-										success:function(data){
-											console.log(data);		
-											
-											 $("#likePlan").css("display", "none");
-											$("#likeCnt").css("display", "none");
-											$("#unlikePlan").css("display", "block");	
-											$("#unlikeCnt").css("display", "block");	
-											
-											//좋아요 갯수를 가져오는 ajax
-											jQuery.ajax({
-												url:"/et/countLike.pl",
-												data:{pno:pno, user:user, writer:writer},
-												type:"post",
-												success:function(data){
-													console.log(data);	
-													 $("#unlikeCnt").text(data.like);
-													},
-												error:function(){
-														console.log('실패');
-													}
-												});
-										},
-										error:function(){
-											console.log('실패');
-										}
-									});
-	
-								}); 
-											
-							/* 좋아요 취소시*/
-							$("#unlikePlan").click(function() {	
-								var pno = '<%= plan.getpNo()%>' ;														
-								var user = '<%= loginUser.getM_no() %>' ; 
-								var writer = '<%= plan.getpWriter()%>' ; 
-									jQuery.ajax({
-									url:"/et/clickUnLikePlan.pl",
-									data:{pno:pno, user:user, writer:writer},
-									type:"post",
-									success:function(data){																
-										$("#unlikePlan").css("display", "none");
-										$("#unlikeCnt").css("display", "none");
-										$("#likeCnt").css("display", "block");
-										$("#likePlan").css("display", "block");
-										
-										jQuery.ajax({
-											url:"/et/countLike.pl",
-											data:{pno:pno, user:user, writer:writer},
-											type:"post",
-											success:function(data){
-													
-												 $("#likeCnt").text(data.like);
-												},
-											error:function(){
-													console.log('실패');
-												}
-											});
-									},
-									error:function(){
-										console.log('실패');
-									}
-								});
-							});		
+					<%} %>
+					
+					
+					
 							
-							/* 스크랩 클릭시 */
-							$("#scrapPlan").click(function() {							
-									var pno = '<%= plan.getpNo()%>' ;														
-									var user = '<%= loginUser.getM_no() %>' ; 
-									var writer = '<%= plan.getpWriter()%>' ; 								
-									jQuery.ajax({
-										url:"/et/clickScrapPlan.pl",
-										data:{pno:pno, user:user, writer:writer},
-										type:"post",
-										success:function(data){
-											console.log(data);		
-											
-											 $("#scrapPlan").css("display", "none");
-											$("#scrapCnt").css("display", "none");
-											$("#unscrapPlan").css("display", "block");	
-											$("#unscrapCnt").css("display", "block");	
-											
-											
-											jQuery.ajax({
-												url:"/et/countScrapCnt.pl",
-												data:{pno:pno, user:user, writer:writer},
-												type:"post",
-												success:function(data){
-													console.log(data);	
-													 $("#unscrapCnt").text(data.scrap);
-													},
-												error:function(){
-														console.log('실패');
-													}
-												});
-										},
-										error:function(){
-											console.log('실패');
-										}
-									});
-	
-								}); 
-							
-							/* 스크랩 취소시 */
-							$("#unscrapPlan").click(function() {	
-								var pno = '<%= plan.getpNo()%>' ;														
-								var user = '<%= loginUser.getM_no() %>' ; 
-								var writer = '<%= plan.getpWriter()%>' ; 
-									jQuery.ajax({
-									url:"/et/clickUnLikePlan.pl",
-									data:{pno:pno, user:user, writer:writer},
-									type:"post",
-									success:function(data){																
-										$("#unscrapPlan").css("display", "none");
-										$("#unscrapCnt").css("display", "none");
-										$("#scrapCnt").css("display", "block");
-										$("#scrapPlan").css("display", "block");
-										
-										jQuery.ajax({
-											url:"/et/clickUnScrapPlan.pl",
-											data:{pno:pno, user:user, writer:writer},
-											type:"post",
-											success:function(data){
-													
-												 $("#scrapCnt").text(data.scrap);
-												},
-											error:function(){
-													console.log('실패');
-												}
-											});
-									},
-									error:function(){
-										console.log('실패');
-									}
-								});
-							});									
-						</script>
-						
-						
-						
 					</div> <!-- div-info 끝 -->
-
-				</div>
+			</div>
         </div>
+        		<script>
+        		
+        		$(function() {
+        			
+        			var pno = <%= plan.getpNo() %>;
+        		
+        			 $.ajax({
+                         url : "/et/countLike.pl",
+                         data : {
+                            pno:pno
+                         },
+                         type : "post",
+                         success : function(data) {
+                            console.log(data);
+                            
+                         },
+                         error:function(){
+                        	
+                         }
+        			 }
+                    });
+        			       			
+        			function clickLike(likeStatus) {
+        				var pno = <%= plan.getpNo() %>;
+        				var writer = <%= plan.getpWriter() %> ;
+        				var user = <%= loginUser.getM_no() %>;
+        				status = "";
+        				status = likeStatus;
+        				console.log("좋아요 버튼이 클릭 되었습니당!");
+						location.href="<%=request.getContextPath()%>/clickLike.pl?pno="+pno+"&writer="+writer+"&user="+user+"&status="+status ;
+					}
+        		
+        		</script>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         

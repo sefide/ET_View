@@ -585,7 +585,7 @@ public class BoardDao {
 			close(pstmt);
 			close(rset);
 		}
-
+		System.out.println("리스트 카운트 : " + QnaListCount);
 		return QnaListCount;
 	}
 
@@ -841,7 +841,7 @@ public class BoardDao {
 				hmap = new HashMap<String,Object>();  //멤버 객체대신 hash맵사용
 				
 				hmap.put("ponno", rset.getInt("PO_N_NO"));  //DB 대소문자 상관없음. 단, 값은 구분함
-				hmap.put("pobino", rset.getInt("PO_BI_NO"));
+				hmap.put("bibno", rset.getInt("BI_B_NO"));
 				hmap.put("biGiveno", rset.getString("BI_GIVE_NO"));
 
 				list.add(hmap);

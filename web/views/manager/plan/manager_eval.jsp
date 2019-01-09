@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*"%>
+    
+<%ArrayList<HashMap<String,Object>>list=(ArrayList<HashMap<String,Object>>)request.getAttribute("list");%>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -39,13 +41,16 @@ table{
  	text-align:center;
  }
  table,tr,td,th{
- 	border:1px solid black;
+ 	
  }
  td{
  	width:100px;
  }
  th{
- 	background-color:lightgray;
+ 	
+ }
+ #tb1 {
+ 	width:600px;
  }
 </style>
 </head>
@@ -55,17 +60,22 @@ table{
 	
     <div class="main_01">
     	<div class="ui header title"><h3>▶ 평가지 결과 조회</h3></div>
-    	<table id="tb1">
+    	<table class="table" id="tb1">
+    	
+    	
     		<tr>
     			<th>나라</th>
     			<th>도시</th>
     			<th>점수 평균(5점)</th>
     		</tr>
+    		<%for(int i=0;i<list.size();i++) {
+    		HashMap<String,Object> hmap=list.get(i);%>
     		<tr>
-    			<td>프랑스</td>
-    			<td>파리</td>
-    			<td>4.5</td>
+    			<td><%=hmap.get("ctCountry")%></td>
+    			<td><%=hmap.get("ctName") %></td>
+    			<td><%=hmap.get("avg") %></td>
     		</tr>
+    		<%} %>
     	</table>
     </div>
 	

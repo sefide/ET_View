@@ -21,6 +21,7 @@ import com.kh.et.plan.model.dao.PlanDao;
 public class PlanDao {
 	private Properties prop = new Properties();
 	int i = 0;
+	
 	public PlanDao() {
 		String fileName = PlanDao.class.getResource("/sql/plan/plan-query.properties").getPath();
 		try {
@@ -474,7 +475,7 @@ public class PlanDao {
 		int result = 0;
 		 
 		String query = prop.getProperty("getLikeNum");
-		
+		//SELECT PI.PI_P_NO, COUNT(PI.PI_P_NO) CNT FROM PLANINTEREST PI JOIN PLAN P ON (PI.PI_P_NO = P.P_NO) WHERE P.P_NO = ? AND PI.PI_TYPE = ? GROUP BY PI_P_NO
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -494,7 +495,7 @@ public class PlanDao {
 			close(pstmt);
 			close(rset);
 		}
-		
+		System.out.println("좋아요 갯수:"+result);
 		return result;
 	}
 
@@ -752,34 +753,7 @@ public class PlanDao {
 		}	
 		return listCount;
 	}
-	//좋아요 눌렀을때
-	public int clickLike(Connection con, PlanInterest pl) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("clickLike");
-		//clickLike=INSERT INTO PLANINTEREST SELECT SEQ_PI_NO.NEXTVAL,?,?,?,? FROM DUAL A WHERE NOT EXISTS ( SELECT * FROM PLANINTEREST WHERE  PI_P_NO =  AND PI_GIVE_NO = AND PI_TYPE = ? )
-		try {
-			String type = "좋아요";
-			
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, pl.getWriter());
-			pstmt.setInt(2, pl.getPno());
-			pstmt.setInt(3, pl.getUser());
-			pstmt.setString(4, type);
-			pstmt.setInt(5, pl.getPno());
-			pstmt.setInt(6, pl.getUser());
-			pstmt.setString(7, type);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
+	
 	
 	//플랜 좋아요 취소
 	public int clickUnLike(Connection con, PlanInterest pl) {
@@ -1042,5 +1016,265 @@ public class PlanDao {
 		return result;
 	}
 	//라이크 포인트 끝	
+
+
+	
+	//내가 스크랩한 모든 플랜 정보 뽑아오기
+	public HashMap<String, Object> allScrapPlan(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> planmap = null;
+		ArrayList<Plan> list = null;
+		String pType = "스크랩";
+		
+		String query = prop.getProperty("allScrapPlan");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			pstmt.setString(2, pType);
+			
+			rset = pstmt.executeQuery();
+			
+			planmap = new HashMap<String, Object>();
+			list = new ArrayList<Plan>();
+			
+			if(rset.next()) {
+				Plan p = new Plan();
+				
+				p.setpNo(rset.getInt("PI_NO"));
+				p.setpTitle(rset.getString("P_TITLE"));
+				p.setpCites(rset.getString("P_CITYS"));
+				p.setpDate(rset.getDate("P_DATE"));
+				p.setpRnum(rset.getInt("RNUM"));
+				p.setpName(rset.getString("M_NAME"));
+				
+				list.add(p);
+			}
+			planmap.put("allScrapPlan", list);
+			//키 - 내가 스크랩한 모든 플랜 : 값 - 스크랩한 플랜들의 정보
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return planmap;
+	}
+
+	// ↑에서 뽑은 플랜에 담을 도시 뽑아오기
+	public HashMap<String, City> allScrapPlanCity(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		HashMap<String, City> resultMap = null;
+
+		String query = prop.getProperty("selectCityList");
+
+		try {
+			stmt = con.createStatement();
+
+			rset = stmt.executeQuery(query);
+
+			resultMap = new HashMap<String, City>();
+			while (rset.next()) {
+				City ct = new City();
+
+				ct.setCtNo(rset.getInt("CT_NO"));
+				ct.setCtName(rset.getString("CT_NAME"));
+				ct.setCtCountry(rset.getString("CT_COUNTRY"));
+				ct.setCtInfo(rset.getString("CT_INFO"));
+				ct.setCtLat(rset.getFloat("CT_LAT"));
+				ct.setCtLng(rset.getFloat("CT_LNG"));
+
+				resultMap.put(String.valueOf(ct.getCtName()), ct);
+			}
+			System.out.println("dao - city 크기 :  " + resultMap.size());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+
+		return resultMap;
+	}
+
+	//내가 스크랩한 플랜 전체 갯수 가져오기
+	public int getScrapPlanListCount(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int scrapPlanListCount = 0;
+		
+		String query = prop.getProperty("scrapPlanListCount");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				scrapPlanListCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("내가 스크랩한 플랜 전체 개수 : " + scrapPlanListCount);
+		
+		return scrapPlanListCount;
+	}
+
+	//내가 스크랩한 플랜 전체 페이징 처리 후 조회
+	public ArrayList<HashMap<String, Object>> scrapPlanList(Connection con, int currentPage, int limit, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> scrapPlanList = null;
+		HashMap<String, Object> scrapPlanhmap = null;
+		String bitype1 = "좋아요";
+		String bitype2 = "스크랩";
+
+		String query = prop.getProperty("scrapPlanListPaging");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			int startRow = (currentPage - 1) * limit + 1; // 각 페이징 페이지 마다 처음 페이지 번호(ex.1,11,21,31...)
+			int endRow = startRow + limit - 1; // 각 페이징 페이지 마다 마지막 페이지 번호(ex.10,20,30,40...)
+
+			pstmt.setString(1, bitype2);
+			pstmt.setInt(2, mno);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+			rset = pstmt.executeQuery();
+
+			if (rset != null) {
+				scrapPlanList = new ArrayList<HashMap<String, Object>>(); // 페이징 리스트 생성하고
+				while (rset.next()) {
+					scrapPlanhmap = new HashMap<String, Object>();
+
+					scrapPlanhmap.put("pNo", rset.getInt("PI_NO"));
+					scrapPlanhmap.put("pTitle", rset.getString("P_TITLE"));
+					scrapPlanhmap.put("pCites", rset.getString("P_CITYS"));
+					scrapPlanhmap.put("bDate", rset.getDate("P_DATE"));
+					scrapPlanhmap.put("pName", rset.getString("M_NAME"));
+
+					scrapPlanList.add(scrapPlanhmap);
+				}
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return scrapPlanList;
+
+	}
+	
+
+	//좋아요 상태 가져오기
+	public String getLikeStatus(Connection con, int pno, int user) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String likeStatus="";
+		
+		System.out.println("플랜번호"+pno);
+		System.out.println("사용자 정보"+user);
+		
+		
+		String query = prop.getProperty("getLikeStatus");
+		//getLikeStatus=SELECT PI_STATUS FROM PLANINTEREST WHERE PI_P_NO = ? AND PI_GIVE_NO = ? AND PI_TYPE = ?
+		
+		try {
+			
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pno);
+			pstmt.setInt(2, user);
+			pstmt.setString(3, type);
+			
+			rset = pstmt.executeQuery();	
+			
+			System.out.println(rset);
+			
+			while (rset.next()) {
+				System.out.println("rset은 true");
+				likeStatus = rset.getString("PI_STATUS");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("Dao : "+likeStatus);
+		return likeStatus;
+	}
+	
+	//처음 좋아요 눌렀을 때
+	public int insertLike(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		System.out.println(pl.getWriter());
+		System.out.println(pl.getPno());
+		System.out.println(pl.getUser());
+		
+		
+		
+		String query = prop.getProperty("ClickInsert");
+		//ClickInsert=INSERT INTO PLANINTEREST SELECT SEQ_PI_NO.NEXTVAL,?,?,?,?,'Y' FROM DUAL A WHERE NOT EXISTS ( SELECT * FROM PLANINTEREST WHERE  PI_P_NO = ?  AND PI_GIVE_NO = ? AND PI_TYPE = ?  AND PI_STATUS = 'Y' )
+		
+		try {
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pl.getWriter());
+			pstmt.setInt(2, pl.getPno());
+			pstmt.setInt(3, pl.getUser());
+			pstmt.setString(4, type);
+			pstmt.setInt(5, pl.getPno());
+			pstmt.setInt(6, pl.getUser());
+			pstmt.setString(7, type);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return result;
+	}
+	
+	//좋아요 취소 후 다시 좋아요 눌렀을 떄
+	public int updateLike(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("ClickUpdateY"); //Y로 업데이트
+		//ClickUpdateY=UPDATE PLANINTEREST SET PI_STATUS = 'Y' WHERE PI_P_NO = ?  AND PI_GIVE_NO = ? AND PI_TYPE = ?  AND PI_STATUS = 'N' 
+		
+		try {
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pl.getPno());
+			pstmt.setInt(2, pl.getUser());
+			pstmt.setString(3, type);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return result;
+	}
 
 }

@@ -21,13 +21,14 @@
 			float:left;
 			border:1px solid black;
 			margin: 5% 5%;
-			height:150px;
+			height:100px;
 			text-align:left;
 			display : table-cell;
 			vertical-align : middle;
 		} 
 		.ul_01 {
 			vertical-align:middle;
+			margin-top:24px;
 		}
 		
 		

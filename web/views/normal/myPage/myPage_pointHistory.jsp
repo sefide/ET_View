@@ -226,7 +226,7 @@
     				<div class = "div-menu">
     					<ul>
     						<li><a onclick = "goMyPlan();" > > 내 플랜보기 </a> </li>
-    						<li><a href = "/et/views/normal/myPage/myPage_activity_history.jsp"> > 나의 활동내역 </a></li>
+    						<li><a onclick="goMyActivity();"> > 나의 활동내역 </a></li>
     						<li><a href = "<%=request.getContextPath()%>/pointList.po"  class = "this-page"> > 포인트 히스토리 </a></li>
     						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
     					</ul>
@@ -249,6 +249,21 @@
 	        				<div id="point">
 					        	<h1><%=loginUser.getM_point() %><i class="euro sign icon"></i></h1>
 			        		</div>
+			        		<hr>
+			        		<h4 align="center">획득 포인트</h4>
+			        		<hr>
+			        		1. 신규회원 (+20)<br>
+							2. 좋아요 클릭 (+1)<br>
+							3. 좋아요 받음(게시글,플랜) (+10)<br>
+							4. 인기플랜 선정 (+30)<br>
+							5. 베스트 댓글 선정(+10)<br>
+							<hr>
+			        		<h4 align="center">차감 포인트</h4>
+			        		<hr>
+			        		1. 플랜저장 공간 추가 (-50)<br>
+							2. 인기 플랜 보기 (-15)<br>
+							3. 플랜 비공개 설정 (-100)<br>
+							4. Q&A 작성 (-5)
 	        			</div>
 		        
       	        		<!-- 우측 -->
@@ -329,6 +344,11 @@
 	}
 	function editProfile() {
 		window.open("views/normal/myPage/myPage_profile_edit.jsp", "프로필 수정", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+	}
+	
+	function goMyActivity(){
+		var mno = <%=loginUser.getM_no()%>;
+		location.href = "<%=request.getContextPath()%>/qnaplan.bo?mno="+mno;
 	}
  	</script>
 	

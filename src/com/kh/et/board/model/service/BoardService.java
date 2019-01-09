@@ -335,10 +335,12 @@ public class BoardService {
 		System.out.println("좋아요 서비스전이야");
 		
 		int getNo = new BoardDao().getNo(con,bi.getWriter());
+		System.out.println("list 실행전 getNo:"+getNo);
 		
 		ArrayList<HashMap<String, Object>> list = new BoardDao().sameListBoardLike(con,bi,getNo);
 		System.out.println("boardService:"+list.size());
 		if(list.size()==0) {
+			System.out.println("list다음 getNo:"+getNo);
 			int result1 = new BoardDao().clickLike(con,bi,getNo);
 			int result2 = new BoardDao().insertBoardLikePoint(con,bi,getNo);
 			int result3 = new BoardDao().updataBoardClickedMember(con,bi,getNo);
@@ -401,6 +403,7 @@ public class BoardService {
 		} else {
 			rollback(con);
 		}
+		 
 		
 		close(con);
 		

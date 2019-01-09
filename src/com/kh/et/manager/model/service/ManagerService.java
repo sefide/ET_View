@@ -127,7 +127,25 @@ public class ManagerService {
 		return arr;
 	}
 
-	//블랙회원 조회
+	//블랙회원 조회(정지안된 회원)
+	public ArrayList<Member> selectBlackList2(int currentPage, int limit) {
+		Connection con = getConnection();
+		
+		ArrayList<Member> list= new ManagerDao().selectBlackList2(con,currentPage,limit);
+		/*System.out.println("list의 길이 : "+list.size());*/
+		
+		if(list!=null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+		
+		return list;
+	}
+	
+	//블랙회원 조회(탈퇴안된 회원)
 	public ArrayList<Member> selectBlackList(int currentPage, int limit) {
 		Connection con = getConnection();
 		
@@ -143,7 +161,7 @@ public class ManagerService {
 		close(con);
 		
 		return list;
-	}
+	}	
 
 	//정지회원조회
 	public ArrayList<HashMap<String,Object>> selectStopList(int currentPage, int limit) {
@@ -584,6 +602,18 @@ public class ManagerService {
 		}
 		System.out.println("서비스 "+result);
 		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectEval() {
+		Connection con=getConnection();
+		ArrayList<HashMap<String,Object>> list=null;
+		
+			list=new ManagerDao().selectEval(con);
+		
+		close(con);
+		
+		
+		return list;
 	}
 
 	

@@ -10,21 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.et.member.model.vo.Member;
 import com.kh.et.plan.model.service.PlanService;
-import com.kh.et.plan.model.vo.City;
 
 /**
- * Servlet implementation class SelectPlanDetailServlet
+ * Servlet implementation class SelectAllScrapPlanServlet
  */
-@WebServlet("/seePlanDetail.pl")
-public class SelectSeePlanDetailServlet extends HttpServlet {
+@WebServlet("/allscrapplan.pl")
+public class SelectAllScrapPlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectSeePlanDetailServlet() {
+    public SelectAllScrapPlanServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,29 +31,18 @@ public class SelectSeePlanDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int mno = Integer.parseInt(request.getParameter("mno"));
 		
-		String planNo = request.getParameter("pno");
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		
-		int pno = Integer.parseInt(planNo);
-		int user = loginUser.getM_no();
-		
-		
-		HashMap<String, Object> planMap = new PlanService().selectPlanDetail(Integer.parseInt(planNo));
-		HashMap<String,City> cityMap = new PlanService().selectCityMap();
-		
-		//좋아요 상태 가져오기
-		String likeStatus = new PlanService().getLikeStatus(pno,user);
+		//내가 스크랩한 전체 플랜 뽑아 오기(지도 뽑아서 플랜위에 뿌리고)
+		HashMap<String, Object> allScrapPlan = new PlanService().allScrapPlan(mno);
 		
 		String page = "";
-		if(planMap != null && cityMap != null) {
-			page = "/views/normal/plan/seePlan_detail.jsp";
-			request.setAttribute("planMap", planMap);
-			request.setAttribute("cityMap", cityMap);
-			request.setAttribute("likeStatus", likeStatus);
+		if(allScrapPlan != null) {
+			request.setAttribute("allScrapPlan", allScrapPlan);
+			page = "views/normal/myPage/myPage_activity_plan.jsp";
 		}else {
-			page = "selectPlanList.pl?mno="+loginUser.getM_no();
-			request.setAttribute("msg", "일시적인 오류입니다. 조금 뒤에 다시 시도해주세요. ");
+			request.setAttribute("msg", "실패!");
+			page = "views/common/errorPage.jsp";
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
