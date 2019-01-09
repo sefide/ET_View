@@ -41,11 +41,6 @@ public class ClickLikePlanServlet extends HttpServlet {
 				
 				String likeStatus = request.getParameter("status");
 				
-				System.out.println("클릭 좋아요에 들어왔당@");
-				System.out.println(pno);
-				System.out.println(writer);
-				System.out.println(user);
-				System.out.println(likeStatus);
 				
 				PlanInterest pl = new PlanInterest();
 				pl.setPno(pno);
@@ -55,8 +50,9 @@ public class ClickLikePlanServlet extends HttpServlet {
 				int result = new PlanService().clickLike(pl,likeStatus);
 	
 				String page = "";
+				
 				if(result > 0) {
-					response.sendRedirect("/et/views/normal/plan/see_plan_detail.jsp");
+					response.sendRedirect("/et/seePlanDetail.pl?pno="+pno);
 					
 				} else {
 					request.setAttribute("msg", "좋아요에 실패하였습니다.");
