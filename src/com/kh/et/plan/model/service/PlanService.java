@@ -100,8 +100,8 @@ public class PlanService {
 		int scrap = 0;
 		if(resultMap != null) {
 			Plan plan = (Plan) resultMap.get("plan");
-			like = new PlanDao().getLikeNum(con, plan.getpNo());
-			scrap = new PlanDao().getScrapNum(con, plan.getpNo());
+			like = new PlanDao().getLikeNum(con, planNo);
+			scrap = new PlanDao().getScrapNum(con, planNo);
 			resultMap.put("like", like);
 			resultMap.put("scrap", scrap);
 			commit(con);
@@ -220,12 +220,12 @@ public class PlanService {
 
 	
 	//플랜 엿보기 - 모든플랜 조회
-	public HashMap<String, Object> selectnormalPlan() {
+	public HashMap<String, Object> selectnormalPlan(int currentPage, int limit) {
 		Connection con = getConnection();
 		
 		System.out.println("normalPlan의 Service인걸?");
 		
-		HashMap<String, Object> normalPlanMap = new PlanDao().selectNormalPlan(con);
+		HashMap<String, Object> normalPlanMap = new PlanDao().selectNormalPlan(con, currentPage, limit);
 		System.out.println("service 의 normalPlanMap"+normalPlanMap);
 		
 		HashMap<String, City> normalCityMap = new PlanDao().selectNormalMap(con);

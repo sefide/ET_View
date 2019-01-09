@@ -153,6 +153,12 @@
     		border : 1px solid white;
     		background : white;
     }
+    
+    #tour-price{
+		color :  #ee685a;
+		font-weight : 800;
+		font-size : 15px;
+	}
 	
 </style>
 </head>
@@ -205,7 +211,7 @@
 						<div class = "span-tour-title"> 설명 </div> 
 						<span class = "span-tour-ex"> <%=hmap.get("info") %></span> <br>
 						<div class = "span-tour-title"> 가격 </div> 
-						<span class = "span-tour-ex"> <%=NE.commaMoney((int)hmap.get("price"))%>원</span><br>
+						<span class = "span-tour-ex" > <%=NE.commaMoney((int)hmap.get("price"))%>원</span><br>
 	                	</div>
 	                	
 	                	<div class = "div_tour_right">
@@ -253,7 +259,7 @@
 	                <div class = "div-tour-btn">
 	                <%for(int i=0;i<list.size();i++) {
 	                HashMap<String,Object> hmap=list.get(i);
-	                				%>
+	                	%>
 	             	  	<button class="ui yellow button" onclick = "goEditTour(<%=hmap.get("tno")%>,'<%=hmap.get("grade")%>');">수정하기 </button>
 						<!-- <button class="ui yellow button">삭제하기 </button> -->
 					<%} %>
