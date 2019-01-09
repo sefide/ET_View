@@ -13,13 +13,14 @@ public class NumberExec {
 		
 	}
 
-	//플랜 도시 이름 길이 제한
+	//텍스트 길이 제한
 	public String lengthsplit(String str, int length) {
 		if(str.length() >= length){
 		    return str.substring(0,length)+" ...";
 		}
 		return str;
-  }
+	}	
+		
   
   // 투어 남은 날짜 계산 메소드 
 	public long getDayDiff(String strEndDate) {

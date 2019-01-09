@@ -111,7 +111,9 @@
 	}
 	.div-menu li:hover, .div-menu a:hover {
 		text-decoration : none;
+		font-weight: 600;
 		color : rgb(254, 200, 0);
+		cursor: pointer;
 	}
 	
 	/* 하단 포인트 히스토리   */

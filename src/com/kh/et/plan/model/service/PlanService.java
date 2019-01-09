@@ -433,9 +433,6 @@ public class PlanService {
 		System.out.println("Service에서 오는 likeStatus 값:"+scrapStatus);
 		return scrapStatus;
 	}
-
-	
-	
 	
 	//내가 스크랩한 모든 플랜보기
 	public HashMap<String, Object> allScrapPlan(int mno) {
@@ -453,6 +450,7 @@ public class PlanService {
 		}
 		return allScrapPlan;
 	}
+
 
 	//내가 스크랩한 플랜 전체 갯수 가져오기
 	public int getScrapPlanListCount(int mno) {
@@ -488,6 +486,39 @@ public class PlanService {
 		return scrapPlanList;
 	}
 
+	//내가 스크랩한 모든 플랜보기
+	public HashMap<String, Object> allScrapPlan(int mno, int currentPage, int limit) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> allScrapPlan = new PlanDao().allScrapPlan(con, mno, currentPage, limit);
+		
+		HashMap<String, City> allScrapPlanCity = new PlanDao().allScrapPlanCity(con);
+		
+		if(allScrapPlan != null & allScrapPlanCity != null) {
+			allScrapPlan.put("allScrapPlanCity", allScrapPlanCity);
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return allScrapPlan;
+	}
+
+	/*//내가 스크랩한 모든 플랜보기
+	public HashMap<String, Object> allScrapPlan(int mno) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> allScrapPlan = new PlanDao().allScrapPlan(con, mno);
+		
+		HashMap<String, City> allScrapPlanCity = new PlanDao().allScrapPlanCity(con);
+		
+		if(allScrapPlan != null & allScrapPlanCity != null) {
+			allScrapPlan.put("allScrapPlanCity", allScrapPlanCity);
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return allScrapPlan;
+	}*/
 	
 	
 
