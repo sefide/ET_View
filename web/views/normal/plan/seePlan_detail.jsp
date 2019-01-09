@@ -166,15 +166,16 @@
 			        	<div class = "txt"> 여행도시 개수 : <%=plan.getpCites().split(", ").length %>개 도시 </div>
 			        	<div> 플랜 관심 상태는?<%= likeStatus %></div>
 			    </div>
+			    
+			    	<%--좋아요 버튼 div--%>
 					<div class="div-plan-info">				
-					<%-- <%if(plan.getpWriter() != loginUser.getM_no())%> --%>
-					
+					<%-- <%if(plan.getpWriter() != loginUser.getM_no())%> --%>					
 					<% if(likeStatus == "X"){ %>
 						<div class="ui labeled button" tabindex="0">
 							<div class="ui red button" id="likePlan" onclick="clickLike('<%=likeStatus%>') ;">
 							<i class="heart icon" ></i> 좋아요!
 							</div>
-							<a class="ui basic red left pointing label" id="likeCnt"> <%=plan.getpLike()%></a>
+							<a class="ui basic red left pointing label" id="likeCnt"> </a>
 						</div>						
 					<%}else if(likeStatus == "N"){ %> 
 						<!-- 좋아요   안 눌렸을때(취소 했을 때) -->
@@ -187,26 +188,30 @@
 					<%}else{ %>
 							<!-- 좋아요 눌렸을때 -->
 							<div class="ui labeled button" tabindex="0">
-							<div class="ui red button" id="UnlikePlan">
+							<div class="ui red button"  onclick="clickLike('<%=likeStatus%>') ;" >
 							<i class="heart icon"></i> 좋아요 취소
 							</div>
 							<a class="ui basic red left pointing label" id="likeCnt"> <%=plan.getpLike()%></a>
 						</div>
 						
 					<%} %>
-					
-					
-					
-							
 					</div> <!-- div-info 끝 -->
+					
+					<%--스크랩 버튼 div --%>
+					<div class="div-plan-info">
+					</div>
+					
+					
+					
+					
 			</div>
         </div>
+        		
+        		
         		<script>
         		
-        		$(function() {
-        			
-        			var pno = <%= plan.getpNo() %>;
-        		
+        		$(function() {        			
+        			var pno = <%= plan.getpNo() %>;       		
         			 $.ajax({
                          url : "/et/countLike.pl",
                          data : {
@@ -215,24 +220,27 @@
                          type : "post",
                          success : function(data) {
                             console.log(data);
-                            
+                            $("#likeCnt").text(data.like);
                          },
-                         error:function(){
-                        	
+                         error:function(){                       	
                          }
-        			 }
+        			 });
                     });
-        			       			
+        		
+        			//좋아요 버튼클릭	
         			function clickLike(likeStatus) {
         				var pno = <%= plan.getpNo() %>;
         				var writer = <%= plan.getpWriter() %> ;
         				var user = <%= loginUser.getM_no() %>;
         				status = "";
-        				status = likeStatus;
-        				console.log("좋아요 버튼이 클릭 되었습니당!");
+        				status = likeStatus;       				
 						location.href="<%=request.getContextPath()%>/clickLike.pl?pno="+pno+"&writer="+writer+"&user="+user+"&status="+status ;
 					}
-        		
+        			
+        			
+        			
+        			
+
         		</script>
         
         
