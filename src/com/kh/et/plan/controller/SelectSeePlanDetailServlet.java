@@ -46,6 +46,8 @@ public class SelectSeePlanDetailServlet extends HttpServlet {
 		
 		//좋아요 상태 가져오기
 		String likeStatus = new PlanService().getLikeStatus(pno,user);
+		//스크랩 상태 가져오기
+		String scrapStatus = new PlanService().getScrapStatus(pno,user);
 		
 		String page = "";
 		if(planMap != null && cityMap != null) {
@@ -53,6 +55,7 @@ public class SelectSeePlanDetailServlet extends HttpServlet {
 			request.setAttribute("planMap", planMap);
 			request.setAttribute("cityMap", cityMap);
 			request.setAttribute("likeStatus", likeStatus);
+			request.setAttribute("scrapStatus", scrapStatus);
 		}else {
 			page = "selectPlanList.pl?mno="+loginUser.getM_no();
 			request.setAttribute("msg", "일시적인 오류입니다. 조금 뒤에 다시 시도해주세요. ");

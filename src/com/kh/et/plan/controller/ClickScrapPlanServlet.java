@@ -1,6 +1,8 @@
 package com.kh.et.plan.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +16,7 @@ import com.kh.et.plan.model.vo.PlanInterest;
 /**
  * Servlet implementation class ClickScrapPlanServlet
  */
-@WebServlet("/clickScrapPlan.pl")
+@WebServlet("/clickScrap.pl")
 public class ClickScrapPlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,25 +32,32 @@ public class ClickScrapPlanServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int pno = Integer.parseInt(request.getParameter("pno"));
-		int user = Integer.parseInt(request.getParameter("user"));
-		int writer = Integer.parseInt(request.getParameter("writer"));
 		
-		/*System.out.println("플랜번호 = "+pno);
-		System.out.println("로그인 유저 = "+user);
-		System.out.println("플랜 작성자 = "+writer);*/
+		int pno = Integer.parseInt(request.getParameter("pno"));
+		int writer = Integer.parseInt(request.getParameter("writer"));
+		int user = Integer.parseInt(request.getParameter("user"));
+		
+		
+		String ScrapStatus = request.getParameter("status");
 
 		PlanInterest pl = new PlanInterest();
 		pl.setPno(pno);
 		pl.setWriter(writer);
 		pl.setUser(user);
 				
-		int result = new PlanService().clickScrap(pl);
+		int result = new PlanService().clickScrap(pl,ScrapStatus);
 		
-		System.out.println(result);
+		String page = "";
 		
-		response.setContentType("application/json");
-		new Gson().toJson(result, response.getWriter());
+		if(result > 0) {
+			response.sendRedirect("/et/seePlanDetail.pl?pno="+pno);
+			
+			
+		} else {
+			request.setAttribute("msg", "좋아요에 실패하였습니다.");
+			RequestDispatcher view = request.getRequestDispatcher(page);
+			view.forward(request, response);
+		}
 	}
 
 	/**

@@ -34,17 +34,15 @@ public class SelectAllPlanServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("모든 플랜보기 서블릿에 들어왔당!");
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		// bestplanMap- (인기순위, 해당 플랜) , bestCityMap
 		HashMap<String, Object> bestPlanMap = new PlanService().selectBestPlan(); 		
 		System.out.println("servlet에서 bestplanMap" + bestPlanMap);
-		
-		
+
 		// normalplanMap - (날짜(시간), 해당시간) , normalCityMap
 		HashMap<String, Object> normalPlanMap = new PlanService().selectnormalPlan(); 		
 		System.out.println("servlet에서 normalplanMap" + normalPlanMap);
+		
 		
 		
 		
