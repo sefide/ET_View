@@ -44,43 +44,48 @@
  }  
  .main_01{
  	margin:2%;
- 	float:left; 
+ 	display:flex; 
 }
 table{
- 	width:600px;
- 	height:120px;
  	text-align:center;
  }
- table,tr,td{
- 	
- }
- td{
- 	width:150px;
- } 
  th{
- 
+ 	background-color:lightgray;
  }
  .num{
  	width:116px;
  }
  #table1 {
- 	width:1000px;
- 	height:200px;
- 	text-align:center
+ 	width:1100px;
+ 	text-align:center;
  }
+ .nav{
+	width:15%;
+}
+.sub{
+	width:80%;
+}
+#tb1{
+	width:500px;
+}
 </style>
 </head>
 <body>
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
-<%@ include file = "/views/common/manager/manager_plan_nav.jsp" %>
 	
     <div class="main_01">
+    	<div class="nav">
+			<%@ include file = "/views/common/manager/manager_plan_nav.jsp" %>
+    	</div>
+    	
+    	<div class="sub">
+    
     	<div class="ui header title">▶여행지 관리</div>
     	- 여행지 조회 <br><br>
-    	<table class="table" id="tb1">
+    	<table class="table" id="tb1" style="border:1px solid black;">
     		<tr>
     		
-    			<th style=width:60px;>번호</th>
+    			<th style="width:60px;">번호</th>
     			<th>나라명</th>
     			<th>도시명</th>
     			<th>인기순위</th>
@@ -100,20 +105,20 @@ table{
     		
   
     	</table>
-    	<br>
+    	<br><br>
+    	<b>- 여행지 수정</b> <br><br>
      <table class="table" id="table1">
     	<tr>
-    	
     		<th></th>
 			<th>번호  </th>    	
     		<th>나라명</th>
     		<th>도시명</th>
-    		<th>상세설명</th>
+    		<th style="width:400px;">상세설명</th>
 
     	</tr>
     	<%for(City city:list2) {%>
     	<tr>
-    	<td class="num"><input type="checkbox" name="checkbox" class="chkCheckBox" value=<%=city.getCtNo()%>></td>
+    	<td class="num"><input type="radio" name="checkbox" class="chkCheckBox" value=<%=city.getCtNo()%>></td>
     	<td><%=city.getCtNo() %></td>
     	<td><%=city.getCtCountry() %></td>
     	<td><%=city.getCtName() %></td>
@@ -153,9 +158,10 @@ table{
 			
 		</div>
     	
-    	<button class="ui black basic button" style=float:right;margin-right:30px; id="updateBtn">수정하기</button>
+    	<button class="ui lightgrey button" style=float:left;margin-right:30px; id="updateBtn">수정하기</button>
     
- 
+ 	</div>
+ 	</div>
 	<script>
 	$(function(){
  		$("#updateBtn").click(function(){
@@ -188,6 +194,5 @@ table{
 	 
 	 <div class = "two wide column"></div> 
 	   <%@ include file = "/views/common/company/footer_com.jsp" %>
-	 </div>
 </body>
 </html>

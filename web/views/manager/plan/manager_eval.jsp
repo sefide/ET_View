@@ -47,7 +47,7 @@ table{
  	width:100px;
  }
  th{
- 	
+ 	background-color:lightgray;
  }
  #tb1 {
  	width:600px;
@@ -59,14 +59,15 @@ table{
 <%@ include file = "/views/common/manager/manager_eval_nav.jsp" %>
 	
     <div class="main_01">
-    	<div class="ui header title"><h3>▶ 평가지 결과 조회</h3></div>
+    	<div class="ui header title">▶ 평가지 결과 조회</div>
+    	<br>
     	<table class="table" id="tb1">
     	
     	
     		<tr>
     			<th>나라</th>
     			<th>도시</th>
-    			<th>점수 평균(5점)</th>
+    			<th>점수 평균(최대 평균 : 5점)</th>
     		</tr>
     		<%for(int i=0;i<list.size();i++) {
     		HashMap<String,Object> hmap=list.get(i);%>

@@ -44,44 +44,49 @@
  }  
  .main_01{
  	margin:2%;
- 	float:left; 
+ 	display:flex; 
 }
 table{
- 	width:800px;
- 	height:120px;
  	text-align:center;
- }
- table,tr,td{
- 	
  }
  td{
  	width:100px;
  } 
  th{
- 	
+ 	background:lightgray;
  }
  .num{
  	width:116px;
  }
+ .nav{
+	width:15%;
+}
+.sub{
+	width:80%;
+}
 </style>
 </head>
 <body>
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
-<%@ include file = "/views/common/manager/manager_company_nav1.jsp" %>
 	
     <div class="main_01">
+    	<div class="nav"> 	
+			<%@ include file = "/views/common/manager/manager_company_nav1.jsp" %>
+    	</div>
+    	
+    	<div class="sub">
     	<div class="ui header title">▶투어글 관리</div>
     	- 투어 정보 <br><br>
     	<table class="table" id="tb1">
     		<tr>
     			<th></th>
     			<th>번호</th>
-    			<th>투어명</th>
+    			<th style="width:250px;">투어명</th>
     			<th>제휴사명</th>
-    			<th>나라/도시</th>
+    			<th style="width:180px;">나라/도시</th>
     			<th>컨셉</th>
     			<th>가격</th>
-    			<th>작성날짜</th>
+    			<th style="width:150px;">작성날짜</th>
     			<th>링크</th>
     			
     		</tr>
@@ -135,9 +140,10 @@ table{
 			
 		</div>
     	
-    	<button  class="ui black basic button" style=float:right id="deleteBtn" onclick="deleteBtn();">삭제하기</button>
+    	<button  class="ui lightgrey button" style=float:left id="deleteBtn" onclick="deleteBtn();">삭제하기</button>
     	
     	
+    </div>
     </div>
 	
  <div class = "two wide column"></div> 

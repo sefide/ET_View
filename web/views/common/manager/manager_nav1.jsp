@@ -19,9 +19,7 @@
      	 }
      	 
      	 .left-nav{
-			border:1px solid black;
 			margin: 5% 5%;
-			height:170px;
 			text-align:left;
 			display : table-cell;
 			vertical-align : middle;
@@ -40,8 +38,13 @@
 <body>
 <!-- 카테고리 네비게이터 -->
 	<!-- <div class="root-div"> -->
+	
+	
+	
    		<div class="left-nav">
-       		<ul class="ul_01" >
+   		
+		<!-- 2019-01-09 새로운 네비생성(아래)
+        		<ul class="ul_01" >
            		<li>
                		<div class="click" id="tag1" onclick = "test();">회원현황</div>
            		</li>
@@ -65,9 +68,26 @@
            				</li>
                		</ul>
           		 	</li>
-       		</ul>
+       		</ul> -->
+       		
+       			
+			<div class="ui vertical menu">
+			  <a class="item">
+			    <h4 class="ui header" id="tag1" onclick = "test();">회원현황</h4>
+			  </a>
+			  <a class="item">
+			    <h4 class="ui header"onclick = "check_manager();">회원정보 조회</h4>
+			  </a>
+			  <a class="item">
+			    <h4 class="ui header">블랙리스트</h4>
+			    <p onclick = "check_black();">회원 정지시키기</p>
+			    <p onclick = "manager_black();">정지회원 관리</p>
+			    <p onclick = "manager_out_do();">회원 탈퇴시키기</p>
+			    <p onclick = "manager_out();">탈퇴회원 관리</p>
+			  </a>
+			</div>
+       		
    		 </div>
-	<!-- </div> -->
 	
 	<script>
     

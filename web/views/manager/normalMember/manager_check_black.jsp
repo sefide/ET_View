@@ -49,9 +49,9 @@
 	 	width:800px;
 	 	text-align:center;
 	 }
-	 table,tr,td,th{
+	/*  table,tr,td,th{
 	 	border:1px solid black;
-	 }
+	 } */
 	 td{
 	 	width:50px;
 	 }
@@ -97,116 +97,14 @@
 	font-size : 12px;
 	color :gray;
 }
-button {
-   		border : 1px solid white;
-   		background : white;
-   }
+.claim{
+	background:lightgray;
+}
 </style>
 </head>
 <body>
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
    
-    <%-- <div class="main_02">
-    	<div class="nav">	
-			<%@ include file = "/views/common/manager/manager_nav1.jsp" %>
-    	</div>
-    
-    	<div class="sub">
-    	
-    	<div class="ui header title"><br>▶블랙리스트</div>
-    	
-    	- 블랙 회원 조회 <br><br>
-    	<table id="tb1">
-    		<tr>
-    			<th>선택</th>
-    			<th>회원번호</th>
-    			<th>아이디</th>
-    			<th>이메일</th>
-    			<th>신고수</th>
-    		</tr>
-    		<%for(Member m : BlackList){%>
-	    		<tr height="27px">
-	    			<td><input type="checkbox" value=<%= m.getM_no() %>></td>
-	    			<td><%= m.getM_no() %></td>
-	    			<td><%= m.getM_id() %></td>
-	    			<td><%= m.getM_email() %></td>
-	    			<td><%= m.getM_point() %></td>
-	    		</tr>
-	    		<%} %>
-    	</table>
-    	
-    	<br>
-    	 <div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath() %>/select03.mng?currnetPage=1'"><<</button>
-			<% if(currentPage <=1) {%>
-			<button disabled><<<</button>
-			<%}else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/select03.mng?currentPage=<%= currentPage -1%>'"><</button>		
-			<%} %>
-			
-			<% for(int p=startPage; p<=endPage;p++){ 
-				if(p==currentPage){
-			%>		<button disabled><%= p %></button>
-			<%	}else{ %>
-					<button onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%= p%>'"><%= p %></button>
-			
-			<% }%>
-			
-			<%} %>
-			
-			<% if(currentPage >= maxPage){ %>
-			<button disabled>></button>
-			<%}else{ %>
-			<button onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%= currentPage +1%>'">></button>
-			<%} %>
-			
-			<button onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%=maxPage%>'">>></button>
-			
-		</div>
-		
-	    
-    	<div class="btn">
-    	<button onclick="stop()">정지</button>
-    	<button onclick="out()">탈퇴</button>
-    	</div>
-    	
-    	<script>
-    		var arr=[];
-			$("input:checkbox").change(chk1);
-			
-			function chk1(){
-				if($(this).prop("checked")){
-					arr.push($(this).val());
-				}
-			}
-
-			
-    		function stop(){
-    			for(var i in arr){
-    				console.log(arr[i] +"번");
-    			}
-    		}
-    		function out(){
-    			alert("out처리 되었습니다!");
-    		}
-    	</script>
-
-    
-    
-    <div class="notice">
-    <br><br>
-    <b>-회원 정지 기준</b><br>
-    	<div>
-    		신고 5개 - 10일 정지 <br>
-    		신고 10개 - 3주 정지 <br>
-    		신고 20개 - 강제탈퇴 <br>
-    	</div>
-    	
-    </div>
-    
-    </div>
-    </div> --%>
-    
     <div class="main_02">
     
     <div class="nav">
@@ -218,7 +116,7 @@ button {
 	    	<div class="ui header title"><br>▶블랙리스트</div>
 	    	- 블랙 회원 조회 및 회원 정지 <br><br>
 	   
-	    	<table id="tb1">
+	    	<table id="tb1" class="table">
 	    		<tr>
 	    			<th>선택</th>
 	    			<th>회원번호</th>
@@ -239,35 +137,35 @@ button {
 	    	</table>
 	    	<br>
 	    <div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath() %>/select03.mng?currnetPage=1'"><<</button>
+			<button  class="ui black basic button" onclick="location.href='<%=request.getContextPath() %>/select03.mng?currnetPage=1'"><<</button>
 			<% if(currentPage <=1) {%>
-			<button disabled><<<</button>
+			<button  class="ui black basic button" disabled><<<</button>
 			<%}else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/select03.mng?currentPage=<%= currentPage -1%>'"><</button>		
+			<button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/select03.mng?currentPage=<%= currentPage -1%>'"><</button>		
 			<%} %>
 			
 			<% for(int p=startPage; p<=endPage;p++){ 
 				if(p==currentPage){
-			%>		<button disabled><%= p %></button>
+			%>		<button  class="ui black basic button" disabled><%= p %></button>
 			<%	}else{ %>
-					<button onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%= p%>'"><%= p %></button>
+					<button  class="ui black basic button" onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%= p%>'"><%= p %></button>
 			
 			<% }%>
 			
 			<%} %>
 			
 			<% if(currentPage >= maxPage){ %>
-			<button disabled>></button>
+			<button  class="ui black basic button" disabled>></button>
 			<%}else{ %>
-			<button onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%= currentPage +1%>'">></button>
+			<button  class="ui black basic button" onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%= currentPage +1%>'">></button>
 			<%} %>
 			
-			<button onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%=maxPage%>'">>></button>
+			<button  class="ui black basic button" onclick="location.href='<%= request.getContextPath()%>/select03.mng?currentPage=<%=maxPage%>'">>></button>
 		</div>
 	    
 	    
     	<div class = "div-claim">
-			<a class = "claim"><i class="check circle icon"></i> 정지시키기 </a>
+			<a class = "claim"><i class="caret square right outline icon"></i> 정지시키기 </a>
 		</div>
 		<div class = "claim-popup">
 			<i class = "close icon" onclick = "closePop1();"></i>
