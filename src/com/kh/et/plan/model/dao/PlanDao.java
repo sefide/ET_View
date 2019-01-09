@@ -21,6 +21,7 @@ import com.kh.et.plan.model.dao.PlanDao;
 public class PlanDao {
 	private Properties prop = new Properties();
 	int i = 0;
+	
 	public PlanDao() {
 		String fileName = PlanDao.class.getResource("/sql/plan/plan-query.properties").getPath();
 		try {
@@ -470,7 +471,7 @@ public class PlanDao {
 		int result = 0;
 		 
 		String query = prop.getProperty("getLikeNum");
-		
+		//SELECT PI.PI_P_NO, COUNT(PI.PI_P_NO) CNT FROM PLANINTEREST PI JOIN PLAN P ON (PI.PI_P_NO = P.P_NO) WHERE P.P_NO = ? AND PI.PI_TYPE = ? GROUP BY PI_P_NO
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -490,7 +491,7 @@ public class PlanDao {
 			close(pstmt);
 			close(rset);
 		}
-		
+		System.out.println("좋아요 갯수:"+result);
 		return result;
 	}
 
@@ -743,34 +744,7 @@ public class PlanDao {
 		}	
 		return listCount;
 	}
-	//좋아요 눌렀을때
-	public int clickLike(Connection con, PlanInterest pl) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("clickLike");
-		//clickLike=INSERT INTO PLANINTEREST SELECT SEQ_PI_NO.NEXTVAL,?,?,?,? FROM DUAL A WHERE NOT EXISTS ( SELECT * FROM PLANINTEREST WHERE  PI_P_NO =  AND PI_GIVE_NO = AND PI_TYPE = ? )
-		try {
-			String type = "좋아요";
-			
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, pl.getWriter());
-			pstmt.setInt(2, pl.getPno());
-			pstmt.setInt(3, pl.getUser());
-			pstmt.setString(4, type);
-			pstmt.setInt(5, pl.getPno());
-			pstmt.setInt(6, pl.getUser());
-			pstmt.setString(7, type);
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
+	
 	
 	//플랜 좋아요 취소
 	public int clickUnLike(Connection con, PlanInterest pl) {
@@ -1033,5 +1007,104 @@ public class PlanDao {
 		return result;
 	}
 	//라이크 포인트 끝	
+
+	//좋아요 상태 가져오기
+	public String getLikeStatus(Connection con, int pno, int user) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String likeStatus="";
+		
+		System.out.println("플랜번호"+pno);
+		System.out.println("사용자 정보"+user);
+		
+		
+		String query = prop.getProperty("getLikeStatus");
+		//getLikeStatus=SELECT PI_STATUS FROM PLANINTEREST WHERE PI_P_NO = ? AND PI_GIVE_NO = ? AND PI_TYPE = ?
+		
+		try {
+			
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pno);
+			pstmt.setInt(2, user);
+			pstmt.setString(3, type);
+			
+			rset = pstmt.executeQuery();	
+			
+			System.out.println(rset);
+			
+			while (rset.next()) {
+				System.out.println("rset은 true");
+				likeStatus = rset.getString("PI_STATUS");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("Dao : "+likeStatus);
+		return likeStatus;
+	}
+	
+	//처음 좋아요 눌렀을 때
+	public int insertLike(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		System.out.println(pl.getWriter());
+		System.out.println(pl.getPno());
+		System.out.println(pl.getUser());
+		
+		
+		
+		String query = prop.getProperty("ClickInsert");
+		//ClickInsert=INSERT INTO PLANINTEREST SELECT SEQ_PI_NO.NEXTVAL,?,?,?,?,'Y' FROM DUAL A WHERE NOT EXISTS ( SELECT * FROM PLANINTEREST WHERE  PI_P_NO = ?  AND PI_GIVE_NO = ? AND PI_TYPE = ?  AND PI_STATUS = 'Y' )
+		
+		try {
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pl.getWriter());
+			pstmt.setInt(2, pl.getPno());
+			pstmt.setInt(3, pl.getUser());
+			pstmt.setString(4, type);
+			pstmt.setInt(5, pl.getPno());
+			pstmt.setInt(6, pl.getUser());
+			pstmt.setString(7, type);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return result;
+	}
+	
+	//좋아요 취소 후 다시 좋아요 눌렀을 떄
+	public int updateLike(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("ClickUpdateY"); //Y로 업데이트
+		//ClickUpdateY=UPDATE PLANINTEREST SET PI_STATUS = 'Y' WHERE PI_P_NO = ?  AND PI_GIVE_NO = ? AND PI_TYPE = ?  AND PI_STATUS = 'N' 
+		
+		try {
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pl.getPno());
+			pstmt.setInt(2, pl.getUser());
+			pstmt.setString(3, type);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return result;
+	}
 
 }

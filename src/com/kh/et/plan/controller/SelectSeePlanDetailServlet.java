@@ -33,17 +33,26 @@ public class SelectSeePlanDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String planNo = request.getParameter("pno");
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
+		int pno = Integer.parseInt(planNo);
+		int user = loginUser.getM_no();
+		
+		
 		HashMap<String, Object> planMap = new PlanService().selectPlanDetail(Integer.parseInt(planNo));
 		HashMap<String,City> cityMap = new PlanService().selectCityMap();
+		
+		//좋아요 상태 가져오기
+		String likeStatus = new PlanService().getLikeStatus(pno,user);
 		
 		String page = "";
 		if(planMap != null && cityMap != null) {
 			page = "/views/normal/plan/seePlan_detail.jsp";
 			request.setAttribute("planMap", planMap);
 			request.setAttribute("cityMap", cityMap);
+			request.setAttribute("likeStatus", likeStatus);
 		}else {
 			page = "selectPlanList.pl?mno="+loginUser.getM_no();
 			request.setAttribute("msg", "일시적인 오류입니다. 조금 뒤에 다시 시도해주세요. ");
