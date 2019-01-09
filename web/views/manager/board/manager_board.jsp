@@ -45,43 +45,45 @@
  }  
  .main_01{
  	margin:2%;
- 	float:left;
+ 	display:flex;
 }
 table{
- 	width:600px;
- 	height:120px;
  	text-align:center;
- }
- table,tr,td{
- 	
- }
- td{
- 	
- 	width:100px;
+ 	width:85%;
  }
  th{
- 	
- 	background-color:white;
+ 	background-color:lightgray;
  }
- .tdn {
- 	width:30px;
- }
+.nav{
+	width:15%;
+}
+.sub{
+	width:80%;
+}
+.table{
+	width:85%;
+}
 </style>
 </head>
 <body>
 <%@ include file = "/views/common/manager/header_manager.jsp" %>
-<%@ include file = "/views/common/manager/manager_community.jsp" %>
 	
     <div class="main_01">
+    	
+    <div class="nav">
+		<%@ include file = "/views/common/manager/manager_community.jsp" %>
+    </div>
+    
+     <div class="sub">
     	<div class="ui header title">▶게시글 조회</div>
     	- 게시글 정보 <br><br>
-    	<table class="table" id="tb1">
+    	<table class="table">
     		<tr>
     			<th></th>
-    			<th class="tdn" style=width:150px;>글 번호</th>
-    			<th>제목</th>
+    			<th>글 번호</th>
+    			<th style="width: 180px;">제목</th>
     			<th>작성자</th>
-    			<th>내용</th>
+    			<th style="width: 200px;">내용</th>
     			<th>날짜</th>
     			<th>좋아요 수 </th>
     			<th>댓글 수 </th>
@@ -133,9 +135,10 @@ table{
 			
 		</div>
 
-    	<button class="ui black basic button" style=float:right id="deleteBtn" onclick="deleteBtn();">삭제하기</button>
+    	<button class="ui lightgrey button" style=float:left id="deleteBtn" onclick="deleteBtn();">삭제하기</button>
     </div>
 	
+	</div>
 	<div class = "two wide column"></div>
 	
 	<%@ include file = "/views/common/company/footer_com.jsp" %>

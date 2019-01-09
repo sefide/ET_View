@@ -49,9 +49,6 @@
 	 	width:800px;
 	 	text-align:center;
 	 }
-	 table,tr,td,th{
-	 	border:1px solid black;
-	 }
 	 td{
 	 	width:50px;
 	 }
@@ -92,7 +89,7 @@
 	    	<div class="ui header title"><br>▶블랙리스트</div>
 	    	- 블랙리스트 조회 및 회원 강제탈퇴  <br><br>
 	   
-	    	<table id="tb1">
+	    	<table id="tb1" class="table">
 	    		<tr>
 	    			<th>선택</th>
 	    			<th>회원번호</th>
@@ -113,36 +110,36 @@
 	    	</table>
 	    	<br>
 	    <div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath() %>/select06.mng?currnetPage=1'"><<</button>
+			<button class="ui black basic button" onclick="location.href='<%=request.getContextPath() %>/select06.mng?currnetPage=1'"><<</button>
 			<% if(currentPage <=1) {%>
-			<button disabled><<<</button>
+			<button class="ui black basic button" disabled><<<</button>
 			<%}else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/select06.mng?currentPage=<%= currentPage -1%>'"><</button>		
+			<button class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/select06.mng?currentPage=<%= currentPage -1%>'"><</button>		
 			<%} %>
 			
 			<% for(int p=startPage; p<=endPage;p++){ 
 				if(p==currentPage){
-			%>		<button disabled><%= p %></button>
+			%>		<button class="ui black basic button" disabled><%= p %></button>
 			<%	}else{ %>
-					<button onclick="location.href='<%= request.getContextPath()%>/select06.mng?currentPage=<%= p%>'"><%= p %></button>
+					<button class="ui black basic button" onclick="location.href='<%= request.getContextPath()%>/select06.mng?currentPage=<%= p%>'"><%= p %></button>
 			
 			<% }%>
 			
 			<%} %>
 			
 			<% if(currentPage >= maxPage){ %>
-			<button disabled>></button>
+			<button class="ui black basic button" disabled>></button>
 			<%}else{ %>
-			<button onclick="location.href='<%= request.getContextPath()%>/select06.mng?currentPage=<%= currentPage +1%>'">></button>
+			<button class="ui black basic button" onclick="location.href='<%= request.getContextPath()%>/select06.mng?currentPage=<%= currentPage +1%>'">></button>
 			<%} %>
 			
-			<button onclick="location.href='<%= request.getContextPath()%>/select06.mng?currentPage=<%=maxPage%>'">>></button>
+			<button class="ui black basic button" onclick="location.href='<%= request.getContextPath()%>/select06.mng?currentPage=<%=maxPage%>'">>></button>
 		</div>
 	    
 	    
 	    
 	    <div>
-	    	<button id="outBtn">탈퇴시키기</button>
+	    	<button id="outBtn" class="ui lightgrey button">탈퇴시키기</button>
 	    </div>
     
      <div class="notice">

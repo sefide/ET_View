@@ -47,12 +47,12 @@
 	   	 display:flex;
 	}
 	#tb1{
-	 	width:900px;
+	 	width:1100px;
 	 	text-align:center;
 	 }
-	 table,tr,td,th{
+/* 	 table,tr,td,th{
 	 	border:1px solid black;
-	 }
+	 } */
 	 td{
 	 	width:50px;
 	 }
@@ -88,7 +88,7 @@
 	    	<div class="ui header title"><br>▶회원정보 조회</div>
 	    	- 회원정보 <br><br>
 	   
-	    	<table id="tb1">
+	    	<table id="tb1" class="table">
 	    		<tr height="27px">
 	    			<th>번호</th>
 	    			<th>아이디</th>
@@ -117,18 +117,18 @@
 	    	</table>
 	    	<br>
 	    <div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath() %>/select02.mng?currnetPage=1'"><<</button>
+			<button  class="ui black basic button" onclick="location.href='<%=request.getContextPath() %>/select02.mng?currnetPage=1'"><<</button>
 			<% if(currentPage <=1) {%>
-			<button disabled><<<</button>
+			<button  class="ui black basic button" disabled><<<</button>
 			<%}else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/select02.mng?currentPage=<%= currentPage -1%>'"><</button>		
+			<button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/select02.mng?currentPage=<%= currentPage -1%>'"><</button>		
 			<%} %>
 			
 			<% for(int p=startPage; p<=endPage;p++){ 
 				if(p==currentPage){
-			%>		<button disabled><%= p %></button>
+			%>		<button  class="ui black basic button" disabled><%= p %></button>
 			<%	}else{ %>
-					<button onclick="location.href='<%= request.getContextPath()%>/select02.mng?currentPage=<%= p%>'"><%= p %></button>
+					<button  class="ui black basic button" onclick="location.href='<%= request.getContextPath()%>/select02.mng?currentPage=<%= p%>'"><%= p %></button>
 			
 			<% }%>
 			
@@ -137,17 +137,17 @@
 			<% if(currentPage >= maxPage){ %>
 			<button disabled>></button>
 			<%}else{ %>
-			<button onclick="location.href='<%= request.getContextPath()%>/select02.mng?currentPage=<%= currentPage +1%>'">></button>
+			<button  class="ui black basic button" onclick="location.href='<%= request.getContextPath()%>/select02.mng?currentPage=<%= currentPage +1%>'">></button>
 			<%} %>
 			
-			<button onclick="location.href='<%= request.getContextPath()%>/select02.mng?currentPage=<%=maxPage%>'">>></button>
+			<button  class="ui black basic button" onclick="location.href='<%= request.getContextPath()%>/select02.mng?currentPage=<%=maxPage%>'">>></button>
 			
 			
 			
 		</div>
 	    
 	    
-	    
+	    <%-- 
 	    <div>
 	    <br><br><br>
 	    -회원 포인트 현황<br><br>
@@ -160,7 +160,7 @@
 	    			<th bgcolor="lightgray">200포인트 이상 회원 수 </th>
 	    			<td><%= arr[1] %></td>
 	    	</table>
-	    </div>
+	    </div> --%>
     
      </div>
      

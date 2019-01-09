@@ -20,9 +20,7 @@
      	 
      	 .left-nav{
 			float:left;
-			border:1px solid black;
 			margin: 5% 5%;
-			height:120px;
 			text-align:left;
 			display : table-cell;
 			vertical-align: middle;
@@ -33,10 +31,18 @@
 <body>
 <!-- 카테고리 네비게이터 -->
    		<div class="left-nav">
-       		<ul class="ul_01">
+   			<div class="ui vertical menu" style="width:160px;">
+			  <a class="item">
+			    <h4 class="ui header" id="tag1" onclick = "test();"><h5 readonly>평가지 관리</h4>
+			  </a>
+			  <a class="item">
+			    <h4 class="ui header" onclick = "check_black();">평가지 결과 조회</h4>
+			  </a>
+			</div>
+       		<!-- <ul class="ul_01">
        			<br>
            		<li>
-               		<div class="click" onclick = "test();"><h5>평가지 관리</h5></div>
+               		<div class="click" onclick = "test();"><h5 readonly>평가지 관리</h5></div>
            		</li>
                		<ul>
        			<li>
@@ -45,7 +51,7 @@
            				
                		</ul>
           		 	</li>
-       		</ul>
+       		</ul> -->
    		 </div>
 
 	<script>
