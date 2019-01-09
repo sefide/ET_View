@@ -143,6 +143,8 @@ table{
 	
 	<%@ include file = "/views/common/company/footer_com.jsp" %>
 	
+
+	<div class = "two wide column"></div>
 	<script>
 	
 	$(function(){
@@ -158,7 +160,7 @@ table{
  	});
 	
 	</script>
-	
-	
+		
+		<%@ include file = "/views/common/company/footer_com.jsp" %>
 </body>
 </html>

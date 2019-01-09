@@ -20,14 +20,21 @@
      	 .left-nav{
 			float:left;
 			margin: 5% 5%;
+      /* 충돌난 부분 */
+			height:100px;
+
 			text-align:left;
 			display : table-cell;
 			vertical-align : middle;
 		} 
+		.ul_01 {
+			margin-top:24px;
+		}
 		
 </style>
 </head>
 <body>
+
 <!-- 카테고리 네비게이터 -->
    		<div class="left-nav">
    			<div class="ui vertical menu" style="width:160px;">

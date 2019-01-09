@@ -161,6 +161,11 @@
     		border : 1px solid white;
     		background : white;
     }
+     #tour-price{
+		color :  #ee685a;
+		font-weight : 800;
+		font-size : 15px;
+	}
 </style>
 </head>
 <body>
@@ -178,7 +183,7 @@
 				    </a>
 				    <div class="card-body">
 				      <h5 class="card-title"> <%= hmap.get("title") %> </h5>
-				      <p class="card-text"> <%= Ne.commaMoney((int)hmap.get("price")) %> </p>
+				      <p class="card-text" id = "tour-price"> <%= Ne.commaMoney((int)hmap.get("price")) %>원 </p>
 				      <p class="card-text"><small class="text-muted"><%=hmap.get("concept") %> </small></p>
 				    </div>
 				  </div>

@@ -245,32 +245,36 @@ public class PlanDao {
 			
 			rset = pstmt.executeQuery();
 			
-			pdList = new ArrayList<PlanDetail>();
-			
-			while(rset.next()) {
+			if(rset != null) {
+				pdList = new ArrayList<PlanDetail>();
 				p = new Plan();
-				p.setpNo(rset.getInt("P_NO"));
-				p.setpWriter(rset.getInt("P_N_NO"));
-				p.setpTitle(rset.getString("P_TITLE"));
-				p.setpDate(rset.getDate("P_DATE"));
-				p.setpStartDate(rset.getDate("P_START_DATE"));
-				p.setpEndDate(rset.getDate("P_END_DATE"));
-				p.setpCites(rset.getString("P_CITYS"));
-				p.setpPrivate(rset.getString("P_PRIVATE"));
 				
-				pd = new PlanDetail();
-				pd.setPdNo(rset.getInt("PD_NO"));
-				pd.setPdStartcity(rset.getString("PD_START_CITY"));
-				pd.setPdStartDate(rset.getDate("PD_START_DATE"));
-				pd.setPdEndCity(rset.getString("PD_END_CITY"));
-				pd.setPdEndDate(rset.getDate("PD_END_DATE"));
-				pd.setPdTrasnfer(rset.getString("PD_TRANSFER"));
+				while(rset.next()) {
+					p.setpNo(rset.getInt("P_NO"));
+					p.setpWriter(rset.getInt("P_N_NO"));
+					p.setpTitle(rset.getString("P_TITLE"));
+					p.setpDate(rset.getDate("P_DATE"));
+					p.setpStartDate(rset.getDate("P_START_DATE"));
+					p.setpEndDate(rset.getDate("P_END_DATE"));
+					p.setpCites(rset.getString("P_CITYS"));
+					p.setpPrivate(rset.getString("P_PRIVATE"));
+					
+					pd = new PlanDetail();
+					pd.setPdNo(rset.getInt("PD_NO"));
+					pd.setPdStartcity(rset.getString("PD_START_CITY"));
+					pd.setPdStartDate(rset.getDate("PD_START_DATE"));
+					pd.setPdEndCity(rset.getString("PD_END_CITY"));
+					pd.setPdEndDate(rset.getDate("PD_END_DATE"));
+					pd.setPdTrasnfer(rset.getString("PD_TRANSFER"));
+					
+					pdList.add(pd);
+				}
+				resultMap = new HashMap<String, Object>();
+				resultMap.put("plan", p);
+				resultMap.put("planDetailList", pdList);
 				
-				pdList.add(pd);
 			}
-			resultMap = new HashMap<String, Object>();
-			resultMap.put("plan", p);
-			resultMap.put("planDetailList", pdList);
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -471,7 +475,7 @@ public class PlanDao {
 		int result = 0;
 		 
 		String query = prop.getProperty("getLikeNum");
-		//SELECT PI.PI_P_NO, COUNT(PI.PI_P_NO) CNT FROM PLANINTEREST PI JOIN PLAN P ON (PI.PI_P_NO = P.P_NO) WHERE P.P_NO = ? AND PI.PI_TYPE = ? GROUP BY PI_P_NO
+		//SELECT PI.PI_P_NO, COUNT(PI.PI_P_NO) CNT FROM PLANINTEREST PI JOIN PLAN P ON (PI.PI_P_NO = P.P_NO) WHERE P.P_NO = ? AND PI.PI_TYPE = '좋아요' AND PI_STATUS = 'Y' GROUP BY PI.PI_P_NO 
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -481,7 +485,7 @@ public class PlanDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				result = rset.getInt("CNT");
+				result += 1;
 			}
 			
 			
@@ -610,7 +614,7 @@ public class PlanDao {
 		}
 		
 	//모든 플랜 select - 플랜 엿보기 페이지
-	public HashMap<String, Object> selectNormalPlan(Connection con) {
+	public HashMap<String, Object> selectNormalPlan(Connection con, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		HashMap<String, Object> pm = null;
@@ -632,7 +636,13 @@ public class PlanDao {
 			//String pType = "좋아요";
 			pstmt = con.prepareStatement(query);
 			//pstmt.setString(1, pType);
-
+			
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<Plan>();
@@ -644,7 +654,7 @@ public class PlanDao {
 				p.setpTitle(rset.getString("P_TITLE"));
 				p.setpCites(rset.getString("P_CITYS"));
 				p.setpId(rset.getString("M_ID"));
-				p.setpLike(rset.getInt("LIKEC"));
+				// p.setpLike(rset.getInt("LIKEC"));
 
 				list.add(p);
 				System.out.println("얍" );
@@ -735,7 +745,6 @@ public class PlanDao {
 				listCount = rset.getInt(1);
 			}
 			
-		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -1215,13 +1224,7 @@ public class PlanDao {
 	public int insertLike(Connection con, PlanInterest pl) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
-		System.out.println(pl.getWriter());
-		System.out.println(pl.getPno());
-		System.out.println(pl.getUser());
-		
-		
-		
+
 		String query = prop.getProperty("ClickInsert");
 		//ClickInsert=INSERT INTO PLANINTEREST SELECT SEQ_PI_NO.NEXTVAL,?,?,?,?,'Y' FROM DUAL A WHERE NOT EXISTS ( SELECT * FROM PLANINTEREST WHERE  PI_P_NO = ?  AND PI_GIVE_NO = ? AND PI_TYPE = ?  AND PI_STATUS = 'Y' )
 		
@@ -1260,6 +1263,34 @@ public class PlanDao {
 			pstmt.setInt(1, pl.getPno());
 			pstmt.setInt(2, pl.getUser());
 			pstmt.setString(3, type);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return result;
+	}
+	//좋아요 취소
+	public int updateUnLike(Connection con, PlanInterest pl) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		System.out.println("넘버"+pl.getPno());
+		System.out.println("유저"+pl.getUser());
+		
+		
+		System.out.println();
+		String query = prop.getProperty("ClickUpdateN"); //N로 업데이트
+		//ClickUpdateN=UPDATE PLANINTEREST SET PI_STATUS = 'N' WHERE PI_P_NO = ?  AND PI_GIVE_NO = ? AND PI_TYPE = ?  AND PI_STATUS = 'Y' 
+		
+		try {
+			String type = "좋아요";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pl.getPno());
+			pstmt.setInt(2, pl.getUser());
+			pstmt.setString(3, type);
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

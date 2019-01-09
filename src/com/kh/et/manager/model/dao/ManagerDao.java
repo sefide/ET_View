@@ -552,6 +552,7 @@ public class ManagerDao {
 				hmap.put("m_name",rset.getString("M_NAME"));
 				hmap.put("pPrivate",rset.getString("P_PRIVATE"));
 				hmap.put("PI_type",rset.getString("LIKEC"));//뽑아오는 것은 숫자
+				hmap.put("pStatus", rset.getString("P_STATUS"));
 				list.add(hmap);
 			}
 		} catch (SQLException e) {

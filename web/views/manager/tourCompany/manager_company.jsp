@@ -124,6 +124,7 @@ table{
     			<th>연락처</th>
     			<th>계약 시작 날짜</th>
     			<th>계약 종료 날짜</th>
+    			
 
     			
     		</tr>
@@ -136,7 +137,7 @@ table{
     			<td><%=c.getC_phone() %></td>
     			<td><%=c.getC_date() %></td>
     			<td><%=c.getC_end_date() %></td>
-    			    		
+    			
     		</tr>
     		<%} %>
     		
@@ -144,6 +145,7 @@ table{
   
     	</table>
     	<br>
+
     	<!-- 페이징버튼 -->
 		<div class="pagingArea" align="center">
           
@@ -174,6 +176,7 @@ table{
          <button  class="ui black basic button" onclick="location.href='<%=request.getContextPath()%>/selectList.co?currentPage=<%=maxPage%>'"> >> </button> 
          
       </div>
+
     	
     	<button class="ui lightgrey button" style=float:left; id="deleteBtn">삭제하기</button>
     	<!-- onclick="location.href='/et/views/manager/tourCompany/companyUpdate.jsp'"  -->

@@ -20,12 +20,21 @@
      	 .left-nav{
 			float:left;
 			margin: 5% 5%;
+      /* 충돌난 부분 */
+			height:100px;
+
 			text-align:left;
 			display : table-cell;
 			vertical-align : middle;
 		} 
 		.ul_01 {
 			vertical-align:middle;
+			margin-top:24px;
+		}
+		.lic {
+			margin-top:auto;
+			margin-left: auto;
+			margin-right:auto;
 		}
 		
 		
@@ -34,6 +43,7 @@
 <body>
 <!-- 카테고리 네비게이터 -->
    		<div class="left-nav">
+
    			<div class="ui vertical menu" style="width:160px;">
 			  <a class="item">
 			    <h4 class="ui header" id="tag1" onclick = "test();">제휴사 관리</h4>
@@ -45,9 +55,13 @@
    		
        		<!-- <ul class="ul_01" style= vertical-align:middle;>
            		<li>
+
+       		<ul class="ul_01" style= vertical-align:middle;>
+           		<li class="lic">
+
                		<div class="click" onclick = "test();">제휴사 관리</div>
            		</li>
-           		<li>
+           		<li class="lic">
                		<div class="click" onclick = "searchPost();">투어글 관리</div>
            		</li>
            		

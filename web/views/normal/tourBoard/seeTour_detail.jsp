@@ -20,12 +20,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<!-- Semantic UI -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-
 <title>ET_Planner</title>
 <link rel="icon" href="/views/image/common/logo.png">
 <style>
@@ -56,6 +50,7 @@
 	font-size : 20px;
 	width : 97%;
 	margin-left : 1.4%;
+	margin-bottom : -20px;
 }
 
 .div-tour-title{
@@ -65,8 +60,9 @@
 
 #premium-label{
 	position : absolute;
-	margin-top : -530px;
-	margin-left : 370px;
+	z-index : 500;
+	top : 200px;
+	right : 8%;
 }
 
 #title {
@@ -84,7 +80,7 @@
 	font-family: 'Nanum Gothic', sans-serif;
 	font-weight: 700;
 	font-size : 23px;
-	margin-left : 1%;
+	margin : 0 1%;
 	padding: 1%;
 	float : left;
 }
@@ -104,6 +100,8 @@
 	padding : 0 1%;
 	color : #4F4F4F;
 	margin-left : 1%;
+	display : flex;
+	flex-wrap : wrap;
 }
 
 .tour-content-two{
@@ -128,14 +126,14 @@
 }
 
 .tour-concept{
-	display :block;
+	display :inline-block;
 	border-radius : 5px;
 	font-family: 'Nanum Gothic', sans-serif;
 	background : lightgray;
 	color : white;
 	text-align : center;
-	padding : 0.6% 1%;
-	margin-left : 1.4%;
+	padding : 3.6% 6%;
+	font-size : 14px;
 }
 
 .btn-2,
@@ -152,8 +150,8 @@
   border-radius: 5px;
   color: black;
   display: block;
-  font-size: 1.2em;
-  margin: 1em auto;
+  font-size: 15px;
+  margin: 0.2em auto;
   padding: 0.17em 6em;
   position: relative;
   font-family: 'Nanum Gothic', sans-serif;
@@ -179,8 +177,23 @@
 }
 
 .btn-2:hover:after {
-  width: 100%;
-  }
+ 	width: 100%;
+}
+.tour-date{
+	width : 100%;
+	text-align : center;
+	font-size : 20px;
+}
+#detail-txt{
+	font-size : 13px;
+}
+.tour-info-left{
+	width : 9%;
+}
+
+.tour-info-right {
+	width : 89%;
+}
 </style>
 
 </head>
@@ -201,7 +214,7 @@
 			
 			<div class= "topArea">
 				<div class = "div-tour-city"> 
-					<span>프랑스  </span> > <span> 파리 </span>
+					<span><%=tb.get("country") %>  </span> > <span> <%=tb.get("city") %> </span>
 				</div>
 				
 				<div class = "div-tour-title"> 
@@ -214,30 +227,25 @@
 				</div>
 				
 				<div class ="tour-info">
-					<div><%= tb.get("info") %></div>
-				</div>
-				
-				<div class = "tour-concept">
-					<span id="detail-txt"> <%=tb.get("concept")%></span>
-				</div>
-				<div>
-					<span> 이 글이 내리기까지 <%=Ne.getDayDiff(endDayStr) %>일 남았어요 ! 얼른 서두르세요 !!! </span> <br>
-					<label id="txt"> 투어글 만료기간 : </label>&nbsp;&nbsp;&nbsp;
-					<span id="detail-txt"><%=tb.get("tdate") %> ~ <%=tb.get("tEndDate") %></span>
-				</div>
-				
-				<div class ="tour-content-two">
-					<div class = "tour-link">
-						<button class="btn-2" id = "goLink"><i class="hand point right outline icon"></i>
-						 투어 상세내용 보러가기</button>
-						<%-- <span id="detail-txt"><a href="http://<%=tb.get("link") %>" ><%=tb.get("link") %></a></span> --%>
+					<div class = "tour-info-left">
+						<div class = "tour-concept">
+							<span > <%=tb.get("concept")%></span>
+						</div>
+					</div>
+					<div class = "tour-info-right">
+						<%= tb.get("info") %>
 					</div>
 				</div>
-				
-			</div>
+				<div class = "tour-date">
+					<button class="btn-2" id = "goLink"><i class="hand point right outline icon"></i>
+					 투어 상세내용 보러가기</button>
+					<span> 이 글은 <b><%=Math.abs(Ne.getDayDiff(endDayStr)) %></b>일후에 사라집니다 ! 얼른 서두르세요 ! </span> <br>
+					<label id="detail-txt"> 투어글 만료기간 : </label>&nbsp;&nbsp;
+					<span id="detail-txt"><%=tb.get("tdate") %> ~ <%=tb.get("tEndDate") %></span>
+				</div>
 			
+			</div>
 		</div>
-		
 			
 	</div>
 	

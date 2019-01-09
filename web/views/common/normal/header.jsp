@@ -312,7 +312,7 @@
     		//플랜 엿보기 메인 페이지 클릭시 이동하는 서블릿
     		function seePlan() {
     			location.href = "<%=request.getContextPath()%>/selectallPlan.pl";  			
-			}
+		}
     		
     </script>
 </body>

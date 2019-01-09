@@ -73,7 +73,7 @@
 		border : 3px solid black; 
 		cursor: pointer;
 		padding-top : 20px;
-		padding-left : 10px;
+		padding-left : 6.5px;
 	}
 	#a-day {
 		width : 50px;
@@ -210,11 +210,11 @@
 	}
 	
 	.p-t-price{
-		font-weight : 700;
 		font-size : 18px;
 		font-family: 'Nanum Gothic', sans-serif;
 		margin-top : 3%;
-		color : rgb(237,197,58);
+		color :  #ee685a;
+		font-weight : 800;
 	}
 	.p-t-concept{
 		font-weight : 500;
@@ -356,7 +356,7 @@
 				 <div class = "p-city-name"> </div> <br>
 				 <div class = "p-info-div"> 
 			     	<img class = "p-info-img" src = "" alt = "city" id = "img-city-detail">
-			     	<br><label class ="p-info-txt"> 도시 소개  </label>
+			     	<br><label class ="p-info-txt"> 잠시만 기다려주세요.   </label>
 			 	</div>
 			 	<br><br>
 			 </div>
@@ -386,7 +386,7 @@
 			 </div>
 			 
 			 <div class = "p-place-div">
-			 <div class ="p-title"><i class="angle right icon"></i> 관광명소  </div>
+			 <div class ="p-title"><i class="angle right icon"></i> 인기 관광명소 </div>
 			 	<div class ="p-flex p-place"> 
 			 	
 			 	</div>
@@ -589,6 +589,18 @@
 		    days = days - nightMoment;
 			setTravelDate();
 		}
+		
+		function seeTourDetail(tNo){
+			var url = "/et/detailSeeTour.tbo?num="+tNo;  
+            window.open(url, "_blank"); 
+		}
+		function enterTour(obj){
+			$(obj).css("background", "white");
+		}
+		
+		function leaveTour(obj){
+			$(obj).css("background", "none");
+		}
 
 		/* 지도 스크립트 */
 		var locations = []; 
@@ -622,20 +634,20 @@
 					
 					for(var key in data){
 						tourOne = data[key];
+						var tourNo;
 						var tourName;
 						var tourConcept;
 						var tourPrice;
 						var tourPhoto;
 						
 						for(var i in tourOne){
-							console.log(i);
 							if(i == 't'){
+								tourNo = tourOne[i].tno;
 								tourName = tourOne[i].tTitle;
 								tourConcept = tourOne[i].tConcept;
 								tourPrice = tourOne[i].tPrice;
 								tourPrice = commaMoney(tourPrice);
-								console.log("뭐지 ");
-								resultStr = "<div class ='p-t'><div><img class ='p-t-img' src = '/et/tourUpload/"+tourPhoto+"' alt = 'tour'></div><label class ='p-t-name'>["+ tourName+ "] </label><div class ='p-t-price'><label >"+ tourPrice+ "원</label></div></div>";
+								resultStr = "<div class ='p-t' onmouseleave = 'leaveTour(this)' onmouseenter = 'enterTour(this)' onclick = 'seeTourDetail("+tourNo+")'><div><img class ='p-t-img' src = '/et/tourUpload/"+tourPhoto+"' alt = 'tour'></div><label class ='p-t-name'>["+ tourName+ "] </label><div class ='p-t-price'><label >"+ tourPrice+ "원</label></div></div>";
 								$("#p-tour-detail").append(resultStr);
 							} else if(i == 'a'){
 								tourPhoto = tourOne[i].changeName;
@@ -721,7 +733,7 @@
         function addCity(i){
         		var cityblockhead = "<div id ='cityblock" +countCity+ "' class= 'cityblock'> <input type = 'hidden' name = 'cityNo' value = '"+locations[i][4] +"'> <input type = 'hidden' name = 'cityName' value = '"+locations[i][0] +"'> <div class ='bar2'></div>";
         		var citytrans = "<div width = '100%; overflow-x:hidden'> <div class = 'div-trans'> <select class='ui dropdown' id ='trans' name = 'transform'>  <option value='비행기'>비행기 </option>  <option value='기차'>기차 </option>  <option value='선박'>선박 </option>  <option value='버스'>버스 </option>  <option value='기타'>기타  </option> </select> </div> </div> <div class ='bar2'></div>";
-        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights' id = 'selectNight' name = 'selectNight' onfocus = 'focNight(this)' onchange = 'selNight(this)'> <option value='1'>1박 </option>  <option value='2'>2박  </option>  <option value='3'>3박  </option>  <option value='4'>4박 </option> <option value='5'>5박  </option> <option value='6'>6박 </option></select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city' id = 'why'> <i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail("+i+");'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity(this);'> </i> </div> </div>";
+        		var citydays = "<div class = 'div-flex'> <div class ='div-day'><div class = 'div-day-circle'>	<select class ='nights' id = 'selectNight' name = 'selectNight' onfocus = 'focNight(this)' onchange = 'selNight(this)'> <option value='1'>1박 </option>  <option value='2'>2박  </option>  <option value='3'>3박  </option>  <option value='4'>4박 </option> <option value='5'>5박  </option> <option value='6'>6박 </option><option value='7'>7박 </option><option value='8'>8박 </option><option value='9'>9박 </option><option value='10'>10박 </option></select> </div> </div> <div class = 'div-city'> <div class = 'txt-city'> <span class = 'font-city-name'>"+ locations[i][0] +"</span> </div>	</div> 	<div class ='btns-city' id = 'why'> <i class='info circle icon'  id= 'icon-city1' onclick ='cityDetail("+i+");'></i> <i class='window close icon'  id= 'icon-city2' onclick = 'deleteCity(this);'> </i> </div> </div>";
         		var cityblockfoot = "";
         		
         		// 새로운 도시 div 추가 
@@ -762,7 +774,6 @@
         		// 4. 해당 도시의 위도, 경도 정보를 지우고
         		// 5. 이를 다시 그려준다. 
         		var parentId = $(obj).parent().parent().parent().attr('id');
-        		console.log("마지막 인덱스 " + parentId.length);
 	        var delIndex = parentId.substring(9,parentId.length); // 1.
 	        
 	        var night_sel = $(obj).parent().parent().find("#selectNight").find(":selected").val(); // 박수 가져오기 
@@ -803,12 +814,10 @@
 	   	 	var m = $("#input-date-start").val().substring(5,7);
 	   	 	var d = $("#input-date-start").val().substring(8,10);
 		    var startDate = new Date(y,m-1,d);
-	   	 	console.log(y+", " + m + ", " + d);
 		    
 			// 종료 날짜 정보 설정 
 		    	var endDate = new Date(startDate); 
 		    endDate.setDate(startDate.getDate() + days);
-		    console.log("끝날짜 " + endDate.getDate());
 		    
 		    // 종료 날짜 지정 (자동 지정 )
 		    	var eday = endDate.getDate();

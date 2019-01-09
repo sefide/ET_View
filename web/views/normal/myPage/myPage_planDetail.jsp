@@ -149,7 +149,7 @@
 	        					<button class = "settingBtn" id = "Update"> 수정하기 </button>
 	        					<button class = "settingBtn" id = "Delete"> 삭제하기 </button>
 	        				</div>
-	        				</i>
+	        				</i>설정 
 	        			</div>
 	        		</div>
 	        		<div id = "map-canvas"></div>

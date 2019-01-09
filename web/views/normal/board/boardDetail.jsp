@@ -431,15 +431,14 @@
 				$(".claim-popup-reply").css("visibility" , "visible");
 				var boardNo = $(obj).find("input").eq(0).val(); // 보드 번호 
 				var boardwriter = $(obj).find("input").eq(1).val(); // 보드 작성자 아이디 
-				var loginUserId = "<%= loginUser.getM_id()%>";
-				
+				var loginUserId = "";
 				$("#submitClaimReply").click(function(){
 					
 					<% if(loginUser != null){%>
 					
 					var radioVal = $('input[name="reasonR"]:checked').next().text();
 					var userNo = <%= loginUser.getM_no()%>;
-					
+					loginUserId = "<%= loginUser.getM_id()%>";
 					console.log(radioVal);
 					if(radioVal != null){
 						$.ajax({

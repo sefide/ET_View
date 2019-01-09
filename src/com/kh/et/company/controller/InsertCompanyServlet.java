@@ -43,6 +43,7 @@ public class InsertCompanyServlet extends HttpServlet {
 		String address=request.getParameter("address");
 		String term=request.getParameter("term");
 		String term2=request.getParameter("term2");
+		
 	
 		
 		java.sql.Date day=null;
@@ -112,9 +113,10 @@ public class InsertCompanyServlet extends HttpServlet {
 		}else {
 			
 			page="views/manager/tourCompany/companyInsert.jsp";
+			RequestDispatcher view=request.getRequestDispatcher(page);
+			view.forward(request, response);
 		}
-		RequestDispatcher view=request.getRequestDispatcher(page);
-		view.forward(request, response);
+		
 		
 	}
 
