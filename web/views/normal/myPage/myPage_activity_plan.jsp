@@ -365,6 +365,13 @@
 					$planBox = $("#div-plan-list");
 					$planBox.html('');
 					
+					var name; 작성자
+					var city; 도시정보
+					
+					for(key in data){
+						
+						
+					}
 					
 				}
 			});
