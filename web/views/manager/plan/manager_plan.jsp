@@ -79,6 +79,7 @@ table{
     			<th>제목</th>
     			<th>작성자</th>
     			<th>공개여부</th>
+    			<th>플랜상태</th>
     			<th>좋아요수</th>
     		</tr>
     		<%for(int i=0;i<list.size();i++) {
@@ -90,6 +91,7 @@ table{
     			<td><%=hmap.get("pTitle") %></td>
     			<td><%=hmap.get("m_name") %></td>
     			<td><%=hmap.get("pPrivate") %></td>
+    			<td><%=hmap.get("pStatus") %></td>
     			<td><%=hmap.get("PI_type") %></td>
     		</tr>
     		<%} %>
