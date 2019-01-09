@@ -585,7 +585,7 @@ public class BoardDao {
 			close(pstmt);
 			close(rset);
 		}
-
+		System.out.println("리스트 카운트 : " + QnaListCount);
 		return QnaListCount;
 	}
 

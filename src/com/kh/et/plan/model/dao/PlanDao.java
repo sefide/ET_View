@@ -1034,4 +1034,163 @@ public class PlanDao {
 	}
 	//라이크 포인트 끝	
 
+	
+	//내가 스크랩한 모든 플랜 정보 뽑아오기
+	public HashMap<String, Object> allScrapPlan(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> planmap = null;
+		ArrayList<Plan> list = null;
+		String pType = "스크랩";
+		
+		String query = prop.getProperty("allScrapPlan");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			pstmt.setString(2, pType);
+			
+			rset = pstmt.executeQuery();
+			
+			planmap = new HashMap<String, Object>();
+			list = new ArrayList<Plan>();
+			
+			if(rset.next()) {
+				Plan p = new Plan();
+				
+				p.setpNo(rset.getInt("PI_NO"));
+				p.setpTitle(rset.getString("P_TITLE"));
+				p.setpCites(rset.getString("P_CITYS"));
+				p.setpDate(rset.getDate("P_DATE"));
+				p.setpRnum(rset.getInt("RNUM"));
+				p.setpName(rset.getString("M_NAME"));
+				
+				list.add(p);
+			}
+			planmap.put("allScrapPlan", list);
+			//키 - 내가 스크랩한 모든 플랜 : 값 - 스크랩한 플랜들의 정보
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return planmap;
+	}
+
+	// ↑에서 뽑은 플랜에 담을 도시 뽑아오기
+	public HashMap<String, City> allScrapPlanCity(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		HashMap<String, City> resultMap = null;
+
+		String query = prop.getProperty("selectCityList");
+
+		try {
+			stmt = con.createStatement();
+
+			rset = stmt.executeQuery(query);
+
+			resultMap = new HashMap<String, City>();
+			while (rset.next()) {
+				City ct = new City();
+
+				ct.setCtNo(rset.getInt("CT_NO"));
+				ct.setCtName(rset.getString("CT_NAME"));
+				ct.setCtCountry(rset.getString("CT_COUNTRY"));
+				ct.setCtInfo(rset.getString("CT_INFO"));
+				ct.setCtLat(rset.getFloat("CT_LAT"));
+				ct.setCtLng(rset.getFloat("CT_LNG"));
+
+				resultMap.put(String.valueOf(ct.getCtName()), ct);
+			}
+			System.out.println("dao - city 크기 :  " + resultMap.size());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+
+		return resultMap;
+	}
+
+	//내가 스크랩한 플랜 전체 갯수 가져오기
+	public int getScrapPlanListCount(Connection con, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int scrapPlanListCount = 0;
+		
+		String query = prop.getProperty("scrapPlanListCount");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				scrapPlanListCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("내가 스크랩한 플랜 전체 개수 : " + scrapPlanListCount);
+		
+		return scrapPlanListCount;
+	}
+
+	//내가 스크랩한 플랜 전체 페이징 처리 후 조회
+	public ArrayList<HashMap<String, Object>> scrapPlanList(Connection con, int currentPage, int limit, int mno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> scrapPlanList = null;
+		HashMap<String, Object> scrapPlanhmap = null;
+		String bitype1 = "좋아요";
+		String bitype2 = "스크랩";
+
+		String query = prop.getProperty("scrapPlanListPaging");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			int startRow = (currentPage - 1) * limit + 1; // 각 페이징 페이지 마다 처음 페이지 번호(ex.1,11,21,31...)
+			int endRow = startRow + limit - 1; // 각 페이징 페이지 마다 마지막 페이지 번호(ex.10,20,30,40...)
+
+			pstmt.setString(1, bitype2);
+			pstmt.setInt(2, mno);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+			rset = pstmt.executeQuery();
+
+			if (rset != null) {
+				scrapPlanList = new ArrayList<HashMap<String, Object>>(); // 페이징 리스트 생성하고
+				while (rset.next()) {
+					scrapPlanhmap = new HashMap<String, Object>();
+
+					scrapPlanhmap.put("pNo", rset.getInt("PI_NO"));
+					scrapPlanhmap.put("pTitle", rset.getString("P_TITLE"));
+					scrapPlanhmap.put("pCites", rset.getString("P_CITYS"));
+					scrapPlanhmap.put("bDate", rset.getDate("P_DATE"));
+					scrapPlanhmap.put("pName", rset.getString("M_NAME"));
+
+					scrapPlanList.add(scrapPlanhmap);
+				}
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return scrapPlanList;
+
+	}
+	
 }

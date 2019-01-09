@@ -412,6 +412,57 @@ public class PlanService {
 		return result;
 	}
 
+	//내가 스크랩한 모든 플랜보기
+	public HashMap<String, Object> allScrapPlan(int mno) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> allScrapPlan = new PlanDao().allScrapPlan(con, mno);
+		
+		HashMap<String, City> allScrapPlanCity = new PlanDao().allScrapPlanCity(con);
+		
+		if(allScrapPlan != null & allScrapPlanCity != null) {
+			allScrapPlan.put("allScrapPlanCity", allScrapPlanCity);
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return allScrapPlan;
+	}
+
+	//내가 스크랩한 플랜 전체 갯수 가져오기
+	public int getScrapPlanListCount(int mno) {
+		Connection con = getConnection();
+		
+		//전체 갯수니까
+		int scrapPlanListCount = new PlanDao().getScrapPlanListCount(con, mno);
+		
+		if(scrapPlanListCount > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		
+		return scrapPlanListCount;
+	}
+
+	//내가 스크랩한 플랜 전체 페이징 처리 후 조회
+	public ArrayList<HashMap<String, Object>> scrapPlanList(int currentPage, int limit, int mno) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> scrapPlanList = new PlanDao().scrapPlanList(con, currentPage, limit, mno);
+		
+		if(scrapPlanList != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return scrapPlanList;
+	}
+
 	
 	
 
