@@ -306,15 +306,15 @@
         						%>
         						<!-- System.out.println("view에서 보여지는 p"+p); -->
 							<div class ="div-plan-map" onclick = "goPlanDetail(<%=nPlanList.get(i).getpNo()%>);"> 
-							<div class = "div-plan-title" > " <%=p.getpTitle() %> "</div>
-        					    <div id ="Rplan-map<%=i%>" class ="plan-map"></div>  
-        					    <div class = "div-plan-cities">
-        					    		  <%=Ne.lengthsplit(p.getpCites(), 24)%>
-        					    </div>
-        					    <div class = "div-interest">
-        					    		<i class="red heart icon"></i><span style="color: red;"> 좋아요 </span> <%=p.getpLike() %> &nbsp; &nbsp; &nbsp;
-								<i class="blue fork icon"></i><span style="color: #2185d0;"> 스크랩 </span> <%= p.getScrap() %> 
-        					    </div>
+								<div class = "div-plan-title" > " <%=p.getpTitle() %> "</div>
+	        					    <div id ="Rplan-map<%=i%>" class ="plan-map"></div>  
+	        					    <div class = "div-plan-cities">
+	        					    		  <%=Ne.lengthsplit(p.getpCites(), 24)%>
+	        					    </div>
+	        					    <div class = "div-interest">
+	        					    		<i class="red heart icon"></i><span style="color: red;"> 좋아요 </span> <%=p.getpLike() %> &nbsp; &nbsp; &nbsp;
+									<i class="blue fork icon"></i><span style="color: #2185d0;"> 스크랩 </span> <%= p.getScrap() %> 
+	        					    </div>
         					    
         						</div>
         							
@@ -341,11 +341,9 @@
 				                    });
 								
 								</script>
-        						
-        					
+        					<%}%>
         					</div>
-        					<%}
-        				}%>	</div>					
+        				<% }%>						
 					</div>
 					
 					<div class ="pagingArea" align = "center">
