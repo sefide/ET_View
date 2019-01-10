@@ -16,7 +16,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>ET Planner Manager</title>
+<link rel="icon" href="/et/image/common/logo.png">
 <!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -61,7 +62,7 @@ table{
 	width:80%;
 }
 #tb1{
-	width:700px;
+	width:800px;
 }
 </style>
 </head>
@@ -81,7 +82,7 @@ table{
     		<tr>
     			<th>플랜관리</th>
     			<th>번호</th>
-    			<th style="width:300px;">제목</th>
+    			<th>제목</th>
     			<th>작성자</th>
     			<th>공개여부</th>
     			<th>플랜상태</th>
@@ -147,7 +148,7 @@ table{
 			$(function(){
 	    		var arr=new Array;
 				
-				//회원탈퇴
+				//플랜삭제
 				$("#planDelete").click(function(){
 					var restoreArr = new Array;
 					//체크박스중 선택된값 있으면 배열에 담기

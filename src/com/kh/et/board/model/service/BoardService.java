@@ -140,10 +140,7 @@ public class BoardService {
 		return bMap;
 	}
 
-	
-
-	
-
+	// 인기 Q&A 가져오기 
 	public ArrayList<Board> selectTopBoard() {
 		Connection con = getConnection();
 		
@@ -336,12 +333,10 @@ public class BoardService {
 
 		//int result = 0 으로 선언
 		int result1 = 0;
-		System.out.println("서비스에도 들어왔옹");
 		
-		if(likeStatus.equals("X")) { // 좋아요 누른 기록이 없음으로 insert 해줘야 함
-			System.out.println("service status:"+likeStatus);
-			result1 = new BoardDao().insertLike(con,bi);
-			
+		
+		if(likeStatus.equals("X")) { // 좋아요 누른 기록이 없음으로 insert 해줘야 함			
+			result1 = new BoardDao().insertLike(con,bi);			
 			//int result2 = new PlanDao().insertPlanLikePoint(con,bi);
 			//int result3 = new PlanDao().updataPlanClickedMember(con,bi);
 			//int result4 = new PlanDao().updatePlanLickeClicKMember(con,bi);
@@ -349,22 +344,16 @@ public class BoardService {
 				commit(con);
 			}else {
 				rollback(con);
-			}	
-			
-		}else if(likeStatus.equals("N")) { // likeStatus == "N" 좋아요 했다가 취소한거니까 update->Y
-			System.out.println("service status:"+likeStatus);
+			}				
+		}else if(likeStatus.equals("N")) { // likeStatus == "N" 좋아요 했다가 취소한거니까 update->Y			
 			result1 =  new BoardDao().updateLike(con,bi);
 			if(result1 > 0) {commit(con);}
-			else {rollback(con);}		
-			
-		}else {  // likeStatus == "Y" 좋아요 눌린거를 취소하는거 update->N
-			System.out.println("service status:"+likeStatus);
+			else {rollback(con);}					
+		}else { 			
 			result1 = new BoardDao().updateUnLike(con,bi);
 			if(result1 > 0) {commit(con);}
-			else {rollback(con);}
-		
+			else {rollback(con);}		
 		}
-		System.out.println("service에서 변화가 있낭"+result1);
 		return result1;
 		
 	}
@@ -467,6 +456,40 @@ Connection con = getConnection();
 		close(con);
 		
 		return bwriter;
+	}
+	//보드 스크랩
+	public int clickScrap(BoardInterest bi, String scrapStatus) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		
+		if(scrapStatus.equals("X")) { // 스크랩 누른 기록이 없음으로 insert 해줘야 함
+			System.out.println("service Scrapestatus:"+scrapStatus);
+			result = new BoardDao().insertScrap(con,bi);			
+			if(result > 0 ) {
+				commit(con);
+			}else {
+				rollback(con);
+			}					
+		}else {  // Y 이면 그냥 리턴..
+			result = 1;
+		}
+		return result;	
+	}
+	//스크랩수
+	public int countScrap(int bno) {
+		Connection con = getConnection();
+		
+		int scrap = new BoardDao().getScrapNum(con, bno);
+		
+		if(scrap>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return scrap;
 	}
 
 

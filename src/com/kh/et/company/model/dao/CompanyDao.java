@@ -224,10 +224,10 @@ public class CompanyDao {
 				c.setC_no(rset.getInt("C_NO"));
 				c.setC_name(rset.getString("C_NAME"));
 				c.setC_biss_num(rset.getString("C_BISS_NUM"));
-				c.setC_biss_address("C_BISS_ADDRESS");
+				c.setC_biss_address(rset.getString("C_BISS_ADDRESS"));
 				c.setC_phone(rset.getString("C_PHONE"));
-				c.setC_category("CATEGORY");
-				c.setC_email("C_EMAIL");
+				c.setC_category(rset.getString("C_CATEGORY"));
+				c.setC_email(rset.getString("C_EMAIL"));
 				c.setC_date(rset.getDate("C_DATE"));
 				c.setC_end_date(rset.getDate("C_END_DATE"));
 				

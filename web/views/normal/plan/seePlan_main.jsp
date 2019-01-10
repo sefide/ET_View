@@ -172,15 +172,15 @@
         						%>
         						<!-- System.out.println("view에서 보여지는 p"+p); -->
 							<div class ="div-plan-map"> 
-        							<div class = "div-plan-title" onclick = "goPlanDetail(<%=planList.get(i).getpNo()%>);"> 
+        							<div class = "div-plan-title" onclick = "return goPlanDetail(<%=planList.get(i).getpNo()%>);"> 
         							<a class="ui large circular label" style = "color :white; background : #2A5A85; margin-bottom : 1%;"><%=i+1 %></a>  <%=p.getpTitle()%> </div>
         					   	 	
         					   	 	<div id ="plan-map<%=i%>" class ="plan-map"></div>
         					   	 	<div class = "div-plan-cities">
         					    			<%=Ne.lengthsplit(p.getpCites(), 24)%>
         					   		</div>
-								<div class="ui labeled button" tabindex="0" style="width: 95%; height: 30px; margin-top: 5px; text-align : center" >
-									 &nbsp;  &nbsp; &nbsp;  &nbsp;<div class="ui basic red button">
+								<div class="ui labeled button" tabindex="0" style="width: 95%; height: 30px; margin-top: 5px; text-align : center; " >
+									 &nbsp;  &nbsp; &nbsp;  &nbsp;<div class="ui basic red button" style="font-size: ;">
 										<i class="heart icon"></i> 좋아요
 									</div> 
 									<a class="ui basic left pointing red label"> <%=p.getpLike() %> </a> &nbsp;  &nbsp;
@@ -306,15 +306,15 @@
         						%>
         						<!-- System.out.println("view에서 보여지는 p"+p); -->
 							<div class ="div-plan-map" onclick = "goPlanDetail(<%=nPlanList.get(i).getpNo()%>);"> 
-							<div class = "div-plan-title" > " <%=p.getpTitle() %> "</div>
-        					    <div id ="Rplan-map<%=i%>" class ="plan-map"></div>  
-        					    <div class = "div-plan-cities">
-        					    		  <%=Ne.lengthsplit(p.getpCites(), 24)%>
-        					    </div>
-        					    <div class = "div-interest">
-        					    		<i class="red heart icon"></i><span style="color: red;"> 좋아요 </span> <%=p.getpLike() %> &nbsp; &nbsp; &nbsp;
-								<i class="blue fork icon"></i><span style="color: #2185d0;"> 스크랩 </span> <%= p.getScrap() %> 
-        					    </div>
+								<div class = "div-plan-title" > " <%=p.getpTitle() %> "</div>
+	        					    <div id ="Rplan-map<%=i%>" class ="plan-map"></div>  
+	        					    <div class = "div-plan-cities">
+	        					    		  <%=Ne.lengthsplit(p.getpCites(), 24)%>
+	        					    </div>
+	        					    <div class = "div-interest">
+	        					    		<i class="red heart icon"></i><span style="color: red;"> 좋아요 </span> <%=p.getpLike() %> &nbsp; &nbsp; &nbsp;
+									<i class="blue fork icon"></i><span style="color: #2185d0;"> 스크랩 </span> <%= p.getScrap() %> 
+	        					    </div>
         					    
         						</div>
         							
@@ -341,11 +341,9 @@
 				                    });
 								
 								</script>
-        						
-        					
+        					<%}%>
         					</div>
-        					<%}
-        				}%>	</div>					
+        				<% }%>						
 					</div>
 					
 					<div class ="pagingArea" align = "center">
@@ -448,10 +446,26 @@
 			
 			
 			function goPlanDetail(pno){
-				 
-				<% if(loginUser != null ){%>
-					 
-				 	location.href = "<%=request.getContextPath()%>/seePlanDetail.pl?pno="+pno ;
+				<% 
+				if(loginUser != null ){
+					for(int i=0; i<planList.size();i++){
+						int BestPlanNum = planList.get(i).getpNo();%>
+						if(<%=BestPlanNum%> == pno){
+							if(<%=loginUser.getM_point()%>>=15){
+								var tr = window.confirm("해당플랜은 인기플랜입니다!상세보기를 하시면 15포인트가 차감됩니다.보시겠습니까??");
+								if(tr == true){
+									location.href = "<%=request.getContextPath()%>/seePlanDetail.pl?pno="+pno ;
+									return true;
+								}else{
+									return false;
+								}
+							}else{
+								alert("포인트 부족!!(인기플랜보기 15포인트 필요!)")
+							}
+						 }else if(<%=BestPlanNum%> != pno){
+							 location.href = "<%=request.getContextPath()%>/seePlanDetail.pl?pno="+pno ;
+						 }
+					<% }%>
 				 
 				<% }else{%>
 					 alert("회원만 볼수 있습니당");
