@@ -172,7 +172,7 @@
         						%>
         						<!-- System.out.println("view에서 보여지는 p"+p); -->
 							<div class ="div-plan-map"> 
-        							<div class = "div-plan-title" onclick = "goPlanDetail(<%=planList.get(i).getpNo()%>);"> 
+        							<div class = "div-plan-title" onclick = "return goPlanDetail(<%=planList.get(i).getpNo()%>);"> 
         							<a class="ui large circular label" style = "color :white; background : #2A5A85; margin-bottom : 1%;"><%=i+1 %></a>  <%=p.getpTitle()%> </div>
         					   	 	
         					   	 	<div id ="plan-map<%=i%>" class ="plan-map"></div>
@@ -446,10 +446,26 @@
 			
 			
 			function goPlanDetail(pno){
-				 
-				<% if(loginUser != null ){%>
-					 
-				 	location.href = "<%=request.getContextPath()%>/seePlanDetail.pl?pno="+pno ;
+				<% 
+				if(loginUser != null ){
+					for(int i=0; i<planList.size();i++){
+						int BestPlanNum = planList.get(i).getpNo();%>
+						if(<%=BestPlanNum%> == pno){
+							if(<%=loginUser.getM_point()%>>=15){
+								var tr = window.confirm("해당플랜은 인기플랜입니다!상세보기를 하시면 15포인트가 차감됩니다.보시겠습니까??");
+								if(tr == true){
+									location.href = "<%=request.getContextPath()%>/seePlanDetail.pl?pno="+pno ;
+									return true;
+								}else{
+									return false;
+								}
+							}else{
+								alert("포인트 부족!!(인기플랜보기 15포인트 필요!)")
+							}
+						 }else if(<%=BestPlanNum%> != pno){
+							 location.href = "<%=request.getContextPath()%>/seePlanDetail.pl?pno="+pno ;
+						 }
+					<% }%>
 				 
 				<% }else{%>
 					 alert("회원만 볼수 있습니당");

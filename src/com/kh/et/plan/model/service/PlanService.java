@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.et.board.model.dao.BoardDao;
+import com.kh.et.member.model.dao.MemberDao;
 import com.kh.et.member.model.vo.Member;
 import com.kh.et.plan.model.dao.PlanDao;
 import com.kh.et.plan.model.vo.City;
@@ -434,7 +435,7 @@ public class PlanService {
 		return scrapStatus;
 	}
 	
-	//내가 스크랩한 모든 플랜보기
+/*	//내가 스크랩한 모든 플랜보기
 	public HashMap<String, Object> allScrapPlan(int mno) {
 		Connection con = getConnection();
 		
@@ -449,7 +450,7 @@ public class PlanService {
 			rollback(con);
 		}
 		return allScrapPlan;
-	}
+	}*/
 
 
 	//내가 스크랩한 플랜 전체 갯수 가져오기
@@ -519,7 +520,34 @@ public class PlanService {
 		}
 		return allScrapPlan;
 	}*/
-	
+	//베스트 플랜 조회 및 포인트 
+	public Member BestPlanDetailSee(int pno, Member loginUser, Member m) {
+		Connection con = getConnection();
+		int result=0;
+		
+		HashMap<String, Object> pm = new PlanDao().BestPlanListCheck(con);
+		ArrayList<Plan> list =  (ArrayList<Plan>) pm.get("planList");
+		Member loginUser2 = null;
+		for(int i =0; i<list.size();i++) {
+			if(pno == list.get(i).getpNo()) {
+				int result2 = new PlanDao().BestPlanSeeMember(con,loginUser);
+				int result1 = new PlanDao().BestPlanSeePointInsert(con,loginUser,pno);
+				
+				if(result1 >0 && result2>0) {
+					loginUser2 = new MemberDao().selectLoginUser(con, m);
+					result=1;
+					commit(con);
+				}else {
+					result=0;
+					rollback(con);
+				}		
+			}else {
+				result=0;
+				rollback(con);
+			}
+		}
+		return loginUser2;
+	}
 	
 
 	
