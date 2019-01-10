@@ -7,23 +7,68 @@ public class BoardInterest {
 	private int bno; // 글 번호
 	private int user; //사용자
 	private String biType; 
+	private int bwriter ; 
 
 	public BoardInterest() {}
 
-	public BoardInterest(int biNo, String writer, int bno, int user, String biType) {
+	
+
+
+
+
+
+
+	public int getBwriter() {
+		return bwriter;
+	}
+
+
+
+
+
+
+
+
+	public void setBwriter(int bwriter) {
+		this.bwriter = bwriter;
+	}
+
+
+
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "BoardInterest [biNo=" + biNo + ", writer=" + writer + ", bno=" + bno + ", user=" + user + ", biType="
+				+ biType + ", bwriter=" + bwriter + "]";
+	}
+
+
+
+
+
+
+
+
+	public BoardInterest(int biNo, String writer, int bno, int user, String biType, int bwriter) {
 		super();
 		this.biNo = biNo;
 		this.writer = writer;
 		this.bno = bno;
 		this.user = user;
 		this.biType = biType;
+		this.bwriter = bwriter;
 	}
 
-	@Override
-	public String toString() {
-		return "BoardInterest [biNo=" + biNo + ", writer=" + writer + ", bno=" + bno + ", user=" + user + ", biType="
-				+ biType + "]";
-	}
+
+
+
+
+
+
 
 	public int getBiNo() {
 		return biNo;
@@ -63,6 +108,11 @@ public class BoardInterest {
 
 	public void setBiType(String biType) {
 		this.biType = biType;
+	}
+
+	public void setWriter(int bwriter) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

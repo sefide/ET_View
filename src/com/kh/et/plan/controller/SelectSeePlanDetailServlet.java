@@ -39,7 +39,12 @@ public class SelectSeePlanDetailServlet extends HttpServlet {
 		
 		int pno = Integer.parseInt(planNo);
 		int user = loginUser.getM_no();
-		
+		Member m = new Member();
+		m.setM_no(user);
+		Member result = new PlanService().BestPlanDetailSee(pno,loginUser,m);
+		System.out.println("seeBestPlan:"+result);
+		result.setM_plan_num(loginUser.getM_plan_num());
+		result.setA_change_Name(loginUser.getA_change_Name());
 		
 		HashMap<String, Object> planMap = new PlanService().selectPlanDetail(Integer.parseInt(planNo));
 		HashMap<String,City> cityMap = new PlanService().selectCityMap();
@@ -51,6 +56,11 @@ public class SelectSeePlanDetailServlet extends HttpServlet {
 		
 		String page = "";
 		if(planMap != null && cityMap != null) {
+			if(result!=null) {
+				request.getSession().setAttribute("loginUser", result);
+			}else {
+				
+			}
 			page = "/views/normal/plan/seePlan_detail.jsp";
 			request.setAttribute("planMap", planMap);
 			request.setAttribute("cityMap", cityMap);

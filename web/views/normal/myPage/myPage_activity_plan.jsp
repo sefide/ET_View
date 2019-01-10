@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.et.common.NumberExec, java.util.*, com.kh.et.plan.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.kh.et.common.NumberExec, java.util.*, com.kh.et.plan.model.vo.*, com.kh.et.board.model.vo.*"%>
 	
 <%	
 	String mno = request.getParameter("mno"); 
@@ -7,11 +7,18 @@
 
 	NumberExec NE = new NumberExec();
 
+	PageInfo scrapPlanPi = (PageInfo)request.getAttribute("scrapPlanPi");
+	int listCount = scrapPlanPi.getListCount();
+	int currentPage = scrapPlanPi.getCurrentPage();
+	int maxPage = scrapPlanPi.getMaxPage();
+	int startPage = scrapPlanPi.getStartPage();
+	int endPage = scrapPlanPi.getEndPage();
+	
 	HashMap<String, Object> allScrapPlan = (HashMap<String, Object>)request.getAttribute("allScrapPlan");
-	HashMap<String, City> allScrapPlanCityMap = null;
+	HashMap<String, City> allScrapPlanCityMap = null;	
 	ArrayList<Plan> allScrapPlanList = null;
 	if(allScrapPlan != null){
-		allScrapPlanList = (ArrayList<Plan>)allScrapPlan.get("allScrapPlan");
+		allScrapPlanList = (ArrayList<Plan>)allScrapPlan.get("allScrapPlan"); 
 		allScrapPlanCityMap = (HashMap<String, City>)allScrapPlan.get("allScrapPlanCity");
 	}
 %>	
@@ -127,7 +134,9 @@
 
 .div-menu li:hover, .div-menu a:hover {
 	text-decoration: none;
+	font-weight: 600;
 	color: rgb(254, 200, 0);
+	cursor: pointer;
 }
 /* 내가 스크랩한 플랜 보기  */
 .container3 {
@@ -277,8 +286,8 @@
 				<div class="div-menu">
 					<ul>
 						<li><a onclick = "goMyPlan();" > > 내 플랜보기 </a> </li>
-    						<li><a onclick="goMyActivity();"> > 나의 활동내역 </a></li>
-    						<li><a href = "<%=request.getContextPath()%>/pointList.po"  class = "this-page"> > 포인트 히스토리 </a></li>
+    						<li><a onclick="goMyActivity();"  class = "this-page"> > 나의 활동내역 </a></li>
+    						<li><a href = "<%=request.getContextPath()%>/pointList.po" > > 포인트 히스토리 </a></li>
     						<li><a href = "/et/views/normal/myPage/user_update.jsp"> > 회원정보 수정 </a></li>
 					</ul>
 				</div>
@@ -323,16 +332,44 @@
 								</a>
 							</div>
 						</div>
-						<%}
+						<%}																	
        					}%>
+					</div>
+				</div>
+				<br>
+				<div id="paging-menu" align="center" style="padding: 20px;">
+					<div class="ui pagination menu" id="paging-menu">
+					<a class="icon item" onclick = "location.href='<%=request.getContextPath()%>/allscrapplan.pl?currentPage=1&mno=<%=mno%>'"><i class="angle double left icon"></i></a>
+						<%-- <button class="pagingBtn" onclick = "location.href='<%=request.getContextPath()%>/allscrapplan.pl?currentPage=1&mno=<%=mno%>'"> << </button> --%>
+						
+						<% if (currentPage <= 1) { %>
+						<a class="icon item"><i class="angle left icon"></i></a>
+						<% } else { %>
+						<a class="icon item" onclick="location.href = '<%=request.getContextPath()%>/allscrapplan.pl?currentPage=<%=currentPage-1%>&mno=<%=mno%>'"> <i class="angle left icon"></i> </a>
+						<% } %>
+						
+						<% for (int p = startPage; p <= endPage; p++){
+							    if(p == currentPage){	
+						%>
+								<a class="icon item"><%= p %></a> 
+						<%      }else {%>
+								<a class="icon item" onclick ="location.href = '<%=request.getContextPath()%>/allscrapplan.pl?currentPage=<%=p %>&mno=<%=mno%>'"><%=p %></a>
+						<%      } %>
+						
+						<% } %>
+						
+						<% if(currentPage >= maxPage) {  // 현재 페이지가 마지막 페이지인 경우 %>
+						<a class="icon item"><i class="angle right icon"></i></a>
+						<% } else {%>
+						<a class="icon item" onclick="location.href = '<%=request.getContextPath()%>/allscrapplan.pl?currentPage=<%=currentPage + 1%>&mno=<%=mno%>'"><i class="angle right icon"></i></a>
+						<% } %>
+						
+						<a class="icon item" onclick="location.href = '<%=request.getContextPath()%>/allscrapplan.pl?currentPage=<%=maxPage %>&mno=<%=mno%>'"><i class="angle double right icon"></i></a>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="two wide column"></div>
 	</div>
-	<div style="height: 50px;"></div>
-	<br><br>
 	<%}else{
 		request.setAttribute("msg", "잘못된 접근입니다. 다시 로그인해주세요");//활동내역 페이지에서 띄우자
 		request.getRequestDispatcher("views/normal/member/user_login.jsp").forward(request, response);	
@@ -348,38 +385,12 @@
 			window.open("views/normal/myPage/myPage_profile_edit.jsp", "프로필 수정", "width=500, height=520, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
 		}
 		
-		
-		//내가 스크랩한 플랜 페이징.............
-		var currentPage = 1;
-		function ajax(data){
-			currentPage = data;
-			
-			$.ajax({
-				url:"<%=request.getContextPath()%>/allscrapplanPaging.pl?mno="+<%=mno%>,
-				data:{currentPage:currentPage},		
-				type:"get",
-				success:function(data){
-					console.log(data);
-					console.log()
-					
-					$planBox = $("#div-plan-list");
-					$planBox.html('');
-					
-					var name; 작성자
-					var city; 도시정보
-					
-					for(key in data){
-						
-						
-					}
-					
-				}
-			});
-			
-			
-			
-			
+		function goMyActivity(){
+			var mno = <%=loginUser.getM_no()%>;
+			location.href = "<%=request.getContextPath()%>/qnaplan.bo?mno="+mno;
 		}
+		
+		
 		
 		var map;
 		var flightPlanCoordinatesArr = [];
@@ -401,7 +412,7 @@
 					planCityArr =  (allScrapPlanList.get(i).getpCites()).split(", "); // 이건 String
 					for(String cityNo : planCityArr){
 						%>
-						path = {lat : <%=allScrapPlanList.get(cityNo).getCtLat()%>, lng : <%=allScrapPlanCityMap.get(cityNo).getCtLng()%>};				
+						path = {lat : <%=allScrapPlanCityMap.get(cityNo).getCtLat()%>, lng : <%=allScrapPlanCityMap.get(cityNo).getCtLng()%>};				
 						flightPlanCoordinates.push(path); 
 					<% }%> 
 					flightPlanCoordinatesArr.push(flightPlanCoordinates); 
@@ -446,6 +457,7 @@
 		    	   System.out.println("else다!!!" ); 
 		       }%>
 		       });
+		
 	</script>
 
 	<!-- footer -->

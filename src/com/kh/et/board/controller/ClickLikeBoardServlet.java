@@ -38,16 +38,16 @@ public class ClickLikeBoardServlet extends HttpServlet {
 		int user = Integer.parseInt(request.getParameter("user"));
 		String writer = request.getParameter("writer");
 		
-		System.out.println("플랜번호 = "+bno);
-		System.out.println("로그인 유저 = "+user);
-		System.out.println("플랜 작성자 = "+writer);
+		int bwriter = new BoardService().getbwriter(writer);
+		
+		String likeStatus = request.getParameter("status");
 
 		BoardInterest bi = new BoardInterest();
 		bi.setBno(bno);
 		bi.setUser(user);
-		bi.setWriter(writer);
+		bi.setBwriter(bwriter);
 		
-		int result = new BoardService().clickLike(bi);
+		int result = new BoardService().clickLike(bi,likeStatus);
 		System.out.println( "결과는.."+result);
 		
 		response.setContentType("application/json");

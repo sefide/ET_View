@@ -15,6 +15,7 @@ import com.kh.et.plan.model.vo.City;
 import com.kh.et.plan.model.vo.Plan;
 import com.kh.et.plan.model.vo.PlanDetail;
 import com.kh.et.plan.model.vo.PlanInterest;
+import com.kh.et.board.model.vo.BoardInterest;
 import com.kh.et.member.model.vo.Member;
 import com.kh.et.member.model.vo.News;
 import com.kh.et.plan.model.dao.PlanDao;
@@ -808,7 +809,6 @@ public class PlanDao {
 				p.setpDate(rset.getDate("P_DATE"));
 
 				list.add(p);
-				System.out.println("dao - plan 입력 ");
 			}
 			planmap.put("scrapPlan", list);
 			// 키 - 최근 스크랩한 플랜 : 값 - 스크랩한 플랜들의 정보
@@ -849,7 +849,6 @@ public class PlanDao {
 
 				resultMap.put(String.valueOf(ct.getCtName()), ct);
 			}
-			System.out.println("dao - city 크기 :  " + resultMap.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -969,7 +968,7 @@ public class PlanDao {
 
 	
 	//내가 스크랩한 모든 플랜 정보 뽑아오기
-	public HashMap<String, Object> allScrapPlan(Connection con, int mno) {
+	public HashMap<String, Object> allScrapPlan(Connection con, int mno, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		HashMap<String, Object> planmap = null;
@@ -979,29 +978,37 @@ public class PlanDao {
 		String query = prop.getProperty("allScrapPlan");
 		try {
 			pstmt = con.prepareStatement(query);
+			
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit -1;
+			
 			pstmt.setInt(1, mno);
 			pstmt.setString(2, pType);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
 			
 			rset = pstmt.executeQuery();
 			
 			planmap = new HashMap<String, Object>();
 			list = new ArrayList<Plan>();
 			
-			if(rset.next()) {
-				Plan p = new Plan();
-				
-				p.setpNo(rset.getInt("PI_NO"));
-				p.setpTitle(rset.getString("P_TITLE"));
-				p.setpCites(rset.getString("P_CITYS"));
-				p.setpDate(rset.getDate("P_DATE"));
-				p.setpRnum(rset.getInt("RNUM"));
-				p.setpName(rset.getString("M_NAME"));
-				
-				list.add(p);
+			if(rset != null) {
+				while(rset.next()) {
+					Plan p = new Plan();
+					
+					p.setpNo(rset.getInt("PI_NO"));
+					p.setpTitle(rset.getString("P_TITLE"));
+					p.setpCites(rset.getString("P_CITYS"));
+					p.setpDate(rset.getDate("P_DATE"));
+					p.setpRnum(rset.getInt("RNUM"));
+					p.setpName(rset.getString("M_NAME"));
+					
+					list.add(p);
+				}
+				planmap.put("allScrapPlan", list);
 			}
-			planmap.put("allScrapPlan", list);
-			//키 - 내가 스크랩한 모든 플랜 : 값 - 스크랩한 플랜들의 정보
 			
+			//키 - 내가 스크랩한 모든 플랜 : 값 - 스크랩한 플랜들의 정보
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -1036,7 +1043,6 @@ public class PlanDao {
 
 				resultMap.put(String.valueOf(ct.getCtName()), ct);
 			}
-			System.out.println("dao - city 크기 :  " + resultMap.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -1137,7 +1143,7 @@ public class PlanDao {
 		System.out.println("사용자 정보"+user);
 	
 		String query = prop.getProperty("getLikeStatus");
-		
+		//SELECT PI_STATUS FROM PLANINTEREST WHERE PI_P_NO = ? AND PI_GIVE_NO = ? AND PI_TYPE = ?
 		try {
 			
 			String type = "좋아요";
@@ -1307,5 +1313,96 @@ public class PlanDao {
 		}	
 		return result;
 	}
+	
+	//베스트 플랜 조회 및 포인트 업데이트
+	public HashMap<String, Object> BestPlanListCheck(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> pm = null;
+		ArrayList<Plan> list = null;
 
+		String query = prop.getProperty("selectBestPlan");
+		// selectBestPlan=SELECT ROWNUM, PI_P_NO, P_TITLE, P_CITYS, CNT FROM (SELECT
+		// PI_P_NO, P_TITLE, P_CITYS, COUNT(PI_P_NO) CNT FROM (SELECT PI.PI_P_NO,
+		// P.P_TITLE, P_CITYS FROM PLANINTEREST PI JOIN PLAN P ON (PI.PI_P_NO = P.P_NO)
+		// WHERE PI.PI_TYPE = ? AND P.P_STATUS = 'Y' AND P.P_PRIVATE = 'Y') GROUP BY
+		// PI_P_NO, P_TITLE, P_CITYS ORDER BY COUNT(PI_P_NO) DESC) WHERE ROWNUM BETWEEN
+		// 1 AND 3
+
+		try {
+			String pType = "좋아요";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, pType);
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<Plan>();
+			pm = new HashMap<String, Object>();
+			while (rset.next()) {
+				Plan p = new Plan();
+
+				p.setpNo(rset.getInt("PI_P_NO"));
+				p.setpTitle(rset.getString("P_TITLE"));
+				p.setpCites(rset.getString("P_CITYS"));
+				p.setpLike(rset.getInt("CNT"));
+
+				list.add(p);
+			}
+			pm.put("planList", list);
+			// pm : key - 인기 순위 order / value - 해당 플랜정보
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return pm;
+	}
+
+	public int BestPlanSeeMember(Connection con, Member loginUser) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("BestPlanSeeMemberPointUpdate");
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginUser.getM_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int BestPlanSeePointInsert(Connection con, Member loginUser, int pno) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("BestPlanSeePointInsert");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginUser.getM_no());
+			pstmt.setString(2, "인기플랜보기");
+			pstmt.setInt(3, pno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
 }

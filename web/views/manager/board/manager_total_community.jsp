@@ -5,6 +5,8 @@
 
 	Date now = new Date();
 	String today=String.format("%tY년 %tm월 %td일 %tA",now,now,now,now);
+	
+	
 %>    
     
     
@@ -108,12 +110,13 @@ table{
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawVisualization);
-
+  	
+      
       function drawVisualization() {
         // Some raw data (not necessarily accurate)
         var data = google.visualization.arrayToDataTable([
           ['Month', '전체게시물 수', '오늘의 게시물', '일평균 게시물'],
-          ['<%= today%>',<%= total[0] %>, <%= total[1] %>, <%= total[2] %>]
+          ['<%= today%>',<%= total[0] %>, <%= total[1] %>, <%= total[2]%>]
         ]);
 
         var options = {

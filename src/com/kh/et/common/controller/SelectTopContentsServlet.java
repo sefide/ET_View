@@ -43,12 +43,14 @@ public class SelectTopContentsServlet extends HttpServlet {
 		ArrayList<Board> boardMap = new BoardService().selectTopBoard();
 
 		String page = "";
-		if (planMap != null && cityList != null && tourList != null && boardMap != null) {
+		if (planMap != null && cityList != null) {
 			page = "index.jsp";
 			request.setAttribute("topPlan", planMap);
 			request.setAttribute("topCity", cityList);
-			request.setAttribute("topTour", tourList);
-			request.setAttribute("topBoard", boardMap);
+			if(tourList != null && boardMap != null) {
+				request.setAttribute("topTour", tourList);
+				request.setAttribute("topBoard", boardMap);
+			}
 
 			request.getRequestDispatcher(page).forward(request, response);
 
