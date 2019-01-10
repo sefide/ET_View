@@ -61,7 +61,7 @@ table{
 	width:80%;
 }
 #tb1{
-	width:700px;
+	width:800px;
 }
 </style>
 </head>
@@ -147,7 +147,7 @@ table{
 			$(function(){
 	    		var arr=new Array;
 				
-				//회원탈퇴
+				//플랜삭제
 				$("#planDelete").click(function(){
 					var restoreArr = new Array;
 					//체크박스중 선택된값 있으면 배열에 담기

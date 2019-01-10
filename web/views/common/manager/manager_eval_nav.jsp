@@ -33,10 +33,8 @@
    		<div class="left-nav">
    			<div class="ui vertical menu" style="width:160px;">
 			  <a class="item">
-			    <h4 class="ui header" id="tag1" onclick = "test();"><h5 readonly>평가지 관리</h4>
-			  </a>
-			  <a class="item">
-			    <h4 class="ui header" onclick = "check_black();">평가지 결과 조회</h4>
+			    <h4 class="ui header" readonly>평가지 관리</h4>
+			    <p onclick = "check_black();">평가지 결과 조회</p>
 			  </a>
 			</div>
        		<!-- <ul class="ul_01">
