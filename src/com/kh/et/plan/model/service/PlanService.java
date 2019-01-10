@@ -521,28 +521,25 @@ public class PlanService {
 		return allScrapPlan;
 	}*/
 	//베스트 플랜 조회 및 포인트 
-	public Member BestPlanDetailSee(int pno, Member loginUser, Member m) {
+	public Member BestPlanDetailSee(int pno, Member m) {
 		Connection con = getConnection();
-		int result=0;
 		
 		HashMap<String, Object> pm = new PlanDao().BestPlanListCheck(con);
 		ArrayList<Plan> list =  (ArrayList<Plan>) pm.get("planList");
 		Member loginUser2 = null;
 		for(int i =0; i<list.size();i++) {
 			if(pno == list.get(i).getpNo()) {
-				int result2 = new PlanDao().BestPlanSeeMember(con,loginUser);
-				int result1 = new PlanDao().BestPlanSeePointInsert(con,loginUser,pno);
+				int result2 = new PlanDao().BestPlanSeeMember(con,m);
+				int result1 = new PlanDao().BestPlanSeePointInsert(con,m,pno);
 				
 				if(result1 >0 && result2>0) {
 					loginUser2 = new MemberDao().selectLoginUser(con, m);
-					result=1;
+					
 					commit(con);
 				}else {
-					result=0;
 					rollback(con);
 				}		
 			}else {
-				result=0;
 				rollback(con);
 			}
 		}

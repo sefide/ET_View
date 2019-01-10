@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.et.member.model.service.MemberService;
 import com.kh.et.member.model.vo.Member;
 import com.kh.et.plan.model.service.PlanService;
 import com.kh.et.plan.model.vo.City;
@@ -41,11 +42,15 @@ public class SelectSeePlanDetailServlet extends HttpServlet {
 		int user = loginUser.getM_no();
 		Member m = new Member();
 		m.setM_no(user);
-		Member result = new PlanService().BestPlanDetailSee(pno,loginUser,m);
-		System.out.println("seeBestPlan:"+result);
-		result.setM_plan_num(loginUser.getM_plan_num());
-		result.setA_change_Name(loginUser.getA_change_Name());
 		
+		Member result = new PlanService().BestPlanDetailSee(pno,m);
+		//System.out.println("seeBestPlan: !!!"+result.getM_id());
+		Member resultloginUser = null;
+		if(result != null) {
+			resultloginUser = new MemberService().loginCheck(result);
+			result.setM_plan_num(resultloginUser.getM_plan_num());
+			result.setA_change_Name(resultloginUser.getA_change_Name());
+		}
 		HashMap<String, Object> planMap = new PlanService().selectPlanDetail(Integer.parseInt(planNo));
 		HashMap<String,City> cityMap = new PlanService().selectCityMap();
 		
