@@ -189,18 +189,21 @@
         /* 인기플랜  */
         .div-plan-list{
 			margin-left : 15px;
+			display :flex;
+			flex-wrap : wrap;
+			width : 99%;
 		}
 		
 		.div-plan-map{
-			width : 340px;
+			width : 30%;
 			height : 380px;
 			display :inline-block;
 			margin : 5px 12px 30px 10px;
-			
+			position : relative;
 		}
 		
 		.plan-map{
-			width : 340px;
+			width : 100%;
 			height : 340px;
 		}
 		
@@ -212,6 +215,7 @@
 		}
 		
 		.div-plan-like{
+			position : absolute;
 			width : 80px;
 			height : 30px;
 			color : red;
@@ -221,6 +225,8 @@
 			text-align : center;
 			float:right;
 			cursor : pointer;
+			top : 10px;
+			right : 1%;
 		}
 		
         /* 인기도시 */
