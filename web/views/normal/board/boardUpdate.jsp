@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.kh.et.board.model.vo.*,java.util.*"%>
 <%
-	Board b = (Board) request.getAttribute("b");
+	HashMap<String, Object> bmap  = ( HashMap< String, Object> ) request.getAttribute("b");
+	Board b = (Board)bmap.get("b");
 %>
 
 <!DOCTYPE html>

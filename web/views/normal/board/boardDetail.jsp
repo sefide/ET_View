@@ -125,6 +125,9 @@
 	border : 1px solid gray;
 	/* margin : 15% 0; */
 }
+.div-plan-info{
+		margin-top : 1%;
+	}
 </style>
 
 </head>
@@ -138,12 +141,10 @@
 		<div class="twelve wide column" style="margin-top: 50px;">
 
 			<!-- 내용 넣기 -->
-			
-  			<h1 class="ui header" style="margin-top: 15px;">
-				게시글 상세보기
-				
-				<%--좋아요 버튼 div--%>
-						
+			<div>
+  			<h1 class="ui header" style="margin-top: 15px;">	게시글 상세보기  		
+			<div class="div-plan-info">			
+				<%--좋아요 버튼 div--%>						
 					<%-- <%if(plan.getpWriter() != loginUser.getM_no())%> --%>					
 					<% if(likeStatus == "X"){ %>
 						<div class="ui labeled button" tabindex="0">
@@ -190,16 +191,18 @@
 							<a class="ui blue left pointing label" id="scrapCnt"> </a>
 						</div>
 					<%} %>
-					
+					</div>
 			</h1>
+			</div>
 			<script>
         		
         		$(function() {        			
-        			var pno = <%= b.getbNo() %>;       		
-        			 $.ajax({
-                         url : "/et/countLike.pl",
+        			var bno = <%= b.getbNo() %>;       		
+        			 
+        			$.ajax({
+                         url : "/et/countBoardLike.bo",
                          data : {
-                            pno:pno
+                        	 bno:bno
                          },
                          type : "post",
                          success : function(data) {
@@ -209,10 +212,11 @@
                          error:function(){                       	
                          }
         			 });
+        			
         			 $.ajax({
-                         url : "/et/countScrapCnt.pl",
+                         url : "/et/countboardscrap.bo",
                          data : {
-                            pno:pno
+                        	 bno:bno
                          },
                          type : "post",
                          success : function(data) {
@@ -228,8 +232,11 @@
         			//좋아요 버튼클릭	
         			function clickLike(likeStatus) {
         				var pno = <%= b.getbNo() %>;
-        				var bwriter = <%= b.getbWriter() %> ;
+        				var bwriter = '<%= b.getbWriter() %>' ;
         				var user = <%= loginUser.getM_no() %>;
+        				console.log(pno);
+        				console.log(bwriter);
+        				console.log(user);
         				status = "";
         				status = likeStatus;       				
 						location.href="<%=request.getContextPath()%>/clickLikeBoard.bo?pno="+pno+"&bwriter="+bwriter+"&user="+user+"&status="+status ;
@@ -238,11 +245,11 @@
         			//스크랩 버튼 클릭
         			function clickScrap(scrapStatus) {
         				var pno = <%= b.getbNo() %>;
-        				var bwriter = <%=  b.getbWriter() %> ;
+        				var bwriter ='<%=  b.getbWriter() %>';
         				var user = <%= loginUser.getM_no() %>;
         				status = "";
         				status = scrapStatus;       				
-						location.href="<%=request.getContextPath()%>/clickScrap.pl?pno="+pno+"&bwriter="+bwriter+"&user="+user+"&status="+status ;
+						location.href="<%=request.getContextPath()%>/clickScrapBoard.bo?pno="+pno+"&bwriter="+bwriter+"&user="+user+"&status="+status ;
         			}
         			
 

@@ -1,6 +1,8 @@
 package com.kh.et.board.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,25 +35,35 @@ public class ClickLikeBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("글 좋아요당");
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		
+		
+		int bno = Integer.parseInt(request.getParameter("pno"));
 		int user = Integer.parseInt(request.getParameter("user"));
-		String writer = request.getParameter("writer");
+		String writer = request.getParameter("bwriter");
 		
 		int bwriter = new BoardService().getbwriter(writer);
 		
 		String likeStatus = request.getParameter("status");
-
+		
+		
 		BoardInterest bi = new BoardInterest();
 		bi.setBno(bno);
 		bi.setUser(user);
 		bi.setBwriter(bwriter);
 		
 		int result = new BoardService().clickLike(bi,likeStatus);
-		System.out.println( "결과는.."+result);
 		
-		response.setContentType("application/json");
-		new Gson().toJson(result, response.getWriter());
+		
+		String page = "";
+		
+		if(result > 0) {
+			response.sendRedirect("/et/selectOne.bo?num="+bno);
+			
+		} else {
+			request.setAttribute("msg", "좋아요에 실패하였습니다.");
+			RequestDispatcher view = request.getRequestDispatcher(page);
+			view.forward(request, response);
+		}
 	}
 
 	/**

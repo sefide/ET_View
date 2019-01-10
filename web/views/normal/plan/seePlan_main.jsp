@@ -179,8 +179,8 @@
         					   	 	<div class = "div-plan-cities">
         					    			<%=Ne.lengthsplit(p.getpCites(), 24)%>
         					   		</div>
-								<div class="ui labeled button" tabindex="0" style="width: 95%; height: 30px; margin-top: 5px; text-align : center" >
-									 &nbsp;  &nbsp; &nbsp;  &nbsp;<div class="ui basic red button">
+								<div class="ui labeled button" tabindex="0" style="width: 95%; height: 30px; margin-top: 5px; text-align : center; " >
+									 &nbsp;  &nbsp; &nbsp;  &nbsp;<div class="ui basic red button" style="font-size: ;">
 										<i class="heart icon"></i> 좋아요
 									</div> 
 									<a class="ui basic left pointing red label"> <%=p.getpLike() %> </a> &nbsp;  &nbsp;

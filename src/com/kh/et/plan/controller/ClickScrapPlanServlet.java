@@ -38,6 +38,7 @@ public class ClickScrapPlanServlet extends HttpServlet {
 		int user = Integer.parseInt(request.getParameter("user"));
 		
 		
+		
 		String ScrapStatus = request.getParameter("status");
 
 		PlanInterest pl = new PlanInterest();
