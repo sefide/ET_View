@@ -117,7 +117,7 @@ public class BoardDao {
 				
 				
 				
-				b.setbNo (rset.getInt("B_NO"));
+				b.setbNo (rset.getInt("RNUM"));
 				b.setbWriter(rset.getString("M_ID")); //작성자
 				b.setBtitle(rset.getString("B_TITLE"));
 				b.setbContent(rset.getString("B_CONTENT"));
@@ -659,7 +659,7 @@ public class BoardDao {
 		int result = 0;
 		 
 		String query = prop.getProperty("getBoardLikeNum");
-		//getBoardLikeNum=SELECT BI.BI_B_NO, COUNT(BI.BI_B_NO) CNT FROM BOARDINTEREST BI JOIN BOARD B ON (BI.BI_B_NO = B.B_NO) WHERE B.B_NO = ? AND BI.BI_TYPE = ? GROUP BY BI_B_NO
+		//getBoardLikeNum=SELECT BI.BI_B_NO, COUNT(BI.BI_B_NO) CNT FROM BOARDINTEREST BI JOIN BOARD B ON (BI.BI_B_NO = B.B_NO) WHERE B.B_NO = ? AND BI.BI_TYPE = ? BI.BI_STATUS = 'Y' GROUP BY BI_B_NO
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, bno);
@@ -678,7 +678,7 @@ public class BoardDao {
 			close(pstmt);
 			close(rset);
 		}
-		
+		System.out.println("좋아요 가져오자(다오):"+result);
 		return result;
 	}
 	//좋아요 클릭
@@ -799,8 +799,8 @@ public class BoardDao {
 		ResultSet rset = null;
 		int result = 0;
 		 
-		String query = prop.getProperty("getBoardLikeNum");
-		//getBoardLikeNum=SELECT BI.BI_B_NO, COUNT(BI.BI_B_NO) CNT FROM BOARDINTEREST BI JOIN BOARD B ON (BI.BI_B_NO = B.B_NO) WHERE B.B_NO = ? AND BI.BI_TYPE = ? GROUP BY BI_B_NO
+		String query = prop.getProperty("getBoardScrapNum");
+		//getBoardScrapNum=SELECT BI.BI_B_NO, COUNT(BI.BI_B_NO) CNT FROM BOARDINTEREST BI JOIN BOARD B ON (BI.BI_B_NO = B.B_NO) WHERE B.B_NO = ? AND BI.BI_TYPE = ? AND BI.BI_STATUS = 'Y' GROUP BY BI_B_NO
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, num);
@@ -1013,32 +1013,28 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int bwriter = 0;
-			
+		System.out.println("writer"+writer);
 		String query = prop.getProperty("getbwriter");
-		//getbwriter=SELECT M_NO FROM MEMBER WHERE M_ID= ? 
-		
-		try {
-			
-			
+	
+		try {	
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, writer);
+			pstmt.setString(1, writer.replace(" ", ""));
 			
 			rset = pstmt.executeQuery();	
-			
-			System.out.println(rset);
-			
-			while (rset.next()) {
-				bwriter = rset.getInt("M_NO");
+					
+			if(rset != null) {
+				while (rset.next()) {
+					bwriter = rset.getInt("M_NO");
+				}
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 			close(rset);
-		}
-		
+		}		
+		System.out.println("번호"+bwriter);
 		return bwriter;
 	}
 	//글 처음 좋아요
@@ -1109,6 +1105,36 @@ public class BoardDao {
 			pstmt.setString(3, type);
 			result = pstmt.executeUpdate();
 			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return result;
+	}
+	//스크랩
+	
+	public int insertScrap(Connection con, BoardInterest bi) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		System.out.println("다오에서 라이터 넘버"+bi.getBwriter());
+		
+		
+		String query = prop.getProperty("ClickScrapInsert");
+		//ClickScrapInsert=INSERT INTO BOARDINTEREST SELECT SEQ_PI_NO.NEXTVAL,?,?,?,?,'Y' FROM DUAL A WHERE NOT EXISTS ( SELECT * FROM BOARDINTEREST WHERE  BI_B_NO = ?  AND BI_GIVE_NO = ? AND BI_TYPE = ?  AND BI_STATUS = 'Y' )
+		
+		try {
+			String type = "스크랩";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bi.getBwriter());
+			pstmt.setInt(2, bi.getBno());
+			pstmt.setInt(3, bi.getUser());
+			pstmt.setString(4, type);
+			pstmt.setInt(5, bi.getBno());
+			pstmt.setInt(6, bi.getUser());
+			pstmt.setString(7, type);
+			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

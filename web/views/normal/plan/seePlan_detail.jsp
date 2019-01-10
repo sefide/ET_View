@@ -165,7 +165,7 @@
 			        	<div class = "txt"> 첫 작성날짜 : <%=plan.getpDate().toString() %></div>
 			        	<div class = "txt"> 공개/비공개 : <% if(plan.getpPrivate().equals("Y")) { %> 공개 <%} else { %> 비공개 <%} %></div>
 			        	<div class = "txt"> 여행도시 개수 : <%=plan.getpCites().split(", ").length %>개 도시 </div>
-			        	<div> 플랜 관심 상태는?<%= likeStatus %></div>
+			        	
 			    </div>
 			    
 			    	<%--좋아요 버튼 div--%>

@@ -1,27 +1,30 @@
-package com.kh.et.plan.controller;
+package com.kh.et.board.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+import org.json.simple.JSONObject;
+
+import com.kh.et.board.model.service.BoardService;
 import com.kh.et.plan.model.service.PlanService;
-import com.kh.et.plan.model.vo.PlanInterest;
 
 /**
- * Servlet implementation class ClickUnScrapPlanServlet
+ * Servlet implementation class CountBoardScrapServlet
  */
-@WebServlet("/clickUnScrapPlan.pl")
-public class ClickUnScrapPlanServlet extends HttpServlet {
+@WebServlet("/countboardscrap.bo")
+public class CountBoardScrapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClickUnScrapPlanServlet() {
+    public CountBoardScrapServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,23 +33,24 @@ public class ClickUnScrapPlanServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int pno = Integer.parseInt(request.getParameter("pno"));
-		int user = Integer.parseInt(request.getParameter("user"));
-		int writer = Integer.parseInt(request.getParameter("writer"));
-		
-		System.out.println("취소=플랜번호 = "+pno);
-		System.out.println("취소=로그인 유저 = "+user);
-		System.out.println("취소=플랜 작성자 = "+writer);
-		
-		PlanInterest pl = new PlanInterest();
-		pl.setPno(pno);
-		pl.setWriter(writer);
-		pl.setUser(user);
-		
-		/*int result = new PlanService().clickUnScrap(pl);*/
+
+		int bno = Integer.parseInt(request.getParameter("bno"));
+			
+		int scrap = new BoardService().countScrap(bno);
 		
 		response.setContentType("application/json");
-		new Gson().toJson(pl, response.getWriter());
+		
+		JSONObject json = new JSONObject();
+		
+		json.put("scrap", scrap);
+		
+		System.out.println("servlet에서 오기전의 scrap 수야! : "+scrap);
+		
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();
+		out.print(json.toJSONString());
+	
+		request.setAttribute("scrap", scrap);
 	}
 
 	/**
