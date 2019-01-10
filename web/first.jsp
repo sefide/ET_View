@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+System.out.println("first 페이지  "); 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,5 +12,6 @@
 <body>
 	<%-- <jsp:forward page="/selectTopContents.me"/> --%>
 	<jsp:forward page = "/selectTopContents.me"></jsp:forward>
+	
 </body>
 </html>
