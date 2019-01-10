@@ -232,7 +232,7 @@ table{
 								</div>
 							</div><br>
 						</td>
-						<td></td>
+						<td><img id="nameCheckImg" class="checkTest" src=""></td>
 					</tr>
 				</table>
 			</form>
@@ -252,6 +252,7 @@ table{
 		$("#idCheckImg").hide();
 		$("#pwdCheckImg").hide();
 		$("#emailCheckImg").hide();
+		$("#nameCheckImg").hide();
 	});
 	
 	var checkImgPath = "/et/image/joinCheck/Blue_check.png";
@@ -336,7 +337,7 @@ table{
 		var newpass = document.getElementById("newpass");
 		
 		if(pass.value != newpass.value){
-			$("#pwdCheckMsg").html("비밀번호가 일치하지 않습니다. 확인해주세요!");
+			$("#pwdCheckMsg").html("비밀번호가 일치하지 않습니다. 확인해주세요");
 			$("#pwdCheckMsg").css("color","red");
 			$("#pass").val("");	
 			$("#newpass").val("");	
@@ -380,6 +381,7 @@ table{
 		$("#sendEmailClick").show();
 		
 		var randomCode = $("#randomCode").val();
+		var randomCode2 = $("#randomCode").val();
 		
 		var userEmail = document.getElementById("userEmail").value;
 		/* var email1 = document.getElementById("email1").value;
@@ -389,7 +391,7 @@ table{
 		$.ajax({
 			url:"/et/sendEmail.me",
 			type:"get",
-			data:{userEmail:userEmail,randomCode:randomCode},
+			data:{userEmail:userEmail,randomCode:randomCode, randomCode2:randomCode2},
 			success:function(data){
 				if(data == "SUCCESS"){
 					alert("인증코드 발송 성공!");
@@ -416,6 +418,22 @@ table{
 			}
 			return false;
 		}
+		
+		
+		//이름 체크
+		$("#name").change(function(){
+			var name = $("#name").val();
+			var regExp =/^[ㄱ-ㅎㅏ-ㅣ가-힣]{2,}$/;
+			
+			if(regExp.test(name)){
+				$("#nameCheckImg").attr("src",checkImgPath);
+			}else{
+				alert("이름은 한글로 2글자 이상 입력해주세요 ");
+				$("#name").val("");	
+				$("#nameCheckImg").attr("src","");
+			}
+		});
+		
 		 
 		
 	//가입하기 버튼 클릭시 && 널값

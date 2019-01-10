@@ -66,9 +66,9 @@
 }
 
 .img-profile {
-	width: 190px;
-	height: 190px;
-	margin: 15% 0;
+	width: 240px;
+	height: 240px;
+	border-radius: 50%;
 }
 
 .div-txt-profile {
@@ -253,7 +253,7 @@
 
 .planMap {
 	width: 100%;
-	height: 320px;
+	height: 380px;
 	display: inline-block;
 }
 
@@ -271,11 +271,14 @@
 }
 
 .div-plan-cities {
-	margin-top: 5px;
-	font-size: 19px;
+	margin-top: 10px;
+	margin-bottom:5px;
+	font-size: 17px;
 	font-weight: 500;
 	font-family: 'Nanum Gothic', sans-serif;
 	color: rgb(60, 60, 60);
+	display: block;
+	width: 100%;
 }
 
 .div-plan-writer {
@@ -472,17 +475,17 @@
        						%>
 						<div class="planBox map">
 						<div class="onlyMap">
-							<%-- <div class="div-plan-writer">작성자</div>
+							<div class="div-plan-writer">작성자</div>
 							<div class="div-writer">
-								<%=scrapPlanList.get(i).getpNo()%>
-							</div> --%>
+								<%=scrapPlanList.get(i).getpName()%>
+							</div>
 							<div class="div-plan-title" onclick="goPlanDetail(<%=scrapPlanList.get(i).getpNo()%>);">
 							<%=p.getpTitle()%>
 							</div>
 							<div id="plan-map<%=i%>" class="planMap" readonly></div>
 						</div>		
 							<div class="div-plan-cities">
-								<%=NE.lengthsplit(p.getpCites(),44)%>
+								<%=NE.lengthsplit(p.getpCites(),26)%>
 							</div>
 							<div class="ui labeled button" tabindex="0">
 								<div class="ui yellow button">
@@ -496,6 +499,7 @@
        					}%>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 	</div>

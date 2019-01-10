@@ -81,7 +81,7 @@ public class MemberDao {
 	}
 	
 	
-	//로그인 했을 시 프로필 사진 갖고다니기...
+	//로그인 했을 시 프로필 사진 select
 	public Member profileChcek(Connection con, Member reqMember) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -125,7 +125,7 @@ public class MemberDao {
 			pstmt.setString(2, reqMember.getM_pwd());
 			pstmt.setString(3, reqMember.getM_name());
 			pstmt.setString(4, reqMember.getM_email());
-			pstmt.setString(5, "테스트입니다");
+			pstmt.setString(5, "즐거운 유럽여행 되세요 ^0^");
 			pstmt.setString(6, reqMember.getM_question());
 			pstmt.setString(7, reqMember.getM_answer());
 			

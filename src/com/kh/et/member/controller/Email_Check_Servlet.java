@@ -40,6 +40,7 @@ public class Email_Check_Servlet extends HttpServlet {
 		
 		String userEmail = request.getParameter("userEmail");
 		String randomCode = request.getParameter("randomCode");
+		String randomCode2 = request.getParameter("randomCode2");
 		
 		Properties p = new Properties();// 정보를 담을 객체
 		p.put("mail.smtp.user", "etplanner0111@gmail.com");//본인 아이디
@@ -71,8 +72,8 @@ public class Email_Check_Servlet extends HttpServlet {
             msg.setSubject("[ET Planner] 인증번호", "UTF-8");
              
             // 이메일 내용
-            request.setAttribute("randomCode", randomCode);
-            msg.setText("ET Planner에 방문해주셔서 감사합니다!<br>인증번호를 입력해주세요^O^<br><br>인증번호 : "+randomCode, "UTF-8");
+            request.setAttribute("randomCode", randomCode2);
+            msg.setText("ET Planner에 방문해주셔서 감사합니다!<br>인증번호를 입력해주세요^O^<br><br>인증번호 : "+randomCode2, "UTF-8");
        
              
             // 이메일 헤더

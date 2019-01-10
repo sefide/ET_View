@@ -62,19 +62,32 @@ public class MemberService {
 
 	
 	//회원 정보 수정용 메소드
-	public int updateMember(Member reqMember) {
+	public Member updateMember(Member reqMember, int userNo) {
 		Connection con = getConnection();
 		
 		int result = new MemberDao().updateMember(con, reqMember);
-		
+	
+		Member OldUser = null;
 		if(result > 0) {
-			commit(con);
+			reqMember.setM_no(userNo);
+			OldUser = new MemberDao().loginCheck(con, reqMember);
+			
+			Member profile = new MemberDao().profileChcek(con, reqMember);
+			if(OldUser != null && profile != null) {
+				System.out.println("service profile photo" + profile.getA_change_Name());
+				OldUser.setA_change_Name("/et/profileUpload/"+profile.getA_change_Name());
+				commit(con);
+			} else {
+				OldUser.setA_change_Name("/et/image/common/logo_c.png");
+				commit(con);
+			}
 		}else {
 			rollback(con);
 		}
+		
 		close(con);
 		
-		return result;
+		return OldUser;
 	}
 
 	//회원가입 아이디 중복체크용 메소드
@@ -225,7 +238,6 @@ public class MemberService {
 		if(resultExistMember != null) { // 이미 존재하는 회원 
 			commit(con);
 			allResult = 1;
-			System.out.println("이야잉양 ");
 		}else { // 존재하지 않은 회원 
 			resultInsertMember = new MemberDao().insertSnsUser(con, userName, userEmail, password);
 			if(resultInsertMember > 0) {

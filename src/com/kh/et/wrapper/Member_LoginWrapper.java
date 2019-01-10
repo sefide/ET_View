@@ -19,11 +19,16 @@ public class Member_LoginWrapper extends HttpServletRequestWrapper{
 		String value = "";
 		if(key != null && key.equals("userPwd")) {	//키 값이 userPwd일경우
 			value = getSha512(super.getParameter("userPwd"));	//getSha512라는 메소드를 거쳐 암호화 처리를하여 반환하고,
+		}else if(key != null && key.equals("userPwdNew")) {
+			value = getSha512(super.getParameter("userPwdNew"));
+		}else if(key != null && key.equals("randomCode")) {
+			value = getSha512(super.getParameter("randomCode"));
 		}else {
 			value = super.getParameter(key);	//아니면 암호화 처리를 하지 않고 그냥 그대로 반환한다.
 		}
 		return value;
 	}
+		
 
 	private String getSha512(String pwd) {
 		String encPwd = "";

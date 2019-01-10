@@ -20,7 +20,6 @@ public class NumberExec {
 		}
 		return str;
 	}	
-		
   
   // 투어 남은 날짜 계산 메소드 
 	public long getDayDiff(String strEndDate) {

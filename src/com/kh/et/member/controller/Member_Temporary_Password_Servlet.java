@@ -43,6 +43,7 @@ public class Member_Temporary_Password_Servlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userEmailPass = request.getParameter("userEmailPass");
 		String randomCode = request.getParameter("randomCode");
+		String randomCode2 = request.getParameter("randomCode2");
 		
 		
 		Properties p = new Properties();// 정보를 담을 객체
@@ -75,15 +76,15 @@ public class Member_Temporary_Password_Servlet extends HttpServlet {
             msg.setSubject("[ET Planner] 임시비밀번호 발급", "UTF-8");
              
             // 이메일 내용
-            request.setAttribute("randomCode", randomCode);
-            msg.setText("ET Planner에 방문해주셔서 감사합니다!<br>회원님의 임시비밀번호입니다. 로그인 후 비밀번호를 변경해주세요.<br><br>임시비밀번호 : " + randomCode, "UTF-8");
+            request.setAttribute("randomCode2", randomCode2);
+            msg.setText("ET Planner에 방문해주셔서 감사합니다!<br>회원님의 임시비밀번호입니다. 로그인 후 비밀번호를 변경해주세요.<br><br>임시비밀번호 : " + randomCode2, "UTF-8");
        
              
             // 이메일 헤더
             msg.setHeader("content-Type", "text/html");
              
        
-            //DB에 있는 비밀번호 임시비밀번호로 변경하기
+        //DB에 있는 비밀번호 임시비밀번호로 변경하기
             int result = new MemberService().newpass(randomCode, userId, userEmailPass);
             
             if(result > 0) {

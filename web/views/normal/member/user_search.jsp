@@ -172,7 +172,7 @@
 										<br><a href="#"><button class="ui yellow button" onclick="return idSearch();" style="width: 69%; margin-left:5px; 'Nanum Gothic', sans-serif; color:black;">아이디 찾기</button></a> <br> <br> 
 									</div>
 									<div class="pTag1">
-										<a href="/et/views/common/manager/manager_login.jsp" style="color: black; fontext-decoration:none;">로그인 하러가기&nbsp;<i class="large hand point right outline icon"></i></a>
+										<a href="/et/views/normal/member/user_login.jsp" style="color: black; fontext-decoration:none;">로그인 하러가기&nbsp;<i class="large hand point right outline icon"></i></a>
 									</div>
 								</div>
 							</div>
@@ -235,6 +235,10 @@
 										<div class="pTag2">
 											<p>회원가입시 입력한 이메일로 임시 비밀번호가  <br>발급되었습니다.</p>
 										</div>
+										<br>
+										<div class="pTag3">
+											<a href="/et/views/normal/member/user_login.jsp" style="color: black; fontext-decoration:none;">로그인 하러가기&nbsp;<i class="large hand point right outline icon"></i></a>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -258,6 +262,7 @@
 
 	$(".pTag1").hide();
 	$(".pTag2").hide();
+	$(".pTag3").hide();
 
 	function pwdSearch(){	//액션 따로 주기!!
 		$("#idSearchForm").attr("action", "<%=request.getContextPath()%>/login.company")
@@ -296,6 +301,7 @@
 	//임시비밀번호 발급
 	function pwdSearch(){
 		var randomCode = $("#randomCode").val();
+		var randomCode2 = $("#randomCode").val();
 		
 		var userId = document.getElementById("userId").value;
 		var userEmailPass = document.getElementById("userEmailPass").value;
@@ -307,11 +313,12 @@
 		 $.ajax({
 			url:"/et/temporaryPassword.me",
 			type:"get",
-			data:{userId:userId, userEmailPass:userEmailPass, randomCode:randomCode},
+			data:{userId:userId, userEmailPass:userEmailPass, randomCode:randomCode, randomCode2:randomCode2},
 			success:function(data){
 				if(data == "SUCCESS"){
 					alert("임시비밀번호 발송 성공!");
 					$(".pTag2").show();
+					$(".pTag3").show();
 				}else{
 					alert("임시비밀번호 발송 실패");
 				}

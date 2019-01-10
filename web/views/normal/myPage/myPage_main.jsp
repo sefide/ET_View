@@ -1,3 +1,4 @@
+<%@page import="com.kh.et.common.NumberExec"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.et.member.model.vo.Member, java.util.*, com.kh.et.plan.model.vo.*"%>
 <%
@@ -5,6 +6,7 @@
 	ArrayList<Plan> planList = (ArrayList<Plan>)request.getAttribute("planList");
 	HashMap<String,City> cityMap = (HashMap<String,City>)request.getAttribute("cityMap");
 	String msg = (String)request.getAttribute("msg");
+	NumberExec NE = new NumberExec();
 %>
 <!DOCTYPE html>
 <html>
@@ -187,13 +189,16 @@
 		cursor : pointer;
 	}
 	
-	.div-plan-cities{
-		margin-top : 5px;
-		font-size : 19px;
-		font-weight : 500;
-		font-family: 'Nanum Gothic', sans-serif;
-		color : rgb(60,60,60);
-	}
+	.div-plan-cities {
+	margin-top: 10px;
+	margin-bottom:5px;
+	font-size: 17px;
+	font-weight: 500;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: rgb(60, 60, 60);
+	display: block;
+	width: 100%;
+}
 	
 	.plan-add-inner{
 		padding-top : 35%;
@@ -365,7 +370,7 @@
 	    		<%for(int i = 0; i <  planList.size(); i++){%>
 	        		// 새로운 도시 div 추가 
 	        		var mapContent = "<div class ='planBox map"+<%=i%>+"'><div id = 'planMap"+<%=i%>+"' class ='planMap' readonly></div>";
-	        		var mapInfoContent = "<div class = 'div-plan-title' onclick = 'goPlanDetail("+<%=planList.get(i).getpNo()%>+");'><%= planList.get(i).getpTitle() %> </div><div class = 'div-plan-private' onclick = 'setPrivate(<%=planList.get(i).getpNo()%>,this);'> <%if(planList.get(i).getpPrivate().equals("Y")){%>공개<%}else{%>비공개<%}%></div><div class = 'div-plan-cities'><%=planList.get(i).getpCites()%> </div></div>";
+	        		var mapInfoContent = "<div class = 'div-plan-title' onclick = 'goPlanDetail("+<%=planList.get(i).getpNo()%>+");'><%= planList.get(i).getpTitle() %> </div><div class = 'div-plan-private' onclick = 'setPrivate(<%=planList.get(i).getpNo()%>,this);'> <%if(planList.get(i).getpPrivate().equals("Y")){%>공개<%}else{%>비공개<%}%></div><div class = 'div-plan-cities'><%=NE.lengthsplit(planList.get(i).getpCites(), 25)%> </div></div>";
 	        		var content = mapContent + mapInfoContent;
 				 $("#plan-list-inner").prepend(content);
 				

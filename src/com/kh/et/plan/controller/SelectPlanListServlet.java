@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.et.member.model.vo.Member;
 import com.kh.et.plan.model.service.PlanService;
 import com.kh.et.plan.model.vo.City;
 import com.kh.et.plan.model.vo.Plan;
@@ -34,7 +35,7 @@ public class SelectPlanListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mno = Integer.parseInt(request.getParameter("mno"));
+		int mno = ((Member)request.getSession().getAttribute("loginUser")).getM_no();
 		
 		HashMap<String,City> cityMap = new PlanService().selectCityMap();
 		ArrayList<Plan> planList = new PlanService().selectPlanList(mno);
