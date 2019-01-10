@@ -130,13 +130,13 @@
 		<label for="num">사업자번호</label>&nbsp;<br>
 		<input type="text" name="num" id="num" value=<%=c.getC_biss_num()%>><br>
 		<label for="phone">연락처</label>&nbsp;<br>
-		<input type="text" name="phone" id="phone"<%=c.getC_phone()%> /><br>
-		<label for="name">이메일</label><br>
-		<input type="email" name="email" id="email"<%=c.getC_email()%> /><br>
-		<label for="name">카테고리</label><br>
-		<input type="text" name="category" id="category"<%=c.getC_category()%> /><br>
-		<label for="name">주소</label><br>
-		<input type="text" name="address" id="address"<%=c.getC_biss_address()%>/><br>
+		<input type="text" name="phone" id="phone" value=<%=c.getC_phone()%>><br>
+		<label for="email">이메일</label><br>
+		<input type="email" name="email" id="email" value=<%=c.getC_email()%>><br>
+		<label for="category">카테고리</label><br>
+		<input type="text" name="category" id="category" value=<%=c.getC_category()%>><br>
+		<label for="address">주소</label><br>
+		<input type="text" name="address" id="address" value=<%=c.getC_biss_address()%>><br>
 			
 		
 	

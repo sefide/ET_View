@@ -19,7 +19,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>ET Planner Manager</title>
+<link rel="icon" href="/et/image/common/logo.png">
 <!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -180,8 +181,8 @@ table{
     	
     	<button class="ui lightgrey button" style=float:left; id="deleteBtn">삭제하기</button>
     	<!-- onclick="location.href='/et/views/manager/tourCompany/companyUpdate.jsp'"  -->
-    	<button class="ui lightgrey button" style=float:left;id="updateBtn">수정하기</button>
-    	<button  class="ui lightgrey button" style=float:left;onclick="location.href='/et/views/manager/tourCompany/companyInsert.jsp'">추가하기</button>
+    	<button class="ui lightgrey button" style=float:left; id="updateBtn">수정하기</button>
+    	<button  class="ui lightgrey button" style=float:left; onclick="location.href='/et/views/manager/tourCompany/companyInsert.jsp'">추가하기</button>
     </div>
     </div>
     
