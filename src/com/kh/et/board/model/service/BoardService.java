@@ -98,10 +98,10 @@ public class BoardService {
 	}
 
 	////페이징처리 적용한 게시물 조회용 메소드
-	public ArrayList<Board> selectList(int currentPage, int limit) {
+	public ArrayList<HashMap<String, Object>> selectList(int currentPage, int limit) {
 		Connection con = getConnection();
 		
-		ArrayList<Board> list 
+		ArrayList<HashMap<String, Object>> list 
 			= new BoardDao().selectList(con, currentPage, limit);
 		
 		

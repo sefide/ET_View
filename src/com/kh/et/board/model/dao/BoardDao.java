@@ -89,10 +89,12 @@ public class BoardDao {
 	}
 	
 	//페이징 처리 후 게시판 조회용 메소드 
-	public ArrayList<Board> selectList(Connection con, int currentPage, int limit) {
+	public ArrayList<HashMap<String, Object>> selectList(Connection con, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Board> list = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap  = null;
+		int rnum = 0;
 		
 		String query = prop.getProperty("selectList");
 		//selectList=SELECT RNUM, B_NO, B_TITLE, B_CONTENT, B_DATE, m_id FROM (SELECT ROWNUM RNUM, B_NO, B_TITLE, B_CONTENT, B_DATE, m_id FROM (SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_DATE, m.m_id FROM BOARD B JOIN MEMBER m ON(B.B_N_NO = m.m_no) WHERE b.b_type = '0' AND b.b_status = 'Y' )) WHERE RNUM BETWEEN ? AND ?
@@ -102,28 +104,29 @@ public class BoardDao {
 		
 			int startRow = (currentPage - 1) * limit + 1;
 			int endRow = startRow + limit - 1;
-			
+	
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			
-			list = new ArrayList<Board>();
+			list = new ArrayList<HashMap<String, Object>>();
 			
 			
 			while(rset.next()) {
-				
 				Board b = new Board();
+				hmap = new HashMap<String, Object>();
 				
-				
-				
-				b.setbNo (rset.getInt("RNUM"));
+				b.setbNo (rset.getInt("B_NO"));
 				b.setbWriter(rset.getString("M_ID")); //작성자
 				b.setBtitle(rset.getString("B_TITLE"));
 				b.setbContent(rset.getString("B_CONTENT"));
 				b.setbDate(rset.getDate("B_DATE"));
-								
-				list.add(b);
+				rnum = rset.getInt("RNUM");
+				
+				hmap.put("rnum"	, rnum);
+				hmap.put("b", b);
+				list.add(hmap);
 			}
 			
 			

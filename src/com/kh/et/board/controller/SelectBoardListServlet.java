@@ -2,6 +2,7 @@ package com.kh.et.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -72,7 +73,7 @@ public class SelectBoardListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<Board> list = new BoardService().selectList(currentPage, limit);
+		ArrayList<HashMap<String, Object>> list = new BoardService().selectList(currentPage, limit);
 		
 		System.out.println(list);
 		

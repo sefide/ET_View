@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*, com.kh.et.board.model.vo.*"%>
 <%
-	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -105,10 +105,13 @@
 				</thead>
 				<!-- 리스트 -->
 				<tbody>
-					<% for(Board b : list){ %>
+					<% for(HashMap<String, Object> hmap : list){ 
+					Board b = (Board)hmap.get("b");
+					int rnum = (Integer)hmap.get("rnum");
+					%>
 					<tr>
 						<input type="hidden" value="<%= b.getbNo()%>">
-						<td><%= b.getbNo() %></td>
+						<td><%=rnum %></td>
 						<td><%= b.getBtitle() %></td>
 						<td><%= b.getbWriter() %></td>
 						<!-- <td><%= b.getbLike() %></td>  -->
@@ -128,7 +131,7 @@
 						<button disabled> < </button>
 						<%} else {%>
 						<a class="item"
-							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage - 1%>'"><S</a>
+							onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage - 1%>'"></a>
 						<%}%>
 						
 						
