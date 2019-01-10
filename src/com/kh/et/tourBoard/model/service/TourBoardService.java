@@ -152,7 +152,8 @@ public class TourBoardService {
 		return list;
 
 	}
-
+	
+	// Q&A 수정
 	public int updateTourBoard(TourBoard tb, ArrayList<Attachment> fileList, Company loginUser, String status,
 			String updatePhotoId) {
 		Connection con = getConnection();
