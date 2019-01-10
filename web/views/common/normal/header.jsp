@@ -278,6 +278,7 @@
         		//getKakaotalkUserProfile();
     			location.href = "/et/logout.me";
     		}
+    		
     		function getKakaotalkUserProfile(){
 		        Kakao.API.request({
 				url: '/v1/user/me',

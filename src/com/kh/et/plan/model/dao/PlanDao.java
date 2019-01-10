@@ -809,7 +809,6 @@ public class PlanDao {
 				p.setpDate(rset.getDate("P_DATE"));
 
 				list.add(p);
-				System.out.println("dao - plan 입력 ");
 			}
 			planmap.put("scrapPlan", list);
 			// 키 - 최근 스크랩한 플랜 : 값 - 스크랩한 플랜들의 정보
@@ -850,7 +849,6 @@ public class PlanDao {
 
 				resultMap.put(String.valueOf(ct.getCtName()), ct);
 			}
-			System.out.println("dao - city 크기 :  " + resultMap.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

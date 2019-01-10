@@ -421,24 +421,29 @@
             
 			<div class="ui mt-20"> 
                 <div class="ui huge header">BEST CITY TOP 5</div>
-                 
 	           
 	           	<% 
-	           	City topCity1 = null; 
-	           	City topCity2 = null; 
-	           	City topCity3 = null; 
-	           	City topCity4 = null; 
-	           	City topCity5 = null;
-	           	
 	           	if(topCity != null){
-	           	 topCity1 = (City)topCity.get(0); 
-	           	 topCity2 = (City)topCity.get(1); 
-	           	 topCity3 = (City)topCity.get(2); 
-	           	 topCity4 = (City)topCity.get(3); 
-	           	 topCity5 = (City)topCity.get(4); 
+	           		for(int i = 0; i < topCity.size(); i++){
+	           			City city = (City)topCity.get(i);
+	           			%>
+	           		<div class = "ui div-best-city">
+		           		<div class = "div-best-inner">
+			           		<img src = "<%=request.getContextPath()%>/image/city/<%=city.getCtName() %>.jpg" alt = "<%=city.getCtName() %>" class = "img_best_city">
+							<div class="ui inverted dimmer">
+							    <div class="content">
+							      <h3 class="ui icon header" id = "header-city">
+							        <%=city.getCtInfo() %>
+							      </h3>
+							    </div>
+							</div>
+						</div>
+		           		<h3 class ="ui header"><%=i+1 %>. &nbsp; <%=city.getCtCountry() %>,&nbsp; <%=city.getCtName() %> </h3>
+		           	</div>
+	           		<% }
 	           	}
 	           	%>
-	           	<div class = "ui div-best-city">
+	           	<%-- <div class = "ui div-best-city">
 	           		<div class = "div-best-inner">
 		           		<img src = "<%=request.getContextPath()%>/image/city/<%=topCity1.getCtName() %>.jpg" alt = "<%=topCity1.getCtName() %>" class = "img_best_city">
 						<div class="ui inverted dimmer">
@@ -502,7 +507,7 @@
 						</div>
 					</div>
 	           		<h3 class ="ui header">5. &nbsp; <%=topCity5.getCtCountry() %>,&nbsp; <%=topCity5.getCtName() %>  </h3>
-	           	</div>
+	           	</div> --%>
             
             </div>
 	           	
@@ -589,7 +594,7 @@
          });
        
          function goHome() {
-    	   	 	location.href = "/et/index.jsp";
+    	   	 	location.href = "/et/first.jsp";
     	   	 }
          
          function goPlan(){

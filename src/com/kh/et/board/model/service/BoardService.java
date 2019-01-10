@@ -140,10 +140,7 @@ public class BoardService {
 		return bMap;
 	}
 
-	
-
-	
-
+	// 인기 Q&A 가져오기 
 	public ArrayList<Board> selectTopBoard() {
 		Connection con = getConnection();
 		

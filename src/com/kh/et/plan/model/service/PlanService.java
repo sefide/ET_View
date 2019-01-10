@@ -33,27 +33,25 @@ public class PlanService {
 	// 플랜 저장하기 
 	public int insertPlan(Plan reqPlan, ArrayList<PlanDetail> planDetailList) {
 		Connection con = getConnection();
-		// 1. 플랜 저장하고 
+		// 1. 플랜 저장
 		int resultPlanInsert = new PlanDao().insertPlan(con, reqPlan);
 		int result = 0;
 		
-		// 2. 성공하면 플랜 번호 가져오고
+		// 2. 성공하면 플랜 번호 가져오기 
 		if(resultPlanInsert > 0) {
 			int PlanNo = new PlanDao().selectPlanCurrval(con);
-			System.out.println("플랜번호 : " + PlanNo);
 		
-			// 3. 번호 가져다가 플랜 디테일 객체에 넣어두고
+			// 3. 번호 가져다가 플랜 디테일 객체에 넣기 
 			for(int i = 0; i < planDetailList.size(); i++) {
 				planDetailList.get(i).setPdpNo(PlanNo);
 			}
 			
 		}
 		
-		// 4. 플랜디테일을 저장한다. 얍 
+		// 4. 플랜디테일 저장
 		int resultPlanDetailInsert = new PlanDao().insertPlanDetail(con, planDetailList);
 		
 		if(resultPlanInsert > 0 && resultPlanDetailInsert > 0) {
-			System.out.println("둘다 성공했어 ");
 			commit(con);
 			result = 1;
 		}else {
@@ -102,7 +100,6 @@ public class PlanService {
 		int like = 0;
 		int scrap = 0;
 		if(resultMap != null) {
-			Plan plan = (Plan) resultMap.get("plan");
 			like = new PlanDao().getLikeNum(con, planNo);
 			scrap = new PlanDao().getScrapNum(con, planNo);
 			resultMap.put("like", like);
@@ -119,21 +116,20 @@ public class PlanService {
 	// 플랜 수정하기 
 	public int updatePlan(Plan reqPlan, ArrayList<PlanDetail> planDetailList) {
 		Connection con = getConnection();
-		// 1. 플랜 수정하고
+		// 1. 플랜 수정
 		int resultPlanUpdate = new PlanDao().updatePlan(con, reqPlan);
 		int result = 0;
 		
-		// 2. 그 전에 저장 되었던 플랜 디테일 상태 N로 바꾸고
+		// 2. 그 전에 저장 되었던 플랜 디테일 상태 N로 바꾸기 
 		int resultPlanDetailStatusN = new PlanDao().updatePlanDetailStatusN(con, reqPlan);
 		
 		for(int i = 0; i < planDetailList.size(); i++) {
 			planDetailList.get(i).setPdpNo(reqPlan.getpNo());
 		}
-		// 3. 새로운 플랜 디테일을 추가한다. 
+		// 3. 새로운 플랜 디테일을 추가
 		int resultPlanDetailInsert = new PlanDao().insertPlanDetail(con, planDetailList);
 		
 		if(resultPlanUpdate > 0 && resultPlanDetailStatusN> 0 && resultPlanDetailInsert > 0) {
-			System.out.println("셋 다 성공했어 ");
 			commit(con);
 			result = 1;
 		}else {
@@ -162,10 +158,8 @@ public class PlanService {
 		Connection con = getConnection();
 		
 		HashMap<String, Object> planMap = new PlanDao().selectTopPlan(con);
-		
 		HashMap<String, City> cityMap = new PlanDao().selectCityMap(con);
-		
-		
+
 		if(planMap != null && cityMap != null) {
 			planMap.put("cityMap", cityMap); 
 			commit(con);
@@ -200,11 +194,8 @@ public class PlanService {
 	public HashMap<String, Object> selectBestPlan() {
 		Connection con = getConnection();
 		
-		System.out.println("selectBestPlan의 Service인걸?");
-		
 		HashMap<String, Object> bestPlanMap = new PlanDao().selectBestPlan(con);
 		HashMap<String, City> bestCityMap = new PlanDao().selectBestMap(con);
-		
 		
 		
 		if(bestPlanMap != null && bestCityMap != null) {
@@ -225,13 +216,8 @@ public class PlanService {
 	public HashMap<String, Object> selectnormalPlan(int currentPage, int limit) {
 		Connection con = getConnection();
 		
-		System.out.println("normalPlan의 Service인걸?");
-		
 		HashMap<String, Object> normalPlanMap = new PlanDao().selectNormalPlan(con, currentPage, limit);
-		System.out.println("service 의 normalPlanMap"+normalPlanMap);
-		
 		HashMap<String, City> normalCityMap = new PlanDao().selectNormalMap(con);
-		
 		
 		if(normalPlanMap != null && normalCityMap != null) {
 			normalPlanMap.put("normalCityMap", normalCityMap); 		
@@ -247,6 +233,7 @@ public class PlanService {
 	}
 	
 	
+	// 플랜 공개/비공개 설정 
 	public int updatePlanPrivate(int pmNo, int pFkpNo) {
 		Connection con = getConnection();
 		
@@ -282,7 +269,6 @@ public class PlanService {
 
 		//int result = 0 으로 선언
 		int result1 = 0;
-		System.out.println("서비스에도 들어왔옹");
 		
 		if(likeStatus.equals("X")) { // 좋아요 누른 기록이 없음으로 insert 해줘야 함
 			System.out.println("service status:"+likeStatus);
@@ -309,7 +295,6 @@ public class PlanService {
 			else {rollback(con);}
 		
 		}
-		System.out.println("service에서 변화가 있낭"+result1);
 		return result1;
 
 	}
@@ -347,7 +332,6 @@ public class PlanService {
 		
 		if(scrapPlan != null && scrapPlanCity != null) {
 			scrapPlan.put("scrapPlanCity", scrapPlanCity);
-			System.out.println("service - 도시 정보 넣었어,,, ");
 			commit(con);
 		}else {
 			rollback(con);
@@ -361,7 +345,6 @@ public class PlanService {
 		Connection con = getConnection();
 		
 		int result = 0;
-		System.out.println("서비스에도 들어왔옹");
 		
 		if(scrapStatus.equals("X")) { // 스크랩 누른 기록이 없음으로 insert 해줘야 함
 			System.out.println("service Scrapestatus:"+scrapStatus);
@@ -435,22 +418,23 @@ public class PlanService {
 		return scrapStatus;
 	}
 	
-/*	//내가 스크랩한 모든 플랜보기
-	public HashMap<String, Object> allScrapPlan(int mno) {
-		Connection con = getConnection();
-		
-		HashMap<String, Object> allScrapPlan = new PlanDao().allScrapPlan(con, mno);
-		
-		HashMap<String, City> allScrapPlanCity = new PlanDao().allScrapPlanCity(con);
-		
-		if(allScrapPlan != null & allScrapPlanCity != null) {
-			allScrapPlan.put("allScrapPlanCity", allScrapPlanCity);
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		return allScrapPlan;
-	}*/
+	//내가 스크랩한 모든 플랜보기
+//	public HashMap<String, Object> allScrapPlan(int mno) {
+//		Connection con = getConnection();
+//		
+//		HashMap<String, Object> allScrapPlan = new PlanDao().allScrapPlan(con, mno);
+//		
+//		HashMap<String, City> allScrapPlanCity = new PlanDao().allScrapPlanCity(con);
+//		
+//		if(allScrapPlan != null & allScrapPlanCity != null) {
+//			allScrapPlan.put("allScrapPlanCity", allScrapPlanCity);
+//			commit(con);
+//		}else {
+//			rollback(con);
+//		}
+//		return allScrapPlan;
+//	}
+
 
 
 	//내가 스크랩한 플랜 전체 갯수 가져오기
@@ -504,22 +488,6 @@ public class PlanService {
 		return allScrapPlan;
 	}
 
-	/*//내가 스크랩한 모든 플랜보기
-	public HashMap<String, Object> allScrapPlan(int mno) {
-		Connection con = getConnection();
-		
-		HashMap<String, Object> allScrapPlan = new PlanDao().allScrapPlan(con, mno);
-		
-		HashMap<String, City> allScrapPlanCity = new PlanDao().allScrapPlanCity(con);
-		
-		if(allScrapPlan != null & allScrapPlanCity != null) {
-			allScrapPlan.put("allScrapPlanCity", allScrapPlanCity);
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		return allScrapPlan;
-	}*/
 	//베스트 플랜 조회 및 포인트 
 	public Member BestPlanDetailSee(int pno, Member loginUser, Member m) {
 		Connection con = getConnection();
@@ -548,9 +516,5 @@ public class PlanService {
 		}
 		return loginUser2;
 	}
-	
-
-	
-
 
 }
