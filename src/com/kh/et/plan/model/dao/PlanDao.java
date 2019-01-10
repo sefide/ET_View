@@ -807,6 +807,7 @@ public class PlanDao {
 				p.setpTitle(rset.getString("P_TITLE"));
 				p.setpCites(rset.getString("P_CITYS"));
 				p.setpDate(rset.getDate("P_DATE"));
+				p.setpName(rset.getString("M_NAME"));
 
 				list.add(p);
 				System.out.println("dao - plan 입력 ");
@@ -969,7 +970,7 @@ public class PlanDao {
 
 
 	
-	//내가 스크랩한 모든 플랜 정보 뽑아오기
+	//내가 스크랩한 모든 플랜 정보 뽑아오기-
 	public HashMap<String, Object> allScrapPlan(Connection con, int mno, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

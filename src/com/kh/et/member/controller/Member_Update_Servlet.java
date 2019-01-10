@@ -38,7 +38,8 @@ public class Member_Update_Servlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwdNew");
 		String userEmail = request.getParameter("userEmail");
 		String userName = request.getParameter("userName");
-		int userNo = Integer.parseInt(request.getParameter("mno"));
+		int userNo = 0;
+		
 		
 		System.out.println("아이디 : " + userId);
 		System.out.println("비번 : " + userPwd);
@@ -52,24 +53,27 @@ public class Member_Update_Servlet extends HttpServlet {
 		reqMember.setM_email(userEmail);
 		reqMember.setM_name(userName);
 		
-		int result = new MemberService().updateMember(reqMember);
+		Member oldLoginUser = (Member)request.getSession().getAttribute("loginUser");
+		userNo = oldLoginUser.getM_no();
+		Member result = new MemberService().updateMember(reqMember, userNo);
+		result.setM_point(oldLoginUser.getM_point());
+		result.setM_profile(oldLoginUser.getM_profile());
+		result.setM_storage(oldLoginUser.getM_storage());
 		
+		System.out.println(oldLoginUser.getM_point());
+		System.out.println(oldLoginUser.getM_profile());
+		System.out.println(oldLoginUser.getM_storage());
 		
 		String page = "";
-		if(result > 0) {
-			request.getSession().setAttribute("loginUser", reqMember);	//-> loginUser : 로그인해서 들어갔던 회원 정보 / reqMember: 업데이트하려고 내가 입력한 정보로 체인지
-			//response.sendRedirect("views/normal/myPage/myPage_main.jsp");
-			request.setAttribute("msgTrue", "회원 정보가 수정되었습니다^O^");
-			page = "/selectPlanList.pl?mno="+userNo;
-			//request.getRequestDispatcher("views/normal/myPage/myPage_main.jsp").forward(request, response);
+		if(result != null) {
+			request.getSession().setAttribute("loginUser", result);	//-> loginUser : 로그인해서 들어갔던 회원 정보 / reqMember: 업데이트하려고 내가 입력한 정보로 체인지
+			response.sendRedirect("/et/selectPlanList.pl?mno="+userNo);
 			
 		}else {
 			request.setAttribute("msgFalse", "회원정보가 변경되지 않았습니다");
 			page = "views/normal/myPage/user_update.jsp";
-			//request.getRequestDispatcher("views/normal/myPage/user_update.jsp").forward(request, response);
+			request.getRequestDispatcher("views/normal/myPage/user_update.jsp").forward(request, response);
 		}
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
 		
 	}
 

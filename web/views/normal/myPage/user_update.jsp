@@ -93,7 +93,7 @@ table{
 <div class="main">
 	<div class="join-content">
 		<div align="center" class="ui piled segment" id="joinForm">
-			<form id="updateForm" action="<%= request.getContextPath()%>/update.me" method="post">
+			<form id="updateForm" action="<%= request.getContextPath()%>/update.me?mno=<%=loginUser.getM_no()%>" method="post">
 				<table align="center">
 					<tr>		
 						<td>

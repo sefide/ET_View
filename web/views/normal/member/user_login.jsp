@@ -204,7 +204,7 @@
 							<script type='text/javascript'>
 							  //<![CDATA[
 							    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-							    Kakao.init('key-value');
+							    Kakao.init('15a9324659e56b04d48506cedaead3f5');
 							    function loginWithKakao() {
 							      // 로그인 창을 띄웁니다.
 							      Kakao.Auth.login({
@@ -249,7 +249,7 @@
 							var naverLogin = new naver.LoginWithNaverId(
 								{
 									clientId: "tcR9vwEXbbuTYhKDCt7X",
-									callbackUrl: "http://127.0.0.1:8003/et/views/normal/member/user_NaverLogin_callback.jsp",
+									callbackUrl: "http://192.168.30.79:8003/et/views/normal/member/user_NaverLogin_callback.jsp",
 									isPopup: false, /* 팝업을 통한 연동처리 여부 */
 									loginButton: {color: "green", type: 3, height: 65} /* 로그인 버튼의 타입을 지정 */
 								}
@@ -266,8 +266,7 @@
 				<tr>
 					<td>
 						<div id="join">
-							<br><a href="/et/views/normal/member/user_join.jsp"
-							style="color: black; text-decoration:none; font-family:'Nanum Gothic', sans-serif;" >아이디가 없으시다면 지금 바로 회원가입 하세요!</a>
+							<br><a href="/et/views/normal/member/user_join.jsp" style="color: black; text-decoration:none; font-family:'Nanum Gothic', sans-serif;">아이디가 없으시다면 지금 바로 회원가입 하세요!</a>
 							<br>
 						</div>
 					</td>

@@ -178,7 +178,7 @@
 
 .planMap {
 	width: 100%;
-	height: 320px;
+	height: 350px;
 	display: inline-block;
 }
 
@@ -196,11 +196,14 @@
 }
 
 .div-plan-cities {
-	margin-top: 5px;
-	font-size: 19px;
+	margin-top: 10px;
+	margin-bottom:5px;
+	font-size: 17px;
 	font-weight: 500;
 	font-family: 'Nanum Gothic', sans-serif;
 	color: rgb(60, 60, 60);
+	display: block;
+	width: 100%;
 }
 
 .div-plan-writer {
@@ -322,7 +325,7 @@
 							<div id="plan-map<%=i%>" class="planMap" readonly></div>
 						</div>		
 							<div class="div-plan-cities">
-								<%=NE.lengthsplit(p.getpCites(),44)%>
+								<%=NE.lengthsplit(p.getpCites(),23)%>
 							</div>
 							<div class="ui labeled button" tabindex="0">
 								<div class="ui yellow button">
