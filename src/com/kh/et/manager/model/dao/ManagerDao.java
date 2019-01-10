@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -286,18 +287,24 @@ public class ManagerDao {
 	public int avgBoard(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
-		int avgBoard = 0;
+		ResultSet rset2 = null;
+		int total = 0; //날짜 수 카운트
+		int result = 0; //전체게시물수/날짜
 		
-		String query = prop.getProperty("avgBoard");
+		/*String query = prop.getProperty("avgBoard");*/
+		String query1 = prop.getProperty("total");
+		
+		
 		
 		try {
 			stmt = con.createStatement();
 			
-			rset = stmt.executeQuery(query);
-			
+			rset = stmt.executeQuery(query1);
+
 			if(rset.next()) {
-				avgBoard = rset.getInt(1);
+				 total = (int)rset.getInt(1);
 			}
+			System.out.println(total);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -307,7 +314,7 @@ public class ManagerDao {
 		}
 		
 		
-		return avgBoard;
+		return total;
 	}
 
 	//최대포인트
