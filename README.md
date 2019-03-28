@@ -28,29 +28,11 @@ You can make a plan using this app through the Google Map.
 
 ----------
 
-<i class="icon-cog"></i> Using
--------------
-<b>API </b> 
-- Google map api 
-- Kakao login api 
-- Naver login api 
-- Import payment api
-  
-<b>Library </b> 
-- FullCalendar v1.4.7 (http://arshaw.com/fullcalendar/)
-- cos
-- Gson-2.6.2
-- Json-simple-1.1
-- javax.mail
-- jsoup-1.7.3
-- ojdbc6
-
-
-
 
   
 <i class="icon-folder-open"></i> Directory 
 -------------
+
 **MVC 패턴 Model2 방식으로 구현하였습니다. ** 
 ```
 ET PLANNER(REPO NAME : ET_VIEW)
@@ -91,6 +73,25 @@ ET PLANNER(REPO NAME : ET_VIEW)
 - startPage \
 <b>localhost:port/et/first.jsp </b> 
 
+
+
+---------
+<i class="icon-cog"></i> Using
+-------------
+<b>API </b> 
+- Google map api 
+- Kakao login api 
+- Naver login api 
+- Import payment api
+  
+<b>Library </b> 
+- FullCalendar v1.4.7 (http://arshaw.com/fullcalendar/)
+- cos
+- Gson-2.6.2
+- Json-simple-1.1
+- javax.mail
+- jsoup-1.7.3
+- ojdbc6
 
 
 
